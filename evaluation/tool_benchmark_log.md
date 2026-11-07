@@ -2593,6 +2593,22 @@ pipeline systems or to process vast arrays of data in batches."
 눈에 띄는 쪽(탭)이 결과를 안 바꾸고, 접혀 있는 쪽이 결과를 바꾸고 있었다.
 한 줄 설명을 붙여 구분이 되게 했다.
 
-남은 중복: 이 화면 안의 "ADMET-AI 교차 검사" 버튼이 도구 비교의 ADMET 실행과
-같은 모델을 같은 물질에 돌린다. 저장되는 곳이 달라서 두 화면이 서로 다른 결과를
-들고 있을 수 있다. 합치는 것이 맞지만 실행 순서가 바뀌는 변경이라 따로 둔다.
+### "ADMET-AI 교차 검사" 버튼은 중복이 아니었다
+
+같은 모델을 같은 물질에 돌리므로 중복으로 봤고, 결과가 있을 때는 버튼을 숨기도록
+고쳤다. 검사 7개가 깨졌다. 읽어보니 버튼이 지키는 계약이 따로 있었다.
+
+- `test_successful_retry_has_new_evaluation_identity_and_invalid_schema_is_not_reused`
+  — 다시 돌리면 **새 `evaluation_id`와 새 완료 시각**이 생긴다. 보고서 내용이 같아도
+  평가 기록은 새로 남는다는 뜻이다.
+- `test_essential_scope_caption_and_primary_action_stay_visible_before_and_after_run`
+  — 주 동작은 실행 전후 모두 보여야 한다고 이름부터 못 박아 뒀다.
+- `test_missing_assets_preserve_previous_success_and_restore_explicit_retry`
+  — 자산이 사라졌다 돌아오면 재실행 수단이 되살아나야 한다.
+
+즉 이 버튼은 같은 답을 또 받으려는 것이 아니라 **날짜가 찍힌 평가 기록을 새로
+만드는 수단**이다. 화면을 줄이려다 추적성을 깎을 뻔했다. 되돌렸다.
+
+도구 비교 탭과의 관계도 다시 보니 중복이 아니다. 저장 위치가 다른 것은 맞지만
+(`route_ames_review_evidence` 대 `_comparison_result`), 하나는 경로 단위 판정
+근거이고 다른 하나는 물질 단위 비교 표시다. 보여주는 것이 다르다.
