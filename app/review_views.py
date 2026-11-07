@@ -17,8 +17,8 @@ import ui_kit
 import workspace as context
 from presentation import (
     GLOSSARY,
-    ALERTS, ROLES, STATUS, material_card, material_name, material_reason,
-    route_dot, show_structure,
+    ALERTS, EVIDENCE_TEXT, ROLES, STATUS, material_card, material_name,
+    material_reason, route_dot, show_structure,
 )
 from route_ames_view import ensure_route_ames_evidence, get_route_ames_evidence, show_route_ames_review
 
@@ -32,7 +32,6 @@ ROUTE_KINDS = {"excluded": ui_kit.CONCERN, "needs_review": ui_kit.REVIEW,
 # found nothing, which is not the same as the material being safe.
 MATERIAL_KINDS = {"known_concern": ui_kit.CONCERN, "structural_alert": ui_kit.CONCERN,
                   "invalid": ui_kit.UNKNOWN, "no_alert_detected": ui_kit.CLEAR}
-EVIDENCE = {"observed": "관측", "proposed": "제안", "unknown": "자료 없음"}
 # How many structure drawings sit in one row of the grid.
 DRAWINGS_PER_ROW = 4
 
@@ -119,7 +118,7 @@ def show_step_unknowns(step):
     # line is unchanged because it is the line the saved file and the tests
     # both refer to.
     ui_kit.show_facts([
-        ("반응 조건", EVIDENCE[condition["status"]]),
+        ("반응 조건", EVIDENCE_TEXT[condition["status"]]),
         ("부산물", {"not_run": "안 돌림", "failed": "실패",
                   "success": "후보 검토함"}[byproducts["status"]]),
         ("조건 설명", ui_kit.text(condition.get("description") or "")),

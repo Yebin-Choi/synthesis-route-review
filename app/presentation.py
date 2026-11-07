@@ -238,6 +238,9 @@ ROLES = {
     "solvents": "용매", "catalysts": "촉매", "ligands": "리간드",
     "bases": "염기", "coproducts": "공동생성물", "byproducts": "부산물 후보",
 }
+# How a material's evidence state reads on screen. The services write the
+# English enum because it is also what the saved file and the tests check.
+EVIDENCE_TEXT = {"observed": "관측", "proposed": "제안", "unknown": "자료 없음"}
 ALERTS = {
     "N-nitroso": "N-니트로소기", "Azoxy (special-concern review)": "아족시기",
     "Aziridine": "아지리딘 고리", "Epoxide": "에폭사이드 고리",
@@ -463,7 +466,7 @@ def material_card(material, location="", *, tool=None):
             show_structure(material["input_smiles"])
         with evidence:
             st.subheader(material_name(material.get("canonical_smiles"), material.get("name")))
-            role = ROLES.get(material.get("role"), "독립 물질 검사")
+            role = ROLES.get(material.get("role"), "물질 하나만 검사")
             st.caption(" · ".join(part for part in (location, role, tool) if part))
             # The same chip vocabulary the other screens use. This card used
             # to set the verdict in bold text, so one screen said a thing with
@@ -478,20 +481,28 @@ def material_card(material, location="", *, tool=None):
             reason = material_reason(material)
             if reason:
                 st.write(reason)
+        # Facts, not a dump. The raw record used to be printed into every
+        # card, under a line that showed the evidence state as the English
+        # enum the services write ("unknown"). The whole record is still in
+        # the saved file and under the route's own "판정 사유와 원문".
         with st.expander("구조·출처"):
             st.caption("입력 SMILES")
             st.code(material["input_smiles"], language=None)
             if material.get("canonical_smiles") != material["input_smiles"] and material.get("canonical_smiles"):
                 st.caption("정규화 SMILES")
                 st.code(material["canonical_smiles"], language=None)
-            st.write("물질 근거: " + material.get("evidence_status", "unknown"))
+            facts = [("근거", EVIDENCE_TEXT.get(material.get("evidence_status"),
+                                              "자료 없음"))]
             if material.get("origin"):
-                st.write(material["origin"])
+                facts.append(("출처", ui_kit.text(material["origin"])))
             if material.get("source_url"):
-                st.write("출처: " + material["source_url"])
+                facts.append(("주소", ui_kit.text(material["source_url"])))
+            # "없음" stays on the card. A missing intake figure is a fact
+            # about the record, and dropping the row would let a reader take
+            # the silence for a number that was simply not worth showing.
+            # A plain label: ui_kit.facts escapes labels by contract, so the
+            # glossary marker would have printed as its own tag.
             intake = material.get("intake_ug_day")
-            if intake is not None:
-                st.markdown(f"{term('TTC')} 참고 섭취량 {intake:g} µg/day", unsafe_allow_html=True)
-            else:
-                st.markdown(f"{term('TTC')} 참고 섭취량 없음", unsafe_allow_html=True)
-            st.json(material)
+            facts.append(("TTC 참고 섭취량",
+                          f"{intake:g} µg/day" if intake is not None else "없음"))
+            ui_kit.show_facts(facts)

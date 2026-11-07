@@ -2558,3 +2558,24 @@ pipeline systems or to process vast arrays of data in batches."
 `app/screening_policy.py`의 `DEFAULT_POLICY`는 `known_concern`만 `exclude`이고
 나머지 셋은 `demote`다. 이쪽은 정책 기반 판정 경로이고 화면의 체크박스와는 다른
 기전인데, 설명을 다듬다가 둘을 섞어서 틀린 문장을 만들었다. 실제 동작대로 고쳤다.
+
+## 6-29. 물질 카드 정리 (2026-11-07)
+
+물질 하나마다 그려지는 카드라 경로에 물질이 20개면 같은 군더더기가 20번 반복됐다.
+
+| 뺀 것 | 이유 |
+|---|---|
+| `st.json(material)` 원본 덤프 | 카드마다 전체 기록을 펼쳐놨다. 같은 내용이 경로의 "판정 사유와 원문"과 저장 파일에 이미 있다 |
+| "물질 근거: unknown" | 서비스가 쓰는 영어 enum을 화면에 그대로 찍고 있었다. `observed/proposed/unknown` → 관측/제안/자료 없음 |
+| 흩어진 네 줄 | 근거·출처·주소·TTC를 `ui_kit.show_facts` 한 격자로 |
+
+"TTC 참고 섭취량 없음"은 남겼다. 값이 없다는 것도 기록에 대한 사실이고, 줄을
+지우면 숫자를 안 보여준 것으로 읽힐 수 있다.
+
+고친 버그: `ui_kit.facts()`는 **라벨을 이스케이프한다**(그 함수 docstring에 적혀
+있다). 라벨에 `term("TTC")`가 만드는 설명 태그를 넣었더니 화면에 태그가 그대로
+글자로 찍혔다. 라벨은 평문으로 바꿨다.
+
+단계 정보도 `"반응 조건: 자료 없음 · 부산물: 미실행"` 한 줄에서 두 줄로 나눴다.
+`EVIDENCE` 표는 `review_views`에서 `presentation.EVIDENCE_TEXT`로 옮겨 화면
+용어가 한 곳에 모이게 했다.
