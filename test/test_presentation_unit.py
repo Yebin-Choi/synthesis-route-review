@@ -11,8 +11,10 @@ from rdkit.Chem import Draw
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 from engine import DISCLAIMER
 import presentation
+import ui_kit
 from presentation import (
-    GLOSSARY, STATUS, material_reason, route_dot, structure_png, term, theme_css,
+    GLOSSARY, STATUS, STATUS_KINDS, material_reason, route_dot, structure_png,
+    term, theme_css,
 )
 from toxicology import assess_material
 
@@ -131,6 +133,28 @@ class PresentationTests(unittest.TestCase):
             self.assertIn("font-size:17px!important;line-height:1.5!important", css)
             self.assertIn("min-height:48px!important", css)
             self.assertIn(f"outline:3px solid {tokens['accent']}!important", css)
+
+
+class VerdictColourTests(unittest.TestCase):
+    """One word, one colour. The card and the table are the same screen.
+
+    "경고구조 없음" used to be grey on a card and green in the excluded-route
+    and byproduct tables, which is where a reader skims fastest. The rule
+    screen's sensitivity is 0.552: it raises nothing on nearly half of the
+    real positives, so green there says something the measurement does not.
+    """
+
+    def test_the_tables_use_the_same_colours_as_the_cards(self):
+        import review_views
+        self.assertEqual(review_views.MATERIAL_KINDS, STATUS_KINDS)
+
+    def test_no_alert_is_never_the_colour_a_negative_gets(self):
+        self.assertNotEqual(STATUS_KINDS["no_alert_detected"], ui_kit.CLEAR)
+
+    def test_the_model_verdicts_keep_their_own_colours(self):
+        """ui_kit.VERDICT is counted as a negative in the performance table,
+        so it stays green on purpose and this change must not touch it."""
+        self.assertEqual(ui_kit.VERDICT["no_alert"][1], ui_kit.CLEAR)
 
 
 if __name__ == "__main__":
