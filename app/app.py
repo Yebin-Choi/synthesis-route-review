@@ -19,7 +19,7 @@ import tool_comparison_view
 from tool_comparison_view import show_tool_comparison
 from review_views import (
     activate_generation, capture_models, show_byproducts, show_excluded_routes,
-    show_material_risk, show_model_review, show_policy, show_route_risk,
+    show_model_review, show_policy, show_route_risk,
 )
 
 TITLE = f"{branding.NAME} · {branding.SUBTITLE}"
@@ -106,8 +106,6 @@ def invalidate_generation(reason, *, clear_review=True):
 
 def target_changed():
     invalidate_generation("목표 입력 변경 · 이전 결과")
-    st.session_state.pop("material_inspection", None)
-    st.session_state["inspection_mode"] = "route"
 
 
 def pick_target():
@@ -148,7 +146,6 @@ def engine_changed():
     st.session_state["llm_api_key"] = ""
     st.session_state["_key_revision"] += 1
     invalidate_generation("생성 엔진 변경 · 이전 결과")
-    st.session_state["inspection_mode"] = "route"
 
 
 def llm_selection(engine_id):
@@ -165,10 +162,6 @@ def llm_selection(engine_id):
     if not base_url:
         return None
     return {"provider": "openai_compatible", "base_url": base_url, "model": model}
-
-
-def return_to_routes():
-    st.session_state["inspection_mode"] = "route"
 
 
 def record_generation(snapshot, job):
@@ -193,7 +186,6 @@ def record_generation(snapshot, job):
     try:
         workspace = st.session_state.get("review_workspace") or context.new_workspace(job["target"])
         st.session_state["review_workspace"] = activate_generation(workspace, snapshot["result"], attempt["request"])
-        st.session_state["inspection_mode"] = "route"
         attempt["applied"] = True
     except Exception:
         attempt.update(status="failed", error={"message": "생성 결과의 목표·스키마를 확인하지 못했습니다."})
@@ -334,7 +326,6 @@ def start_generation(service, engine_id, selection, configuration_id):
     job = {**public, "operation": "generate"}
     st.session_state["_generation_job"] = job
     st.session_state["_consume_generation_consent"] = True
-    st.session_state["inspection_mode"] = "route"
     arguments = {"request_id": job["request_id"], "context_id": job["context_id"],
                  "configuration_id": configuration_id}
     try:
@@ -365,14 +356,12 @@ def show_last_attempt():
 
 
 def show_generation_controls(workspace, raw_target, target_error):
-    """The two things a reader can do with a target, on one row.
+    """The one thing a reader does with a target: generate routes.
 
     The engine choice, the provider keys and the readiness line used to stand
     between the target and the button, four controls deep, although the
     default engine runs on this machine and needs none of them. They are one
-    collapsed block now, and the button says when it is not ready. The
-    single-material check sits beside it because it is the other thing to do
-    with the same structure, not a later step.
+    collapsed block now, and the button says when it is not ready.
     """
     service = st.session_state["_native_service"]
     with st.expander("생성 설정"):
@@ -407,14 +396,8 @@ def show_generation_controls(workspace, raw_target, target_error):
     # Changing the target restarts the readiness probe, which locks the button
     # for a few seconds. The label carries that state so a disabled button is
     # never silent.
-    generate, check = st.columns(2)
-    with generate:
-        started = st.button("준비 중" if not readiness["ready"] else "경로 생성",
-                            key="generation_run", type="primary",
-                            disabled=not permitted, width="stretch")
-    with check:
-        review_signals.material_check_button(raw_target, target_error)
-    if started:
+    if st.button("준비 중" if not readiness["ready"] else "경로 생성",
+                 key="generation_run", type="primary", disabled=not permitted):
         workspace = start_generation(service, engine_id, selection, configuration_id)
         st.rerun()
     if st.session_state.get("_generation_job") and st.button("생성 취소",
@@ -473,20 +456,17 @@ def shared_selection(workspace):
     return workspace
 
 
-def freeze_snapshot(workspace, raw_target, target_error, inspection):
-    material = st.session_state["inspection_mode"] == "material"
-    active = workspace if workspace is not None and not material else {}
-    data = {"schema_version": "1.0", "mode": "material" if material else "route",
-            "scope": "목표물 하나만 검사한 결과입니다 · 경로 불순물 검사 아님" if material else "전체 생성 경로·기본 제외 결정·선택 단계 산술",
+def freeze_snapshot(workspace, raw_target, target_error):
+    active = workspace if workspace is not None else {}
+    data = {"schema_version": "1.0", "mode": "route",
+            "scope": "전체 생성 경로·기본 제외 결정·선택 단계 산술",
             "raw_target": raw_target, "target_error": target_error,
             "target": workspace["target"] if workspace else None,
-            "original_input": raw_target if material else active.get("original_input"),
-            "active_input": raw_target if material else active.get("active_input"),
-            "material_result": inspection["result"] if material and inspection else None,
-            "material_error": inspection["error"] if material and inspection else None,
-            "generation_attempts": [] if material else st.session_state["generation_attempts"],
-            "historical_reviews": [] if material else st.session_state.get("historical_reviews", []),
-            "historical_byproduct_attempts": [] if material else st.session_state.get("historical_byproduct_attempts", [])}
+            "original_input": active.get("original_input"),
+            "active_input": active.get("active_input"),
+            "generation_attempts": st.session_state["generation_attempts"],
+            "historical_reviews": st.session_state.get("historical_reviews", []),
+            "historical_byproduct_attempts": st.session_state.get("historical_byproduct_attempts", [])}
     for name in ("report", "report_sha256", "report_generation", "workspace_id", "context_revision", "route_id", "step_id",
                  "source_provenance", "selection", "policy", "model_evidence", "model_evidence_state"):
         data[name] = active.get(name)
@@ -511,7 +491,7 @@ for name, value in (("target_catalog", DEFAULT_TARGET), ("target_smiles", TARGET
                     ("llm_provider", DEFAULT_PROVIDER),
                     ("llm_base_url", PROVIDERS[DEFAULT_PROVIDER]["base_url"] or ""),
                     ("llm_model", PROVIDERS[DEFAULT_PROVIDER]["model"]),
-                    ("_key_revision", 0), ("generation_consent", False), ("inspection_mode", "route"),
+                    ("_key_revision", 0), ("generation_consent", False),
                     ("generation_attempts", [])):
     st.session_state.setdefault(name, value)
 st.session_state.setdefault("_native_session_id", str(uuid4()))
@@ -553,10 +533,7 @@ st.session_state["review_workspace"] = workspace
 workspace = show_generation_controls(workspace, raw_target, target_error)
 st.session_state["review_workspace"] = workspace
 poll_native_jobs()
-inspection = show_material_risk(raw_target, target_error)
-if st.session_state["inspection_mode"] == "material" and workspace and workspace["report"]:
-    st.button("경로 결과 보기", key="show_route_review", on_click=return_to_routes)
-if workspace and workspace["report"] is not None and st.session_state["inspection_mode"] == "route":
+if workspace and workspace["report"] is not None:
     # The rule and what it dropped are one subject, so they are one block.
     # Two expanders side by side made the reader open both to learn that the
     # second was the consequence of the first.
@@ -587,9 +564,9 @@ if workspace and workspace["report"] is not None and st.session_state["inspectio
     if context.context_key(workspace) != previous_binding:
         st.rerun()
 st.session_state["review_workspace"] = workspace
-snapshot = freeze_snapshot(workspace, raw_target, target_error, inspection)
+snapshot = freeze_snapshot(workspace, raw_target, target_error)
 st.session_state["review_export_snapshot"] = snapshot
-if workspace and workspace["report"] or inspection or st.session_state["generation_attempts"] or st.session_state.get("historical_reviews"):
+if workspace and workspace["report"] or st.session_state["generation_attempts"] or st.session_state.get("historical_reviews"):
     st.divider()
     # One expander instead of a headed section with its own caption, format
     # radio and history block. Saving is the last thing a reader does and it
@@ -606,8 +583,7 @@ if workspace and workspace["report"] or inspection or st.session_state["generati
                                type="primary", key="review_download")
         except (ValueError, TypeError, KeyError, RecursionError):
             st.error("저장하지 못했습니다")
-        st.caption("물질 하나만 검사한 결과입니다" if snapshot["mode"] == "material"
-                   else "경로와 제외 사유, 생성 기록이 함께 들어갑니다")
+        st.caption("경로와 제외 사유, 생성 기록이 함께 들어갑니다")
         st.json({"generation_attempts": st.session_state["generation_attempts"],
                  "historical_reviews": st.session_state.get("historical_reviews", []),
                  "historical_byproduct_attempts": st.session_state.get("historical_byproduct_attempts", [])}, expanded=False)

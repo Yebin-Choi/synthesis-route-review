@@ -398,37 +398,6 @@ def show_model_review(workspace):
     return capture_models(workspace)
 
 
-def material_check_button(raw_target, target_error):
-    """Check this one structure, with no route. Drawn beside the generate button."""
-    if st.button("물질 하나만 검사", key="screen_material",
-                 disabled=target_error is not None, width="stretch"):
-        saved = {"raw_input": raw_target, "result": None, "error": None}
-        try:
-            context.validate_target(raw_target)
-            saved["result"] = engine.assess_material(raw_target)
-        except Exception:
-            saved["error"] = "물질 검사에 실패했습니다"
-        st.session_state["material_inspection"] = saved
-        st.session_state["inspection_mode"] = "material"
-
-
-def show_material_risk(raw_target, target_error):
-    """What that check found, drawn below the row the button sits on."""
-    saved = st.session_state.get("material_inspection")
-    if saved and saved["raw_input"] != raw_target:
-        st.session_state.pop("material_inspection", None)
-        saved = None
-    if saved and st.session_state.get("inspection_mode") == "material":
-        st.caption("목표물 하나만 검사한 결과입니다")
-        if saved["error"]:
-            st.error(saved["error"])
-        elif saved["result"] is not None:
-            # The card adds "독립 물질 검사" itself for a material with no
-            # role in a route, so naming it here too read it out twice.
-            material_card(saved["result"], "목표물 자체")
-    return saved
-
-
 def apply_current_byproduct_result(request_workspace, request, result):
     current = st.session_state.get("review_workspace")
     if current is None:

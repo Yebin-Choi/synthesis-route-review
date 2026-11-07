@@ -228,55 +228,6 @@ class ReviewWorkflowTests(OfflineAppCase):
         self.assertFalse(history[0]["applied"])
         self.assertEqual(history[0]["result"], SUCCESS)
 
-    def test_independent_json_html_omit_detached_route_payload_but_session_retains_it(self):
-        downloads = {}
-        real_download = st.download_button
-
-        def capture(*args, **kwargs):
-            if kwargs.get("key") == "review_download":
-                downloads[st.session_state["export_format"]] = kwargs.get("data", args[1] if len(args) > 1 else None)
-            return real_download(*args, **kwargs)
-
-        self.start_patch(st, "download_button", side_effect=capture)
-        payload = fixture_payload()
-        payload["routes"][0]["id"] = "previous-route-private-marker"
-        self.apply_payload(payload)
-        self.confirm_product()
-        old_request = deepcopy(self.app.session_state["_byproduct_request"])
-        result = deepcopy(SUCCESS)
-        result["raw_response"] = {"private_marker": "PREVIOUS_ROUTE_RESPONSE_DO_NOT_EXPORT"}
-
-        def detached(reactants, product, timeout):
-            st.session_state["review_workspace"] = None
-            return deepcopy(result)
-
-        self.predict.side_effect = detached
-        self.app.button(key="byproduct_request").click().run()
-        self.assert_no_exception()
-        history = deepcopy(self.app.session_state["historical_byproduct_attempts"])
-        self.assertEqual(history[0]["request"], old_request)
-        self.assertEqual(history[0]["result"], result)
-        self.raw_target("CCO")
-        self.app.button(key="screen_material").click().run()
-        self.assert_no_exception()
-        expected = deepcopy(self.snapshot)
-        self.assertEqual(expected["historical_byproduct_attempts"], [])
-        self.assertEqual(expected["byproduct_attempts"], [])
-        self.assertEqual(json.loads(downloads["JSON"]), expected)
-        self.app.radio(key="export_format").set_value("HTML").run()
-        self.assert_no_exception()
-        self.assertEqual(self.app.session_state["historical_byproduct_attempts"], history)
-        embedded = downloads["HTML"].split("전체 스냅샷 JSON (원본·이력 포함)</summary><pre>", 1)[1].split("</pre>", 1)[0]
-        self.assertEqual(json.loads(html.unescape(embedded)), expected)
-        for file_format in ("JSON", "HTML"):
-            for prior_value in ("previous-route-private-marker", "PREVIOUS_ROUTE_RESPONSE_DO_NOT_EXPORT",
-                                old_request["request_id"], old_request["report_sha256"],
-                                old_request["reactants_smiles"], old_request["product_smiles"]):
-                with self.subTest(file_format=file_format, prior_value=prior_value):
-                    self.assertNotIn(prior_value, downloads[file_format])
-                    self.assertNotIn(html.escape(prior_value, quote=True), downloads[file_format])
-        self.predict.assert_called_once()
-
     def test_model_failure_is_captured_reused_and_never_becomes_a_negative(self):
         self.enable_model()
         self.admet.side_effect = RuntimeError("offline model unavailable")
@@ -333,22 +284,6 @@ class ReviewWorkflowTests(OfflineAppCase):
         embedded = downloads["HTML"].split("전체 스냅샷 JSON (원본·이력 포함)</summary><pre>", 1)[1].split("</pre>", 1)[0]
         self.assertEqual(json.loads(html.unescape(embedded)), expected)
         self.assertEqual(sum(item.proto.label == "내려받기" for item in self.app.get("download_button")), 1)
-        self.app.button(key="screen_material").click().run()
-        self.assert_no_exception()
-        material_snapshot = deepcopy(self.snapshot)
-        self.assertEqual(material_snapshot["mode"], "material")
-        self.assertIsNone(material_snapshot["report"])
-        embedded = downloads["HTML"].split("전체 스냅샷 JSON (원본·이력 포함)</summary><pre>", 1)[1].split("</pre>", 1)[0]
-        self.assertEqual(json.loads(html.unescape(embedded)), material_snapshot)
-        self.app.radio(key="export_format").set_value("JSON").run()
-        self.assertEqual(json.loads(downloads["JSON"]), material_snapshot)
-        self.app.radio(key="export_format").set_value("CSV").run()
-        self.assert_no_exception()
-        rows = list(csv.DictReader(StringIO(downloads["CSV"].lstrip("\ufeff"))))
-        self.assertEqual(len(rows), 1)
-        self.assertEqual(rows[0]["입력 SMILES"], material_snapshot["material_result"]["input_smiles"])
-        self.assertEqual(rows[0]["경로 ID"], "")
-        self.assertEqual(rows[0]["단계 ID"], "")
 
     def test_explicit_generation_publishes_only_a_complete_result_and_failure_clears_old(self):
         raw_target = self.workspace["raw_target"]
