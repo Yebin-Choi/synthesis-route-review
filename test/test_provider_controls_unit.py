@@ -56,7 +56,9 @@ class ProviderControlTests(unittest.TestCase):
         # A key is all that stands between this screen and a run.
         self.assertFalse(any("채우세요" in warning.value for warning in app.warning))
 
-    def test_choosing_gemini_restores_the_paid_wording_and_hides_the_endpoint(self):
+    def test_choosing_gemini_pro_says_it_needs_a_paid_tier(self):
+        """A free Gemini key is refused outright for Pro: the API answers
+        `limit: 0`. Saying only "요금이 부과됩니다" sent readers to try it."""
         app = self.synthex()
         app.selectbox(key="llm_provider").set_value("gemini").run()
         self.assertEqual([str(error) for error in app.exception], [])
@@ -66,8 +68,24 @@ class ProviderControlTests(unittest.TestCase):
         captions = " ".join(caption.value for caption in app.caption)
         self.assertIn("Gemini", captions)
         self.assertIn("gemini-3.1-pro-preview", captions)
-        self.assertIn("요금이 부과", captions)
+        self.assertIn("유료 등급에서만", captions)
+        self.assertIn("한도가 0", captions)
         self.assertIn("유료", app.checkbox(key="generation_consent").label)
+
+    def test_gemini_offers_a_way_to_name_a_free_model(self):
+        """Flash models are free on the same key, and Google publishes no one
+        ID we could pin, so this entry is the only way to reach them."""
+        app = self.synthex()
+        app.selectbox(key="llm_provider").set_value("gemini_model").run()
+        self.assertEqual([str(error) for error in app.exception], [])
+        keys = [item.key for item in app.text_input]
+        self.assertNotIn("llm_base_url", keys)
+        self.assertIn("llm_model", keys)
+        self.assertEqual(app.text_input(key="llm_model").value, "")
+        self.assertTrue(app.button(key="generation_run").disabled)
+        captions = " ".join(caption.value for caption in app.caption)
+        self.assertIn("Flash", captions)
+        self.assertNotIn("유료", app.checkbox(key="generation_consent").label)
 
     def test_a_provider_without_a_verified_default_model_asks_for_one(self):
         app = self.synthex()

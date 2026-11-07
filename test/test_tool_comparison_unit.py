@@ -51,7 +51,7 @@ class ComparisonTests(unittest.TestCase):
         row = view.build_comparison(["CC=O"], results)[0]
         self.assertTrue(row["_disagree"])
         self.assertEqual(row["전문가 규칙 (ICH M7)"], "양성")
-        self.assertEqual(row["자체 모델 1"], "음성 (0.07)")
+        self.assertEqual(row[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "음성 (0.07)")
 
     def test_tools_that_agree_are_not_marked_as_disagreeing(self):
         results = {
@@ -143,6 +143,48 @@ class PerformanceTableTests(unittest.TestCase):
         """
         methods = {info["method"] for info in view.TOOL_PERFORMANCE.values()}
         self.assertEqual(methods, {"전문가 규칙 기반", "통계 기반"})
+
+
+class AucTests(unittest.TestCase):
+    """AUC is measured on the same structures as the rest of the table.
+
+    It was added because the header chip used to show balanced accuracy with
+    the 0.50 decision line beside it, which is a different quantity and read
+    as a baseline.
+    """
+
+    SCORING = ("ames_xgb", "ames_desc", "admet", "epa_test")
+
+    def test_every_tool_that_returns_a_score_has_an_auc(self):
+        for tool_id in self.SCORING:
+            with self.subTest(tool=tool_id):
+                value = view.TOOL_PERFORMANCE[tool_id].get("auc")
+                self.assertIsNotNone(value)
+                self.assertTrue(0.5 <= value <= 1.0, value)
+
+    def test_a_rule_screen_has_no_auc_and_the_table_says_why(self):
+        """An alert is not a score, so there is no curve to take an area of."""
+        for tool_id in ("rules", "toxtree", "qsar_toolbox"):
+            with self.subTest(tool=tool_id):
+                self.assertIsNone(view.TOOL_PERFORMANCE[tool_id].get("auc"))
+        rows = {row["도구"]: row["AUC"] for row in view.performance_rows(["rules", "ames_xgb"])}
+        self.assertEqual(rows[view.TOOL_PERFORMANCE["rules"]["label"]], "점수를 내지 않음")
+        self.assertEqual(rows[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "0.902")
+
+    def test_a_tool_that_draws_a_line_is_not_assumed_to_have_an_auc(self):
+        """The two are independent: EPA TEST judges on its own line and still
+        returns a score, while a rule screen does neither."""
+        for tool_id, has_line, has_auc in (("epa_test", False, True),
+                                           ("ames_xgb", True, True),
+                                           ("toxtree", False, False)):
+            with self.subTest(tool=tool_id):
+                info = view.TOOL_PERFORMANCE[tool_id]
+                self.assertEqual(info["line"] is not None, has_line)
+                self.assertEqual(info.get("auc") is not None, has_auc)
+
+    def test_the_two_in_house_models_are_named_by_their_features(self):
+        self.assertIn("fingerprint", view.TOOL_PERFORMANCE["ames_xgb"]["label"])
+        self.assertIn("descriptor", view.TOOL_PERFORMANCE["ames_desc"]["label"])
 
 
 if __name__ == "__main__":
@@ -450,5 +492,5 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
                     ["rules", "epa_test", "ames_xgb", "admet"])}
         self.assertEqual(rows["EPA TEST 5.1.2"], "도구 자체 판정")
         self.assertEqual(rows["전문가 규칙 (ICH M7)"], "없음")
-        self.assertEqual(rows["자체 모델 1"], "0.50")
+        self.assertEqual(rows[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")

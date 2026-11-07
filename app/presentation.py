@@ -157,7 +157,14 @@ STAGE_NAMES = {"strategies": "전략 수립", "routes": "경로 탐색", "review
 # message is kept underneath, because guessing wrong about a failure is worse
 # than showing it as it came.
 PROVIDER_REASONS = (
+    # Checked before the plain rate limit: Google answers a model that is not
+    # on the free tier at all with the same 429, but a limit of 0. Waiting
+    # does not help there, so the two must not read the same.
+    ("limit: 0", "이 모델은 무료 등급에서 쓸 수 없습니다. 한도가 0입니다. 무료로 열려 있는 모델을 "
+                 "고르거나 유료 등급으로 올리세요."),
     ("rate limit", "모델 제공자의 분당 한도에 걸렸습니다. 잠시 뒤 다시 실행하거나 한도가 큰 등급을 쓰세요."),
+    ("resource_exhausted", "모델 제공자의 사용 한도에 걸렸습니다. 잠시 뒤 다시 실행하거나 한도가 큰 "
+                           "등급을 쓰세요."),
     ("json_validate_failed", "모델이 요구한 형식의 JSON을 만들지 못했습니다. 형식을 더 잘 지키는 모델을 쓰세요."),
     ("context_length", "입력이 모델의 길이 한도를 넘었습니다."),
     ("insufficient_quota", "제공자 계정의 사용 한도가 남아 있지 않습니다."),

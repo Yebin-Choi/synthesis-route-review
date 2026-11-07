@@ -92,6 +92,21 @@ class StageFailureTests(unittest.TestCase):
         self.assertEqual(presentation.stage_failures({"status": "succeeded", "result": None}), [])
         self.assertEqual(presentation.stage_failures(_attempt()), [])
 
+    def test_a_model_closed_to_the_free_tier_does_not_read_as_a_wait(self):
+        """Google answers both with 429, but a limit of 0 never clears."""
+        message = ("429 RESOURCE_EXHAUSTED. Quota exceeded for metric: "
+                   "generate_content_free_tier_requests, limit: 0, "
+                   "model: gemini-3.1-pro. Please retry in 18h8m4s.")
+        _, reason, _ = presentation.stage_failures(_attempt(_stage("strategies", message)))[0]
+        self.assertIn("무료 등급에서 쓸 수 없습니다", reason)
+        self.assertNotIn("잠시 뒤", reason)
+
+    def test_an_ordinary_quota_exhaustion_still_says_to_wait(self):
+        message = "429 RESOURCE_EXHAUSTED. Quota exceeded, limit: 60, model: flash."
+        _, reason, _ = presentation.stage_failures(_attempt(_stage("strategies", message)))[0]
+        self.assertIn("잠시 뒤", reason)
+
+
 
 if __name__ == "__main__":
     unittest.main()

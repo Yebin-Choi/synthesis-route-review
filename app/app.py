@@ -44,14 +44,28 @@ ENGINES = {"aizynthfinder": "AiZynthFinder: 이 컴퓨터에서 탐색",
 # Gemini SDK) and a default model name. A default is filled in only where the
 # provider's own documentation lists that exact ID for tool calling and JSON
 # output; otherwise it is blank and the reader supplies it.
+# "note" is the one line the consent caption adds about cost. It is written
+# per provider because "유료"와 "무료" is not a property of the service: a
+# Gemini key on the free tier is refused outright for a Pro model (the API
+# answers `limit: 0`), while a Flash model on the same key costs nothing.
 PROVIDERS = {
     "groq": {"label": "Groq: 무료 등급", "base_url": "https://api.groq.com/openai/v1",
-             "model": "openai/gpt-oss-120b", "paid": False},
+             "model": "openai/gpt-oss-120b", "paid": False,
+             "note": "무료 등급 한도가 적용됩니다."},
     "openrouter": {"label": "OpenRouter: 무료 모델", "base_url": "https://openrouter.ai/api/v1",
-                   "model": "", "paid": False},
-    "custom": {"label": "직접 입력: OpenAI 호환", "base_url": "", "model": "", "paid": False},
-    "gemini": {"label": "Gemini: 유료", "base_url": None,
-               "model": "gemini-3.1-pro-preview", "paid": True},
+                   "model": "", "paid": False,
+                   "note": "고른 모델에 따라 요금이 붙을 수 있습니다."},
+    "custom": {"label": "직접 입력: OpenAI 호환", "base_url": "", "model": "", "paid": False,
+               "note": "고른 모델에 따라 요금이 붙을 수 있습니다."},
+    "gemini": {"label": "Gemini: Pro", "base_url": None,
+               "model": "gemini-3.1-pro-preview", "paid": True,
+               "note": "Pro 모델은 유료 등급에서만 돌아갑니다. 무료 키로는 한도가 0입니다."},
+    # Flash models are free on a Gemini key, but Google does not publish one
+    # model ID we can pin here and keep correct, so this entry asks for it.
+    "gemini_model": {"label": "Gemini: 모델 직접 입력", "base_url": None, "model": "",
+                     "paid": False,
+                     "note": "Flash 계열은 무료 등급에서 돌아갑니다. 고른 모델에 따라 "
+                             "요금이 붙을 수 있습니다."},
 }
 DEFAULT_PROVIDER = "groq"
 # Stands in for a readiness answer while the provider choice is still blank, so
@@ -406,9 +420,7 @@ def show_generation_controls(workspace, raw_target, target_error):
             model = selection["model"] if selection else ""
             st.caption(f"목표 구조를 {name}" + (f"의 {model}" if model else "")
                        + "로 보냅니다. "
-                       + ("요금이 부과됩니다. " if entry["paid"]
-                          else "무료 등급 한도가 적용됩니다. ")
-                       + "900초까지 기다립니다.")
+                       + entry["note"] + " 900초까지 기다립니다.")
             st.checkbox("외부 전송과 유료 호출에 동의합니다" if entry["paid"]
                         else "외부 전송에 동의합니다",
                         key="generation_consent", disabled=not readiness["ready"])
@@ -531,7 +543,10 @@ ui_kit.use()
 # never seen, and the line it decides at. They come from the comparison
 # screen's own table, so the header cannot drift away from it.
 branding.show_header([
-    (row["label"], "균형 정확도", f"{row['balanced']:.3f}, 기준선 {row['line']:.2f}")
+    # AUC rather than balanced accuracy, and nothing beside it. The chip used
+    # to put the 0.50 decision line next to the score, which is a different
+    # quantity entirely and read as if it were a baseline.
+    (row["label"], "AUC", f"{row['auc']:.3f}")
     for row in (tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"],
                 tool_comparison_view.TOOL_PERFORMANCE["ames_desc"])
 ] + [("도구", "", f"{len(screening_judges.implemented_judge_ids())}종")])

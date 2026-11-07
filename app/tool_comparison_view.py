@@ -41,6 +41,10 @@ else:
 # it there would be scoring it partly on its own training data, and the
 # difference is not small: it reads 0.863 on the full file and 0.824 here.
 # Recorded in evaluation/tool_benchmark_log.md section 6-2.
+# "auc" is ROC-AUC on the same 1,201 unseen structures, over the rows each
+# tool answered, computed from the stored scores in evaluation/results (log
+# 6-49). A tool that answers with an alert rather than a score has none, so
+# it is None for the rule screens, exactly like "line".
 MEASURED_ON = "외부 검증셋 1,201종"
 
 # Every score-returning tool now runs at 0.50, the line published work uses.
@@ -65,6 +69,7 @@ TOOL_PERFORMANCE = {
                 "answered": 0.777, "measured_on": MEASURED_ON},
     "admet": {"label": "ADMET-AI 2.0.1", "method": "통계 기반", "line": 0.50,
               "sensitivity": 0.678, "specificity": 0.820, "balanced": 0.749,
+              "auc": 0.818,
               "answered": 1.000, "measured_on": MEASURED_ON},
     # EPA TEST publishes its own call beside its consensus value, and that
     # call is what was measured. We draw no line through its number, so
@@ -72,13 +77,16 @@ TOOL_PERFORMANCE = {
     "epa_test": {"label": "EPA TEST 5.1.2", "method": "통계 기반", "line": None,
                  "own_line": True,
                  "sensitivity": 0.629, "specificity": 0.798, "balanced": 0.714,
+                 "auc": 0.770,
                  "answered": 0.611, "measured_on": MEASURED_ON},
-    "ames_xgb": {"label": "자체 모델 1", "method": "통계 기반", "line": 0.50,
+    "ames_xgb": {"label": "자체 모델 1: fingerprint", "method": "통계 기반", "line": 0.50,
                  "sensitivity": 0.774, "specificity": 0.921, "balanced": 0.847,
+                 "auc": 0.902,
                  "answered": 0.777, "measured_on": MEASURED_ON},
-    "ames_desc": {"label": "자체 모델 2", "method": "통계 기반",
+    "ames_desc": {"label": "자체 모델 2: descriptor", "method": "통계 기반",
                   "line": 0.50,
                   "sensitivity": 0.648, "specificity": 0.930, "balanced": 0.789,
+                  "auc": 0.833,
                   "answered": 1.000, "measured_on": MEASURED_ON},
     # An alert set, so there is no line to draw and `line` is None. The
     # OASIS alert set is the one registered: the Toolbox's other Ames
@@ -226,7 +234,12 @@ def performance_rows(tool_ids):
                         else ("도구 자체 판정" if info.get("own_line")
                               else "없음")),
             "민감도": info["sensitivity"], "특이도": info["specificity"],
-            "균형 정확도": info["balanced"], "판정 비율": info["answered"],
+            "균형 정확도": info["balanced"],
+            # A rule screen answers with an alert, not a score, so there is no
+            # curve to take an area under. Saying so beats a blank cell.
+            "AUC": (f"{info['auc']:.3f}" if info.get("auc") is not None
+                    else "점수를 내지 않음"),
+            "판정 비율": info["answered"],
             "측정 자료": info["measured_on"],
         })
     return rows
