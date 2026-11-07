@@ -10,6 +10,7 @@ come back looking clean.
 
 import asyncio
 import sys
+import types
 import unittest
 from dataclasses import dataclass
 from pathlib import Path
@@ -160,6 +161,82 @@ class CritiqueTests(unittest.TestCase):
         critic_class = toxicity_critic.build(_BaseCritic, _StepFinding, lambda plan: plan)
         self.assertIn("ich-m7-rule-screen", critic_class.prompt_version)
         self.assertTrue(critic_class.prompt_version.startswith(_BaseCritic.prompt_version))
+
+
+class PipelineSwapTests(unittest.TestCase):
+    """What `_with_toxicity_critic` puts in the pipeline, and what it keeps.
+
+    SynthEx builds its Critic with the temperature, thinking level and retry
+    count the configuration asked for. The swap has to carry all three over,
+    because a critic rebuilt from defaults would quietly run at different
+    settings than the run was configured for.
+    """
+
+    def setUp(self):
+        self.modules = dict(sys.modules)
+        self.addCleanup(lambda: (sys.modules.clear(), sys.modules.update(self.modules)))
+
+        class StockCritic:
+            prompt_version = "critic-v2-atom-accounting"
+
+            def __init__(self, temperature=0.1, thinking_level="medium", attempts=3):
+                self.temperature = temperature
+                self.thinking_level = thinking_level
+                self.attempts = attempts
+
+        @dataclass(frozen=True)
+        class Components:
+            critic: object
+            editor: object
+
+        class Pipeline:
+            def __init__(self):
+                self.components = Components(
+                    critic=StockCritic(temperature=0.37, thinking_level="high", attempts=5),
+                    editor="untouched")
+
+        self.stock_class = StockCritic
+        self.built = []
+
+        def create_pipeline(config, *, include_completion=True):
+            self.built.append((config, include_completion))
+            return Pipeline()
+
+        application = types.ModuleType("synthex.application")
+        application.create_pipeline = create_pipeline
+        agents = types.ModuleType("synthex.agents")
+        agents.Critic = StockCritic
+        models = types.ModuleType("synthex.agents.models")
+        models.StepFinding = _StepFinding
+        routejson = types.ModuleType("synthex.routejson")
+        routejson.render_plan = lambda plan: plan
+        parent = types.ModuleType("synthex")
+        parent.application = application
+        parent.agents = agents
+        parent.routejson = routejson
+        agents.models = models
+        for name, module in (("synthex", parent), ("synthex.application", application),
+                             ("synthex.agents", agents), ("synthex.agents.models", models),
+                             ("synthex.routejson", routejson)):
+            sys.modules[name] = module
+        self.application = application
+        self.original = create_pipeline
+
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
+        import generation_worker
+        self.worker = generation_worker
+
+    def test_the_swapped_critic_keeps_the_configured_settings(self):
+        returned = self.worker._with_toxicity_critic()
+        self.assertIs(returned, self.original)
+        pipeline = self.application.create_pipeline(config=None)
+        critic = pipeline.components.critic
+        self.assertEqual((critic.temperature, critic.thinking_level, critic.attempts),
+                         (0.37, "high", 5))
+        self.assertIsInstance(critic, self.stock_class)
+        self.assertIn("ich-m7-rule-screen", type(critic).prompt_version)
+        # Nothing else in the pipeline is touched.
+        self.assertEqual(pipeline.components.editor, "untouched")
 
 
 if __name__ == "__main__":
