@@ -50,8 +50,8 @@ class ComparisonTests(unittest.TestCase):
         }
         row = view.build_comparison(["CC=O"], results)[0]
         self.assertTrue(row["_disagree"])
-        self.assertEqual(row["자체 규칙 (ICH M7)"], "양성")
-        self.assertEqual(row["우리 모델 (XGBoost)"], "음성 (0.07)")
+        self.assertEqual(row["전문가 규칙 (ICH M7)"], "양성")
+        self.assertEqual(row["자체 모델 (지문·기술자)"], "음성 (0.07)")
 
     def test_tools_that_agree_are_not_marked_as_disagreeing(self):
         results = {
@@ -64,7 +64,7 @@ class ComparisonTests(unittest.TestCase):
         results = {"toxtree": {"calls": [
             _call("c1ccccc1N", "abstain", error="결정 트리를 적용하지 못했습니다")]}}
         row = view.build_comparison(["c1ccccc1N"], results)[0]
-        self.assertIn("판정 못함", row["Toxtree 3.1.0"])
+        self.assertIn("예측 결과 없음", row["Toxtree 3.1.0"])
         self.assertIn("결정 트리", row["Toxtree 3.1.0"])
         self.assertEqual(row["_answered"], 0)
 
@@ -78,7 +78,7 @@ class ComparisonTests(unittest.TestCase):
     def test_a_tool_that_returned_nothing_is_marked_rather_than_dropped(self):
         results = {"rules": {"calls": []}}
         row = view.build_comparison(["CCO"], results)[0]
-        self.assertEqual(row["자체 규칙 (ICH M7)"], "실행 안 됨")
+        self.assertEqual(row["전문가 규칙 (ICH M7)"], "실행 안 됨")
 
 
 class ToolRunningTests(unittest.TestCase):
@@ -118,8 +118,14 @@ class PerformanceTableTests(unittest.TestCase):
                 self.assertIn("1,201", row["측정 자료"])
 
     def test_both_ich_m7_methodologies_are_covered_by_the_tool_list(self):
+        """The two the guideline names, in the words its Korean text uses.
+
+        식약처 「의약품 불순물 유전독성 평가 가이드라인」: "서로 보완적인
+        2 종류의 (Q)SAR 예측 방법을 이용한다. 첫째는 전문적 경험 규칙에
+        기반한 (expert rule-based) 방법, 둘째는 통계에 기반한 방법이다."
+        """
         methods = {info["method"] for info in view.TOOL_PERFORMANCE.values()}
-        self.assertEqual(methods, {"규칙", "통계"})
+        self.assertEqual(methods, {"전문가 규칙 기반", "통계 기반"})
 
 
 if __name__ == "__main__":
@@ -147,28 +153,13 @@ class ProfessionalLayoutTests(unittest.TestCase):
         chip = view._chip(_call("X", "abstain", error="적용 범위 밖"))
         self.assertIn("uk-abs", chip)
         self.assertIn("적용 범위 밖", chip)
-        self.assertIn("판정 못함", chip)
+        self.assertIn("예측 결과 없음", chip)
 
     def test_a_tool_that_returned_nothing_renders_without_a_verdict_colour(self):
         chip = view._chip(None)
         self.assertIn("uk-none", chip)
         self.assertNotIn("uk-pos", chip)
         self.assertNotIn("uk-neg", chip)
-
-    def test_the_summary_counts_answers_and_positives_per_tool(self):
-        summary = view.agreement_summary(self._rows(), ["rules", "ames_xgb"])
-        rules = next(row for row in summary if row["도구"].startswith("자체 규칙"))
-        model = next(row for row in summary if row["도구"].startswith("우리 모델"))
-        self.assertEqual(rules["판정한 물질"], 2)
-        self.assertEqual(rules["양성으로 본 물질"], 1)
-        self.assertEqual(model["양성으로 본 물질"], 0)
-
-    def test_an_abstention_is_not_counted_as_an_answer_in_the_summary(self):
-        results = {"toxtree": {"calls": [_call("X", "abstain", error="오류")]}}
-        rows = view.build_comparison(["X"], results)
-        summary = view.agreement_summary(rows, ["toxtree"])[0]
-        self.assertEqual(summary["판정한 물질"], 0)
-        self.assertEqual(summary["답하지 못한 물질"], 1)
 
     def test_the_exported_file_keeps_the_disagreement_flag(self):
         text = view.comparison_csv(self._rows(), ["rules", "ames_xgb"])
@@ -329,14 +320,6 @@ class MeasuredCutoffTest(unittest.TestCase):
             self.assertGreater(earlier[1], later[1])
             self.assertLess(earlier[2], later[2])
 
-    def test_a_nearby_line_reports_the_measured_row(self):
-        self.assertEqual(view.cutoff_row(0.25)[0], 0.25)
-        self.assertEqual(view.cutoff_row(0.50)[0], 0.50)
-
-    def test_an_unmeasured_line_reports_nothing_rather_than_guessing(self):
-        self.assertIsNone(view.cutoff_row(0.95))
-        self.assertIsNone(view.cutoff_row(0.15))
-
 
 class PerToolLineTest(unittest.TestCase):
     """Every score-returning tool runs at 0.50; a rule tool carries no line.
@@ -392,8 +375,8 @@ class RuleNegativeLabelTest(unittest.TestCase):
     """
 
     def test_a_rule_tool_says_no_alert_where_a_model_says_negative(self):
-        self.assertEqual(view.call_label("0", "rules"), "경보 없음")
-        self.assertEqual(view.call_label("0", "toxtree"), "경보 없음")
+        self.assertEqual(view.call_label("0", "rules"), "경고구조 없음")
+        self.assertEqual(view.call_label("0", "toxtree"), "경고구조 없음")
         self.assertEqual(view.call_label("0", "ames_xgb"), "음성")
         self.assertEqual(view.call_label("0", "admet"), "음성")
 
@@ -401,15 +384,15 @@ class RuleNegativeLabelTest(unittest.TestCase):
         for tool in ("rules", "ames_xgb"):
             with self.subTest(tool):
                 self.assertEqual(view.call_label("1", tool), "양성")
-                self.assertEqual(view.call_label("abstain", tool), "판정 못함")
+                self.assertEqual(view.call_label("abstain", tool), "예측 결과 없음")
 
     def test_the_word_reaches_both_the_chip_and_the_downloadable_table(self):
         rows = view.build_comparison(
             ["CCO"], {"rules": {"judge": "rules", "calls": [_call("CCO", "0")],
                                 "evidence": {}}})
-        self.assertEqual(rows[0]["자체 규칙 (ICH M7)"], "경보 없음")
-        self.assertIn("경보 없음", view._matrix_html(rows, ["rules"]))
-        self.assertIn("경보 없음", view.comparison_csv(rows, ["rules"]))
+        self.assertEqual(rows[0]["전문가 규칙 (ICH M7)"], "경고구조 없음")
+        self.assertIn("경고구조 없음", view._matrix_html(rows, ["rules"]))
+        self.assertIn("경고구조 없음", view.comparison_csv(rows, ["rules"]))
 
 
 class ToolKeepsItsOwnLineTest(unittest.TestCase):
@@ -449,6 +432,6 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
                 for row in view.performance_rows(
                     ["rules", "epa_test", "ames_xgb", "admet"])}
         self.assertEqual(rows["EPA TEST 5.1.2"], "도구 자체 판정")
-        self.assertEqual(rows["자체 규칙 (ICH M7)"], "해당 없음 (규칙)")
-        self.assertEqual(rows["우리 모델 (XGBoost)"], "0.50")
+        self.assertEqual(rows["전문가 규칙 (ICH M7)"], "해당 없음 (규칙)")
+        self.assertEqual(rows["자체 모델 (지문·기술자)"], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")

@@ -71,7 +71,7 @@ class RouteSelectionTests(unittest.TestCase):
                     # and still refuses to claim the route is toxic.
                     for route in routes:
                         message = route["reasons"][0]["message"]
-                        self.assertIn("규칙 우려 신호 경로 제외", message)
+                        self.assertIn("규칙에 걸린 경로도 제외", message)
                         self.assertIn("증명이 아닙니다", message)
                         self.assertNotIn("strict_alerts", message)
 

@@ -70,7 +70,7 @@ HEADER_CSS = """<style>
   color:var(--review-muted); border:1px solid var(--review-line); }
 .rx-tag { font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase;
   color:var(--review-muted); }
-.rx-strip { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 2px; }
+.rx-strip { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 22px; }
 .rx-stat { display:flex; align-items:baseline; gap:6px; font-size:12px;
   padding:5px 11px; border-radius:8px; background:var(--review-panel);
   border:1px solid var(--review-line); color:var(--review-muted);

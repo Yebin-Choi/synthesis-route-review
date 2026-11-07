@@ -19,7 +19,7 @@ _COLUMNS = (
     ("평가 상태", "status"),
     ("물질명", "name"),
     ("평가 이유", "intake_basis"),
-    ("구조 경보", "alerts"),
+    ("경고구조", "alerts"),
     ("근거 상태", "evidence_status"),
     ("물질 출처", "origin"),
     ("참고 출처 URL", "source_url"),

@@ -54,7 +54,7 @@ class VerdictVocabularyTests(unittest.TestCase):
 
 class ChipTests(unittest.TestCase):
     def test_a_reason_travels_with_the_chip_that_has_no_verdict(self):
-        markup = ui_kit.chip("판정 못함", ui_kit.UNKNOWN, note="적용 범위 밖")
+        markup = ui_kit.chip("예측 결과 없음", ui_kit.UNKNOWN, note="적용 범위 밖")
         self.assertIn("적용 범위 밖", strip_tags(markup))
 
     def test_a_score_is_an_aside_and_never_replaces_the_word(self):

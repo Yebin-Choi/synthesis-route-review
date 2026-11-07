@@ -166,6 +166,15 @@ class OfflineAppCase(unittest.TestCase):
         self.app.text_input(key="target_smiles").set_value(text).run()
         self.assert_no_exception()
 
+    def choose_step(self, step_id):
+        """The step picker lives in the byproduct tab, the one screen it means
+        something on. The risk tab lays every step out at once."""
+        self.app.radio(key="step_id").set_value(step_id).run()
+        self.assert_no_exception()
+
+    def chosen_step(self):
+        return self.app.radio(key="step_id").value
+
     def open_tab(self, label):
         container = next(item for item in self.app.get("tab_container") if item.key == "review_tabs")
         states = self.app._tree.get_widget_states()
@@ -252,7 +261,7 @@ class AppUsabilityTests(OfflineAppCase):
         self.assertEqual(self.workspace["report"], engine.analyze_routes(payload))
         self.assertEqual(self.workspace["source_provenance"]["kind"], "native_generation")
         self.assertTrue(self.app.tabs[0].get("image"))
-        self.assertIn("경로 1 · 단계 stage-a", self.text(self.app.tabs[0]))
+        self.assertIn("경로 1", self.text(self.app.tabs[0]))
         self.generate.assert_not_called()
         self.predict.assert_not_called()
         self.admet.assert_not_called()
@@ -349,7 +358,7 @@ class AppUsabilityTests(OfflineAppCase):
         payload = fixture_payload(two_steps=True, two_routes=True)
         self.apply_payload(payload)
         self.app.selectbox(key="route_id").select("fixture-b").run()
-        self.app.selectbox(key="step_id").select("stage-b").run()
+        self.choose_step("stage-b")
         before = deepcopy(self.workspace)
         self.app.checkbox(key="strict_alerts").check().run()
         self.assert_no_exception()
@@ -396,12 +405,12 @@ class AppUsabilityTests(OfflineAppCase):
         self.assertIn("남은 경로가 없습니다", self.text())
         excluded = context.excluded_routes(self.workspace)
         self.assertEqual(len(excluded), 3)
-        text = self.text(self.expander("제외된 경로와 이유 (3)"))
+        text = self.text(self.expander("제외 기준과 빠진 경로"))
         for route, decision in zip(self.workspace["report"]["routes"], excluded):
             self.assertIn("prohibited_material", {row["code"] for row in decision["reasons"]})
             for missing in route["steps"][0]["missing_information"]:
                 self.assertIn(missing, " ".join(row["message"] for row in decision["reasons"]))
-        self.assertIn("규칙·모델 근거는 저장 파일에 함께 남습니다", text)
+        self.assertIn("판정 근거는 저장 파일에 함께 들어갑니다", text)
 
     def test_model_runs_automatically_once_its_assets_are_present(self):
         self.enable_model()
@@ -481,7 +490,7 @@ class AppUsabilityTests(OfflineAppCase):
         # The listed reagent excludes this route, so the assessments and the
         # original text must stay readable in the exclusion section.
         self.assertEqual([tab.label for tab in self.app.tabs], [])
-        exclusion = self.text(self.expander("제외된 경로와 이유 (1)"))
+        exclusion = self.text(self.expander("제외 기준과 빠진 경로"))
         self.assertIn("구조 그림 없음", self.text())
         self.assertIn("not-a-structure", exclusion)
         materials = self.workspace["report"]["routes"][0]["steps"][0]["materials"]
@@ -568,8 +577,8 @@ class AppUsabilityTests(OfflineAppCase):
     def test_stored_research_sections_are_collapsed_and_explicit(self):
         self.apply_payload(fixture_payload())
         labels = [item.label for item in self.app.get("expander")]
-        self.assertIn("목표 구조·SMILES", labels)
-        self.assertFalse(self.expander("이전 결과·생성 시도 이력").proto.expanded)
+        self.assertIn("목표 구조", labels)
+        self.assertFalse(self.expander("저장").proto.expanded)
         # The legacy stored-condition and stored-benchmark panels are gone.
         for removed in ("저장 조건 근거 자료 · 목표 반응에 자동 적용 안 함",
                         "저장된 연구 비교 · 현재 모델 검사 아님"):

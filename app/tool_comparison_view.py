@@ -41,7 +41,7 @@ else:
 # it there would be scoring it partly on its own training data, and the
 # difference is not small: it reads 0.863 on the full file and 0.824 here.
 # Recorded in evaluation/tool_benchmark_log.md section 6-2.
-MEASURED_ON = "모델이 처음 보는 독립 자료 1,201개"
+MEASURED_ON = "외부 검증셋 1,201종"
 
 # Every score-returning tool now runs at 0.50, the line published work uses.
 #
@@ -57,26 +57,26 @@ MEASURED_ON = "모델이 처음 보는 독립 자료 1,201개"
 # A rule tool returns a verdict, so a line does not apply, and EPA TEST
 # publishes its own call.
 TOOL_PERFORMANCE = {
-    "rules": {"label": "자체 규칙 (ICH M7)", "method": "규칙", "line": None,
+    "rules": {"label": "전문가 규칙 (ICH M7)", "method": "전문가 규칙 기반", "line": None,
               "sensitivity": 0.552, "specificity": 0.769, "balanced": 0.661,
               "answered": 1.000, "measured_on": MEASURED_ON},
-    "toxtree": {"label": "Toxtree 3.1.0", "method": "규칙", "line": None,
+    "toxtree": {"label": "Toxtree 3.1.0", "method": "전문가 규칙 기반", "line": None,
                 "sensitivity": 0.691, "specificity": 0.790, "balanced": 0.741,
                 "answered": 0.777, "measured_on": MEASURED_ON},
-    "admet": {"label": "ADMET-AI 2.0.1", "method": "통계", "line": 0.50,
+    "admet": {"label": "ADMET-AI 2.0.1", "method": "통계 기반", "line": 0.50,
               "sensitivity": 0.678, "specificity": 0.820, "balanced": 0.749,
               "answered": 1.000, "measured_on": MEASURED_ON},
     # EPA TEST publishes its own call beside its consensus value, and that
     # call is what was measured. We draw no line through its number, so
     # `line` is None and the table says whose line it is instead.
-    "epa_test": {"label": "EPA TEST 5.1.2", "method": "통계", "line": None,
+    "epa_test": {"label": "EPA TEST 5.1.2", "method": "통계 기반", "line": None,
                  "own_line": True,
                  "sensitivity": 0.629, "specificity": 0.798, "balanced": 0.714,
                  "answered": 0.611, "measured_on": MEASURED_ON},
-    "ames_xgb": {"label": "우리 모델 (XGBoost)", "method": "통계", "line": 0.50,
+    "ames_xgb": {"label": "자체 모델 (지문·기술자)", "method": "통계 기반", "line": 0.50,
                  "sensitivity": 0.774, "specificity": 0.921, "balanced": 0.847,
                  "answered": 0.777, "measured_on": MEASURED_ON},
-    "ames_desc": {"label": "우리 모델 (기술자만, 설명 가능)", "method": "통계",
+    "ames_desc": {"label": "자체 모델 (기술자)", "method": "통계 기반",
                   "line": 0.50,
                   "sensitivity": 0.648, "specificity": 0.930, "balanced": 0.789,
                   "answered": 1.000, "measured_on": MEASURED_ON},
@@ -106,37 +106,7 @@ CUTOFF_TRADE_OFF = (
 )
 
 
-def cutoff_row(threshold):
-    """The measured row closest to the chosen line, or None if far from any."""
-    nearest = min(CUTOFF_TRADE_OFF, key=lambda row: abs(row[0] - threshold))
-    return nearest if abs(nearest[0] - threshold) <= 0.025 else None
-
-
-def _cutoff_note(threshold):
-    row = cutoff_row(threshold)
-    if row is None:
-        st.caption(
-            f"기준선 {threshold:.2f}는 따로 측정하지 않은 값입니다. "
-            "아래 표의 측정된 기준선 중 하나를 쓰면 성능을 알 수 있습니다.")
-    else:
-        _, sensitivity, specificity, balanced = row
-        st.caption(
-            f"{row[0]:.2f}에서 양성 중 {sensitivity:.1%}를 찾고 음성 중 "
-            f"{specificity:.1%}를 음성으로 봅니다 (균형 정확도 {balanced:.3f}). "
-            "모델이 한 번도 보지 않은 독립 구조 933개로 잰 값입니다.")
-    # The trade-off is a shape, not six numbers: sensitivity falls and
-    # specificity rises monotonically, and balanced accuracy peaks. A reader
-    # sees where the peak is faster than they read a table.
-    st.line_chart(
-        {"민감도": [sens for _, sens, _, _ in CUTOFF_TRADE_OFF],
-         "특이도": [spec for _, _, spec, _ in CUTOFF_TRADE_OFF],
-         "균형 정확도": [bal for _, _, _, bal in CUTOFF_TRADE_OFF]},
-        x_label="판정 기준선", y_label="비율")
-    st.caption("가로축 기준선: "
-               + " · ".join(f"{cut:.2f}" for cut, _, _, _ in CUTOFF_TRADE_OFF)
-               + ". 0.40과 0.50이 0.847로 같아서 옮겨도 얻을 것이 거의 없습니다. "
-                 "표시되는 점수는 확률이 아니라 순서를 매기는 값입니다.")
-CALL_LABEL = {"1": "양성", "0": "음성", "abstain": "판정 못함"}
+CALL_LABEL = {"1": "양성", "0": "음성", "abstain": "예측 결과 없음"}
 CALL_CLASS = {"1": ui_kit.CONCERN, "0": ui_kit.CLEAR, "abstain": ui_kit.UNKNOWN}
 
 # A rule tool that raises nothing has not predicted a negative, so it does not
@@ -148,12 +118,12 @@ CALL_CLASS = {"1": ui_kit.CONCERN, "0": ui_kit.CLEAR, "abstain": ui_kit.UNKNOWN}
 # Only the word changes. The call underneath stays a negative, because the
 # sensitivity and specificity in the performance table were counted that way,
 # and relabelling the call would make those figures describe something else.
-RULE_NEGATIVE_LABEL = "경보 없음"
+RULE_NEGATIVE_LABEL = "경고구조 없음"
 
 
 def call_label(call, tool_id=None):
     if (call == "0" and tool_id is not None
-            and TOOL_PERFORMANCE.get(tool_id, {}).get("method") == "규칙"):
+            and TOOL_PERFORMANCE.get(tool_id, {}).get("method") == "전문가 규칙 기반"):
         return RULE_NEGATIVE_LABEL
     return CALL_LABEL.get(call, call)
 
@@ -221,7 +191,7 @@ def build_comparison(materials, results):
             calls[tool_id] = call
             text = call_label(call["call"], tool_id)
             if call["call"] == "abstain" and call.get("error"):
-                text = f"판정 못함 · {reason_text(call['error'])}"
+                text = f"예측 결과 없음 · {reason_text(call['error'])}"
             elif call.get("score") is not None:
                 text = f"{text} ({call['score']:.2f})"
             row[TOOL_PERFORMANCE[tool_id]["label"]] = text
@@ -232,28 +202,6 @@ def build_comparison(materials, results):
         row["_answered"] = len(decided)
         rows.append(row)
     return rows
-
-
-def agreement_summary(rows, tool_ids):
-    """Per tool: how often it answered, and how often it called positive.
-
-    This is the figure's data. It is about the materials on screen, not about
-    the tools' measured accuracy, and the two must not be read as one.
-    """
-    summary = []
-    for tool_id in tool_ids:
-        answered = positive = 0
-        for row in rows:
-            call = row["_calls"].get(tool_id)
-            if call is None or call["call"] == "abstain":
-                continue
-            answered += 1
-            positive += int(call["call"] == "1")
-        summary.append({"도구": TOOL_PERFORMANCE[tool_id]["label"],
-                        "판정한 물질": answered,
-                        "양성으로 본 물질": positive,
-                        "답하지 못한 물질": len(rows) - answered})
-    return summary
 
 
 def performance_rows(tool_ids):
@@ -302,7 +250,7 @@ def score_points(rows, tool_ids):
             points.append({"물질": short_label(row["물질"]),
                            "도구": TOOL_PERFORMANCE[tool_id]["label"],
                            "점수": round(float(call["score"]), 3),
-                           "판정": CALL_LABEL.get(call["call"], "판정 못함"),
+                           "판정": CALL_LABEL.get(call["call"], "예측 결과 없음"),
                            "전체 구조": row["물질"]})
     return points
 
@@ -353,19 +301,19 @@ def _band_cell(placed):
 
 
 # One line per tool, shown on hover over its column so the header can stay
-# short. A reader should not have to know what "자체 규칙" is to read the row.
+# short. A reader should not have to know what "전문가 규칙" is to read the row.
 TOOL_HINTS = {
     "rules": "이 소프트웨어가 직접 넣은 규칙입니다. ICH M7(R2)이 이름을 올린 "
              "물질 목록과, 변이원에서 자주 보이는 부분 구조를 대조합니다.",
-    "toxtree": "독성 구조 경보를 판정하는 공개 프로그램입니다. 따로 설치해서 "
+    "toxtree": "독성 경고구조를 판정하는 공개 프로그램입니다. 따로 설치해서 "
                "이 컴퓨터에서 실행합니다.",
     "epa_test": "미국 환경보호청이 배포하는 독성 예측 프로그램입니다. 구조가 "
                 "자기 적용 범위를 벗어나면 스스로 판정을 내지 않습니다.",
     "admet": "공개된 약물성·독성 예측 모델입니다. 이 컴퓨터에서 실행하며 "
              "구조가 밖으로 나가지 않습니다.",
-    "ames_xgb": "우리가 학습시킨 모델입니다. 지문 비트와 기술자를 함께 쓰며, "
+    "ames_xgb": "직접 학습시킨 모델입니다. 지문 비트와 기술자를 함께 쓰며, "
                 "왜 그렇게 판정했는지는 설명하지 못합니다.",
-    "ames_desc": "우리가 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
+    "ames_desc": "직접 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
                  "어떤 성질이 판정을 밀었는지 말할 수 있습니다.",
 }
 
@@ -374,7 +322,7 @@ def _matrix_html(rows, tool_ids, bands=None):
     columns = ["물질"] + [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in tool_ids]
     hints = {TOOL_PERFORMANCE[tool_id]["label"]: TOOL_HINTS.get(tool_id)
              for tool_id in tool_ids}
-    hints["모델 적용 범위"] = ("우리 모델이 이 물질과 비슷한 구조를 얼마나 "
+    hints["모델 적용 범위"] = ("자체 모델이 이 물질과 비슷한 구조를 얼마나 "
                          "봤는지입니다. 물질이 위험한지에 대한 말이 아닙니다.")
     if bands:
         columns.append("모델 적용 범위")
@@ -415,17 +363,6 @@ def explanation_lines(entry):
     return lines
 
 
-# Three lines, not six paragraphs. What each tool is, what each word means
-# and where each figure came from now sit on hover, where a reader who wants
-# them can reach them and a reader who does not is not made to read them.
-_READING_GUIDE = (
-    "어느 쪽이 맞는지 소프트웨어가 정하지 않습니다. 아래 성능표를 보고 "
-    "직접 판단하세요.",
-    "**판정 못함**과 **경보 없음**은 음성이 아닙니다. 답이 없는 것입니다.",
-    "경로를 실제로 빼는 판정은 이 화면이 아니라 선별 정책이 합니다.",
-)
-
-
 def _tool_picker(available):
     """The tool multiselect and the run button, side by side."""
     controls, action = st.columns([4, 1])
@@ -440,30 +377,6 @@ def _tool_picker(available):
         run = st.button("실행", key="comparison_run", type="primary",
                         width="stretch")
     return chosen, run
-
-
-def _threshold_control(chosen):
-    """The decision line. Every scoring tool runs at 0.50 unless asked otherwise.
-
-    The control stays because a reviewer may want to see what a stricter or
-    looser line does, but it is folded away: the default is the line all the
-    published work uses, so most readers never need to open this.
-    """
-    scored = [tool_id for tool_id in chosen
-              if TOOL_PERFORMANCE.get(tool_id, {}).get("line") is not None]
-    if not scored:
-        return None
-    with st.expander(f"판정 기준선 {MEASURED_CUTOFF:.2f}"):
-        st.caption("점수가 이 값 이상이면 양성으로 봅니다. 선행연구가 쓰는 "
-                   "값입니다. 규칙 도구에는 기준선이 없습니다.")
-        if not st.checkbox("직접 정하기", key="comparison_override"):
-            _cutoff_note(MEASURED_CUTOFF)
-            return None
-        threshold = st.slider("모든 통계 도구에 적용할 기준선",
-                              0.05, 0.95, MEASURED_CUTOFF, 0.05,
-                              key="comparison_threshold")
-        _cutoff_note(threshold)
-        return threshold
 
 
 def _summary_metrics(rows, disagreed, silent, bands):
@@ -485,7 +398,7 @@ def _summary_metrics(rows, disagreed, silent, bands):
                  help="어느 도구도 답하지 않은 물질 수입니다. 음성이 아니라 "
                       "판정이 없는 것입니다.")
     fourth.metric("근거 부족", weak if bands else "—",
-                  help="우리 모델이 비슷한 구조를 거의 보지 못한 물질 수입니다. "
+                  help="자체 모델이 비슷한 구조를 거의 보지 못한 물질 수입니다. "
                        "위험하다는 뜻이 아니라 모델이 판단할 근거가 적다는 뜻입니다.")
 
 
@@ -493,7 +406,7 @@ def _model_explanations(disagreed, chosen):
     """Descriptor contributions for the shown structures, if asked for."""
     if "ames_xgb" not in chosen:
         return {}
-    if not st.toggle("우리 모델이 왜 그렇게 판정했는지 보기", key="comparison_explain"):
+    if not st.toggle("자체 모델이 왜 그렇게 판정했는지 보기", key="comparison_explain"):
         return {}
     from ames_model_service import explain_ames_model_materials
 
@@ -564,7 +477,7 @@ def _show_scores(rows, chosen, threshold):
 
 
 def _show_performance(chosen, *, with_note=False):
-    st.subheader("도구별 실측 성능")
+    st.subheader("도구별 성능")
     measured = [{"도구": TOOL_PERFORMANCE[tool_id]["label"],
                  "균형 정확도": TOOL_PERFORMANCE[tool_id]["balanced"]}
                 for tool_id in chosen if tool_id in TOOL_PERFORMANCE]
@@ -605,8 +518,7 @@ def show_tool_comparison(workspace):
 
     ui_kit.use()
     chosen, run = _tool_picker(list(screening_judges.implemented_judge_ids()))
-    threshold = _threshold_control(chosen)
-    ui_kit.reading_guide(list(_READING_GUIDE))
+    threshold = None
     if not chosen:
         st.warning("도구를 하나 이상 고르세요.")
         return
@@ -645,8 +557,4 @@ def show_tool_comparison(workspace):
     if disagreed:
         _show_disagreements(disagreed, chosen, bands)
 
-    st.subheader("이 경로에서 도구들이 한 일")
-    summary = agreement_summary(rows, chosen)
-    st.bar_chart({row["도구"]: row["양성으로 본 물질"] for row in summary})
-    st.dataframe(summary, hide_index=True, width="stretch")
     _show_performance(chosen, with_note=True)

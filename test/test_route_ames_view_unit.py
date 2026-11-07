@@ -439,7 +439,7 @@ class RouteAmesViewTests(unittest.TestCase):
         # reader cannot mistake one for the other.
         numbers = self.metrics(app)
         self.assertEqual(numbers["검사한 구조"], "4")
-        self.assertEqual(numbers["판정 못함"], "1")
+        self.assertEqual(numbers["예측 결과 없음"], "1")
         self.assertEqual(numbers["연구 정책으로 제외"], "0")
         self.assertEqual(numbers["전문가 검토 필요"], "2")
         self.assertEqual(numbers["정보 부족"], "1")
@@ -456,7 +456,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assertTrue(self.raw(app)["reason_codes"])
         # Each structure carries a score beside its verdict.
         self.assertTrue(all("0." in row[1] for row in self.verdicts(app, "구조")
-                            if "판정 보류" not in row[1]))
+                            if "상충된 결과" not in row[1]))
 
     def test_joint_positive_demotes_and_keeps_missing_and_lower_priority_reasons(self):
         payload = fixture_payload("C1CO1")
@@ -491,11 +491,11 @@ class RouteAmesViewTests(unittest.TestCase):
         self.result["assessments"][1] = fixture_row("CCC", status="failed")
         app = self.run_model(self.open_view())
         row = next(row for row in self.verdicts(app, "구조") if row[0] == "CCC")
-        self.assertIn("판정 보류", row[1])
+        self.assertIn("상충된 결과", row[1])
         self.assertNotIn("음성", row[1])
         self.assertIn("Synthetic AMES abstention", row[1])
-        self.assertEqual(self.metrics(app)["판정 못함"], "2")
-        self.assert_visible_alert(app, "warning", "판정 못함은 음성이 아닙니다")
+        self.assertEqual(self.metrics(app)["예측 결과 없음"], "2")
+        self.assert_visible_alert(app, "warning", "예측 결과 없음은 음성이 아닙니다")
         self.assertEqual(self.snapshot()["model_result"], self.result)
         app.run()
         self.assert_no_exception(app)
@@ -522,12 +522,12 @@ class RouteAmesViewTests(unittest.TestCase):
                 # leaving the field out, which is what QMRF asks for.
                 self.assertIn("버전", self.text(app))
                 self.assertIn("미확인", self.text(app))
-                self.assertEqual(self.metrics(app)["판정 못함"], str(len(rows)))
+                self.assertEqual(self.metrics(app)["예측 결과 없음"], str(len(rows)))
                 self.assert_visible_alert(app, "warning", "점수가 나온 구조가 없습니다")
                 self.assert_visible_alert(app, "warning", "모델 가중치 해시가 없습니다")
                 if rows:
                     for row in self.verdicts(app, "구조"):
-                        self.assertIn("판정 보류", row[1])
+                        self.assertIn("상충된 결과", row[1])
                         self.assertNotIn("음성", row[1])
                 else:
                     self.assertIn("모델 결과가 없습니다", self.text(app))
@@ -578,7 +578,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assertEqual(entry["metadata"], before["metadata"])
         # The retained counts are labelled as the previous run, not this attempt.
         self.assertIn("아래는 이전 실행 결과입니다", self.text(app))
-        self.assertEqual(self.metrics(app)["판정 못함"], "2")
+        self.assertEqual(self.metrics(app)["예측 결과 없음"], "2")
         self.assert_visible_alert(app, "error", "Synthetic retry failure")
         self.assert_visible_alert(app, "warning", "아래는 이전 실행 결과입니다")
         self.assertIn("Synthetic retry failure", self.snapshot()["latest_attempt_error"])

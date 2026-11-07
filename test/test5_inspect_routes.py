@@ -7,7 +7,7 @@
 
 확인하려는 것:
   (1) 남은 경로들이 실제로 어떤 물질을 쓰는가
-  (2) 그중 구조 경보가 걸리는 것은 없는가
+  (2) 그중 경고구조가 걸리는 것은 없는가
   (3) 필터가 놓친 위험은 무엇인가 (정직하게)
 """
 import os
@@ -69,7 +69,7 @@ def risk_of_smiles(smi):
     alerts = find_alerts(mol)
     if alerts:
         names = ", ".join(n for n, _ in alerts)
-        return ("(목록에 없음)", smi, f"구조 경보: {names}")
+        return ("(목록에 없음)", smi, f"경고구조: {names}")
     return None
 
 
@@ -107,7 +107,7 @@ def main():
         print("    없음")
     print()
     print("  참고: 현재 필터는 ICH M7 지정 물질만 차단한다(cutoff 1.0).")
-    print("        구조 경보만 걸리는 물질은 통과시키고 점수기로 감점하는 설계다.")
+    print("        경고구조만 걸리는 물질은 통과시키고 점수기로 감점하는 설계다.")
 
 
 if __name__ == "__main__":

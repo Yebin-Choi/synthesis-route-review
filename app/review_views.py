@@ -87,15 +87,14 @@ def show_policy(workspace):
         st.session_state["strict_alerts"] = workspace["policy"]["strict_alerts"]
         st.session_state["excluded_smiles"] = [value for value in workspace["policy"]["excluded_smiles"] if value in choices]
         st.session_state["_policy_owner"] = owner
-    with st.expander("기본 제외 정책·추가 제외"):
-        strict = st.checkbox("규칙 우려 신호 경로 제외", key="strict_alerts")
-        excluded = st.multiselect("추가로 제외할 기재 물질", list(choices), format_func=choices.get, key="excluded_smiles")
-        st.caption("기본 기준: 알려진 우려·구조 경보·조건부 경고 또는 현재 모델 양성")
-        if {"strict_alerts": strict, "excluded_smiles": excluded} != workspace["policy"]:
-            try:
-                workspace = context.set_policy(workspace, strict, excluded)
-            except (ValueError, TypeError, KeyError) as exc:
-                st.error(f"정책을 적용하지 못했습니다: {exc}")
+    strict = st.checkbox("규칙에 걸린 경로도 제외", key="strict_alerts")
+    excluded = st.multiselect("직접 제외할 물질", list(choices), format_func=choices.get, key="excluded_smiles")
+    st.caption("알려진 우려 물질, 경고구조, 조건부 경고, 모델 양성 중 하나라도 걸리면 제외합니다")
+    if {"strict_alerts": strict, "excluded_smiles": excluded} != workspace["policy"]:
+        try:
+            workspace = context.set_policy(workspace, strict, excluded)
+        except (ValueError, TypeError, KeyError) as exc:
+            st.error(f"정책을 적용하지 못했습니다: {exc}")
     return workspace
 
 
@@ -104,10 +103,11 @@ def show_step_unknowns(step):
     # paragraphs and a bare URL made the finding compete with its footnote.
     for warning in step["conditional_warnings"]:
         st.warning(warning["message"])
-        with st.expander("이 경고의 근거"):
-            st.caption(warning["basis"])
-            if warning.get("source_url"):
-                st.caption(warning["source_url"])
+        # The grounds as a caption, not a fold. A fold here could not be drawn
+        # at all where this step is listed inside another one, and two lines
+        # are shorter than the control that would have hidden them.
+        st.caption(" · ".join(part for part in
+                              (warning["basis"], warning.get("source_url")) if part))
     condition, byproducts = step["conditions"], step["byproducts"]
     # One record instead of four stacked remarks. The wording of the first
     # line is unchanged because it is the line the saved file and the tests
@@ -253,84 +253,101 @@ def _show_drawings(rows):
 
 
 def show_excluded_routes(workspace):
+    """Why each dropped route was dropped, under the rule that dropped it."""
     decisions = context.excluded_routes(workspace)
-    with st.expander(f"제외된 경로와 이유 ({len(decisions)})"):
-        ui_kit.use()
-        reports = {route["id"]: route for route in workspace["report"]["routes"]}
-        sources = {route["id"]: route for route in workspace["active_input"]["routes"]}
-        for decision in decisions:
-            route, source = reports[decision["id"]], sources[decision["id"]]
-            st.subheader(f"경로 {route_number(workspace, route['id'])}")
-            show_reasons(decision)
-            for step in route["steps"]:
-                st.markdown(f"**입력 단계 ID {step['id']}**")
-                source_step = next(item for item in source["steps"]
-                                   if item["id"] == step["id"])
-                rows = _material_rows(workspace, step, source_step)
-                ui_kit.show_table(
-                    ["구조", "역할·이름", "판정", "출처"],
-                    [{"cells": [
-                        ui_kit.text(row["raw"]),
-                        ui_kit.text(ROLES[row["role"]] + " · " + row["name"]),
-                        _verdict_cell(row),
-                        ui_kit.text(" · ".join(part for part in (
-                            (row["assessment"] or {}).get("origin"),
-                            (row["assessment"] or {}).get("source_url")) if part)),
-                    ], "mark": not row["is_target"] and (row["assessment"] or {}).get(
-                        "status") in ("known_concern", "structural_alert")}
-                     for row in rows])
-                _show_drawings(rows)
-                show_step_unknowns(step)
-            st.caption("규칙·모델 근거는 저장 파일에 함께 남습니다")
+    if not decisions:
+        st.caption("이 기준으로 빠진 경로가 없습니다")
+        return
+    st.divider()
+    st.caption(f"이 기준으로 경로 {len(decisions)}개가 빠졌습니다")
+    ui_kit.use()
+    reports = {route["id"]: route for route in workspace["report"]["routes"]}
+    sources = {route["id"]: route for route in workspace["active_input"]["routes"]}
+    for decision in decisions:
+        route, source = reports[decision["id"]], sources[decision["id"]]
+        st.markdown(f"**경로 {route_number(workspace, route['id'])}**")
+        show_reasons(decision)
+        for order, step in enumerate(route["steps"], 1):
+            st.caption(f"{order}단계")
+            source_step = next(item for item in source["steps"]
+                               if item["id"] == step["id"])
+            rows = _material_rows(workspace, step, source_step)
+            ui_kit.show_table(
+                ["구조", "역할·이름", "판정", "출처"],
+                [{"cells": [
+                    ui_kit.text(row["raw"]),
+                    ui_kit.text(ROLES[row["role"]] + " · " + row["name"]),
+                    _verdict_cell(row),
+                    ui_kit.text(" · ".join(part for part in (
+                        (row["assessment"] or {}).get("origin"),
+                        (row["assessment"] or {}).get("source_url")) if part)),
+                ], "mark": not row["is_target"] and (row["assessment"] or {}).get(
+                    "status") in ("known_concern", "structural_alert")}
+                 for row in rows])
+            _show_drawings(rows)
+            show_step_unknowns(step)
+        st.caption("판정 근거는 저장 파일에 함께 들어갑니다")
+
+
+_CARD_ORDER = {"known_concern": 0, "structural_alert": 1,
+               "invalid": 2, "no_alert_detected": 3}
+
+
+def _step_block(step, order):
+    """One reaction step: its materials, worst first, then what it left blank."""
+    st.markdown(f"**{order}단계**")
+    materials = step["materials"]
+    if not materials:
+        st.caption("기재된 비목표 물질이 없습니다")
+    for material in sorted(materials, key=lambda item: _CARD_ORDER[item["status"]]):
+        material_card(material, f"{order}단계")
+    show_step_unknowns(step)
 
 
 def show_route_risk(workspace):
+    """The whole route on one screen, step by step.
+
+    Each step used to need a selector of its own, which asked the reader to
+    page through a route three reactions long to see whether any of it was a
+    problem. The counts are the route's, so the answer is at the top.
+    """
     route = next(item for item in workspace["report"]["routes"] if item["id"] == workspace["route_id"])
-    step = next(item for item in route["steps"] if item["id"] == workspace["step_id"])
     decision = next(item for item in workspace["selection"]["routes"] if item["id"] == route["id"])
     number = route_number(workspace, route["id"])
     ui_kit.use()
-    st.subheader(f"경로 {number} · 단계 {step['id']}")
+    st.subheader(f"경로 {number}")
     verdict = ROUTE_STATUS[decision["status"]]
     st.markdown(ui_kit.chip(verdict, ROUTE_KINDS[decision["status"]],
                             hint=GLOSSARY.get(verdict)), unsafe_allow_html=True)
-    # The step's own numbers, above the cards rather than inside them. The
-    # route planners put their route metrics on the route for the same reason:
-    # the reader wants the shape of the step before the detail of one material.
-    materials = step["materials"]
+    materials = [item for step in route["steps"] for item in step["materials"]]
     concern = sum(item["status"] in ("known_concern", "structural_alert")
                   for item in materials)
     unreadable = sum(item["status"] == "invalid" for item in materials)
     ui_kit.metric_row([
-        ("물질", len(materials), "이 단계에 기재된 비목표 물질 수입니다. "
+        ("단계", len(route["steps"]), "이 경로를 이루는 반응 수입니다."),
+        ("물질", len(materials), "이 경로에 기재된 비목표 물질 수입니다. "
                                "목표물 자체는 세지 않습니다."),
-        ("우려", concern, "ICH M7 목록에 있거나 위험 구조가 걸린 물질 수입니다."),
+        ("우려", concern, "ICH M7 목록에 있거나 경고구조가 걸린 물질 수입니다."),
         ("못 읽음", unreadable, "SMILES를 분자로 읽지 못한 물질 수입니다. "
                               "신호가 없다는 뜻이 아니라 검사를 못 한 것입니다."),
-        ("빈 칸", len(step["missing_information"]),
-         "판정에 필요한데 경로 자료에 비어 있는 항목 수입니다."),
     ])
     if unreadable:
         st.caption("구조를 읽지 못한 물질이 있습니다. 신호가 없다는 뜻이 아니라 "
                    "검사를 하지 못했다는 뜻입니다.")
-    priority = {"known_concern": 0, "structural_alert": 1, "invalid": 2, "no_alert_detected": 3}
-    for material in sorted(materials, key=lambda item: priority[item["status"]]):
-        material_card(material, f"단계 {step['id']}")
-    if not materials:
-        st.info("검사할 물질이 없습니다")
-    show_step_unknowns(step)
-    with st.expander("사유·입력 그래프·원문"):
+    for order, step in enumerate(route["steps"], 1):
+        _step_block(step, order)
+    with st.expander("판정 사유와 원문"):
         show_reasons(decision)
         source = next(item for item in workspace["active_input"]["routes"] if item["id"] == route["id"])
         st.graphviz_chart(route_dot(source))
-        st.caption("입력된 반응물 → 반응 → 생성물만 연결합니다")
+        st.caption("보고서에 적힌 반응물과 생성물만 잇습니다")
         st.json(source, expanded=False)
 
 
 def show_model_review(workspace):
-    with st.expander("AMES 모델 검토"):
+    with st.expander("변이원성 모델 검토"):
         state = context.model_evidence_status(workspace)
-        st.caption("현재 모델 근거: " + state["status"])
+        st.caption("모델 상태: " + state["status"])
         if state["error"]:
             st.warning(state["error"])
         show_route_ames_review(workspace["report"], report_generation=workspace["report_generation"],
@@ -353,7 +370,7 @@ def show_material_risk(raw_target, target_error):
         st.session_state.pop("material_inspection", None)
         saved = None
     if saved and st.session_state.get("inspection_mode") == "material":
-        st.caption("목표물 자체의 독립 검사")
+        st.caption("목표물 하나만 검사한 결과입니다")
         if saved["error"]:
             st.error(saved["error"])
         elif saved["result"] is not None:
@@ -373,6 +390,30 @@ def apply_current_byproduct_result(request_workspace, request, result):
     return context.apply_byproduct_result(current, request, result)
 
 
+def _pick_step(workspace):
+    """Which reaction to ask about. Only this tab works on one step.
+
+    A request goes to ASKCOS for one reaction, so the choice has to exist
+    somewhere. It belongs here rather than beside the route selector, where
+    it sat in front of every reader including the ones who never opened this
+    tab. A route with one reaction asks nothing.
+    """
+    route = next(item for item in workspace["report"]["routes"]
+                 if item["id"] == workspace["route_id"])
+    steps = [item["id"] for item in route["steps"]]
+    if len(steps) == 1:
+        return workspace
+    order = {value: index for index, value in enumerate(steps, 1)}
+    # Keyed on step_id itself, so the selector and the workspace cannot hold
+    # two different answers: a request that lands while the reader is on
+    # another step must be judged against the step the app is actually on.
+    chosen = st.radio("반응", steps, horizontal=True, key="step_id",
+                      format_func=lambda value: f"{order[value]}단계")
+    if chosen != workspace["step_id"]:
+        return context.select_step(workspace, workspace["route_id"], chosen)
+    return workspace
+
+
 def show_byproducts(workspace):
     """One explicit click sends this step to the public ASKCOS server.
 
@@ -381,6 +422,7 @@ def show_byproducts(workspace):
     checkbox plus button with one button removes a step without removing the
     decision, because nothing leaves the machine until the button is pressed.
     """
+    workspace = _pick_step(workspace)
     step = context.selected_step(workspace)
     owner = context.context_key(workspace)
     if st.session_state.get("_byproduct_context") != owner:
@@ -421,7 +463,7 @@ def show_byproducts(workspace):
             ("반응물", ui_kit.text(request["reactants_smiles"])),
             ("주생성물", ui_kit.text(request["product_smiles"])),
         ])
-        with st.expander("보낼 내용 원문"):
+        with st.expander("보낼 내용"):
             st.json({"rct_smi": request["reactants_smiles"],
                      "prd_smi": request["product_smiles"]})
     if st.button("ASKCOS로 보내 부산물 예측", key="byproduct_request", type="primary",
@@ -444,7 +486,7 @@ def show_byproducts(workspace):
         if any(attempt["applied"] for attempt in attempts[:-1]):
             st.caption("이전 성공은 이력에 남습니다")
         show_byproduct_candidates(workspace)
-        with st.expander("요청·응답 이력"):
+        with st.expander("요청 기록"):
             st.json(attempts, expanded=False)
     return workspace
 
