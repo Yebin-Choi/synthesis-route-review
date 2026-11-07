@@ -450,59 +450,5 @@ class SelectionPlumbingTests(unittest.TestCase):
         self.assertEqual(len({first, second, none}), 3)
 
 
-class ProviderControlTests(unittest.TestCase):
-    """The screen offers free providers and never promises a paid call for one."""
-
-    def app(self):
-        from streamlit.testing.v1 import AppTest
-
-        return AppTest.from_file(str(ROOT / "app" / "app.py"), default_timeout=180).run()
-
-    def synthex(self):
-        app = self.app()
-        app.selectbox(key="generation_engine").set_value("synthex").run()
-        self.assertEqual([str(error) for error in app.exception], [])
-        return app
-
-    def test_the_default_provider_is_free_and_prefilled(self):
-        app = self.synthex()
-        self.assertEqual(app.selectbox(key="llm_provider").value, "groq")
-        self.assertEqual(app.text_input(key="llm_base_url").value, "https://api.groq.com/openai/v1")
-        self.assertEqual(app.text_input(key="llm_model").value, "openai/gpt-oss-120b")
-        self.assertEqual(app.text_input(key="llm_api_key").value, "")
-        captions = " ".join(caption.value for caption in app.caption)
-        self.assertIn("Groq", captions)
-        self.assertNotIn("유료 호출", captions)
-        self.assertNotIn("유료", app.checkbox(key="generation_consent").label)
-
-    def test_choosing_gemini_restores_the_paid_wording_and_hides_the_endpoint(self):
-        app = self.synthex()
-        app.selectbox(key="llm_provider").set_value("gemini").run()
-        self.assertEqual([str(error) for error in app.exception], [])
-        self.assertNotIn("llm_base_url", [item.key for item in app.text_input])
-        self.assertEqual(app.text_input(key="llm_model").value, "gemini-3.1-pro-preview")
-        captions = " ".join(caption.value for caption in app.caption)
-        self.assertIn("Gemini", captions)
-        self.assertIn("유료 호출", captions)
-        self.assertIn("유료", app.checkbox(key="generation_consent").label)
-
-    def test_a_provider_without_a_verified_default_model_asks_for_one(self):
-        app = self.synthex()
-        app.selectbox(key="llm_provider").set_value("openrouter").run()
-        self.assertEqual([str(error) for error in app.exception], [])
-        self.assertEqual(app.text_input(key="llm_model").value, "")
-        self.assertTrue(app.button(key="generation_run").disabled)
-        self.assertTrue(any("모델 이름" in warning.value for warning in app.warning))
-
-    def test_switching_provider_clears_the_key_and_blocks_the_run(self):
-        app = self.synthex()
-        app.text_input(key="llm_api_key").set_value(KEY).run()
-        self.assertEqual(app.text_input(key="llm_api_key").value, KEY)
-        app.selectbox(key="llm_provider").set_value("openrouter").run()
-        self.assertEqual(app.text_input(key="llm_api_key").value, "")
-        self.assertFalse(app.session_state["generation_consent"])
-        self.assertTrue(app.button(key="generation_run").disabled)
-
-
 if __name__ == "__main__":
     unittest.main()

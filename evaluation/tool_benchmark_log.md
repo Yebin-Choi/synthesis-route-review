@@ -3131,3 +3131,34 @@ TTC를 쓰면 안 되고, 그 "한도 없음"을 화면에서 말하는 자리�
 남은 것
 - Editor가 실제로 단계를 고쳐 내는지는 LLM 호출이 필요해 확인하지 못했다.
   위 확인은 "비평이 Editor를 부르는 조건을 만든다"까지다.
+
+## 6-44. 모델 공급자 입력칸 정리
+
+SynthEx를 고르면 "API 주소"와 "모델 이름"을 빈 칸으로 물어보고, 채우지 않으면
+실행을 막고 있었다. 그런데 Groq와 Gemini는 주소와 모델이 `PROVIDERS`에 이미
+적혀 있다. 상수를 다시 받아 적으라고 요구하고 있었던 셈이다.
+
+고친 것
+- 공급자가 `PROVIDERS`에 주소나 모델을 적어 둔 경우 그 칸을 그리지 않는다.
+  Groq와 Gemini는 이제 공급자 선택과 API 키만 남는다. OpenRouter는 주소만
+  정해져 있어 모델 칸이 남고, 직접 입력은 둘 다 남는다.
+- `llm_selection`이 세션 상태 대신 `PROVIDERS`의 값을 읽는다. 칸이 그려지지
+  않는 동안 세션 값이 비는 경로가 아예 없어진다.
+- 숨기는 대신 설명에 적는다. 동의 문구 위 캡션이
+  "목표 구조를 Groq의 openai/gpt-oss-120b로 전송합니다"로 모델을 밝힌다.
+- 미완성 경고가 실제로 빈 것만 말한다. OpenRouter에서는 "모델 이름을
+  채우세요", 직접 입력에서는 "API 주소와 모델 이름을 채우세요".
+
+검사
+- `ProviderControlTests`가 `test_openai_compatible_unit.py` 안에 있었는데, 그
+  파일은 pydantic이 없으면 통째로 건너뛴다. 기본 환경에는 pydantic이 없고
+  SynthEx 런타임에는 Streamlit이 없어서 이 4개는 **어느 환경에서도 돌지
+  않고 있었다.** `test_provider_controls_unit.py`로 옮겨 기본 환경에서 돌게
+  했고, 직접 입력 공급자 검사를 하나 더해 5개가 됐다. 고친 줄을 되돌리면
+  2개가 실패하는 것을 확인했다. 전체 677개 통과.
+
+같이 발견한 것 (커밋 대상 아님)
+- `generation.local.json`의 SynthEx 설정 경로가
+  `evaluation/verification/...`를 가리키는데 파일은
+  `evaluation/runs/verification/...`에 있다. 이것 때문에 SynthEx 준비 상태가
+  계속 `assets_missing`이었다. 로컬 파일이라 저장소에 올리지 않고 고쳤다.
