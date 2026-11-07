@@ -1,0 +1,42 @@
+{
+  "tool": "Toxtree",
+  "version": "3.1.0.1851",
+  "plugin_version": "3.1.0",
+  "module": "toxtree.plugins.ames.AmesMutagenicityRules",
+  "archive_sha256": "222479c996f6d91616c135b7f433c8176139d63672bd28c1ccdad6372b3d82e8",
+  "application_jar_sha256": "1a84ef8da411fc0871362f7d8d957a9423d21744d8442a960bca8f9d9f81a728",
+  "ames_plugin_sha256": "adceabee46cf938d7282d667baec7ca7c1151c179cca6411fe6c00ac95afd5ab",
+  "input_sha256": "c76af214cfaf911369d496f4ebb2e590bf11909c8bb6c8ded786cec0280b0614",
+  "input_rows": 20,
+  "command": [
+    "java",
+    "-Xmx2048m",
+    "-Djava.awt.headless=true",
+    "-Dfile.encoding=UTF-8",
+    "-jar",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_check\\Toxtree\\Toxtree-3.1.0.1851.jar",
+    "-n",
+    "-i",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_check\\toxtree_input.csv",
+    "-o",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_check\\toxtree_raw.csv",
+    "-m",
+    "toxtree.plugins.ames.AmesMutagenicityRules"
+  ],
+  "working_directory": "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_check\\Toxtree",
+  "status": "completed",
+  "mapping": "Structural Alert YES / No alerts NO => 1; converse => 0; errors, ambiguous categories, missing records => abstain. QSAR-specific categories are retained in raw output but are not used by this structural-alert model.",
+  "limitations": "No general applicability-domain claim; applicability is unknown. A negative alert screen is not experimental proof of safety. Possible public AMES/training overlap has not been assessed.",
+  "chunk_size": 1,
+  "exception_attribution": "Batches whose Java log carries an exception are re-run one record at a time. Only records that raise on their own are withheld; a rule that crashed is never recorded as a no-alert result.",
+  "records_withheld_for_model_exception": [
+    "lou-4591"
+  ],
+  "returned_rows": 19,
+  "counts": {
+    "0": 6,
+    "1": 13,
+    "abstain": 1
+  },
+  "predictions_sha256": "5123739dac151f90d3ed3929887446e2d225ce2e9a41463c5218f2862d334fcb"
+}

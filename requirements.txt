@@ -1,0 +1,5 @@
+streamlit==1.64.0
+rdkit==2023.9.6
+requests==2.34.2
+Pillow==12.3.0
+numpy==1.26.4

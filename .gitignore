@@ -1,0 +1,92 @@
+# Machine-local tool state
+.gjc/
+.omc/state/
+.omc/sessions/
+/.claude/
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local third-party installations and model resources
+/external_tools/
+/test/models/
+# Existing separately managed upstream checkout; do not embed or rewrite it.
+/synthex/
+*.onnx
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.ckpt
+*.jar
+
+# Downloaded bulk datasets; keep acquisition scripts and small manifests
+/data/recollected/raw/
+/data/recollected/records.jsonl
+/data/recollected/condition_evidence.json
+*.parquet
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.part
+*.partial
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.pfx
+*.p12
+credentials.json
+service-account*.json
+/generation.local.json
+/pip/
+
+# Generated logs, caches and rendered previews
+*.log
+/evaluation/logs/
+~$*
+/evaluation/figures/report_layout_*.png
+/evaluation/figures/report_current_page_*.png
+/evaluation/figures/report_contact_*.png
+/evaluation/figures/*preview.pdf
+/evaluation/runs/overnight_downloads/
+/evaluation/results/combined_benchmark.json
+/evaluation/results/rules_benchmark.json
+# Generated review receipts/screenshots are evidence, not implementation inputs.
+/evaluation/runs/verification/
+.DS_Store
+Thumbs.db
+
+# Machine-local tool state, not project content.
+.omc/
+
+# Toxtree copies its whole install into every run directory and regenerates the
+# per-record scratch. Only the input, manifest and predictions are results.
+/evaluation/runs/toxtree_*/Toxtree/
+/evaluation/runs/toxtree_*/batches/
+
+# Reference papers read locally. Kept out of the repository rather than redistributed.
+/논문/
+
+# Overnight experiment logs and intermediate reports for the Ames work.
+# The measurement record in evaluation/ is what gets kept.
+/ames/results/overnight_log.txt
+
+# Enzyme-inhibition research from the earlier natural-product work. The
+# software no longer uses it; kept on disk, out of the repository.
+/천연물/
+
+# Generators for reports already submitted. They describe screens that no
+# longer exist, so running one would produce a wrong document.
+/evaluation/scripts/reports/

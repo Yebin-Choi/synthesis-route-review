@@ -1,0 +1,24 @@
+{
+  "tool": "EPA TEST",
+  "version": "5.1.2",
+  "endpoint": "Mutagenicity",
+  "method": "consensus",
+  "install": "C:\\Users\\hahab\\AppData\\Local\\Programs\\TEST 5.1.2.0",
+  "input_rows": 3091,
+  "returned_rows": 3091,
+  "counts": {
+    "0": 1302,
+    "1": 1079,
+    "abstain": 710
+  },
+  "returncode": 0,
+  "dropped_columns": [
+    "Exp_Value",
+    "Exp_Result"
+  ],
+  "limitations": [
+    "Experimental columns in the tool output were not used for scoring.",
+    "EPA TEST training data may overlap public Ames collections; the independent evaluation set does not remove that overlap.",
+    "A consensus negative is a screening result, not evidence of safety."
+  ]
+}

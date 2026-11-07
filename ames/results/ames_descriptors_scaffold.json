@@ -1,0 +1,65 @@
+{
+  "question": "How few descriptors keep the score the full block gives?",
+  "grouping": "scaffold",
+  "model": "xgboost",
+  "available_descriptors": 215,
+  "selection": "ranked by model importance inside each fold training part",
+  "rows": [
+    {
+      "descriptors": 5,
+      "auc_mean": 0.7433059852049707,
+      "auc_std": 0.023306461203702694,
+      "folds_scored": 10,
+      "elapsed_s": 48.3,
+      "columns_chosen_in_every_fold": 3
+    },
+    {
+      "descriptors": 10,
+      "auc_mean": 0.7959573680060235,
+      "auc_std": 0.02322143062585009,
+      "folds_scored": 10,
+      "elapsed_s": 47.2,
+      "columns_chosen_in_every_fold": 4
+    },
+    {
+      "descriptors": 20,
+      "auc_mean": 0.8520656081412266,
+      "auc_std": 0.013839494766330805,
+      "folds_scored": 10,
+      "elapsed_s": 48.3,
+      "columns_chosen_in_every_fold": 10
+    },
+    {
+      "descriptors": 40,
+      "auc_mean": 0.8861113530155725,
+      "auc_std": 0.007934947477535577,
+      "folds_scored": 10,
+      "elapsed_s": 57.2,
+      "columns_chosen_in_every_fold": 17
+    },
+    {
+      "descriptors": 80,
+      "auc_mean": 0.895766807078914,
+      "auc_std": 0.006670897402480373,
+      "folds_scored": 10,
+      "elapsed_s": 60.9,
+      "columns_chosen_in_every_fold": 38
+    },
+    {
+      "descriptors": 160,
+      "auc_mean": 0.8983346967973649,
+      "auc_std": 0.007000898235311093,
+      "folds_scored": 10,
+      "elapsed_s": 69.3,
+      "columns_chosen_in_every_fold": 102
+    },
+    {
+      "descriptors": 215,
+      "auc_mean": 0.8998209159047192,
+      "auc_std": 0.0070355628921235785,
+      "folds_scored": 10,
+      "elapsed_s": 73.2,
+      "columns_chosen_in_every_fold": 215
+    }
+  ]
+}

@@ -1,0 +1,1757 @@
+{
+  "schema_version": "1.0",
+  "disclaimer": "연구용 초기 선별입니다. 경보 미검출은 안전성 입증이 아니며, 부산물 후보는 실제 생성·잔류량이 아닙니다. 표시된 섭취량은 출처가 있는 참고치이며 규제 적합성 판정이 아닙니다. 현재 규칙은 제한적이며 단계 간 잔류·정제·분해 및 모든 불순물 생성 반응을 모델링하지 않습니다.",
+  "routes": [
+    {
+      "id": "aizynth-1",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 1,
+      "known_concern_count": 0,
+      "structural_alert_count": 0,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 2,
+      "material_count": 2,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 1,
+      "missing_information_count": 2,
+      "conditional_warning_count": 0,
+      "review_status": "평가 범위 내 경보 미검출 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N1CC(O)C1",
+              "canonical_smiles": "CC(C)N1CC(O)C1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "Oc1cccc2ccccc12",
+              "canonical_smiles": "Oc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N1CC(O)C1",
+              "Oc1cccc2ccccc12"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-2",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 3,
+      "known_concern_count": 1,
+      "structural_alert_count": 2,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 6,
+      "material_count": 6,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 3,
+      "missing_information_count": 6,
+      "conditional_warning_count": 0,
+      "review_status": "우려 근거 검토 필요 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N",
+              "canonical_smiles": "CC(C)N",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "canonical_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N",
+              "c1ccc2c(OCC3CO3)cccc2c1"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "materials": [
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "Oc1cccc2ccccc12",
+              "canonical_smiles": "Oc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "canonical_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "ClCC1CO1",
+              "Oc1cccc2ccccc12"
+            ],
+            "products": [
+              "c1ccc2c(OCC3CO3)cccc2c1"
+            ]
+          }
+        },
+        {
+          "id": "3",
+          "materials": [
+            {
+              "input_smiles": "C=CCCl",
+              "canonical_smiles": "C=CCCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "canonical_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "C=CCCl",
+              "O=C(OO)c1cccc(Cl)c1"
+            ],
+            "products": [
+              "ClCC1CO1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-3",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 3,
+      "known_concern_count": 1,
+      "structural_alert_count": 2,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 6,
+      "material_count": 6,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 3,
+      "missing_information_count": 6,
+      "conditional_warning_count": 0,
+      "review_status": "우려 근거 검토 필요 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "Oc1cccc2ccccc12",
+              "canonical_smiles": "Oc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC(O)CCl",
+              "canonical_smiles": "CC(C)NCC(O)CCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "Oc1cccc2ccccc12",
+              "CC(C)NCC(O)CCl"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N",
+              "canonical_smiles": "CC(C)N",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC(O)CCl",
+              "canonical_smiles": "CC(C)NCC(O)CCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N",
+              "ClCC1CO1"
+            ],
+            "products": [
+              "CC(C)NCC(O)CCl"
+            ]
+          }
+        },
+        {
+          "id": "3",
+          "materials": [
+            {
+              "input_smiles": "C=CCCl",
+              "canonical_smiles": "C=CCCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "canonical_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "C=CCCl",
+              "O=C(OO)c1cccc(Cl)c1"
+            ],
+            "products": [
+              "ClCC1CO1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-4",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 3,
+      "known_concern_count": 1,
+      "structural_alert_count": 0,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 6,
+      "material_count": 6,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 3,
+      "missing_information_count": 6,
+      "conditional_warning_count": 0,
+      "review_status": "우려 근거 검토 필요 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "c1ccc2ccccc2c1",
+              "canonical_smiles": "c1ccc2ccccc2c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC(O)CO",
+              "canonical_smiles": "CC(C)NCC(O)CO",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "c1ccc2ccccc2c1",
+              "CC(C)NCC(O)CO"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N",
+              "canonical_smiles": "CC(C)N",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "OCC1CO1",
+              "canonical_smiles": "OCC1CO1",
+              "status": "known_concern",
+              "name": "Glycidol",
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 4,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Glycidol, 4 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC(O)CO",
+              "canonical_smiles": "CC(C)NCC(O)CO",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N",
+              "OCC1CO1"
+            ],
+            "products": [
+              "CC(C)NCC(O)CO"
+            ]
+          }
+        },
+        {
+          "id": "3",
+          "materials": [
+            {
+              "input_smiles": "C=CCO",
+              "canonical_smiles": "C=CCO",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "canonical_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "OCC1CO1",
+              "canonical_smiles": "OCC1CO1",
+              "status": "known_concern",
+              "name": "Glycidol",
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 4,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Glycidol, 4 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "C=CCO",
+              "O=C(OO)c1cccc(Cl)c1"
+            ],
+            "products": [
+              "OCC1CO1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-5",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 4,
+      "known_concern_count": 1,
+      "structural_alert_count": 3,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 7,
+      "material_count": 7,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 4,
+      "missing_information_count": 8,
+      "conditional_warning_count": 0,
+      "review_status": "우려 근거 검토 필요 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "CC(C)NCC1CO1",
+              "canonical_smiles": "CC(C)NCC1CO1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "Oc1cccc2ccccc12",
+              "canonical_smiles": "Oc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)NCC1CO1",
+              "Oc1cccc2ccccc12"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "materials": [
+            {
+              "input_smiles": "CC(C)NCC(O)CCl",
+              "canonical_smiles": "CC(C)NCC(O)CCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC1CO1",
+              "canonical_smiles": "CC(C)NCC1CO1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)NCC(O)CCl"
+            ],
+            "products": [
+              "CC(C)NCC1CO1"
+            ]
+          }
+        },
+        {
+          "id": "3",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N",
+              "canonical_smiles": "CC(C)N",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)NCC(O)CCl",
+              "canonical_smiles": "CC(C)NCC(O)CCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N",
+              "ClCC1CO1"
+            ],
+            "products": [
+              "CC(C)NCC(O)CCl"
+            ]
+          }
+        },
+        {
+          "id": "4",
+          "materials": [
+            {
+              "input_smiles": "C=CCCl",
+              "canonical_smiles": "C=CCCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "canonical_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "C=CCCl",
+              "O=C(OO)c1cccc(Cl)c1"
+            ],
+            "products": [
+              "ClCC1CO1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-6",
+      "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "step_count": 4,
+      "known_concern_count": 1,
+      "structural_alert_count": 2,
+      "invalid_material_count": 0,
+      "evaluated_material_count": 7,
+      "material_count": 7,
+      "condition_coverage": 0,
+      "byproduct_coverage": 0,
+      "missing_step_count": 4,
+      "missing_information_count": 8,
+      "conditional_warning_count": 0,
+      "review_status": "우려 근거 검토 필요 · 미평가 정보 있음",
+      "steps": [
+        {
+          "id": "1",
+          "materials": [
+            {
+              "input_smiles": "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12",
+              "canonical_smiles": "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12"
+            ],
+            "products": [
+              "CC(C)NCC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "2",
+          "materials": [
+            {
+              "input_smiles": "CC(C)NCc1ccccc1",
+              "canonical_smiles": "CC(C)NCc1ccccc1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "canonical_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12",
+              "canonical_smiles": "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "CC(C)NCc1ccccc1",
+              "c1ccc2c(OCC3CO3)cccc2c1"
+            ],
+            "products": [
+              "CC(C)N(Cc1ccccc1)CC(O)COc1cccc2ccccc12"
+            ]
+          }
+        },
+        {
+          "id": "3",
+          "materials": [
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "Oc1cccc2ccccc12",
+              "canonical_smiles": "Oc1cccc2ccccc12",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "canonical_smiles": "c1ccc2c(OCC3CO3)cccc2c1",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Epoxide"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "ClCC1CO1",
+              "Oc1cccc2ccccc12"
+            ],
+            "products": [
+              "c1ccc2c(OCC3CO3)cccc2c1"
+            ]
+          }
+        },
+        {
+          "id": "4",
+          "materials": [
+            {
+              "input_smiles": "C=CCCl",
+              "canonical_smiles": "C=CCCl",
+              "status": "structural_alert",
+              "name": null,
+              "alerts": [
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "Custom structural alert only; no numerical intake or automatic TTC assigned. Expert assessment and supporting data are required.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "canonical_smiles": "O=C(OO)c1cccc(Cl)c1",
+              "status": "no_alert_detected",
+              "name": null,
+              "alerts": [],
+              "special_concern": false,
+              "intake_ug_day": null,
+              "intake_basis": "No custom alert detected; no intake established. Not evidence of safety or Class 5.",
+              "source_url": null,
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted."
+              ],
+              "role": "reactants",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            },
+            {
+              "input_smiles": "ClCC1CO1",
+              "canonical_smiles": "ClCC1CO1",
+              "status": "known_concern",
+              "name": "Epichlorohydrin",
+              "alerts": [
+                "Epoxide",
+                "Alkyl halide (Cl/Br/I)"
+              ],
+              "special_concern": false,
+              "intake_ug_day": 3,
+              "intake_basis": "ICH M7(R2) Addendum summary table: Epichlorohydrin, 3 µg/day; lifetime oral impurity reference only.",
+              "source_url": "https://www.fda.gov/media/170459/download#page=18",
+              "limitations": [
+                "Research screening only: not an ICH M7 classification, safety determination, regulatory approval, or impurity control strategy.",
+                "Custom sparse SMARTS are not a validated mutagenicity model or two complementary (Q)SAR methodologies; false positives and false negatives are possible.",
+                "No alert detected does not mean safe or Class 5; other toxicities are not assessed.",
+                "Atom maps are cleared and canonicalization preserves stereochemistry and charge. Canonicalization alone cannot establish salt, protonation, tautomer, isotope or stereoisomer equivalence; these forms are not merged or neutralized.",
+                "Special-concern coverage is incomplete, including aflatoxin-like substances; absence of a detected motif cannot exclude special concern.",
+                "No residual concentration, actual exposure, purge, yield or cost is predicted.",
+                "This lifetime oral impurity reference is not an API dose, measured residual limit or regulatory compliance decision. Identity, route, duration and applicability require expert validation; no less-than-lifetime adjustment is made."
+              ],
+              "role": "products",
+              "origin": "물질별 출처 미지정",
+              "evidence_status": "unknown",
+              "route_source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+              "formation_kind": "unknown"
+            }
+          ],
+          "conditional_warnings": [],
+          "missing_information": [
+            "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "부산물 평가 미실행"
+          ],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          },
+          "reaction_structures": {
+            "reactants": [
+              "C=CCCl",
+              "O=C(OO)c1cccc(Cl)c1"
+            ],
+            "products": [
+              "ClCC1CO1"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "comparison_note": "입력 순서를 유지합니다. 우려 물질 수만으로 안전 순위를 정하지 않습니다. 조건 커버리지는 observed 표기 단계 비율, 부산물 커버리지는 호출/평가 완료 단계 비율이며 정확도·검출률이 아닙니다. 목표물 자체는 정확히 일치하는 구조만 불순물 집계에서 제외합니다."
+}

@@ -1,0 +1,62 @@
+{
+  "tests_run": 402,
+  "passed": true,
+  "scope": "인수 후 전체 단위·AppTest 회귀 402개와 최종 투입량 화면 집중 회귀 17개. 전체 실행 중 투입량 안내 문구와 해당 테스트가 변경되어, 변경 종료 후 해당 17개를 별도로 확인했다. 단일 고정 스냅샷의 전체 회귀는 아니며 두 실행 수를 합산하지 않는다. 화학적 성능·안전성 검증은 아니다.",
+  "browser_checked": true,
+  "browser_status": "Gen4에서 물질 검사 탭을 거쳐 처음 화면으로 돌아온 뒤 example-known-concern 선택기와 예외 0건을 확인했다. 이전 15구조 성공·정책 메타데이터 재사용·6경로/15평가 내보내기·예시 변경 시 이전 추론 숨김은 변경되지 않은 계약의 기존 근거로 유지한다. 해당 UUID는 f8c3a397-4b77-435e-b935-5b868d57bc99이며 Gen4 모델 재실행은 하지 않았다. 이전 데스크톱 1440px·모바일 390px 관찰도 별도 실행 범위다. 실제 서버 장애 주입은 하지 않았다.",
+  "browser_artifacts": ["evaluation/verification/gen4_tab_recovery.json", "evaluation/verification/gen4_tab_recovery.png", "evaluation/verification/refined_browser_automation.json", "evaluation/verification/route_ames_review.json", "evaluation/verification/refined_ui_before_policy.json", "evaluation/verification/refined_ui_policy_reuse.json", "evaluation/verification/refined_ui_switch.json", "evaluation/verification/refined_accessibility.json", "evaluation/verification/refined_desktop.png", "evaluation/verification/refined_mobile.png"],
+  "command": "C:/Users/hahab/miniconda3/envs/aizynth-env/python.exe -B -m unittest discover -s test -p *_unit.py",
+  "test_output_ref": "evaluation/verification/handoff_regression.json",
+  "test_duration_seconds": 93.432,
+  "test_recorded_at_utc": "2026-11-02T07:45:10.446419+00:00",
+  "latest_change_verification": "조건·투입량 화면의 간결한 한국어 문구를 검토했다. 단일 반응 입력값이 저장 경로에는 적용되지 않는다는 안내를 명확히 하고 회귀 단언을 추가했다. 전체 402개가 93.432초에 통과했으나 실행 중 이 두 파일이 바뀌었으므로, 변경 종료 후 투입량 화면 17개를 5.862초에 다시 확인했다. 계산·상태·내보내기 변경이나 모델 재실행은 없으며 새 브라우저 확인을 주장하지 않는다.",
+  "warnings": "RDKit 무효 입력 진단, Streamlit bare-context 경고, 의존성 폐기 예정 경고를 handoff_regression.log에 그대로 남겼다. 경고를 억제한 결과가 아니다.",
+  "post_change_focused_run": {
+    "tests_run": 17,
+    "passed": true,
+    "duration_seconds": 5.862,
+    "command": "C:/Users/hahab/miniconda3/envs/aizynth-env/python.exe -B -m unittest discover -s test -p test_material_balance_view_unit.py",
+    "output_ref": "evaluation/verification/handoff_material_balance.log"
+  },
+  "duplicate_widget_initialization_warning": false,
+  "historical_runs": [
+    {
+      "tests_run": 402,
+      "passed": true,
+      "test_duration_seconds": 50.79,
+      "test_output_ref": "evaluation/verification/gen4_regression.json",
+      "scope": "인수 전 Gen4 전체 회귀. 이후 조건·투입량 문구와 문서 변경은 포함하지 않는다."
+    },
+    {
+      "date": "2026-11-02",
+      "tests_run": 401,
+      "passed": true,
+      "test_duration_seconds": 123.419,
+      "test_output_ref": "artifact://856",
+      "scope": "최종 CSS 보정 전 전체 단위·AppTest 회귀. 경로 잔상 수정·실제 SynthEx 렌더링/가져오기 계약을 포함한다. Gen4 결과가 아니다.",
+      "receipt": "evaluation/verification/gen2_parent_regression_receipt.json"
+    },
+    {
+      "date": "2026-11-02",
+      "tests_run": 32,
+      "passed": true,
+      "test_duration_seconds": 69.910,
+      "test_output_ref": "artifact://863",
+      "scope": "이후 CSS 보정을 확인한 UI 집중 회귀. 당시 중복 위젯 초기화 경고는 남아 있었다. 별도 실행이며 전체 회귀 수와 합산하지 않는다.",
+      "receipt": "evaluation/verification/gen2_parent_regression_receipt.json"
+    }
+  ],
+  "code_delta_review": {
+    "generation": 4,
+    "sourceHash": "sha256:0d95c192982249c7ee49bb8a3d2ddbbca52c8756bcc5305c27c0fa9d116b4afb",
+    "native_hash_ref": "artifact://1066",
+    "architect": "CLEAR / APPROVE",
+    "cleaner": "PASS",
+    "red_team": "PASS",
+    "review_refs": ["agent://33-BaselineArchitecture", "agent://34-BaselineCleaner", "agent://35-BaselineRedTeam"],
+    "scope": "Gen4 선택기 복구 코드 변경분만 승인했다. 이 명세·보고서 갱신본, 전체 완료, 새 배포를 승인한 결과가 아니다."
+  },
+  "workflow_completion": "전체 완료는 미선언이다. Gen4 코드 변경분 승인은 이후 문구·문서 변경을 포함하지 않는다. 새 세션의 네이티브 목표 상태는 비어 있으며 기존 G005–G007을 완료 처리하지 않았다. 이전 세션의 공식 최종 검토·종료는 남아 있다. 다운로드판·무료 웹 시연판 제공 결정은 보존하되 공개 대상·권리·구현 범위 승인 전 배포·업로드는 하지 않았다.",
+  "word_status": "빌드 후 렌더링·관찰 결과는 evaluation/verification/handoff_report_receipt.json의 DOCX 해시와 관찰 범위로 확인한다. 빌더 실행 자체를 시각 검증으로 간주하지 않는다. refined_report_receipt.json은 이전 빌드의 기록이다.",
+  "pilot_source_boundary": "Actual VEGA pilot was executed before the subsequent atomic checkpoint-write repair. Original manifest and results retain their actual source hashes; 384-test regression includes the later repair and eight persistence-failure regressions. No model rerun is claimed."
+}

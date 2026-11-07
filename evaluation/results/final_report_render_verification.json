@@ -1,0 +1,12 @@
+{
+  "verified_at_utc": "2026-11-02T02:18:29.728265+00:00",
+  "pages": 16,
+  "native_word_rendered": true,
+  "visual_scope": "Final edition page2 inspected after all16pages re-rendered; prior edition all16pages contact sheets inspected. Not a claim of full-resolution inspection of every final page.",
+  "sha256": {
+    "학술제_진행현황_및_후속실험_2026-10-29.docx": "2f4d419fa5215ea50ea7b50538353bc768f27a21ea6b10182e4a805baa809ff6",
+    "evaluation\\progress_report_current_preview.pdf": "62858de76e8d5920fa7f55bb0a3e8c3ee33b5d4704f29c13df93baf601030fda",
+    "evaluation\\build_progress_docx.py": "7f2d0912fa1da140fc2cce32c61197443b874ebff00d548c9a63f805de55edaf"
+  },
+  "not_authoritative_workflow_source_hash": true
+}

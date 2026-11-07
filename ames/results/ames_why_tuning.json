@@ -1,0 +1,79 @@
+{
+  "question": "Does choosing hyperparameters honestly beat the settings already in use?",
+  "grouping": "scaffold",
+  "features": "rdkit_fp_2048+descriptors_all",
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "rows": [
+    {
+      "model": "xgboost",
+      "baseline_auc": 0.9018319451738466,
+      "nested_auc_mean": 0.9060068712518567,
+      "nested_auc_std": 0.006881191171339641,
+      "difference": 0.004174926078010177,
+      "settings_chosen_per_fold": [
+        {
+          "learning_rate": "0.03",
+          "max_depth": "8",
+          "n_estimators": "800"
+        },
+        {
+          "learning_rate": "0.03",
+          "max_depth": "8",
+          "n_estimators": "800"
+        },
+        {
+          "learning_rate": "0.03",
+          "max_depth": "8",
+          "n_estimators": "800"
+        },
+        {
+          "learning_rate": "0.03",
+          "max_depth": "8",
+          "n_estimators": "800"
+        },
+        {
+          "learning_rate": "0.03",
+          "max_depth": "8",
+          "n_estimators": "800"
+        }
+      ],
+      "elapsed_s": 2769.3
+    },
+    {
+      "model": "random_forest",
+      "baseline_auc": 0.8910800950777755,
+      "nested_auc_mean": 0.8975344308782095,
+      "nested_auc_std": 0.007708632364653788,
+      "difference": 0.006454335800433975,
+      "settings_chosen_per_fold": [
+        {
+          "max_features": "0.1",
+          "min_samples_leaf": "1",
+          "n_estimators": "1000"
+        },
+        {
+          "max_features": "0.1",
+          "min_samples_leaf": "1",
+          "n_estimators": "1000"
+        },
+        {
+          "max_features": "0.1",
+          "min_samples_leaf": "1",
+          "n_estimators": "1000"
+        },
+        {
+          "max_features": "0.1",
+          "min_samples_leaf": "1",
+          "n_estimators": "1000"
+        },
+        {
+          "max_features": "0.1",
+          "min_samples_leaf": "1",
+          "n_estimators": "1000"
+        }
+      ],
+      "elapsed_s": 3409.7
+    }
+  ]
+}

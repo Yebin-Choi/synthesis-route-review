@@ -1,0 +1,2 @@
+# Additional dependency for build_recollected_kb.py in the existing RDKit app environment.
+openpyxl==3.1.5

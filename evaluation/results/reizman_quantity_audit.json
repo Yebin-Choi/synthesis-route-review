@@ -1,0 +1,283 @@
+{
+  "rows": 96,
+  "loading_mol_pct_min": 0.496,
+  "loading_mol_pct_max": 2.515,
+  "matched_condition_groups_with_loading_span_at_least_0_5_mol_pct": [
+    {
+      "catalyst": "P2-L1",
+      "time_s": 600.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 0.496,
+          "reported_yield": 4.3
+        },
+        {
+          "loading_mol_pct": 1.131,
+          "reported_yield": 17.0
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L4",
+      "time_s": 600.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 0.512,
+          "reported_yield": 43.4
+        },
+        {
+          "loading_mol_pct": 1.106,
+          "reported_yield": 91.3
+        },
+        {
+          "loading_mol_pct": 1.268,
+          "reported_yield": 91.8
+        },
+        {
+          "loading_mol_pct": 2.508,
+          "reported_yield": 82.1
+        },
+        {
+          "loading_mol_pct": 2.508,
+          "reported_yield": 80.0
+        },
+        {
+          "loading_mol_pct": 1.16,
+          "reported_yield": 75.5
+        },
+        {
+          "loading_mol_pct": 1.16,
+          "reported_yield": 82.7
+        },
+        {
+          "loading_mol_pct": 1.106,
+          "reported_yield": 72.2
+        },
+        {
+          "loading_mol_pct": 1.106,
+          "reported_yield": 92.8
+        },
+        {
+          "loading_mol_pct": 1.187,
+          "reported_yield": 72.1
+        },
+        {
+          "loading_mol_pct": 1.106,
+          "reported_yield": 80.7
+        },
+        {
+          "loading_mol_pct": 1.241,
+          "reported_yield": 87.5
+        },
+        {
+          "loading_mol_pct": 1.268,
+          "reported_yield": 80.2
+        },
+        {
+          "loading_mol_pct": 1.187,
+          "reported_yield": 78.1
+        },
+        {
+          "loading_mol_pct": 1.268,
+          "reported_yield": 83.1
+        },
+        {
+          "loading_mol_pct": 1.241,
+          "reported_yield": 76.9
+        },
+        {
+          "loading_mol_pct": 1.025,
+          "reported_yield": 75.0
+        },
+        {
+          "loading_mol_pct": 1.079,
+          "reported_yield": 87.6
+        },
+        {
+          "loading_mol_pct": 1.133,
+          "reported_yield": 75.9
+        },
+        {
+          "loading_mol_pct": 1.106,
+          "reported_yield": 78.7
+        },
+        {
+          "loading_mol_pct": 1.052,
+          "reported_yield": 68.7
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L6",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 0.498,
+          "reported_yield": 0.6
+        },
+        {
+          "loading_mol_pct": 2.515,
+          "reported_yield": 8.5
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L1",
+      "time_s": 600.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.509,
+          "reported_yield": 60.2
+        },
+        {
+          "loading_mol_pct": 2.509,
+          "reported_yield": 68.6
+        },
+        {
+          "loading_mol_pct": 0.971,
+          "reported_yield": 41.4
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L7",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.499,
+          "reported_yield": 84.6
+        },
+        {
+          "loading_mol_pct": 2.499,
+          "reported_yield": 85.4
+        },
+        {
+          "loading_mol_pct": 0.506,
+          "reported_yield": 0.6
+        },
+        {
+          "loading_mol_pct": 2.303,
+          "reported_yield": 80.7
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L2",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 0.508,
+          "reported_yield": 8.5
+        },
+        {
+          "loading_mol_pct": 2.513,
+          "reported_yield": 41.9
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L3",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.489,
+          "reported_yield": 54.4
+        },
+        {
+          "loading_mol_pct": 2.489,
+          "reported_yield": 77.5
+        },
+        {
+          "loading_mol_pct": 0.498,
+          "reported_yield": 21.7
+        },
+        {
+          "loading_mol_pct": 2.323,
+          "reported_yield": 64.4
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L7",
+      "time_s": 600.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.499,
+          "reported_yield": 75.0
+        },
+        {
+          "loading_mol_pct": 0.814,
+          "reported_yield": 38.0
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L5",
+      "time_s": 600.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.512,
+          "reported_yield": 47.6
+        },
+        {
+          "loading_mol_pct": 0.957,
+          "reported_yield": 38.8
+        },
+        {
+          "loading_mol_pct": 2.512,
+          "reported_yield": 42.0
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L4",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 0.512,
+          "reported_yield": 10.3
+        },
+        {
+          "loading_mol_pct": 0.512,
+          "reported_yield": 8.7
+        },
+        {
+          "loading_mol_pct": 1.915,
+          "reported_yield": 65.7
+        }
+      ]
+    },
+    {
+      "catalyst": "P1-L1",
+      "time_s": 60.0,
+      "temperature_c": 110.0,
+      "observations": [
+        {
+          "loading_mol_pct": 2.266,
+          "reported_yield": 83.9
+        },
+        {
+          "loading_mol_pct": 0.513,
+          "reported_yield": 20.5
+        }
+      ]
+    }
+  ],
+  "has_byproduct_identity_or_quantity_columns": false,
+  "limitations": [
+    "Publicly distributed experimental rows, not emulator generated samples.",
+    "Loading/yield association is not a mutagenicity or byproduct-quantity measurement.",
+    "Matched here means same reported catalyst,time,temperature only; remaining conditions and analytical basis need original supplementary information.",
+    "Reported yield is not validated isolated yield for mass-balance use."
+  ]
+}

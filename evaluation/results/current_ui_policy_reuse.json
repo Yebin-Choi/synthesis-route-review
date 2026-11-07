@@ -1,0 +1,6 @@
+{
+  "provenance": "keyboard_arrow_right\n\n모델 버전·가중치 SHA-256·보고서 식별 근거\n\n{\n\"evaluation_id\":\"1682ed75-3303-4368-a90a-75487a702ff7\"\n\"completed_at_utc\":\"2026-11-02T01:47:01.297532+00:00\"\n\"report_sha256\":\"b88c74422423e640f1cc3b6c4f1480867199106e9448e0338b97464f478c3982\"\n\"source\":\"local_ADMET-AI_model_inference\"\n\"model\":{...}\n\"threshold\":0.5\n}",
+  "baseline": "선별: 제외 5 · 검토 필요 0 · 정보 부족 1 · 평가 범위 내 후보 0",
+  "success": true,
+  "errors": 0
+}

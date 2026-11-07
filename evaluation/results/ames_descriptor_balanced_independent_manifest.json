@@ -1,0 +1,31 @@
+{
+  "input": "C:\\Users\\hahab\\학술제\\evaluation\\results\\ames_independent.csv",
+  "structures": 3091,
+  "threshold": 0.5,
+  "predictions": {
+    "1": 1390,
+    "0": 1701,
+    "abstain": 0
+  },
+  "structures_the_model_had_already_seen": 1890,
+  "share_already_seen": 0.6114526043351666,
+  "model_spec": {
+    "features": "descriptors_all",
+    "columns": 215,
+    "grouped_cv_auc": 0.8999,
+    "fitted_on": {
+      "splits": [
+        "train",
+        "validation"
+      ],
+      "structures": 19963,
+      "active_fraction": 0.3022591794820418
+    }
+  },
+  "notes": [
+    "Overlap is an exact canonical-structure match against the shared collection this model was fitted and selected on.",
+    "Rows flagged as overlapping must be dropped before this model is compared with tools that never saw them.",
+    "A structure the model could not read is an abstention, not a negative prediction.",
+    "Every column of this model has a name, so a prediction can be described. That is why it exists beside the fingerprint model."
+  ]
+}

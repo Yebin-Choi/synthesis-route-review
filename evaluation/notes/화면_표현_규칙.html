@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>화면 표현 규칙</title>
+<style>
+ body { margin:0; font-family:"Malgun Gothic",-apple-system,sans-serif; }
+ section.theme { padding:24px 32px; }
+ section.theme:first-of-type { background:#0b1422; color:#f1f5f9;
+   --review-panel:#162337; --review-muted:#cbd5e1; --review-accent:#7dd3fc; }
+ section.theme:last-of-type { background:#ffffff; color:#172033;
+   --review-panel:#f1f5f9; --review-muted:#475569; --review-accent:#175b91; }
+ h1 { font-size:20px; }
+ h2 { font-size:15px; margin:22px 0 6px; font-weight:600; opacity:0.75; }
+ p.why { font-size:13px; opacity:0.72; max-width:48rem; margin:4px 0; }
+</style></head><body><section class="theme"><style>
+    :root { --review-bg:#0b1422; --review-panel:#162337; --review-text:#f1f5f9; --review-muted:#cbd5e1; --review-accent:#7dd3fc; }
+    html,body,input,textarea,button,select {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;}
+    [data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stHeader"] {background:#0b1422;color:#f1f5f9;}
+    [data-testid="stMainBlockContainer"] {max-width:min(100%,calc(50vw + 620px));padding:4.5rem 24px 32px;}
+    [data-testid="stVerticalBlock"] {gap:10px;}
+    [data-testid="stMarkdownContainer"], [data-testid="stWidgetLabel"], [data-testid="stCaptionContainer"],
+    [data-testid="stExpander"] summary, [role="tab"], label, input, textarea, button {color:#f1f5f9;}
+    [data-testid="stExpander"] summary,
+    [data-testid="stExpander"] summary:hover,
+    [data-testid="stExpander"] summary:focus,
+    [data-testid="stExpander"] summary:focus-visible,
+    [data-testid="stExpander"] summary:focus-within,
+    [data-testid="stExpander"] details[open] > summary {background:#162337!important;color:#f1f5f9!important;}
+    [data-testid="stExpander"] summary :is(p,span,svg) {color:#f1f5f9!important;}
+    [data-testid="stText"], [data-testid="stText"] pre, [data-testid="stText"] span {background:#0b1422!important;color:#f1f5f9!important;font-size:17px!important;line-height:1.5!important;white-space:pre-wrap;overflow-wrap:anywhere;}
+    [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li,
+    [data-testid="stWidgetLabel"] p, input, textarea, button p, [role="tab"] p {font-size:17px!important;line-height:1.5!important;}
+    [data-testid="stCaptionContainer"] {opacity:1!important;}
+    [data-testid="stCaptionContainer"] p {font-size:16px;line-height:1.5;color:#cbd5e1;}
+    h1 {font-size:28px!important;padding:0!important;} h2,h3 {font-size:21px!important;}
+    input, textarea, [data-testid="stSelectbox"] [role="group"], [data-testid="stSelectbox"] button,
+    [role="listbox"], [role="option"] {background:#162337!important;color:#f1f5f9!important;}
+    [role="option"] {font-size:17px!important;min-height:48px;}
+    button, input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    [data-testid="stSelectbox"] [role="group"], [data-testid="stExpander"] summary,
+    [data-testid="stCheckbox"] label, [data-testid="stRadio"] label {min-height:48px!important;}
+    button {min-width:48px!important;border-radius:10px!important;padding:0 20px!important;}
+    .review-term {display:inline-flex;align-items:center;justify-content:center;
+      width:16px;height:16px;margin-left:4px;border:1px solid #cbd5e1;border-radius:50%;
+      background:transparent;color:#cbd5e1;font-size:11px;line-height:1;font-weight:600;
+      vertical-align:middle;cursor:help;user-select:none;}
+    [data-testid="stTooltipHoverTarget"] button {color:#f1f5f9!important;}
+    button, [data-testid="stExpander"] {border-color:#94a3b8!important;}
+    [data-testid="stBaseButton-secondary"], [data-testid="stBaseButton-secondaryFormSubmit"] {background:#162337!important;color:#f1f5f9!important;}
+    [data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"] {background:#175b91!important;color:#fff!important;}
+    [data-testid="stBaseButton-primary"] p, [data-testid="stBaseButton-primaryFormSubmit"] p {color:#fff;}
+    a, [role="tab"][aria-selected="true"] {color:#7dd3fc;}
+    .react-aria-SelectionIndicator {background:#7dd3fc!important;}
+    [data-testid="stCheckbox"] label:has(input:checked):not(:has(input:disabled)) > div:first-of-type,
+    [data-testid="stRadioOption"]:has(input:checked):not(:has(input:disabled)) > div > div:first-child {background:#4a90b8!important;border-color:#4a90b8!important;}
+    [data-testid="stMain"] :is(button,input,textarea,a,summary,[role="tab"]):focus-visible {outline:3px solid #7dd3fc!important;outline-offset:2px;}
+    [data-testid="stSelectbox"]:focus-within, [data-testid="stRadio"] label:focus-within {outline:3px solid #7dd3fc;outline-offset:2px;}
+    [role="tablist"] {overflow-x:auto;} [role="tab"] {min-height:48px;flex-shrink:0;}
+    [data-testid="stCode"] pre {white-space:pre-wrap;overflow-wrap:anywhere;background:#162337!important;color:#f1f5f9!important;}
+    [data-testid="stAlert"] {background:#162337!important;border:1px solid #94a3b8;}
+    [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
+    @media(max-width:760px) {[data-testid="stMainBlockContainer"] {padding:4.5rem 12px 24px;}}
+    </style><style>
+.uk-chip { display:inline-block; border-radius:999px; padding:0.08rem 0.5rem;
+  font-size:0.78rem; font-weight:600; white-space:nowrap; }
+.uk-pos { background:#fde2e2; color:#8c1c1c; }
+.uk-neg { background:#ddf2e4; color:#14532d; }
+.uk-warn { background:#fdf0d5; color:#7c4a03; }
+.uk-abs { background:#e8eaee; color:#475569; }
+.uk-none { background:transparent; color:var(--review-muted,#64748b); }
+.uk-aside { color:var(--review-muted,#64748b); font-size:0.74rem;
+  margin-left:0.25rem; }
+.uk-hint { display:inline-flex; align-items:center; justify-content:center;
+  width:15px; height:15px; margin-left:4px; border:1px solid var(--review-muted,#94a3b8);
+  border-radius:50%; color:var(--review-muted,#64748b); font-size:10px;
+  line-height:1; font-weight:600; vertical-align:middle; cursor:help;
+  user-select:none; }
+.uk-note { display:block; color:var(--review-muted,#64748b);
+  font-size:0.72rem; margin-top:0.15rem; max-width:19rem; }
+.uk-facts { display:grid; grid-template-columns:auto 1fr; gap:0.18rem 0.9rem;
+  margin:0.2rem 0 0.5rem; font-size:0.84rem; }
+.uk-facts dt { color:var(--review-muted,#64748b); white-space:nowrap; }
+.uk-facts dd { margin:0; overflow-wrap:anywhere; }
+.uk-wrap { overflow-x:auto; }
+.uk-table { border-collapse:collapse; width:100%; font-size:0.86rem; }
+.uk-table th, .uk-table td {
+  border-bottom:1px solid var(--review-panel,#e2e8f0);
+  padding:0.42rem 0.55rem; text-align:left; vertical-align:top; }
+.uk-table th { font-weight:600; color:var(--review-muted,#475569);
+  white-space:nowrap; border-bottom-width:2px; }
+.uk-table td.uk-mono { font-family:ui-monospace,Consolas,monospace;
+  font-size:0.78rem; word-break:break-all; max-width:22rem; }
+.uk-table tr.uk-mark td { background:color-mix(in srgb,
+  var(--review-accent,#175b91) 7%, transparent); }
+</style><h1>어두운 화면</h1>
+    <h2>판정 어휘</h2>
+    <p><span class="uk-chip uk-pos">양성</span>  <span class="uk-chip uk-neg">음성</span>  <span class="uk-chip uk-neg">경보 없음</span>  <span class="uk-chip uk-abs">판정 보류</span>  <span class="uk-chip uk-abs">적용 범위 밖</span>  <span class="uk-chip uk-none">실행 안 됨</span></p>
+    <p class="why">색만으로 뜻을 전하지 않습니다. 칩마다 낱말이 들어 있어
+    흑백으로 인쇄해도, 색을 구분하지 못하는 사람이 읽어도 뜻이 남습니다
+    (WCAG 2.1 성공기준 1.4.1).</p>
+    <p class="why">"경보 없음"은 음성이 아닙니다. 구조 경보가 걸리지 않았다는
+    뜻일 뿐입니다. "판정 보류"와 "적용 범위 밖"도 음성이 아닙니다.</p>
+    <h2>점수·이유·설명이 붙은 칩</h2>
+    <p><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.81</span>  <span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">적용 범위 밖입니다</span>  <span class="uk-chip uk-warn">전문가 검토 필요</span><span class="uk-hint" title="설명이 여기 붙습니다">?</span></p>
+    <h2>출처 기록</h2>
+    <dl class="uk-facts"><dt>판정 대상</dt><dd>Ames 변이원성</dd><dt>도구</dt><dd>ADMET-AI 2.0.1 (이 컴퓨터에서 실행)</dd><dt>판정 기준선</dt><dd>0.50 · 이 도구의 측정된 균형점</dd><dt>적용 범위 평가</dt><dd>이 검사에서는 하지 않음</dd></dl>
+    <h2>도구 비교표 (갈린 행은 바탕색으로 표시)</h2>
+    <div class="uk-wrap"><table class="uk-table"><thead><tr><th>구조</th><th>우리 모델</th><th>ADMET-AI</th><th>자체 규칙</th><th>모델 적용 범위</th></tr></thead><tbody><tr><td class="uk-mono">C1CO1</td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.93</span></td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.71</span></td><td><span class="uk-chip uk-pos">위험 구조</span><span class="uk-note">에폭사이드 고리</span></td><td><span class="uk-chip uk-neg">매우 높음</span><span class="uk-aside">0.84</span><span class="uk-note">이 구간 측정 AUC 0.965</span></td></tr><tr><td class="uk-mono">CCO</td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.04</span></td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.11</span></td><td><span class="uk-chip uk-neg">경보 없음</span></td><td><span class="uk-chip uk-neg">높음</span><span class="uk-aside">0.62</span><span class="uk-note">이 구간 측정 AUC 0.910</span></td></tr><tr class='uk-mark'><td class="uk-mono">N=Nc1ccccc1</td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.58</span></td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.22</span></td><td><span class="uk-chip uk-pos">위험 구조</span><span class="uk-note">아조기</span></td><td><span class="uk-chip uk-pos">낮음</span><span class="uk-aside">0.34</span><span class="uk-note">이 구간 측정 AUC 0.859</span></td></tr><tr><td class="uk-mono">not-a-structure</td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-none">확인 불가</span></td></tr></tbody></table></div>
+    </section><section class="theme"><style>
+    :root { --review-bg:#ffffff; --review-panel:#f1f5f9; --review-text:#172033; --review-muted:#475569; --review-accent:#175b91; }
+    html,body,input,textarea,button,select {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;}
+    [data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stHeader"] {background:#ffffff;color:#172033;}
+    [data-testid="stMainBlockContainer"] {max-width:min(100%,calc(50vw + 620px));padding:4.5rem 24px 32px;}
+    [data-testid="stVerticalBlock"] {gap:10px;}
+    [data-testid="stMarkdownContainer"], [data-testid="stWidgetLabel"], [data-testid="stCaptionContainer"],
+    [data-testid="stExpander"] summary, [role="tab"], label, input, textarea, button {color:#172033;}
+    [data-testid="stExpander"] summary,
+    [data-testid="stExpander"] summary:hover,
+    [data-testid="stExpander"] summary:focus,
+    [data-testid="stExpander"] summary:focus-visible,
+    [data-testid="stExpander"] summary:focus-within,
+    [data-testid="stExpander"] details[open] > summary {background:#f1f5f9!important;color:#172033!important;}
+    [data-testid="stExpander"] summary :is(p,span,svg) {color:#172033!important;}
+    [data-testid="stText"], [data-testid="stText"] pre, [data-testid="stText"] span {background:#ffffff!important;color:#172033!important;font-size:17px!important;line-height:1.5!important;white-space:pre-wrap;overflow-wrap:anywhere;}
+    [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li,
+    [data-testid="stWidgetLabel"] p, input, textarea, button p, [role="tab"] p {font-size:17px!important;line-height:1.5!important;}
+    [data-testid="stCaptionContainer"] {opacity:1!important;}
+    [data-testid="stCaptionContainer"] p {font-size:16px;line-height:1.5;color:#475569;}
+    h1 {font-size:28px!important;padding:0!important;} h2,h3 {font-size:21px!important;}
+    input, textarea, [data-testid="stSelectbox"] [role="group"], [data-testid="stSelectbox"] button,
+    [role="listbox"], [role="option"] {background:#f1f5f9!important;color:#172033!important;}
+    [role="option"] {font-size:17px!important;min-height:48px;}
+    button, input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    [data-testid="stSelectbox"] [role="group"], [data-testid="stExpander"] summary,
+    [data-testid="stCheckbox"] label, [data-testid="stRadio"] label {min-height:48px!important;}
+    button {min-width:48px!important;border-radius:10px!important;padding:0 20px!important;}
+    .review-term {display:inline-flex;align-items:center;justify-content:center;
+      width:16px;height:16px;margin-left:4px;border:1px solid #475569;border-radius:50%;
+      background:transparent;color:#475569;font-size:11px;line-height:1;font-weight:600;
+      vertical-align:middle;cursor:help;user-select:none;}
+    [data-testid="stTooltipHoverTarget"] button {color:#172033!important;}
+    button, [data-testid="stExpander"] {border-color:#64748b!important;}
+    [data-testid="stBaseButton-secondary"], [data-testid="stBaseButton-secondaryFormSubmit"] {background:#f1f5f9!important;color:#172033!important;}
+    [data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"] {background:#175b91!important;color:#fff!important;}
+    [data-testid="stBaseButton-primary"] p, [data-testid="stBaseButton-primaryFormSubmit"] p {color:#fff;}
+    a, [role="tab"][aria-selected="true"] {color:#175b91;}
+    .react-aria-SelectionIndicator {background:#175b91!important;}
+    [data-testid="stCheckbox"] label:has(input:checked):not(:has(input:disabled)) > div:first-of-type,
+    [data-testid="stRadioOption"]:has(input:checked):not(:has(input:disabled)) > div > div:first-child {background:#4a90b8!important;border-color:#4a90b8!important;}
+    [data-testid="stMain"] :is(button,input,textarea,a,summary,[role="tab"]):focus-visible {outline:3px solid #175b91!important;outline-offset:2px;}
+    [data-testid="stSelectbox"]:focus-within, [data-testid="stRadio"] label:focus-within {outline:3px solid #175b91;outline-offset:2px;}
+    [role="tablist"] {overflow-x:auto;} [role="tab"] {min-height:48px;flex-shrink:0;}
+    [data-testid="stCode"] pre {white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f9!important;color:#172033!important;}
+    [data-testid="stAlert"] {background:#f1f5f9!important;border:1px solid #64748b;}
+    [data-testid="stMarkdownContainer"] {overflow-wrap:anywhere;}
+    @media(max-width:760px) {[data-testid="stMainBlockContainer"] {padding:4.5rem 12px 24px;}}
+    </style><style>
+.uk-chip { display:inline-block; border-radius:999px; padding:0.08rem 0.5rem;
+  font-size:0.78rem; font-weight:600; white-space:nowrap; }
+.uk-pos { background:#fde2e2; color:#8c1c1c; }
+.uk-neg { background:#ddf2e4; color:#14532d; }
+.uk-warn { background:#fdf0d5; color:#7c4a03; }
+.uk-abs { background:#e8eaee; color:#475569; }
+.uk-none { background:transparent; color:var(--review-muted,#64748b); }
+.uk-aside { color:var(--review-muted,#64748b); font-size:0.74rem;
+  margin-left:0.25rem; }
+.uk-hint { display:inline-flex; align-items:center; justify-content:center;
+  width:15px; height:15px; margin-left:4px; border:1px solid var(--review-muted,#94a3b8);
+  border-radius:50%; color:var(--review-muted,#64748b); font-size:10px;
+  line-height:1; font-weight:600; vertical-align:middle; cursor:help;
+  user-select:none; }
+.uk-note { display:block; color:var(--review-muted,#64748b);
+  font-size:0.72rem; margin-top:0.15rem; max-width:19rem; }
+.uk-facts { display:grid; grid-template-columns:auto 1fr; gap:0.18rem 0.9rem;
+  margin:0.2rem 0 0.5rem; font-size:0.84rem; }
+.uk-facts dt { color:var(--review-muted,#64748b); white-space:nowrap; }
+.uk-facts dd { margin:0; overflow-wrap:anywhere; }
+.uk-wrap { overflow-x:auto; }
+.uk-table { border-collapse:collapse; width:100%; font-size:0.86rem; }
+.uk-table th, .uk-table td {
+  border-bottom:1px solid var(--review-panel,#e2e8f0);
+  padding:0.42rem 0.55rem; text-align:left; vertical-align:top; }
+.uk-table th { font-weight:600; color:var(--review-muted,#475569);
+  white-space:nowrap; border-bottom-width:2px; }
+.uk-table td.uk-mono { font-family:ui-monospace,Consolas,monospace;
+  font-size:0.78rem; word-break:break-all; max-width:22rem; }
+.uk-table tr.uk-mark td { background:color-mix(in srgb,
+  var(--review-accent,#175b91) 7%, transparent); }
+</style><h1>밝은 화면</h1>
+    <h2>판정 어휘</h2>
+    <p><span class="uk-chip uk-pos">양성</span>  <span class="uk-chip uk-neg">음성</span>  <span class="uk-chip uk-neg">경보 없음</span>  <span class="uk-chip uk-abs">판정 보류</span>  <span class="uk-chip uk-abs">적용 범위 밖</span>  <span class="uk-chip uk-none">실행 안 됨</span></p>
+    <p class="why">색만으로 뜻을 전하지 않습니다. 칩마다 낱말이 들어 있어
+    흑백으로 인쇄해도, 색을 구분하지 못하는 사람이 읽어도 뜻이 남습니다
+    (WCAG 2.1 성공기준 1.4.1).</p>
+    <p class="why">"경보 없음"은 음성이 아닙니다. 구조 경보가 걸리지 않았다는
+    뜻일 뿐입니다. "판정 보류"와 "적용 범위 밖"도 음성이 아닙니다.</p>
+    <h2>점수·이유·설명이 붙은 칩</h2>
+    <p><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.81</span>  <span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">적용 범위 밖입니다</span>  <span class="uk-chip uk-warn">전문가 검토 필요</span><span class="uk-hint" title="설명이 여기 붙습니다">?</span></p>
+    <h2>출처 기록</h2>
+    <dl class="uk-facts"><dt>판정 대상</dt><dd>Ames 변이원성</dd><dt>도구</dt><dd>ADMET-AI 2.0.1 (이 컴퓨터에서 실행)</dd><dt>판정 기준선</dt><dd>0.50 · 이 도구의 측정된 균형점</dd><dt>적용 범위 평가</dt><dd>이 검사에서는 하지 않음</dd></dl>
+    <h2>도구 비교표 (갈린 행은 바탕색으로 표시)</h2>
+    <div class="uk-wrap"><table class="uk-table"><thead><tr><th>구조</th><th>우리 모델</th><th>ADMET-AI</th><th>자체 규칙</th><th>모델 적용 범위</th></tr></thead><tbody><tr><td class="uk-mono">C1CO1</td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.93</span></td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.71</span></td><td><span class="uk-chip uk-pos">위험 구조</span><span class="uk-note">에폭사이드 고리</span></td><td><span class="uk-chip uk-neg">매우 높음</span><span class="uk-aside">0.84</span><span class="uk-note">이 구간 측정 AUC 0.965</span></td></tr><tr><td class="uk-mono">CCO</td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.04</span></td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.11</span></td><td><span class="uk-chip uk-neg">경보 없음</span></td><td><span class="uk-chip uk-neg">높음</span><span class="uk-aside">0.62</span><span class="uk-note">이 구간 측정 AUC 0.910</span></td></tr><tr class='uk-mark'><td class="uk-mono">N=Nc1ccccc1</td><td><span class="uk-chip uk-pos">양성</span><span class="uk-aside">0.58</span></td><td><span class="uk-chip uk-neg">음성</span><span class="uk-aside">0.22</span></td><td><span class="uk-chip uk-pos">위험 구조</span><span class="uk-note">아조기</span></td><td><span class="uk-chip uk-pos">낮음</span><span class="uk-aside">0.34</span><span class="uk-note">이 구간 측정 AUC 0.859</span></td></tr><tr><td class="uk-mono">not-a-structure</td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-abs">판정 보류</span><span class="uk-note">구조를 읽지 못했습니다</span></td><td><span class="uk-chip uk-none">확인 불가</span></td></tr></tbody></table></div>
+    </section></body></html>

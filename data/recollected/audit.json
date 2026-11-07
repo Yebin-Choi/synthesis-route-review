@@ -1,0 +1,195 @@
+{
+  "schema": "independent-condition-evidence/1",
+  "provenance": "independent_recollection_not_Jaeyun_release_restoration",
+  "sources": [
+    {
+      "id": "dreher_doyle",
+      "reaction_type": "Buchwald-Hartwig",
+      "selected_sheet": "FullCV_01",
+      "measurement_field": "Output",
+      "measurement_basis": "reported_Output_percent_basis_unverified",
+      "measurement_unit": "reported_percent",
+      "raw_only_measurement_fields": [],
+      "file": "data/recollected/raw/Dreher_and_Doyle_input_data.xlsx",
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/data/Buchwald-Hartwig/Dreher_and_Doyle_input_data.xlsx",
+      "sha256": "d7f318abfbb42eaadca482b1e9aa54540eeed60e0089b6a0eb4e75366c31ee2e",
+      "bytes": 2134762
+    },
+    {
+      "id": "suzuki_aap9112",
+      "reaction_type": "Suzuki-Miyaura",
+      "selected_sheet": "Sheet1",
+      "measurement_field": "Product_Yield_PCT_Area_UV",
+      "measurement_basis": "UV_area_percentage",
+      "measurement_unit": "UV_area_percent",
+      "raw_only_measurement_fields": [
+        "Product_Yield_Mass_Ion_Count"
+      ],
+      "file": "data/recollected/raw/aap9112_Data_File_S1.xlsx",
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/data/Suzuki-Miyaura/aap9112_Data_File_S1.xlsx",
+      "sha256": "a869e020ba31bd5676c67a4791c3b7384711b5216de6af444b8cd0a24c284640",
+      "bytes": 628918
+    }
+  ],
+  "summary": {
+    "records_retained": 9715,
+    "combinations": 840,
+    "records_quarantined": 0,
+    "sources": [
+      {
+        "source_id": "dreher_doyle",
+        "sha256": "d7f318abfbb42eaadca482b1e9aa54540eeed60e0089b6a0eb4e75366c31ee2e",
+        "selected_sheet": "FullCV_01",
+        "selected_data_rows_seen": 3955,
+        "records_retained": 3955,
+        "records_quarantined": 0,
+        "missing_primary_measurements": 0,
+        "ignored_sheets": [
+          {
+            "sheet": "FullCV_02",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_03",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_04",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_05",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_06",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_07",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_08",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_09",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "FullCV_10",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Test1",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Test2",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Test3",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Test4",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Plates1-3",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Plate2_new",
+            "worksheet_data_row_span": 3955,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          }
+        ]
+      },
+      {
+        "source_id": "suzuki_aap9112",
+        "sha256": "a869e020ba31bd5676c67a4791c3b7384711b5216de6af444b8cd0a24c284640",
+        "selected_sheet": "Sheet1",
+        "selected_data_rows_seen": 5760,
+        "records_retained": 5760,
+        "records_quarantined": 0,
+        "missing_primary_measurements": 0,
+        "ignored_sheets": [
+          {
+            "sheet": "Sheet2",
+            "worksheet_data_row_span": 0,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          },
+          {
+            "sheet": "Sheet3",
+            "worksheet_data_row_span": 0,
+            "reason": "not_selected_alternate_split_or_auxiliary_sheet"
+          }
+        ]
+      }
+    ],
+    "missing_fields": {
+      "additive.equivalents": 3955,
+      "amine_substrate": 3955,
+      "base.equivalents": 3955,
+      "catalyst": 3955,
+      "ligand.equivalents": 3955,
+      "solvent": 3955,
+      "temperature": 9715
+    },
+    "unresolved_components": {
+      "count": 33360,
+      "by_role": {
+        "catalyst": 5760,
+        "ligand": 5280,
+        "reactant_1": 5760,
+        "reactant_2": 5760,
+        "reagent": 5040,
+        "solvent": 5760
+      },
+      "count_basis": "name-only component occurrences across records, including substrate context"
+    }
+  },
+  "exclusion_reason_counts": {},
+  "exclusions": [],
+  "metric_exclusions": [],
+  "policies": {
+    "selected_sheets_only": true,
+    "raw_files_modified": false,
+    "invalid_structures_and_invalid_numeric_rows": "quarantine_entire_row_without_repair_or_clamping",
+    "missing_primary_measurement": "retain_record_exclude_from_numeric_statistics",
+    "explicit_None_ligand_or_reagent": "absent_not_missing; retain_source_quantities_unchanged",
+    "grouping": "source + reaction_type + measurement_basis/field/unit + whole_condition_tuple_including_amounts",
+    "missing_field_counts": "record occurrences, including unavailable source fields; absent-component amounts are not missing",
+    "exclusion_reason_counts": "reason occurrences; one quarantined row may have multiple reasons",
+    "ignored_sheet_spans": "worksheet dimensions only, not collected observations or unique experiments"
+  },
+  "limitations": [
+    "Independent recollection from public workbooks, not exact restoration of Jaeyun v1.8/v2.3.",
+    "Literature-reference inspection only; a selected reaction type does not establish a match to a target.",
+    "No condition application, price, total-route yield, target prediction or safety ranking is provided.",
+    "Doyle Output has unverified measurement basis; no calibrated-yield interpretation is established.",
+    "UV area percentages and unverified Output are separate bases; do not compare across sources or bases.",
+    "Mass ion counts are retained only in raw records, never interpreted as percentages or summarized yields.",
+    "Names and shorthands are unresolved structures, not SMILES and not negative safety screens.",
+    "Missing catalyst, solvent, temperature or other source information is not imputed.",
+    "Threshold counts and Wilson endpoints describe collected observations only, not predictions; independence and target applicability have not been established.",
+    "Only FullCV_01 is collected for Doyle; alternate CV/OOS sheets are not pooled. Within-sheet experimental rows are not deduplicated by structure or measurement."
+  ]
+}

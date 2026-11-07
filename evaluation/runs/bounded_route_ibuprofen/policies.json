@@ -1,0 +1,1488 @@
+{
+  "default": {
+    "routes": [
+      {
+        "id": "aizynth-1",
+        "status": "needs_review",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-2",
+        "status": "needs_review",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-3",
+        "status": "needs_review",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-4",
+        "status": "needs_review",
+        "reasons": [
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-5",
+        "status": "needs_review",
+        "reasons": [
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "기재 물질의 알려진 우려 또는 구조 경보에 대한 전문가 검토가 필요합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC1CO1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "excluded": 0,
+      "needs_review": 5,
+      "insufficient_data": 0,
+      "candidate": 0
+    },
+    "policy": {
+      "excluded_smiles": [],
+      "strict_alerts": false
+    },
+    "limitations": [
+      "동일하게 공급된 경로 집합만 입력 순서대로 선별합니다. 경로 재생성·안전 순위·점수 계산은 하지 않습니다.",
+      "사용자가 지정한 구조만 금지 정책에 포함됩니다. 원자 맵만 제거하며 전하·입체화학·동위원소·호변이성질체를 합치지 않습니다.",
+      "알려진 우려·구조 경보·조건부 경고는 검토 근거입니다. strict_alerts의 제외는 보수적 연구 정책이며 독성이나 실제 생성의 입증이 아닙니다.",
+      "추천·제안(proposed) 조건은 관측(observed) 조건이 아닙니다. 입력된 근거 상태를 관측 결과로 승격하지 않습니다.",
+      "부산물 status=success는 입력된 평가 시도의 완료일 뿐 정확도·검출률이나 모든 부산물을 알고 있다는 뜻이 아닙니다.",
+      "물질의 실제 생성 여부·생성량·잔류량·노출량·정제 효과를 예측하지 않으며, 경보 미검출 또는 후보 판정은 안전 보장이 아닙니다.",
+      "목표물 자체는 engine의 불순물 평가에서 제외됩니다. 목표물 또는 그 명시적 금지 성분을 피하는 경로를 이 보고서로 선별할 수 없습니다."
+    ]
+  },
+  "strict": {
+    "routes": [
+      {
+        "id": "aizynth-1",
+        "status": "excluded",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-2",
+        "status": "excluded",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-3",
+        "status": "excluded",
+        "reasons": [
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "1",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC(C)Cc1ccc(C(C)C=O)cc1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-4",
+        "status": "excluded",
+        "reasons": [
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "3",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "4",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "5",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "6",
+            "smiles": "CI"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "6",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "6",
+            "smiles": null
+          }
+        ]
+      },
+      {
+        "id": "aizynth-5",
+        "status": "excluded",
+        "reasons": [
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "1",
+            "smiles": null
+          },
+          {
+            "code": "structural_alert",
+            "message": "strict_alerts의 보수적 연구 정책에 따라 우려 근거가 있는 경로를 제외합니다. 독성이나 실제 생성의 입증이 아닙니다.",
+            "step_id": "2",
+            "smiles": "CC1CO1"
+          },
+          {
+            "code": "missing_information",
+            "message": "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "missing_information",
+            "message": "부산물 평가 미실행",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "conditions_not_observed",
+            "message": "조건 상태 unknown: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 조건은 관측 조건이 아닙니다.",
+            "step_id": "2",
+            "smiles": null
+          },
+          {
+            "code": "byproducts_incomplete",
+            "message": "부산물 평가 상태 not_run: 평가 시도가 완료되지 않았습니다.",
+            "step_id": "2",
+            "smiles": null
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "excluded": 5,
+      "needs_review": 0,
+      "insufficient_data": 0,
+      "candidate": 0
+    },
+    "policy": {
+      "excluded_smiles": [],
+      "strict_alerts": true
+    },
+    "limitations": [
+      "동일하게 공급된 경로 집합만 입력 순서대로 선별합니다. 경로 재생성·안전 순위·점수 계산은 하지 않습니다.",
+      "사용자가 지정한 구조만 금지 정책에 포함됩니다. 원자 맵만 제거하며 전하·입체화학·동위원소·호변이성질체를 합치지 않습니다.",
+      "알려진 우려·구조 경보·조건부 경고는 검토 근거입니다. strict_alerts의 제외는 보수적 연구 정책이며 독성이나 실제 생성의 입증이 아닙니다.",
+      "추천·제안(proposed) 조건은 관측(observed) 조건이 아닙니다. 입력된 근거 상태를 관측 결과로 승격하지 않습니다.",
+      "부산물 status=success는 입력된 평가 시도의 완료일 뿐 정확도·검출률이나 모든 부산물을 알고 있다는 뜻이 아닙니다.",
+      "물질의 실제 생성 여부·생성량·잔류량·노출량·정제 효과를 예측하지 않으며, 경보 미검출 또는 후보 판정은 안전 보장이 아닙니다.",
+      "목표물 자체는 engine의 불순물 평가에서 제외됩니다. 목표물 또는 그 명시적 금지 성분을 피하는 경로를 이 보고서로 선별할 수 없습니다."
+    ]
+  }
+}

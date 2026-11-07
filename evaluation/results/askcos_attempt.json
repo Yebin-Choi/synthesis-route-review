@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "candidates": [],
+  "error": "ReadTimeout: HTTPSConnectionPool(host='askcos.mit.edu', port=443): Read timed out. (read timeout=15)",
+  "limitations": [
+    "입력은 공개 ASKCOS 서버로 전송됩니다.",
+    "이 호출은 구체적 용매·온도·정제 조건을 전달하지 않습니다.",
+    "예측 후보는 실험 검출 결과가 아니며 미반환은 불순물 부재를 뜻하지 않습니다."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "verified_at_utc": "2026-11-02T02:02:48.526498+00:00",
+  "native_word_pages": 16,
+  "visual_inspection": "All16pages inspected through contact sheets; full-resolution pages2and16 inspected for table continuation and references. No clipped table, blank-page defect or overlapping text observed at that inspection scope.",
+  "artifacts": {
+    "학술제_진행현황_및_후속실험_2026-10-29.docx": "12d76ae3444ac6c3a424152dcb648333af411289e05b2b6796063b1868b070ef",
+    "evaluation/progress_report_current_preview.pdf": "79f8b8919629778f5d73fe79c025fec55cb8f40f2517884d4a84700722515d8e",
+    "evaluation/build_progress_docx.py": "3e5d0c713f9d4e3219866d444542506877635266208e37a264ada34b9ad7b354"
+  },
+  "contact_sheets": [
+    "evaluation/report_contact_1.png",
+    "evaluation/report_contact_9.png"
+  ],
+  "limitation": "This is document-rendering evidence, not native authoritative sourceHash or scientific validation."
+}

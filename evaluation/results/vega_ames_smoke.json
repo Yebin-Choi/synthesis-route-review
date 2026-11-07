@@ -1,0 +1,106 @@
+{
+  "scope": "Experimental API smoke only; not validated accuracy or regulatory assessment",
+  "jar_sha256": "67766ce739ed9ec280c563e4873071028a5d642b8d79fb130096523e70fca6b1",
+  "model_class": "insilico.mutagenicity_sarpy.ismMutagenicitySarpy",
+  "results": [
+    {
+      "id": "ethanol",
+      "canonical_smiles": "CCO",
+      "parsed_valid": true,
+      "status_code": 1,
+      "results_raw": [
+        "Possible NON-Mutagenic",
+        "0",
+        "0"
+      ],
+      "main_value_raw": -1.0,
+      "assessment": "NON-Mutagenic (EXPERIMENTAL value)",
+      "assessment_verbose": "Experimental value is NON-Mutagenic. Model prediction is Possible NON-Mutagenic (GOOD reliability).",
+      "error": "",
+      "returned_smiles": "OCC",
+      "returned_id": "ethanol",
+      "has_experimental": true,
+      "experimental_value_raw": "NON-Mutagenic",
+      "adi": {
+        "name": "AD index",
+        "value": 1.0,
+        "assessment": "The predicted compound is into the Applicability Domain of the model",
+        "assessment_class": "GOOD reliability"
+      },
+      "ad_index_count": 4
+    },
+    {
+      "id": "epichlorohydrin",
+      "canonical_smiles": "ClCC1CO1",
+      "parsed_valid": true,
+      "status_code": 1,
+      "results_raw": [
+        "Mutagenic",
+        "2",
+        "0"
+      ],
+      "main_value_raw": 1.0,
+      "assessment": "Mutagenic (EXPERIMENTAL value)",
+      "assessment_verbose": "Experimental value is Mutagenic. Model prediction is Mutagenic (GOOD reliability).\nThe following relevant fragments have been found: SM97; SM106",
+      "error": "",
+      "returned_smiles": "O1CC1CCl",
+      "returned_id": "epichlorohydrin",
+      "has_experimental": true,
+      "experimental_value_raw": "Mutagenic",
+      "adi": {
+        "name": "AD index",
+        "value": 1.0,
+        "assessment": "The predicted compound is into the Applicability Domain of the model",
+        "assessment_class": "GOOD reliability"
+      },
+      "ad_index_count": 4
+    },
+    {
+      "id": "NDMA",
+      "canonical_smiles": "CN(C)N=O",
+      "parsed_valid": true,
+      "status_code": 1,
+      "results_raw": [
+        "Mutagenic",
+        "1",
+        "0"
+      ],
+      "main_value_raw": 1.0,
+      "assessment": "Mutagenic (EXPERIMENTAL value)",
+      "assessment_verbose": "Experimental value is Mutagenic. Model prediction is Mutagenic (GOOD reliability).\nThe following relevant fragments have been found: SM2",
+      "error": "",
+      "returned_smiles": "O=NN(C)C",
+      "returned_id": "NDMA",
+      "has_experimental": true,
+      "experimental_value_raw": "Mutagenic",
+      "adi": {
+        "name": "AD index",
+        "value": 1.0,
+        "assessment": "The predicted compound is into the Applicability Domain of the model",
+        "assessment_class": "GOOD reliability"
+      },
+      "ad_index_count": 4
+    }
+  ],
+  "model": {
+    "name": "Mutagenicity (Ames test) model (SarPy-IRFMN)",
+    "version": "1.0.8",
+    "key": "MUTA_SARPY",
+    "class_values_raw": "{0.0: 'NON-Mutagenic', 1.0: 'Mutagenic', -1.0: 'Possible NON-Mutagenic'}",
+    "qmrf": "",
+    "summary": "QSAR classification model for Mutagenicity (SarPy/IRFMN)"
+  },
+  "result_names": [
+    "Predicted Mutagen activity",
+    "No. alerts for mutagenicity",
+    "No. alerts for non-mutagenicity"
+  ],
+  "limitation": "Default VEGA assessment may prioritize an experimental training/reference value. This smoke is not independent predictive validation.",
+  "output_status_constants": {
+    "OUTPUT_OK": 1,
+    "OUTPUT_OK_AD_NOT_APPLICABLE": 3,
+    "OUTPUT_OK_AD_MISSING": 2,
+    "OUTPUT_NOT_CALCULATED": 0,
+    "OUTPUT_ERROR": -1
+  }
+}

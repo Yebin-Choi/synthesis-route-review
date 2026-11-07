@@ -1,0 +1,46 @@
+{
+  "status": "qualitative_evidence_only_automatic_rule_blocked",
+  "source": {
+    "title": "Effects of water and temperature on reaction mechanism and crystal properties in a reactive crystallization of paracetamol",
+    "doi": "10.1016/j.cep.2018.07.006",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0255270118302393",
+    "journal": "Chemical Engineering and Processing - Process Intensification",
+    "year": 2018,
+    "volume": 131,
+    "pages": "20-26",
+    "evidence_accessed": "Publisher highlights and abstract; detailed methods and numerical tables were not accessed.",
+    "retrieved_date_utc": "2026-10-30"
+  },
+  "reported_comparison": [
+    {
+      "condition": "water present, within the authors' reported process",
+      "observation": "Paracetamol form I particles with high purity (99%) reported.",
+      "measurement_basis": "Product purity as stated in abstract; not isolated yield or individual impurity concentration.",
+      "does_not_establish": "Zero 4-acetoxyacetanilide formation, a universal water threshold, safe residual concentration, or transferability to arbitrary routes."
+    },
+    {
+      "condition": "water absent, within the authors' reported process",
+      "observation": "4-acetoxyacetanilide reported as the main product.",
+      "does_not_establish": "Formation or quantity in any locally generated route."
+    }
+  ],
+  "identified_alternative_product": {
+    "name": "4-acetoxyacetanilide",
+    "pubchem_cid": 17499,
+    "smiles": "CC(=O)NC1=CC=C(C=C1)OC(=O)C",
+    "identity_source": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4-acetoxyacetanilide/property/CanonicalSMILES/JSON",
+    "role_in_our_work": "Literature-grounded candidate requiring recipe matching; not an observed local product, stoichiometric coproduct, or automatic prediction."
+  },
+  "controls_and_missing_evidence": {
+    "comparative_control": "Water-present versus water-absent conditions are reported, but the abstract does not establish a zero-byproduct negative control.",
+    "missing_condition_control": "Missing water/temperature/recipe data must remain unassessed, not negative.",
+    "missing_method_fields": ["water amount", "temperature values", "reactant concentrations and stoichiometry", "reaction time", "full matched recipe", "individual byproduct quantification and detection limits"],
+    "local_route_conditions": "Generated routes do not supply these observed process variables."
+  },
+  "decision": "Do not implement an automatic byproduct-formation or quantity rule from abstract-only evidence. Preserve this narrow comparison for the report and obtain matched full-method evidence before a supported chemistry module is added.",
+  "limitations": [
+    "Candidate structure is not proof of actual formation or patient exposure.",
+    "A reported 99% product purity is not a transferable 1% byproduct quantity.",
+    "No yield-derived toxic threshold, universal byproduct model, or safety conclusion is produced."
+  ]
+}

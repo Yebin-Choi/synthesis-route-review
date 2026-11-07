@@ -1,0 +1,32 @@
+{
+  "created_at_utc": "2026-10-30T03:51:50.512012+00:00",
+  "target": {
+    "id": "pubchem-1983",
+    "name_ko": "아세트아미노펜",
+    "name_en": "Acetaminophen",
+    "smiles": "CC(=O)NC1=CC=C(C=C1)O",
+    "category": "의약품",
+    "source_url": "https://pubchem.ncbi.nlm.nih.gov/compound/1983",
+    "note": "PubChem 구조 예시입니다. 제품·염 형태와 다를 수 있으며 선택 목록은 안전성 목록이 아닙니다. 재고에 있는 물질은 탐색 경로가 생략될 수 있습니다."
+  },
+  "canonical_smiles": "CC(=O)Nc1ccc(O)cc1",
+  "time_limit_seconds": 30,
+  "iteration_limit": 30,
+  "worker_timeout_seconds": 300,
+  "aizynthfinder_version": "4.4.1",
+  "runner_sha256": "b6208730f90c583cfb74f5beefe6f928456220d1ebee71117cdfd9e3d84b4af8",
+  "resource_sha256": {
+    "uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+    "uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+    "uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+    "zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+  },
+  "limitations": [
+    "Search time excludes model loading; worker wall time includes it.",
+    "No random seed is imposed; identical routes are not guaranteed.",
+    "Zero routes or errors are retained, not replaced by examples.",
+    "Not SynthEx generation or experimental chemical validation.",
+    "Ibuprofen stereochemistry remains unspecified in the catalog input.",
+    "Conditions, byproduct formation, yields and stoichiometry remain unknown."
+  ]
+}

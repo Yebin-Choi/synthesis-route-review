@@ -1,0 +1,179 @@
+{
+  "purpose": "Actual inference interoperability smoke, not accuracy validation",
+  "admet": {
+    "model": {
+      "tool": "ADMET-AI",
+      "version": "2.0.1",
+      "endpoint": "ames",
+      "weights_sha256": {
+        "admet_classification/model_0.pt": "9a5fb298a6564e8ef739890c90b02e831521073f49eefd2310fb56cdb61a2378",
+        "admet_classification/model_1.pt": "2bf047553eef397060af376e78dd4e990114df8428e05f734c4e4aca284280ca",
+        "admet_classification/model_2.pt": "0e9d7eb3ff0b53bd2f20e43a75e0872c682b0ee27059dd50735c416d97a3fd24",
+        "admet_classification/model_3.pt": "4b35cb5686f23c6e3e5a4c587a5c4dd79b7f1f46be26684260c0b78366145d58",
+        "admet_classification/model_4.pt": "9fdac559e3058b5f7b03780f9c696223d27adb94c78f9eb9aba6154e2dbff492",
+        "admet_regression/model_0.pt": "c709dc4526dc7f6cf39cea64190f63adbb2b95e280d34582c492fc53da64a1a4",
+        "admet_regression/model_1.pt": "57e8011a180cddf8acf66f94f5b123023c3fed503e3870a2f3f6f5300a7f3c82",
+        "admet_regression/model_2.pt": "05e8509fea4ddc4686c521d75ee2fe770113cb93f09a849a6378b0a0e3ce113e",
+        "admet_regression/model_3.pt": "04b265ff444190247b159932ab2225afc844bae9552299bf1ddf99b336c28d71",
+        "admet_regression/model_4.pt": "b58c76493744edfb022e50e531a8ad82453bdf543c2195d878ecfd248795c7c8"
+      }
+    },
+    "threshold": 0.5,
+    "assessments": [
+      {
+        "canonical_smiles": "CCO",
+        "input_smiles": "CCO",
+        "status": "success",
+        "score": 0.11980575323104858,
+        "prediction": "negative",
+        "applicability": "unknown",
+        "error": null,
+        "input_smiles_list": [
+          "CCO",
+          "[CH3:1][CH2:2][OH:3]"
+        ]
+      },
+      {
+        "canonical_smiles": "ClCC1CO1",
+        "input_smiles": "ClCC1CO1",
+        "status": "success",
+        "score": 0.9829532504081726,
+        "prediction": "positive",
+        "applicability": "unknown",
+        "error": null
+      },
+      {
+        "canonical_smiles": "CN(C)N=O",
+        "input_smiles": "CN(C)N=O",
+        "status": "success",
+        "score": 0.9394879341125488,
+        "prediction": "positive",
+        "applicability": "unknown",
+        "error": null
+      },
+      {
+        "canonical_smiles": null,
+        "input_smiles": "CC(",
+        "status": "invalid",
+        "score": null,
+        "prediction": "abstain",
+        "applicability": "unknown",
+        "error": "A complete, non-empty, sanitizable SMILES string is required."
+      }
+    ],
+    "limitations": [
+      "Research-only AMES predictions, not a safety determination or an ICH M7 classification.",
+      "Scores are not clinically calibrated probabilities. Applicability domain and model-training overlap are unknown; a negative AMES prediction does not establish safety.",
+      "Only AMES is reported; other toxicities, exposure, residual concentration and purge are not assessed.",
+      "Shared map-free canonicalization preserves stereochemistry, charge and disconnected components; salts, protonation states, tautomers and isotopes are not merged.",
+      "Invalid inputs and backend failures remain abstentions, never negative predictions."
+    ]
+  },
+  "vega": {
+    "scope": "Experimental API smoke only; not validated accuracy or regulatory assessment",
+    "jar_sha256": "67766ce739ed9ec280c563e4873071028a5d642b8d79fb130096523e70fca6b1",
+    "model_class": "insilico.mutagenicity_sarpy.ismMutagenicitySarpy",
+    "results": [
+      {
+        "id": "ethanol",
+        "canonical_smiles": "CCO",
+        "parsed_valid": true,
+        "status_code": 1,
+        "results_raw": [
+          "Possible NON-Mutagenic",
+          "0",
+          "0"
+        ],
+        "main_value_raw": -1.0,
+        "assessment": "NON-Mutagenic (EXPERIMENTAL value)",
+        "assessment_verbose": "Experimental value is NON-Mutagenic. Model prediction is Possible NON-Mutagenic (GOOD reliability).",
+        "error": "",
+        "returned_smiles": "OCC",
+        "returned_id": "ethanol",
+        "has_experimental": true,
+        "experimental_value_raw": "NON-Mutagenic",
+        "adi": {
+          "name": "AD index",
+          "value": 1.0,
+          "assessment": "The predicted compound is into the Applicability Domain of the model",
+          "assessment_class": "GOOD reliability"
+        },
+        "ad_index_count": 4
+      },
+      {
+        "id": "epichlorohydrin",
+        "canonical_smiles": "ClCC1CO1",
+        "parsed_valid": true,
+        "status_code": 1,
+        "results_raw": [
+          "Mutagenic",
+          "2",
+          "0"
+        ],
+        "main_value_raw": 1.0,
+        "assessment": "Mutagenic (EXPERIMENTAL value)",
+        "assessment_verbose": "Experimental value is Mutagenic. Model prediction is Mutagenic (GOOD reliability).\nThe following relevant fragments have been found: SM97; SM106",
+        "error": "",
+        "returned_smiles": "O1CC1CCl",
+        "returned_id": "epichlorohydrin",
+        "has_experimental": true,
+        "experimental_value_raw": "Mutagenic",
+        "adi": {
+          "name": "AD index",
+          "value": 1.0,
+          "assessment": "The predicted compound is into the Applicability Domain of the model",
+          "assessment_class": "GOOD reliability"
+        },
+        "ad_index_count": 4
+      },
+      {
+        "id": "NDMA",
+        "canonical_smiles": "CN(C)N=O",
+        "parsed_valid": true,
+        "status_code": 1,
+        "results_raw": [
+          "Mutagenic",
+          "1",
+          "0"
+        ],
+        "main_value_raw": 1.0,
+        "assessment": "Mutagenic (EXPERIMENTAL value)",
+        "assessment_verbose": "Experimental value is Mutagenic. Model prediction is Mutagenic (GOOD reliability).\nThe following relevant fragments have been found: SM2",
+        "error": "",
+        "returned_smiles": "O=NN(C)C",
+        "returned_id": "NDMA",
+        "has_experimental": true,
+        "experimental_value_raw": "Mutagenic",
+        "adi": {
+          "name": "AD index",
+          "value": 1.0,
+          "assessment": "The predicted compound is into the Applicability Domain of the model",
+          "assessment_class": "GOOD reliability"
+        },
+        "ad_index_count": 4
+      }
+    ],
+    "model": {
+      "name": "Mutagenicity (Ames test) model (SarPy-IRFMN)",
+      "version": "1.0.8",
+      "key": "MUTA_SARPY",
+      "class_values_raw": "{0.0: 'NON-Mutagenic', 1.0: 'Mutagenic', -1.0: 'Possible NON-Mutagenic'}",
+      "qmrf": "",
+      "summary": "QSAR classification model for Mutagenicity (SarPy/IRFMN)"
+    },
+    "result_names": [
+      "Predicted Mutagen activity",
+      "No. alerts for mutagenicity",
+      "No. alerts for non-mutagenicity"
+    ],
+    "limitation": "Default VEGA assessment may prioritize an experimental training/reference value. This smoke is not independent predictive validation.",
+    "output_status_constants": {
+      "OUTPUT_OK": 1,
+      "OUTPUT_OK_AD_NOT_APPLICABLE": 3,
+      "OUTPUT_OK_AD_MISSING": 2,
+      "OUTPUT_NOT_CALCULATED": 0,
+      "OUTPUT_ERROR": -1
+    }
+  },
+  "limitation": "VEGA Possible NON-Mutagenic is not collapsed to binary negative. All three VEGA inputs have experimental/reference values. Invalid input must abstain; mapped ethanol alias must not duplicate inference."
+}

@@ -1,0 +1,106 @@
+{
+  "truth_file": "C:\\Users\\hahab\\학술제\\evaluation\\ames_independent.csv",
+  "rows_scored": 1201,
+  "thresholds": [
+    0.25,
+    0.5
+  ],
+  "tools": {
+    "ames_xgb": {
+      "0.25": {
+        "threshold": 0.25,
+        "rows": 1201,
+        "decided": 933,
+        "abstained": 268,
+        "answered": 0.7768526228143214,
+        "true_positive": 289,
+        "true_negative": 501,
+        "false_positive": 78,
+        "false_negative": 65,
+        "sensitivity": 0.8163841807909604,
+        "specificity": 0.8652849740932642,
+        "balanced": 0.8408345774421123
+      },
+      "0.5": {
+        "threshold": 0.5,
+        "rows": 1201,
+        "decided": 933,
+        "abstained": 268,
+        "answered": 0.7768526228143214,
+        "true_positive": 247,
+        "true_negative": 550,
+        "false_positive": 29,
+        "false_negative": 107,
+        "sensitivity": 0.6977401129943502,
+        "specificity": 0.9499136442141624,
+        "balanced": 0.8238268786042563
+      }
+    },
+    "ames_desc": {
+      "0.25": {
+        "threshold": 0.25,
+        "rows": 1201,
+        "decided": 1201,
+        "abstained": 0,
+        "answered": 1.0,
+        "true_positive": 305,
+        "true_negative": 666,
+        "false_positive": 106,
+        "false_negative": 124,
+        "sensitivity": 0.710955710955711,
+        "specificity": 0.8626943005181347,
+        "balanced": 0.7868250057369228
+      },
+      "0.5": {
+        "threshold": 0.5,
+        "rows": 1201,
+        "decided": 1201,
+        "abstained": 0,
+        "answered": 1.0,
+        "true_positive": 240,
+        "true_negative": 745,
+        "false_positive": 27,
+        "false_negative": 189,
+        "sensitivity": 0.5594405594405595,
+        "specificity": 0.9650259067357513,
+        "balanced": 0.7622332330881554
+      }
+    },
+    "admet": {
+      "0.25": {
+        "threshold": 0.25,
+        "rows": 1201,
+        "decided": 1201,
+        "abstained": 0,
+        "answered": 1.0,
+        "true_positive": 359,
+        "true_negative": 435,
+        "false_positive": 337,
+        "false_negative": 70,
+        "sensitivity": 0.8368298368298368,
+        "specificity": 0.5634715025906736,
+        "balanced": 0.7001506697102552
+      },
+      "0.5": {
+        "threshold": 0.5,
+        "rows": 1201,
+        "decided": 1201,
+        "abstained": 0,
+        "answered": 1.0,
+        "true_positive": 291,
+        "true_negative": 633,
+        "false_positive": 139,
+        "false_negative": 138,
+        "sensitivity": 0.6783216783216783,
+        "specificity": 0.8199481865284974,
+        "balanced": 0.7491349324250879
+      }
+    }
+  },
+  "notes": [
+    "Every tool is scored on the same rows, with rows the in-house models had already seen dropped.",
+    "Only score-returning tools appear here. Toxtree, EPA TEST and the rule screen return verdicts, so a decision line does not apply to them.",
+    "An abstention is counted separately and never read as a negative prediction.",
+    "A negative prediction is a screening result, not evidence of safety."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "input_sha256": "6eb5606534151bfae5d4011703fc2e2f405c51b42c7d9e354d99990b4bc427ab",
+  "route_count": 6,
+  "scope": "post-selection only over same precomputed report; excludes route generation, toxicology inference and network; not search-time pruning benchmark",
+  "results": {
+    "False": {
+      "counts": {
+        "excluded": 0,
+        "needs_review": 5,
+        "insufficient_data": 1,
+        "candidate": 0
+      },
+      "median_ms": 16.24945004004985,
+      "min_ms": 11.91240013577044,
+      "max_ms": 19.529700046405196,
+      "repeats": 30
+    },
+    "True": {
+      "counts": {
+        "excluded": 5,
+        "needs_review": 0,
+        "insufficient_data": 1,
+        "candidate": 0
+      },
+      "median_ms": 17.570700030773878,
+      "min_ms": 12.470500078052282,
+      "max_ms": 22.555399918928742,
+      "repeats": 30
+    }
+  }
+}

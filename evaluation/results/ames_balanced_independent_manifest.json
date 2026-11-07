@@ -1,0 +1,25 @@
+{
+  "input": "C:\\Users\\hahab\\학술제\\evaluation\\results\\ames_independent.csv",
+  "model_dir": "C:\\Users\\hahab\\학술제\\models\\ames_xgboost_balanced",
+  "structures": 3091,
+  "threshold": 0.5,
+  "predictions": {
+    "1": 1380,
+    "0": 1443,
+    "abstain": 268
+  },
+  "structures_the_model_had_already_seen": 1890,
+  "share_already_seen": 0.6114526043351666,
+  "model_spec": {
+    "experiment_id": "expanded_fingerprint_representation_xgboost_f43095dd5017",
+    "validation_roc_auc": null,
+    "train_n": 17717,
+    "balanced": true,
+    "scale_pos_weight": 2.308418959231024
+  },
+  "notes": [
+    "Overlap is an exact canonical-structure match against the shared collection the model was fitted, selected and reported on.",
+    "Rows flagged as overlapping must be dropped before this model is compared with tools that never saw them.",
+    "A structure the model could not read is an abstention, not a negative prediction."
+  ]
+}

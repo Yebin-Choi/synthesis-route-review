@@ -1,0 +1,165 @@
+{
+  "question": "Is the displayed number a probability, and is 0.5 the right line?",
+  "grouping": "scaffold",
+  "features": "descriptors_all",
+  "overall_active_fraction": 0.3022591794820418,
+  "auc": 0.899552635574804,
+  "brier": 0.11088889572443411,
+  "reliability": [
+    {
+      "shown_from": 0.0,
+      "shown_to": 0.2,
+      "structures": 12006,
+      "mean_number_shown": 0.059272137158485644,
+      "actually_active": 0.07754456105280692,
+      "gap": 0.01827242389432128
+    },
+    {
+      "shown_from": 0.2,
+      "shown_to": 0.4,
+      "structures": 2163,
+      "mean_number_shown": 0.2883017277392424,
+      "actually_active": 0.3296347665279704,
+      "gap": 0.041333038788728016
+    },
+    {
+      "shown_from": 0.4,
+      "shown_to": 0.6,
+      "structures": 1421,
+      "mean_number_shown": 0.49543831427696305,
+      "actually_active": 0.5383532723434201,
+      "gap": 0.042914958066457065
+    },
+    {
+      "shown_from": 0.6,
+      "shown_to": 0.8,
+      "structures": 1471,
+      "mean_number_shown": 0.704916058187984,
+      "actually_active": 0.7049626104690686,
+      "gap": 4.655228108463305e-05
+    },
+    {
+      "shown_from": 0.8,
+      "shown_to": 1.01,
+      "structures": 2902,
+      "mean_number_shown": 0.9137435100515656,
+      "actually_active": 0.8917987594762233,
+      "gap": -0.021944750575342287
+    }
+  ],
+  "cutoffs": [
+    {
+      "cutoff": 0.2,
+      "sensitivity": 0.845707656612529,
+      "specificity": 0.7951037403977314,
+      "balanced_accuracy": 0.8204056985051302,
+      "precision": 0.6413221063214779,
+      "kept_fraction": 0.3985873866653309
+    },
+    {
+      "cutoff": 0.25,
+      "sensitivity": 0.8191912495856811,
+      "specificity": 0.8327948883624093,
+      "balanced_accuracy": 0.8259930689740452,
+      "precision": 0.6797304730473047,
+      "kept_fraction": 0.36427390672744575
+    },
+    {
+      "cutoff": 0.3,
+      "sensitivity": 0.7872058336095459,
+      "specificity": 0.8613683681527747,
+      "balanced_accuracy": 0.8242871008811603,
+      "precision": 0.7109714114653495,
+      "kept_fraction": 0.3346691379051245
+    },
+    {
+      "cutoff": 0.35,
+      "sensitivity": 0.7572091481604243,
+      "specificity": 0.8830497523153134,
+      "balanced_accuracy": 0.8201294502378689,
+      "precision": 0.7371732817037754,
+      "kept_fraction": 0.31047437759855734
+    },
+    {
+      "cutoff": 0.4,
+      "sensitivity": 0.7275439177991382,
+      "specificity": 0.8992031014430325,
+      "balanced_accuracy": 0.8133735096210853,
+      "precision": 0.7576803589920608,
+      "kept_fraction": 0.29023693833592146
+    },
+    {
+      "cutoff": 0.45,
+      "sensitivity": 0.696387139542592,
+      "specificity": 0.9139923899777442,
+      "balanced_accuracy": 0.8051897647601681,
+      "precision": 0.7781481481481481,
+      "kept_fraction": 0.2705004257877073
+    },
+    {
+      "cutoff": 0.5,
+      "sensitivity": 0.6647331786542924,
+      "specificity": 0.9275612032450283,
+      "balanced_accuracy": 0.7961471909496604,
+      "precision": 0.7990039840637451,
+      "kept_fraction": 0.2514652106396834
+    },
+    {
+      "cutoff": 0.55,
+      "sensitivity": 0.6314219423268147,
+      "specificity": 0.9371096273960802,
+      "balanced_accuracy": 0.7842657848614474,
+      "precision": 0.8130601792573624,
+      "kept_fraction": 0.2347342583779993
+    },
+    {
+      "cutoff": 0.6,
+      "sensitivity": 0.6007623467020219,
+      "specificity": 0.9462990882331825,
+      "balanced_accuracy": 0.7735307174676023,
+      "precision": 0.8289503773153442,
+      "kept_fraction": 0.21905525221660072
+    },
+    {
+      "cutoff": 0.65,
+      "sensitivity": 0.5661252900232019,
+      "specificity": 0.9563500610237634,
+      "balanced_accuracy": 0.7612376755234826,
+      "precision": 0.8489065606361829,
+      "kept_fraction": 0.20157290988328408
+    },
+    {
+      "cutoff": 0.7,
+      "sensitivity": 0.5273450447464368,
+      "specificity": 0.9630267786632206,
+      "balanced_accuracy": 0.7451859117048287,
+      "precision": 0.8606978631322694,
+      "kept_fraction": 0.18519260632169512
+    },
+    {
+      "cutoff": 0.75,
+      "sensitivity": 0.4832615180643023,
+      "specificity": 0.9707803862445258,
+      "balanced_accuracy": 0.727020952154414,
+      "precision": 0.8775203129702076,
+      "kept_fraction": 0.1664579472023243
+    },
+    {
+      "cutoff": 0.8,
+      "sensitivity": 0.42890288365926416,
+      "specificity": 0.9774571038839831,
+      "balanced_accuracy": 0.7031799937716237,
+      "precision": 0.8917987594762233,
+      "kept_fraction": 0.14536893252517158
+    }
+  ],
+  "best_cutoff_by_balanced_accuracy": {
+    "cutoff": 0.25,
+    "sensitivity": 0.8191912495856811,
+    "specificity": 0.8327948883624093,
+    "balanced_accuracy": 0.8259930689740452,
+    "precision": 0.6797304730473047,
+    "kept_fraction": 0.36427390672744575
+  },
+  "model_and_features": "xgboost · descriptors_all"
+}

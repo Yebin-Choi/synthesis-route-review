@@ -1,0 +1,522 @@
+{
+  "schema_version": "1.0",
+  "routes": [
+    {
+      "id": "aizynth-1",
+      "target": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "steps": [
+        {
+          "id": "1",
+          "reactants": [
+            "CC(=O)O",
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "2",
+          "reactants": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "3",
+          "reactants": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "4",
+          "reactants": [
+            "O=C(Cl)C(=O)Cl",
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "5",
+          "reactants": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "6",
+          "reactants": [
+            "CI",
+            "CCOC(=O)Cc1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-2",
+      "target": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "steps": [
+        {
+          "id": "1",
+          "reactants": [
+            "CC(=O)OO",
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "2",
+          "reactants": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "3",
+          "reactants": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "4",
+          "reactants": [
+            "O=C(Cl)C(=O)Cl",
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "5",
+          "reactants": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "6",
+          "reactants": [
+            "CI",
+            "CCOC(=O)Cc1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-3",
+      "target": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "steps": [
+        {
+          "id": "1",
+          "reactants": [
+            "CC(C)(C)O",
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "2",
+          "reactants": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C=O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "3",
+          "reactants": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "4",
+          "reactants": [
+            "O=C(Cl)C(=O)Cl",
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "5",
+          "reactants": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "6",
+          "reactants": [
+            "CI",
+            "CCOC(=O)Cc1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-4",
+      "target": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "steps": [
+        {
+          "id": "1",
+          "reactants": [
+            "CC(C)Cc1ccc(C(C)C(=O)N2C(=O)O[C@@H](c3ccccc3)[C@H]2C)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "2",
+          "reactants": [
+            "C[C@H]1NC(=O)O[C@H]1c1ccccc1",
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)N2C(=O)O[C@@H](c3ccccc3)[C@H]2C)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "3",
+          "reactants": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "4",
+          "reactants": [
+            "O=C(Cl)C(=O)Cl",
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)Cl)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "5",
+          "reactants": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CC(C)=Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "6",
+          "reactants": [
+            "CI",
+            "CCOC(=O)Cc1ccc(C=C(C)C)cc1"
+          ],
+          "products": [
+            "CCOC(=O)C(C)c1ccc(C=C(C)C)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "aizynth-5",
+      "target": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+      "source": "AiZynthFinder live search (시약·용매·부산물 정보 미제공)",
+      "steps": [
+        {
+          "id": "1",
+          "reactants": [
+            "CC(C)=O",
+            "CC(C)Cc1ccc(C(C)CO)cc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)C(=O)O)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        },
+        {
+          "id": "2",
+          "reactants": [
+            "CC1CO1",
+            "CC(C)Cc1ccccc1"
+          ],
+          "products": [
+            "CC(C)Cc1ccc(C(C)CO)cc1"
+          ],
+          "reagents": [],
+          "solvents": [],
+          "conditions": {
+            "status": "unknown"
+          },
+          "byproducts": {
+            "status": "not_run",
+            "candidates": []
+          }
+        }
+      ]
+    }
+  ]
+}

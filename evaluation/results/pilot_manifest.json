@@ -1,0 +1,6 @@
+{
+  "selection": "First100 per label ordered by SHA256(pilot-v1:+canonicalSMILES); no prediction-based selection",
+  "n": 200,
+  "source": "ames_evaluation.csv",
+  "purpose": "Toxtree runtime pilot; not independent holdout; full runtime timed out after300sec"
+}
