@@ -25,6 +25,10 @@ and not a simulation of metabolic activation.
 import json
 import os
 import urllib.error
+from pathlib import Path
+import subprocess
+import threading
+import time
 import urllib.parse
 import urllib.request
 
@@ -62,7 +66,8 @@ DECLINED = {
     "no_record": "QSAR Toolbox가 이 구조에 해당하는 기록을 돌려주지 않았습니다.",
 }
 FAILED = {
-    "tool_not_running": "QSAR Toolbox WebAPI가 실행되고 있지 않습니다.",
+    "tool_not_running": "QSAR Toolbox WebAPI를 띄우지 못했습니다. "
+                        "설치돼 있는지 확인하세요.",
     "run_failed": "QSAR Toolbox 호출이 실패했습니다.",
     "timed_out": "QSAR Toolbox 호출이 제한 시간을 넘겼습니다.",
     "unreadable_output": "QSAR Toolbox 응답을 읽지 못했습니다.",
@@ -83,6 +88,80 @@ _LOOPBACK = ("127.0.0.1", "::1", "localhost", "[::1]")
 # Resolved once per process: caption -> guid, and the reported versions.
 _profiler_cache = {}
 _version_cache = {}
+
+# Where the installer puts the self-hosted WebAPI. Overridable, and searched
+# rather than hard-coded to one version folder.
+WEBAPI_EXE_ENV = "QSAR_TOOLBOX_WEBAPI_EXE"
+_WEBAPI_EXE_GLOB = "QSAR Toolbox/*/Toolbox Server/Bin/LMC.Toolbox.WebAPI.exe"
+_WEBAPI_START_TIMEOUT = 180.0
+_start_lock = threading.Lock()
+
+
+def webapi_executable():
+    """The installed WebAPI binary, or None when the Toolbox is not here."""
+    override = os.environ.get(WEBAPI_EXE_ENV)
+    if override:
+        path = Path(override)
+        return path if path.is_file() else None
+    roots = [os.environ.get("ProgramFiles"), os.environ.get("ProgramW6432"),
+             os.environ.get("ProgramFiles(x86)")]
+    for root in roots:
+        if not root:
+            continue
+        found = sorted(Path(root).glob(_WEBAPI_EXE_GLOB), reverse=True)
+        if found:
+            return found[0]
+    return None
+
+
+def _answering(*, timeout=2.0):
+    """Whether something is already serving the WebAPI on the local port."""
+    try:
+        _get("about/webapi/version", timeout=timeout)
+    except (urllib.error.URLError, OSError, ValueError, json.JSONDecodeError):
+        return False
+    return True
+
+
+def ensure_webapi(*, timeout=_WEBAPI_START_TIMEOUT):
+    """Start the local WebAPI if it is not already up, and wait for it.
+
+    The Toolbox ships its API as a program someone has to run, unlike the
+    other tools here, which are started per request. Leaving that to the
+    reader meant the whole tool silently abstained whenever they forgot. It
+    is started only for the default loopback address: a reader who pointed
+    the service somewhere else is managing it themselves, and a process we
+    did not start is left alone.
+    """
+    root = base_url()
+    try:
+        _check_local(root)
+    except ValueError:
+        return False
+    if root != DEFAULT_BASE_URL:
+        return _answering()
+    with _start_lock:
+        if _answering():
+            return True
+        exe = webapi_executable()
+        if exe is None:
+            return False
+        try:
+            subprocess.Popen(
+                [str(exe)], cwd=str(exe.parent),
+                stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0)
+                | getattr(subprocess, "DETACHED_PROCESS", 0),
+                close_fds=True)
+        except OSError:
+            return False
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            if _answering():
+                return True
+            time.sleep(1.0)
+        return False
 
 
 def base_url() -> str:
@@ -303,6 +382,10 @@ def assess_qsar_toolbox_materials(smiles, *, profiler=OASIS_AMES_PROFILER,
                                   timeout=120) -> dict:
     """Screen distinct valid structures with one Toolbox Ames profiler."""
     rows, valid = _collect(smiles)
+    # Bring the local API up before asking it anything. A reader who picked
+    # this tool meant to run it, and the alternative was a column of
+    # abstentions whose only cause was a program nobody had started.
+    ensure_webapi()
     versions = toolbox_versions()
     report = {"model": {"tool": "OECD QSAR Toolbox",
                         "version": versions.get("toolbox"),

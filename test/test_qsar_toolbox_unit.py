@@ -2,6 +2,7 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'app'))
@@ -111,6 +112,62 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(result['specificity'], 1.0)
         self.assertEqual(result['balanced'], 1.0)
         self.assertEqual(result['false_negative'], 0)
+
+
+class WebApiStartTests(unittest.TestCase):
+    """Starting the local API. Nothing here launches a process or calls out."""
+
+    def setUp(self):
+        self.calls = []
+        self.popen = mock.patch.object(
+            toolbox.subprocess, 'Popen',
+            side_effect=lambda *a, **k: self.calls.append(a) or mock.MagicMock())
+        self.popen.start()
+        self.addCleanup(self.popen.stop)
+
+    def test_a_port_that_already_answers_starts_nothing(self):
+        with mock.patch.object(toolbox, '_answering', return_value=True):
+            self.assertTrue(toolbox.ensure_webapi())
+        self.assertEqual(self.calls, [])
+
+    def test_a_remote_base_url_is_never_started_or_used(self):
+        """Structures stay on this machine, so a non-loopback host is refused."""
+        with mock.patch.dict(toolbox.os.environ,
+                             {'QSAR_TOOLBOX_WEBAPI': 'http://10.0.0.5:5000'}):
+            self.assertFalse(toolbox.ensure_webapi())
+        self.assertEqual(self.calls, [])
+
+    def test_another_local_port_is_probed_but_left_alone(self):
+        """A reader who moved the port is running it themselves."""
+        with mock.patch.dict(toolbox.os.environ,
+                             {'QSAR_TOOLBOX_WEBAPI': 'http://127.0.0.1:5050'}),                 mock.patch.object(toolbox, '_answering', return_value=False):
+            self.assertFalse(toolbox.ensure_webapi())
+        self.assertEqual(self.calls, [])
+
+    def test_a_missing_install_is_reported_rather_than_guessed(self):
+        with mock.patch.object(toolbox, '_answering', return_value=False),                 mock.patch.object(toolbox, 'webapi_executable', return_value=None):
+            self.assertFalse(toolbox.ensure_webapi())
+        self.assertEqual(self.calls, [])
+
+    def test_it_starts_the_installed_binary_and_waits_for_it(self):
+        answers = iter([False, False, True])
+        with mock.patch.object(toolbox, '_answering',
+                               side_effect=lambda **k: next(answers)),                 mock.patch.object(toolbox, 'webapi_executable',
+                                  return_value=Path('C:/x/Bin/LMC.Toolbox.WebAPI.exe')),                 mock.patch.object(toolbox.time, 'sleep'):
+            self.assertTrue(toolbox.ensure_webapi(timeout=30))
+        self.assertEqual(len(self.calls), 1)
+        self.assertEqual(self.calls[0][0],
+                         [str(Path('C:/x/Bin/LMC.Toolbox.WebAPI.exe'))])
+
+    def test_a_binary_that_never_answers_gives_up_instead_of_hanging(self):
+        with mock.patch.object(toolbox, '_answering', return_value=False),                 mock.patch.object(toolbox, 'webapi_executable',
+                                  return_value=Path('C:/x/Bin/LMC.Toolbox.WebAPI.exe')),                 mock.patch.object(toolbox.time, 'sleep'):
+            self.assertFalse(toolbox.ensure_webapi(timeout=0.01))
+
+    def test_an_override_path_that_does_not_exist_is_not_used(self):
+        with mock.patch.dict(toolbox.os.environ,
+                             {toolbox.WEBAPI_EXE_ENV: 'C:/nope/missing.exe'}):
+            self.assertIsNone(toolbox.webapi_executable())
 
 
 if __name__ == '__main__':
