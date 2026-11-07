@@ -148,14 +148,17 @@ DECIDING_CODES = {
 # structure code. All three were falling through to the routine line, where
 # an unmapped code printed as itself: a route dropped for a prohibited
 # material was reporting "prohibited_material" on screen.
+# Declaration order is display order, so the line reads the same every time.
+# "자료 없음" sat next to "조건 자료 없음" and the two could not be told apart.
 ROUTINE_CODES = {
-    "missing_information": "자료 없음",
-    "conditions_not_observed": "조건 자료 없음",
+    "missing_information": "빠진 항목",
+    "conditions_not_observed": "반응 조건 없음",
     "byproducts_incomplete": "부산물 미평가",
     "admet_unassessed": "모델 미평가",
     "conditional_warning": "조건부 경고",
     "no_materials": "검사할 물질 없음",
 }
+_ROUTINE_ORDER = {code: index for index, code in enumerate(ROUTINE_CODES)}
 # Shown when a code has no label here. The code itself stays in the saved
 # file, so nothing is lost; it just does not go on the screen as itself.
 UNKNOWN_CODE = "그 밖의 신호"
@@ -171,6 +174,22 @@ NOTE_CODES = {"byproduct_concern"}
 # Codes whose full message belongs in the saved file rather than on screen.
 # A negative model score is not a reason this route was excluded.
 QUIET_CODES = {"admet_negative", "candidate_within_scope"}
+
+
+def routine_summary(decision):
+    """The gaps behind a verdict, in a line. Empty when there are none.
+
+    A route reads "정보 부족" on first sight because its conditions are not
+    observed and its byproducts have not been run, which is the normal
+    starting state. The chip alone could not say that, so the reader had to
+    open the reasons block to find out nothing was wrong.
+    """
+    codes = {reason["code"] for reason in decision["reasons"]
+             if reason["code"] not in DECIDING_CODES
+             and reason["code"] not in QUIET_CODES}
+    ordered = sorted(codes, key=lambda code: (_ROUTINE_ORDER.get(code, len(_ROUTINE_ORDER)), code))
+    return " · ".join(dict.fromkeys(
+        ROUTINE_CODES.get(code, UNKNOWN_CODE) for code in ordered))
 
 
 def show_reasons(decision):
@@ -193,7 +212,9 @@ def show_reasons(decision):
         st.write(f"**{label}** · {name} · {where}" if name else f"**{label}** · {where}")
     if routine:
         st.caption(" · ".join(dict.fromkeys(
-            ROUTINE_CODES.get(code, UNKNOWN_CODE) for code in sorted(routine))))
+            ROUTINE_CODES.get(code, UNKNOWN_CODE)
+            for code in sorted(routine, key=lambda code: (
+                _ROUTINE_ORDER.get(code, len(_ROUTINE_ORDER)), code)))))
 
 
 def route_number(workspace, route_id):
@@ -324,6 +345,9 @@ def show_route_risk(workspace):
     verdict = ROUTE_STATUS[decision["status"]]
     st.markdown(ui_kit.chip(verdict, ROUTE_KINDS[decision["status"]],
                             hint=GLOSSARY.get(verdict)), unsafe_allow_html=True)
+    gaps = routine_summary(decision)
+    if gaps:
+        st.caption(gaps)
     materials = [item for step in route["steps"] for item in step["materials"]]
     concern = sum(item["status"] in ("known_concern", "structural_alert")
                   for item in materials)
