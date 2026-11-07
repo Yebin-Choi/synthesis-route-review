@@ -86,6 +86,9 @@ TOOL_PERFORMANCE = {
 def measured_line(tool_id):
     """The measured decision line for a tool, or None if a line does not apply."""
     return TOOL_PERFORMANCE.get(tool_id, {}).get("line")
+# The two that shell out to a separate program. Every other tool runs in
+# this process or in a worker that is already warm.
+EXTERNAL_TOOLS = ("toxtree", "epa_test")
 # Both in-house models open by default: they disagree about one structure
 # in seven (benchmark log 6-11), and showing that is what the screen is for.
 DEFAULT_TOOLS = ("rules", "ames_xgb", "ames_desc", "admet")
@@ -470,10 +473,16 @@ def _show_scores(rows, chosen, threshold):
         tooltip=["전체 구조", "도구", "점수", "판정"],
     ).properties(height=alt.Step(26))
     st.altair_chart(rule + dots, width="stretch")
+    # Name only the tools the reader actually picked. The line used to say
+    # the rule tools and EPA TEST were left out whether or not either was in
+    # the run, which sent a reader looking for a column that was never there.
+    left_out = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
+                if TOOL_PERFORMANCE.get(tool_id, {}).get("line") is None]
+    missing = (" " + " · ".join(left_out) + "는 우리 기준선으로 자를 점수를 "
+               "내지 않아 이 그림에 없습니다." if left_out else "")
     st.caption(f"가로축은 점수. 기준선 {line:.2f}보다 오른쪽이 양성입니다. 선에 붙은 점은 "
-               "어느 쪽으로도 갈 수 있는 값입니다. 점수를 내지 않는 규칙 도구와, "
-               "자기 기준으로 판정하는 EPA TEST는 빠졌습니다. 점수는 확률이 "
-               "아니라 순서를 매기는 값입니다.")
+               "어느 쪽으로도 갈 수 있는 값입니다. 점수는 확률이 아니라 순서를 "
+               "매기는 값입니다." + missing)
 
 
 def _show_performance(chosen, *, with_note=False):
@@ -536,8 +545,14 @@ def show_tool_comparison(workspace):
                 "materials": materials, "tools": chosen, "threshold": threshold}
     stored = st.session_state.get(state_key)
     if not stored or stored["tools"] != chosen:
-        st.caption(f"물질 {len(materials)}개 · 도구 {len(chosen)}개. "
-                   "Toxtree와 EPA TEST는 외부 프로그램을 실행하므로 시간이 걸립니다.")
+        # Only name the slow ones when one of them is actually in the run.
+        # The line used to warn about Toxtree and EPA TEST whether or not they
+        # had been picked, which made a fast run look like a slow one.
+        slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
+                if tool_id in EXTERNAL_TOOLS]
+        note = (" " + " · ".join(slow) + "는 외부 프로그램을 띄우므로 시간이 걸립니다."
+                if slow else "")
+        st.caption(f"물질 {len(materials)}개 · 도구 {len(chosen)}개." + note)
         _show_performance(chosen)
         return
 
