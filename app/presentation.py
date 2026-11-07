@@ -125,10 +125,60 @@ REASON_TEXT = (
      "SynthEx는 개인 API 키와 이 요청에 대한 동의가 있어야 돌아갑니다."),
     ("valid complete target SMILES",
      "4096자 이하의 완전한 목표 SMILES가 필요합니다."),
+    # The generation service's own codes. Without these the screen showed the
+    # English sentence the worker protocol uses.
+    ("returned partial, failed, unreviewed",
+     "일부 단계가 끝나지 않았습니다. 어느 단계에서 멈췄는지는 아래에 적혀 있습니다."),
+    ("worker source is missing", "생성 작업 파일을 찾지 못했습니다."),
+    ("do not match the o", "설정이 원본이 요구하는 것과 맞지 않습니다."),
+    ("does not satisfy the worker protocol", "요청 형식이 맞지 않습니다."),
+    ("must never be supplied", "이 엔진에는 API 키를 보내지 않습니다."),
+    ("output is missing, malformed", "결과가 비었거나 형식이 맞지 않습니다."),
+    ("digests did n", "파일이 실행 도중 바뀌었습니다. 다시 실행하세요."),
+    ("could not be safely validated", "키가 섞였을 수 있는 결과라 버렸습니다."),
+    ("diagnostic stream exceeded", "로그가 1 MiB를 넘어 실행을 멈췄습니다."),
+    ("exceeded 32 MiB or 100 artifact files", "결과 파일이 32 MiB 또는 100개를 넘어 멈췄습니다."),
+    ("request was cancelled", "요청을 취소했습니다. 이미 보낸 호출은 요금이 부과될 수 있습니다."),
+    ("could not be completely reaped", "실행 뒤 정리가 끝나지 않았습니다."),
+    ("service is closed", "이 세션의 생성 기능이 닫혔습니다. 새로 고치세요."),
+    ("No request with this ID", "이 요청을 찾지 못했습니다."),
+    ("belongs to an earlier request context", "이전 요청의 결과라 적용하지 않았습니다."),
     ("outside_applicability_domain", "이 도구의 적용 범위 밖입니다."),
     ("unreadable_structure", "구조를 해석하지 못했습니다."),
     ("tool_not_installed", "도구가 설치되어 있지 않습니다."),
 )
+
+
+# The names SynthEx gives its own stages, so a partial run can say where it
+# stopped instead of only that it stopped.
+STAGE_NAMES = {"strategies": "전략 수립", "routes": "경로 탐색", "reviewed_routes": "경로 비평",
+               "analyses": "분석", "stitched_routes": "경로 이어붙이기", "cli": "실행"}
+# Reasons a provider gives often enough to be worth naming plainly. The raw
+# message is kept underneath, because guessing wrong about a failure is worse
+# than showing it as it came.
+PROVIDER_REASONS = (
+    ("rate limit", "모델 제공자의 분당 한도에 걸렸습니다. 잠시 뒤 다시 실행하거나 한도가 큰 등급을 쓰세요."),
+    ("json_validate_failed", "모델이 요구한 형식의 JSON을 만들지 못했습니다. 형식을 더 잘 지키는 모델을 쓰세요."),
+    ("context_length", "입력이 모델의 길이 한도를 넘었습니다."),
+    ("insufficient_quota", "제공자 계정의 사용 한도가 남아 있지 않습니다."),
+    ("invalid_api_key", "API 키가 올바르지 않습니다."),
+    ("authentication", "API 키가 받아들여지지 않았습니다."),
+)
+
+
+def stage_failures(attempt):
+    """Each failed stage of one attempt, as (stage name, reason) pairs."""
+    result = attempt.get("result") or {}
+    pairs = []
+    for item in result.get("item_failures") or []:
+        stage = STAGE_NAMES.get(item.get("stage"), item.get("stage") or "알 수 없는 단계")
+        raw = ((item.get("failure") or {}).get("message")
+               or {"no_completed_routes": "끝까지 간 경로가 없습니다."}.get(item.get("status"))
+               or item.get("status") or "")
+        lowered = str(raw).casefold()
+        reason = next((text for marker, text in PROVIDER_REASONS if marker in lowered), None)
+        pairs.append((stage, reason, str(raw)))
+    return pairs
 
 
 def reason_text(reason):

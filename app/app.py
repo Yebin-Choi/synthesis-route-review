@@ -10,7 +10,7 @@ import review_views as review_signals
 import workspace as context
 from generation_service import GenerationService
 from molecule_catalog import MOLECULES
-from presentation import reason_text, show_structure, term, theme_css
+from presentation import reason_text, show_structure, stage_failures, term, theme_css
 from review_export import export_csv, export_html, export_json
 from toxicology import canonicalize_smiles
 import ui_kit
@@ -368,6 +368,14 @@ def show_last_attempt():
         st.warning(reason_text(latest["error"].get("message")) or "생성 실패")
     if latest["status"] == "partial":
         st.warning("중간까지 나온 결과는 기록에만 남습니다")
+    failures = stage_failures(latest)
+    if failures:
+        for stage, reason, raw in failures:
+            st.caption(f"{stage}: {reason}" if reason else f"{stage}에서 멈췄습니다")
+        with st.expander("제공자가 보낸 원문"):
+            for stage, _, raw in failures:
+                st.caption(stage)
+                st.code(raw or "(내용 없음)", language=None)
 
 
 def show_generation_controls(workspace, raw_target, target_error):
