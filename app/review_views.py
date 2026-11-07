@@ -17,8 +17,8 @@ import ui_kit
 import workspace as context
 from presentation import (
     GLOSSARY,
-    ALERTS, EVIDENCE_TEXT, ROLES, STATUS, material_card, material_name,
-    material_reason, route_dot, show_structure,
+    ALERTS, EVIDENCE_TEXT, ROLES, STATUS, STATUS_KINDS, material_card,
+    material_name, material_reason, route_dot, show_structure,
 )
 from route_ames_view import ensure_route_ames_evidence, get_route_ames_evidence, show_route_ames_review
 
@@ -28,10 +28,20 @@ ROUTE_STATUS = {"excluded": "우려 신호로 제외", "needs_review": "검토 �
 # clearances, so neither takes the chip a candidate route gets.
 ROUTE_KINDS = {"excluded": ui_kit.CONCERN, "needs_review": ui_kit.REVIEW,
                "insufficient_data": ui_kit.UNKNOWN, "candidate": ui_kit.CLEAR}
-# A material's own verdict. "해당 없음" means the list and the structure rules
-# found nothing, which is not the same as the material being safe.
-MATERIAL_KINDS = {"known_concern": ui_kit.CONCERN, "structural_alert": ui_kit.CONCERN,
-                  "invalid": ui_kit.UNKNOWN, "no_alert_detected": ui_kit.CLEAR}
+# A material's own verdict, in the tables. One source: the card and the table
+# are the same screen and were drawing the same word in two colours.
+#
+# "경고구조 없음" was green here and grey on the card, and the comment that
+# used to sit on this line said the finding "is not the same as the material
+# being safe" directly above the line that painted it green. The rule screen's
+# sensitivity is 0.552, so it raises nothing on nearly half of the real
+# positives; green is the colour this screen gives a negative.
+#
+# The model verdicts in ui_kit.VERDICT stay green on purpose: the performance
+# figures counted "no alert" as a negative, so changing the colour there would
+# put the screen out of step with the numbers beside it. That is a different
+# statement by a different kind of tool, and it carries its own note.
+MATERIAL_KINDS = dict(STATUS_KINDS)
 # How many structure drawings sit in one row of the grid.
 DRAWINGS_PER_ROW = 4
 
