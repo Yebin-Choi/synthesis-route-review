@@ -2850,3 +2850,37 @@ Windows 서비스 `QSARToolbox4.9Server`는 이 용도에 쓸 수 없다. 그 �
 화면의 캐시다. 추적에서 빼고 `.gitignore`에 넣었다(디스크에는 남겨 둠).
 
 검사 655개 통과.
+
+## 6-37. SynthEx Critic에 유전독성 판정 붙임 (2026-11-07)
+
+`docs/기획/SynthEx_코드분석.md` 190~193줄에 적힌 차별성이 설계만 있고 구현돼 있지
+않았다. 지금까지 SynthEx는 경로를 뽑기만 했고, 유전독성 판정은 AiZynthFinder와
+똑같이 그 뒤에 따로 돌았다. 즉 **두 엔진이 결국 같은 일을 하고 있었다.**
+
+| | AiZynthFinder | SynthEx (이제) |
+|---|---|---|
+| 위험을 만나면 | 경로를 삭제 | 그 단계를 고치라고 요구 |
+| 대안이 없으면 | 빈 화면 | 경로를 수술해 전구체를 회피 |
+
+`app/toxicity_critic.py`를 만들어 SynthEx의 Critic을 상속하고, 단계마다 전구체를
+`toxicology.assess_material`로 걸러 걸리는 것마다 blocking 지적을 붙인다. blocking이
+하나라도 생기면 `is_satisfactory`도 내린다. `Critique.is_resolved`가 둘을 함께 읽기
+때문에 하나만 바꾸면 LLM 판단으로 루프가 멈춘다.
+
+판정은 LLM이 하지 않는다. 규칙 화면이 하고, LLM에는 결과만 알려준다.
+
+구조를 못 읽은 전구체는 blocking이 아니라 suggestion으로 둔다. 읽지 못한 구조를
+위험하다고 말할 수 없고, 고칠 것이 없는데 Editor를 돌리면 낭비다.
+
+주입 방식: `PipelineComponents`가 frozen 데이터클래스라 바꿔치기가 안 된다.
+`synthex.application.create_pipeline`을 감싸 `dataclasses.replace`로 새 components를
+만들어 돌려준다. `cli._load_live_pipeline`이 호출 시점에 import하므로 모듈 속성
+교체로 충분하고, **SynthEx 체크아웃은 한 줄도 건드리지 않는다.**
+
+검사 14개를 새로 썼다. 전부 오프라인이고 LLM도 네트워크도 부르지 않는다. 전체
+669개 통과.
+
+아직 하지 않은 것: 실제 LLM으로 한 타깃을 돌려 Editor가 정말 경로를 고치는지
+확인하지 않았다. 호출이 발생하므로 사용자 허락이 필요하다. **그 확인 전까지
+"SynthEx가 경로를 고친다"고 말하면 안 된다.** 지금 말할 수 있는 것은 우리 판정이
+Critic 안으로 들어갔다는 것까지다.

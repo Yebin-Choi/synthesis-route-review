@@ -543,6 +543,41 @@ def _synthex_routes(request, root, config):
     return payload, manifest, failures
 
 
+def _with_toxicity_critic():
+    """Swap SynthEx's Critic for the one that also runs our rule screen.
+
+    `PipelineComponents` is a frozen dataclass, so the swap builds a new one
+    and puts it back on the pipeline. `cli._load_live_pipeline` imports
+    `create_pipeline` when it runs, so replacing the module attribute is
+    enough and nothing in the SynthEx checkout is edited.
+
+    Without this the engine would run its own Critic, repair the chemistry it
+    objects to, and hand back a route whose precursors had never been looked
+    at until our screens ran afterwards, which is what the other engine
+    already does.
+    """
+    import dataclasses
+
+    import synthex.application
+    from synthex.agents import Critic
+    from synthex.agents.models import StepFinding
+    from synthex.routejson import render_plan
+
+    import toxicity_critic
+
+    critic_class = toxicity_critic.build(Critic, StepFinding, render_plan)
+    original = synthex.application.create_pipeline
+
+    def create_pipeline(config, *, include_completion=True):
+        pipeline = original(config, include_completion=include_completion)
+        pipeline.components = dataclasses.replace(
+            pipeline.components, critic=critic_class())
+        return pipeline
+
+    synthex.application.create_pipeline = create_pipeline
+    return original
+
+
 def _synthex(request, root, probe, secret):
     import synthex.cli
 
@@ -558,8 +593,14 @@ def _synthex(request, root, probe, secret):
     arguments = ["plan", request["target"], "--config", str(runtime_path),
                  "--output", str(root / "run"), "--target-id", request["request_id"]]
     # No --resume, --env-file, --edit-rounds, partial stage or alternate backend.
-    with _synthex_artifact_io():
-        exit_code = synthex.cli.main(arguments)
+    original_pipeline = _with_toxicity_critic()
+    try:
+        with _synthex_artifact_io():
+            exit_code = synthex.cli.main(arguments)
+    finally:
+        import synthex.application
+
+        synthex.application.create_pipeline = original_pipeline
     if _asset_digests(probe["files"]) != assets:
         raise _Failure("config_changed")
     if _digest(Path(request["settings"]["config"]).read_bytes()) != request["settings"]["config_sha256"]:
