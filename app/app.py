@@ -358,13 +358,15 @@ def show_last_attempt():
         st.warning("중간까지 나온 결과는 기록에만 남습니다")
 
 
-def show_generation_controls(workspace):
-    """The one button, with everything it needs folded behind it.
+def show_generation_controls(workspace, raw_target, target_error):
+    """The two things a reader can do with a target, on one row.
 
     The engine choice, the provider keys and the readiness line used to stand
     between the target and the button, four controls deep, although the
     default engine runs on this machine and needs none of them. They are one
-    collapsed block now, and the button says when it is not ready.
+    collapsed block now, and the button says when it is not ready. The
+    single-material check sits beside it because it is the other thing to do
+    with the same structure, not a later step.
     """
     service = st.session_state["_native_service"]
     with st.expander("생성 설정"):
@@ -397,8 +399,14 @@ def show_generation_controls(workspace):
     # Changing the target restarts the readiness probe, which locks the button
     # for a few seconds. The label carries that state so a disabled button is
     # never silent.
-    if st.button("준비 중" if not readiness["ready"] else "경로 생성",
-                 key="generation_run", type="primary", disabled=not permitted):
+    generate, check = st.columns(2)
+    with generate:
+        started = st.button("준비 중" if not readiness["ready"] else "경로 생성",
+                            key="generation_run", type="primary",
+                            disabled=not permitted, width="stretch")
+    with check:
+        review_signals.material_check_button(raw_target, target_error)
+    if started:
         workspace = start_generation(service, engine_id, selection, configuration_id)
         st.rerun()
     if st.session_state.get("_generation_job") and st.button("생성 취소",
@@ -534,7 +542,7 @@ except ValueError as exc:
     workspace, target_error = None, str(exc)
     st.error(target_error)
 st.session_state["review_workspace"] = workspace
-workspace = show_generation_controls(workspace)
+workspace = show_generation_controls(workspace, raw_target, target_error)
 st.session_state["review_workspace"] = workspace
 poll_native_jobs()
 inspection = show_material_risk(raw_target, target_error)

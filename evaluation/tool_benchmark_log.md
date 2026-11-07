@@ -2500,3 +2500,37 @@ Streamlit은 접은 상자를 겹칠 수 없어 조건부 경고가 있는 경�
 화면이 깨질 자리였다. 근거를 한 줄 설명으로 바꿔 없앴다.
 
 검사 635개 통과.
+
+## 6-26. 첫 화면 더 줄임 (2026-11-07)
+
+경로 생성과 물질 하나만 검사를 한 줄에 나란히 뒀다. 같은 구조로 할 수 있는 두 가지
+일인데 위아래로 떨어져 있어 두 번째가 나중 단계처럼 보였다. 버튼 이름도 "독립 물질
+검사"에서 "물질 하나만 검사"로 바꿨다.
+
+탭이 나오기 전까지의 줄 수: 9 → 6.
+
+## 6-27. OECD QSAR Toolbox 조사 (2026-11-07)
+
+ICH M7의 전문가 규칙 기반 쪽을 규제용 표준 도구로 채울 후보. **아직 설치하지 않았다.**
+
+| 항목 | 확인 내용 |
+|---|---|
+| 최신 버전 | v4.9 (qsartoolbox.org 다운로드 페이지) |
+| 비용 | 무료 |
+| 설치 용량 | 4.8.2 릴리스 노트 기준 최소 18 GB, 권장 20 GB |
+| 환경 | 64비트 Windows, .NET 8.0 |
+| 이 컴퓨터 여유 공간 | 334 GB |
+| Ames 프로파일러 | "DNA alerts for AMES, CA and MNT by OASIS" (Endpoint specific 범주) |
+
+연동 수단은 **Toolbox WebAPI**가 있다. 4.5부터 self-hosted이고 Kestrel 웹 서버로
+돈다. 설치 폴더의 `LMC.Toolbox.WebAPI.exe`를 host/port 옵션과 함께 실행한다.
+공식 설명: "Experienced users may use the Toolbox Web Services to feed data into
+pipeline systems or to process vast arrays of data in batches."
+
+확인하지 못한 것: 엔드포인트 경로, 요청·응답 형식, 인증 방식. 공개 페이지에 명세가
+없다. 명시된 기능 목록에 profiling은 있지만 QSAR 모델 예측 호출은 없다. 즉 경고구조
+프로파일링은 자동 호출이 될 가능성이 높고, 점수를 내는 QSAR 모델 쪽은 확인이 필요하다.
+명령줄(CLI)은 찾지 못했다.
+
+설치 파일은 `https://qsartoolbox.org/download/redirect/?vid=62`로 연결된다.
+다운로드는 사용자 허락을 받고 진행한다.
