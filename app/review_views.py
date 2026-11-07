@@ -113,7 +113,7 @@ def show_policy(workspace):
     return workspace
 
 
-def show_step_unknowns(step):
+def show_step_unknowns(step, step_count=1):
     # The warning itself, then its grounds folded away. Three stacked
     # paragraphs and a bare URL made the finding compete with its footnote.
     for warning in step["conditional_warnings"]:
@@ -127,13 +127,19 @@ def show_step_unknowns(step):
     # One record instead of four stacked remarks. The wording of the first
     # line is unchanged because it is the line the saved file and the tests
     # both refer to.
-    ui_kit.show_facts([
-        ("반응 조건", EVIDENCE_TEXT[condition["status"]]),
-        ("부산물", {"not_run": "안 돌림", "failed": "실패",
-                  "success": "후보 검토함"}[byproducts["status"]]),
-        ("조건 설명", ui_kit.text(condition.get("description") or "")),
-        ("조건 출처", ui_kit.text(condition.get("source") or "")),
-    ])
+    # Only what happened. A reaction whose byproducts were never requested
+    # has nothing to report, and on a one-step route the missing conditions
+    # are already named under the route chip. On a longer route that line
+    # cannot say which step, so it stays.
+    facts = []
+    if condition["status"] != "unknown" or step_count > 1:
+        facts.append(("반응 조건", EVIDENCE_TEXT[condition["status"]]))
+    if byproducts["status"] != "not_run":
+        facts.append(("부산물", {"failed": "실패",
+                               "success": "후보 검토함"}[byproducts["status"]]))
+    facts.append(("조건 설명", ui_kit.text(condition.get("description") or "")))
+    facts.append(("조건 출처", ui_kit.text(condition.get("source") or "")))
+    ui_kit.show_facts(facts)
     if byproducts.get("error"):
         st.warning("부산물 평가 오류: " + byproducts["error"])
 
@@ -321,7 +327,7 @@ def show_excluded_routes(workspace):
                     "status") in ("known_concern", "structural_alert")}
                  for row in rows])
             _show_drawings(rows)
-            show_step_unknowns(step)
+            show_step_unknowns(step, len(route["steps"]))
         st.caption("판정 근거는 저장 파일에 함께 들어갑니다")
 
 
@@ -329,7 +335,7 @@ _CARD_ORDER = {"known_concern": 0, "structural_alert": 1,
                "invalid": 2, "no_alert_detected": 3}
 
 
-def _step_block(step, order):
+def _step_block(step, order, step_count):
     """One reaction step: its materials, worst first, then what it left blank."""
     st.markdown(f"**{order}단계**")
     materials = step["materials"]
@@ -337,7 +343,7 @@ def _step_block(step, order):
         st.caption("기재된 비목표 물질이 없습니다")
     for material in sorted(materials, key=lambda item: _CARD_ORDER[item["status"]]):
         material_card(material, f"{order}단계")
-    show_step_unknowns(step)
+    show_step_unknowns(step, step_count)
 
 
 def show_route_risk(workspace):
@@ -358,23 +364,12 @@ def show_route_risk(workspace):
     gaps = routine_summary(decision)
     if gaps:
         st.caption(gaps)
-    materials = [item for step in route["steps"] for item in step["materials"]]
-    concern = sum(item["status"] in ("known_concern", "structural_alert")
-                  for item in materials)
-    unreadable = sum(item["status"] == "invalid" for item in materials)
-    ui_kit.metric_row([
-        ("단계", len(route["steps"]), "이 경로를 이루는 반응 수입니다."),
-        ("물질", len(materials), "이 경로에 기재된 비목표 물질 수입니다. "
-                               "목표물 자체는 세지 않습니다."),
-        ("우려", concern, "ICH M7 목록에 있거나 경고구조가 걸린 물질 수입니다."),
-        ("못 읽음", unreadable, "SMILES를 분자로 읽지 못한 물질 수입니다. "
-                              "신호가 없다는 뜻이 아니라 검사를 못 한 것입니다."),
-    ])
-    if unreadable:
-        st.caption("구조를 읽지 못한 물질이 있습니다. 신호가 없다는 뜻이 아니라 "
-                   "검사를 하지 못했다는 뜻입니다.")
+    # No count strip. The four numbers it held said what the screen below
+    # already says: the step count is printed over each block, the materials
+    # are the cards, the concerns are in the route chip, and an unreadable
+    # structure stands there wearing a grey chip of its own.
     for order, step in enumerate(route["steps"], 1):
-        _step_block(step, order)
+        _step_block(step, order, len(route["steps"]))
     with st.expander("판정 사유와 원문"):
         show_reasons(decision)
         source = next(item for item in workspace["active_input"]["routes"] if item["id"] == route["id"])

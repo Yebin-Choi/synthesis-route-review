@@ -243,6 +243,9 @@ ROLES = {
 # How a material's evidence state reads on screen. The services write the
 # English enum because it is also what the saved file and the tests check.
 EVIDENCE_TEXT = {"observed": "관측", "proposed": "제안", "unknown": "자료 없음"}
+# What the engine writes when a material has no recorded source. Matched
+# here rather than changed there: the string is part of the saved record.
+ORIGIN_UNSET = "물질별 출처 미지정"
 ALERTS = {
     "N-nitroso": "N-니트로소기", "Azoxy (special-concern review)": "아족시기",
     "Aziridine": "아지리딘 고리", "Epoxide": "에폭사이드 고리",
@@ -493,18 +496,27 @@ def material_card(material, location="", *, tool=None):
             if material.get("canonical_smiles") != material["input_smiles"] and material.get("canonical_smiles"):
                 st.caption("정규화 SMILES")
                 st.code(material["canonical_smiles"], language=None)
-            facts = [("근거", EVIDENCE_TEXT.get(material.get("evidence_status"),
-                                              "자료 없음"))]
-            if material.get("origin"):
-                facts.append(("출처", ui_kit.text(material["origin"])))
+            # Only rows that differ between materials. The engine fills
+            # `evidence_status` with "unknown" and `origin` with a placeholder
+            # sentence for every material it has no record for, so both rows
+            # carried the same words on almost every card. A line that never
+            # changes is not read, and a card of unread lines reads as empty.
+            # The values stay in the saved snapshot.
+            facts = []
+            evidence = material.get("evidence_status")
+            if evidence and evidence != "unknown":
+                facts.append(("근거", EVIDENCE_TEXT.get(evidence, evidence)))
+            origin = material.get("origin")
+            if origin and origin != ORIGIN_UNSET:
+                facts.append(("출처", ui_kit.text(origin)))
             if material.get("source_url"):
                 facts.append(("주소", ui_kit.text(material["source_url"])))
-            # "없음" stays on the card. A missing intake figure is a fact
-            # about the record, and dropping the row would let a reader take
-            # the silence for a number that was simply not worth showing.
-            # A plain label: ui_kit.facts escapes labels by contract, so the
-            # glossary marker would have printed as its own tag.
+            # Only a figure that exists. "없음" was on every card, because a
+            # reference intake is known for very few structures. The reason a
+            # material has none, including the ICH M7 special-concern case
+            # where the generic limit does not apply, stays in the saved
+            # record's `intake_basis`.
             intake = material.get("intake_ug_day")
-            facts.append(("TTC 참고 섭취량",
-                          f"{intake:g} µg/day" if intake is not None else "없음"))
+            if intake is not None:
+                facts.append(("TTC 참고 섭취량", f"{intake:g} µg/day"))
             ui_kit.show_facts(facts)

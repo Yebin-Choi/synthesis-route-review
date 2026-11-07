@@ -433,7 +433,11 @@ class AppUsabilityTests(OfflineAppCase):
         decision = next(item for item in self.workspace["selection"]["routes"] if item["id"] == self.workspace["route_id"])
         self.assertEqual(decision["status"], "insufficient_data")
         self.assertIn("정보 부족", self.text(self.app.tabs[0]))
-        self.assertIn("안 돌림", self.text(self.app.tabs[0]))
+        # The gap is named once, under the route chip. The step block used to
+        # repeat it as "부산물 / 안 돌림" on every step of every route, which
+        # said only that nobody had pressed the button yet.
+        self.assertIn("부산물 미평가", self.text(self.app.tabs[0]))
+        self.assertNotIn("안 돌림", self.text(self.app.tabs[0]))
 
     def test_policy_failure_never_reuses_a_candidate(self):
         self.enable_model()
@@ -523,10 +527,14 @@ class AppUsabilityTests(OfflineAppCase):
         self.assertTrue(result["special_concern"])
         self.assertIsNone(result["intake_ug_day"])
         self.assertEqual(result["status"], "structural_alert")
-        # The screen marks the special-concern motif and that no intake exists;
-        # the no-generic-TTC reasoning stays in the stored result.
+        # The screen marks the special-concern motif with its own chip. The
+        # card no longer carries a "TTC 참고 섭취량 / 없음" row: a reference
+        # intake is known for very few structures, so that row sat on every
+        # card saying nothing. Why this one has none, including the ICH M7
+        # rule that the generic limit does not apply to it, stays in the
+        # stored record and in the download.
         self.assertIn("특별 우려 구조", self.text())
-        self.assertIn("<dt>TTC 참고 섭취량</dt><dd>없음</dd>", self.text())
+        self.assertNotIn("TTC 참고 섭취량", self.text())
         self.assertIn("No TTC fallback", result["intake_basis"])
         self.assertIsNone(self.snapshot["report"])
         self.raw_target("C1CC")
