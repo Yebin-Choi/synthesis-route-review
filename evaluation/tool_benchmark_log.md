@@ -3095,3 +3095,39 @@ TTC를 쓰면 안 되고, 그 "한도 없음"을 화면에서 말하는 자리�
   세 형식의 직렬화가 같다는 규칙은
   `test_unified_download_formats_serialize_the_same_current_snapshot`가 지킨다.
 - 전체 671개 통과.
+
+## 6-43. SynthEx 독성 비평 연결 확인 (LLM 호출 없음)
+
+`app/toxicity_critic.py`를 SynthEx 실제 클래스에 붙여 돌렸다. 지금까지는
+대역(stand-in)으로만 확인했고, 실제 pydantic 모델과 실제 `Route`에 대고
+확인한 적이 없었다. 확인은 `external_tools/synthex-runtime`에서 돌렸다.
+
+확인한 것
+- `toxicity_critic.build`가 만든 클래스가 진짜 `synthex.agents.Critic`의
+  하위 클래스다. `prompt_version`은
+  `critic-v2-atom-accounting+ich-m7-rule-screen`.
+- `StepFinding(step_id=, severity=, feedback=)`가 그대로 받는다.
+- `Critique.model_copy(update=...)`가 우리가 넘기는 두 필드를 받고,
+  결과의 `is_resolved`가 False가 된다.
+- `render_plan(route.to_op_plan())`이 `{"route": [{"id","smiles"}...]}` 모양을
+  낸다. `synthex/examples/routejson/two-step-route.json`으로 확인했고,
+  `precursors_of`가 `S1 -> CCC, CCC`, `S2 -> CC, C`를 집어냈다.
+- 경고 전구체(Epichlorohydrin)를 넣은 경로에서 blocking 소견 1개가 나오고
+  `is_satisfactory`와 `is_resolved`가 둘 다 False가 된다.
+- `synthex/src/synthex/pipeline.py:279`가 `critique.is_resolved`가 거짓일 때
+  Editor를 부른다. `edit_iteration_limit` 기본값 6이고
+  `generation_worker.py:243`이 `config.agents`를 기본값으로 고정하므로
+  이 경로가 실제로 열려 있다.
+
+고친 결함
+- 비평기를 바꿔 끼울 때 `critic_class()`를 인자 없이 만들고 있었다. SynthEx는
+  설정에서 온 `temperature`, `thinking_level`, `attempts`로 비평기를 만드는데
+  (`synthex/src/synthex/application.py:68`), 바꿔 끼운 것이 그 셋을 모두
+  기본값으로 돌려놓고 있었다. 아무 말 없이 다른 설정으로 도는 상태였다.
+  교체 대상의 설정을 그대로 읽어 넘기도록 고쳤다.
+- 이 결함을 막는 검사가 하나도 없었다. `PipelineSwapTests`를 새로 썼고,
+  고친 줄을 되돌리면 실패하는 것을 확인했다. 전체 672개 통과.
+
+남은 것
+- Editor가 실제로 단계를 고쳐 내는지는 LLM 호출이 필요해 확인하지 못했다.
+  위 확인은 "비평이 Editor를 부르는 조건을 만든다"까지다.

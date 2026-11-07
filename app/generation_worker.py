@@ -570,8 +570,16 @@ def _with_toxicity_critic():
 
     def create_pipeline(config, *, include_completion=True):
         pipeline = original(config, include_completion=include_completion)
+        # The critic SynthEx just built carries the temperature, thinking level
+        # and retry count the configuration asked for. Replacing it with a
+        # default-constructed one would drop all three without saying so, so
+        # the replacement is built from the settings of the one it replaces.
+        stock = pipeline.components.critic
         pipeline.components = dataclasses.replace(
-            pipeline.components, critic=critic_class())
+            pipeline.components,
+            critic=critic_class(temperature=stock.temperature,
+                                thinking_level=stock.thinking_level,
+                                attempts=stock.attempts))
         return pipeline
 
     synthex.application.create_pipeline = create_pipeline
