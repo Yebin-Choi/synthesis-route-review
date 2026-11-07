@@ -33,7 +33,13 @@ CATALOG = {f"{item['name_ko']} ({item['name_en']}) · {item['category']}": item 
 TARGETS = {label: item["smiles"] for label, item in CATALOG.items()}
 TARGETS["직접 입력"] = ""
 DEFAULT_TARGET = next(label for label, item in CATALOG.items() if item["name_en"].casefold() == "propranolol")
-ENGINES = {"aizynthfinder": "AiZynthFinder · 원본 로컬 탐색", "synthex": "SynthEx · 원본 전체 생성"}
+# SynthEx is not an alternative search: it runs AiZynthFinder for the search
+# step and puts LLM agents around it (strategies, critique, analysis,
+# stitching), which is why it checks the AiZynthFinder version before it
+# starts. The labels used to read "원본 로컬 탐색" and "원본 전체 생성", which
+# said neither that one of them needs a key nor that the other is inside it.
+ENGINES = {"aizynthfinder": "AiZynthFinder · 이 컴퓨터에서 탐색",
+           "synthex": "SynthEx · LLM이 전략을 세우고 AiZynthFinder로 탐색"}
 # Each entry is a display name, an OpenAI-compatible base_url (None for the
 # Gemini SDK) and a default model name. A default is filled in only where the
 # provider's own documentation lists that exact ID for tool calling and JSON
@@ -373,8 +379,10 @@ def show_generation_controls(workspace, raw_target, target_error):
         engine_id = st.selectbox(
             "엔진", list(ENGINES), format_func=ENGINES.get,
             key="generation_engine", on_change=engine_changed,
-            help="AiZynthFinder는 이 컴퓨터에서 돌고, SynthEx는 목표 구조를 외부 "
-                 "모델로 보냅니다.")
+            help="AiZynthFinder는 이 컴퓨터에서만 돌고 키가 필요 없습니다. "
+                 "SynthEx는 같은 AiZynthFinder로 탐색하되 전략 수립·비평·분석을 "
+                 "LLM에 맡기므로, API 키가 있어야 하고 목표 구조가 외부 모델로 "
+                 "나갑니다.")
         entry = (provider_settings() if engine_id == "synthex"
                  else PROVIDERS[st.session_state["llm_provider"]])
         selection = llm_selection(engine_id)
