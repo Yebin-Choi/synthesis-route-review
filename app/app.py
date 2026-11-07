@@ -22,14 +22,14 @@ from review_views import (
     show_model_review, show_policy, show_route_risk,
 )
 
-TITLE = f"{branding.NAME} · {branding.SUBTITLE}"
+TITLE = f"{branding.NAME}: {branding.SUBTITLE}"
 # Two screens were removed rather than left half-right. The cost screen had no
 # obtainable public reagent price source, so it only asked the reader to type
 # prices it could not supply. The quantity screen back-calculated charges from
 # coefficients and a yield the reader also had to supply, which made the
 # software look as though it knew a recipe it had never been given.
 TABS = ("위험 검토", "독성 예측 툴 비교", "부산물")
-CATALOG = {f"{item['name_ko']} ({item['name_en']}) · {item['category']}": item for item in MOLECULES}
+CATALOG = {f"{item['name_ko']} ({item['name_en']}), {item['category']}": item for item in MOLECULES}
 TARGETS = {label: item["smiles"] for label, item in CATALOG.items()}
 TARGETS["직접 입력"] = ""
 DEFAULT_TARGET = next(label for label, item in CATALOG.items() if item["name_en"].casefold() == "propranolol")
@@ -38,19 +38,19 @@ DEFAULT_TARGET = next(label for label, item in CATALOG.items() if item["name_en"
 # stitching), which is why it checks the AiZynthFinder version before it
 # starts. The labels used to read "원본 로컬 탐색" and "원본 전체 생성", which
 # said neither that one of them needs a key nor that the other is inside it.
-ENGINES = {"aizynthfinder": "AiZynthFinder · 이 컴퓨터에서 탐색",
-           "synthex": "SynthEx · LLM이 전략을 세우고 AiZynthFinder로 탐색"}
+ENGINES = {"aizynthfinder": "AiZynthFinder: 이 컴퓨터에서 탐색",
+           "synthex": "SynthEx: LLM이 전략을 세우고 AiZynthFinder로 탐색"}
 # Each entry is a display name, an OpenAI-compatible base_url (None for the
 # Gemini SDK) and a default model name. A default is filled in only where the
 # provider's own documentation lists that exact ID for tool calling and JSON
 # output; otherwise it is blank and the reader supplies it.
 PROVIDERS = {
-    "groq": {"label": "Groq · 무료 등급", "base_url": "https://api.groq.com/openai/v1",
+    "groq": {"label": "Groq: 무료 등급", "base_url": "https://api.groq.com/openai/v1",
              "model": "openai/gpt-oss-120b", "paid": False},
-    "openrouter": {"label": "OpenRouter · 무료 모델", "base_url": "https://openrouter.ai/api/v1",
+    "openrouter": {"label": "OpenRouter: 무료 모델", "base_url": "https://openrouter.ai/api/v1",
                    "model": "", "paid": False},
-    "custom": {"label": "직접 입력 · OpenAI 호환", "base_url": "", "model": "", "paid": False},
-    "gemini": {"label": "Gemini · 유료", "base_url": None,
+    "custom": {"label": "직접 입력: OpenAI 호환", "base_url": "", "model": "", "paid": False},
+    "gemini": {"label": "Gemini: 유료", "base_url": None,
                "model": "gemini-3.1-pro-preview", "paid": True},
 }
 DEFAULT_PROVIDER = "groq"
@@ -363,7 +363,7 @@ def show_last_attempt():
         return
     latest = attempts[-1]
     st.caption("생성 상태: " + STATUS.get(latest["status"], "미확인")
-               + (" · 이전 맥락" if latest["stale"] else ""))
+               + (", 이전 맥락" if latest["stale"] else ""))
     if latest["error"]:
         st.warning(reason_text(latest["error"].get("message")) or "생성 실패")
     if latest["status"] == "partial":
@@ -394,12 +394,13 @@ def show_generation_controls(workspace, raw_target, target_error):
             service, engine_id, selection, workspace)
         bind_consent(engine_id, selection, readiness, configuration_id)
         if engine_id == "synthex":
-            name = entry["label"].split(" · ")[0]
+            name = entry["label"].split(":")[0]
             model = selection["model"] if selection else ""
             st.caption(f"목표 구조를 {name}" + (f"의 {model}" if model else "")
-                       + "로 전송합니다 · "
-                       + ("유료 호출 발생" if entry["paid"] else "무료 등급 한도 적용")
-                       + " · 전체 900초 한도")
+                       + "로 보냅니다. "
+                       + ("요금이 부과됩니다. " if entry["paid"]
+                          else "무료 등급 한도가 적용됩니다. ")
+                       + "900초까지 기다립니다.")
             st.checkbox("외부 전송과 유료 호출에 동의합니다" if entry["paid"]
                         else "외부 전송에 동의합니다",
                         key="generation_consent", disabled=not readiness["ready"])
@@ -440,7 +441,7 @@ def route_label(workspace, route_id):
                   if reason["code"] in review_signals.DECIDING_CODES
                   and reason["code"] not in review_signals.NOTE_CODES)
     number = review_signals.route_number(workspace, route_id)
-    return f"경로 {number} · 우려 {signals}건" if signals else f"경로 {number}"
+    return f"경로 {number}, 우려 {signals}건" if signals else f"경로 {number}"
 
 
 def shared_selection(workspace):
@@ -522,7 +523,7 @@ ui_kit.use()
 # never seen, and the line it decides at. They come from the comparison
 # screen's own table, so the header cannot drift away from it.
 branding.show_header([
-    (row["label"], "균형 정확도", f"{row['balanced']:.3f} · 기준선 {row['line']:.2f}")
+    (row["label"], "균형 정확도", f"{row['balanced']:.3f}, 기준선 {row['line']:.2f}")
     for row in (tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"],
                 tool_comparison_view.TOOL_PERFORMANCE["ames_desc"])
 ] + [("도구", "", f"{len(screening_judges.implemented_judge_ids())}종")])

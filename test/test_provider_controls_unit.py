@@ -51,7 +51,7 @@ class ProviderControlTests(unittest.TestCase):
         captions = " ".join(caption.value for caption in app.caption)
         self.assertIn("Groq", captions)
         self.assertIn("openai/gpt-oss-120b", captions)
-        self.assertNotIn("유료 호출", captions)
+        self.assertNotIn("요금이 부과", captions)
         self.assertNotIn("유료", app.checkbox(key="generation_consent").label)
         # A key is all that stands between this screen and a run.
         self.assertFalse(any("채우세요" in warning.value for warning in app.warning))
@@ -66,7 +66,7 @@ class ProviderControlTests(unittest.TestCase):
         captions = " ".join(caption.value for caption in app.caption)
         self.assertIn("Gemini", captions)
         self.assertIn("gemini-3.1-pro-preview", captions)
-        self.assertIn("유료 호출", captions)
+        self.assertIn("요금이 부과", captions)
         self.assertIn("유료", app.checkbox(key="generation_consent").label)
 
     def test_a_provider_without_a_verified_default_model_asks_for_one(self):

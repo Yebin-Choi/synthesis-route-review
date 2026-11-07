@@ -203,7 +203,7 @@ def build_comparison(materials, results):
             calls[tool_id] = call
             text = call_label(call["call"], tool_id)
             if call["call"] == "abstain" and call.get("error"):
-                text = f"예측 결과 없음 · {reason_text(call['error'])}"
+                text = f"예측 결과 없음: {reason_text(call['error'])}"
             elif call.get("score") is not None:
                 text = f"{text} ({call['score']:.2f})"
             row[TOOL_PERFORMANCE[tool_id]["label"]] = text
@@ -492,7 +492,7 @@ def _show_scores(rows, chosen, threshold):
     # the run, which sent a reader looking for a column that was never there.
     left_out = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
                 if TOOL_PERFORMANCE.get(tool_id, {}).get("line") is None]
-    missing = (" " + " · ".join(left_out) + "는 우리 기준선으로 자를 점수를 "
+    missing = (" " + ", ".join(left_out) + "는 우리 기준선으로 자를 점수를 "
                "내지 않아 이 그림에 없습니다." if left_out else "")
     st.caption(f"가로축은 점수. 기준선 {line:.2f}보다 오른쪽이 양성입니다. 선에 붙은 점은 "
                "어느 쪽으로도 갈 수 있는 값입니다. 점수는 확률이 아니라 순서를 "
@@ -572,9 +572,9 @@ def show_tool_comparison(workspace):
                 if tool_id in EXTERNAL_TOOLS]
         # "띄우므로" would be wrong for the Toolbox: it does not launch it but
         # calls one that has to be running already.
-        note = (" " + " · ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
+        note = (" " + ", ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
                 if slow else "")
-        st.caption(f"물질 {len(materials)}개 · 도구 {len(chosen)}개." + note)
+        st.caption(f"물질 {len(materials)}개, 도구 {len(chosen)}개." + note)
         _show_performance(chosen)
         return
 
