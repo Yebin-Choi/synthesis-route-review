@@ -221,8 +221,11 @@ def poll_native_jobs():
         except Exception:
             snapshot = {**job, "status": "failed", "result": None, "error": {"message": "실행 상태를 확인하지 못했습니다."}}
         if snapshot["status"] in BUSY:
-            if slot != "_readiness_job":
-                st.caption(STATUS[snapshot["status"]])
+            # A probe used to run behind a button that said "준비 중" and
+            # nothing else for about five seconds, which reads as stuck
+            # rather than busy.
+            st.caption("실행 환경을 확인하는 중입니다" if slot == "_readiness_job"
+                       else STATUS[snapshot["status"]])
         else:
             st.session_state.pop(slot, None)
             if slot == "_generation_job":

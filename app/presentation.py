@@ -374,11 +374,20 @@ PALETTES = {
         "bg": "#ffffff", "panel": "#f6f8fb", "raised": "#eef2f7",
         "line": "#dde3ec", "text": "#16223a", "muted": "#5a6b86",
         "accent": "#1b4fa8", "action": "#1b3a7a",
+        # The brand mark is navy on transparency, which reads as drawn on the
+        # light background and needs nothing done to it.
+        "logo_filter": "none",
     },
     "dark": {
         "bg": "#0b1422", "panel": "#15223a", "raised": "#1b2b47",
         "line": "#243550", "text": "#eef3fa", "muted": "#9fb0c8",
         "accent": "#6cc3f5", "action": "#1d5fa8",
+        # Lifts that same navy to roughly rgb(70,149,255) so it reads on the
+        # dark background. contrast() first raises the floor off zero, which
+        # brightness() alone cannot do to a channel that is already 0, then
+        # brightness() carries it up. The mark keeps its hue and its edges
+        # stay soft, which recolouring to flat white would lose.
+        "logo_filter": "contrast(0.75) brightness(2.2)",
     },
 }
 
@@ -388,10 +397,12 @@ def theme_css(light):
     bg, panel, text = colours["bg"], colours["panel"], colours["text"]
     muted, border, accent = colours["muted"], colours["line"], colours["accent"]
     raised, action = colours["raised"], colours["action"]
+    logo_filter = colours["logo_filter"]
     return f"""<style>
     :root {{ --review-bg:{bg}; --review-panel:{panel}; --review-raised:{raised};
       --review-line:{border}; --review-text:{text}; --review-muted:{muted};
-      --review-accent:{accent}; --review-action:{action}; }}
+      --review-accent:{accent}; --review-action:{action};
+      --rx-logo-filter:{logo_filter}; }}
     html,body,input,textarea,button,select {{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",sans-serif;}}
     [data-testid="stApp"], [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{background:{bg};color:{text};}}
     [data-testid="stMainBlockContainer"] {{max-width:min(100%,calc(50vw + 620px));padding:4.5rem 24px 32px;}}

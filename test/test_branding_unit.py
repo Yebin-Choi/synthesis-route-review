@@ -86,5 +86,41 @@ class FooterTests(unittest.TestCase):
         self.assertIn("안전성 판정이 아닙니다", markup)
 
 
+class LogoOnDarkTests(unittest.TestCase):
+    """The mark carries no white field of its own.
+
+    It used to sit on a white rounded plate, because its navy ink half
+    disappears on the dark background. That left a lit panel floating in a
+    dark header. The palette lifts the ink instead.
+    """
+
+    def test_the_header_no_longer_draws_a_white_field(self):
+        self.assertNotIn("rx-plate", branding.HEADER_CSS)
+        self.assertNotIn("background:#fff", branding.HEADER_CSS)
+
+    def test_the_mark_takes_its_filter_from_the_palette(self):
+        self.assertIn("filter:var(--rx-logo-filter", branding.HEADER_CSS)
+
+    def test_the_light_palette_leaves_the_ink_alone(self):
+        import presentation
+
+        self.assertIn("--rx-logo-filter:none", presentation.theme_css(True))
+
+    def test_the_dark_palette_lifts_the_ink(self):
+        import presentation
+
+        css = presentation.theme_css(False)
+        self.assertIn("--rx-logo-filter:", css)
+        self.assertNotIn("--rx-logo-filter:none", css)
+
+    def test_every_palette_defines_one(self):
+        """A palette without it would fall back to the unreadable navy."""
+        import presentation
+
+        for name, colours in presentation.PALETTES.items():
+            with self.subTest(palette=name):
+                self.assertIn("logo_filter", colours)
+
+
 if __name__ == "__main__":
     unittest.main()

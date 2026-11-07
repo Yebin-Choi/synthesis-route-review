@@ -56,8 +56,12 @@ FALLBACK_MARK = """
 HEADER_CSS = """<style>
 .rx-head { display:flex; align-items:center; gap:14px; margin:0 0 2px; }
 .rx-mark { display:flex; align-items:center; flex:0 0 auto; }
-.rx-mark img { height:30px; width:auto; display:block; }
-.rx-mark.rx-plate { background:#fff; border-radius:7px; padding:4px 7px; }
+/* The mark is one navy on transparency. On the dark background that navy
+   half disappears, so it used to sit on a white rounded field, which left a
+   lit panel floating in a dark header. The theme lifts the ink instead; the
+   variable is defined per palette in presentation.theme_css. */
+.rx-mark img { height:30px; width:auto; display:block;
+  filter:var(--rx-logo-filter, none); }
 .rx-mark svg { display:block; }
 .rx-mark p { margin:0; display:contents; }
 .rx-names { display:flex; flex-direction:column; gap:1px; min-width:0; }
@@ -136,23 +140,22 @@ def stat_chips(entries):
     return f'<div class="rx-strip">{"".join(chips)}</div>' if chips else ""
 
 
-def header_markup(stats=(), plate=True):
+def header_markup(stats=()):
     """The header. The brand asset is a lockup that already carries the name.
 
     So when it is present the name is not also typed out beside it; the image
     is the name, and the word stays in its alt text. Without the asset the
     drawn mark is only a mark, so the name is set in type next to it.
 
-    `plate` puts the lockup on a white rounded field. The navy in it is close
-    enough to the dark background that it would otherwise half disappear,
-    and on the light background the field cannot be seen anyway.
+    The mark carries no field of its own. On a dark palette the theme lifts
+    its ink so it reads against the background, rather than putting a white
+    panel behind it.
     """
     has_asset = logo_path() is not None
-    classes = "rx-mark rx-plate" if has_asset and plate else "rx-mark"
     name = "" if has_asset else f'<span class="rx-name">{ui_kit.text(NAME)}</span>'
     return (HEADER_CSS
             + '<div class="rx-head">'
-            + f'<span class="{classes}">{logo_markup()}</span>'
+            + f'<span class="rx-mark">{logo_markup()}</span>'
             + '<span class="rx-names">'
             + f'<span class="rx-line">{name}'
             + f'<span class="rx-sub">{ui_kit.text(SUBTITLE)}</span>'

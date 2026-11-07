@@ -475,5 +475,50 @@ class ArtifactBoundaryTests(unittest.TestCase):
             self.assertEqual(caught.exception.code, "path_escape")
 
 
+class SharedReadinessCacheTests(unittest.TestCase):
+    """A reload must not re-run the interpreter probe.
+
+    Service objects are built per browser session. The probe they run is
+    about the machine, not the session, so its result is shared for the life
+    of the process, keyed by what could make it wrong.
+    """
+
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.config = Path(self.directory.name) / "generation.local.json"
+        self.config.write_text("{}", encoding="utf-8")
+
+    def test_two_services_on_one_configuration_share_the_cache(self):
+        first = service.GenerationService(self.config)
+        second = service.GenerationService(self.config)
+        self.addCleanup(first.close)
+        self.addCleanup(second.close)
+        key = ("aizynthfinder", "f" * 64, "d" * 64)
+        first._readiness_cache[key] = {"ready": True}
+        self.assertEqual(second._readiness_cache.get(key), {"ready": True})
+
+    def test_a_different_configuration_file_does_not_share_it(self):
+        other = Path(self.directory.name) / "other.json"
+        other.write_text("{}", encoding="utf-8")
+        first = service.GenerationService(self.config)
+        second = service.GenerationService(other)
+        self.addCleanup(first.close)
+        self.addCleanup(second.close)
+        key = ("aizynthfinder", "f" * 64, "d" * 64)
+        first._readiness_cache[key] = {"ready": True}
+        self.assertIsNone(second._readiness_cache.get(key))
+
+    def test_the_key_separates_what_would_make_a_hit_wrong(self):
+        """Engine, interpreter identity and provider selection each change it."""
+        base = service.GenerationService._cache_key("synthex", "f" * 64, {"model": "a"})
+        for other in (service.GenerationService._cache_key("aizynthfinder", "f" * 64, {"model": "a"}),
+                      service.GenerationService._cache_key("synthex", "e" * 64, {"model": "a"}),
+                      service.GenerationService._cache_key("synthex", "f" * 64, {"model": "b"}),
+                      service.GenerationService._cache_key("synthex", "f" * 64, None)):
+            with self.subTest(other=other):
+                self.assertNotEqual(base, other)
+
+
 if __name__ == "__main__":
     unittest.main()

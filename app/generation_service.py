@@ -429,6 +429,18 @@ class _Request:
     thread: threading.Thread | None = field(default=None, repr=False)
 
 
+# One readiness cache per configuration file, for the life of the process.
+# Service objects are built per browser session; the probe they run is about
+# the machine, not the session.
+_SHARED_READINESS = {}
+_SHARED_READINESS_LOCK = threading.RLock()
+
+
+def _shared_readiness(config_path):
+    with _SHARED_READINESS_LOCK:
+        return _SHARED_READINESS.setdefault(str(Path(config_path)), {})
+
+
 class GenerationService:
     """One session's explicit start/poll/cancel lifecycle; no automatic retries.
 
@@ -440,7 +452,14 @@ class GenerationService:
     def __init__(self, config_path=None):
         self.config_path = Path(config_path) if config_path is not None else LOCAL_CONFIG
         self._requests = {}
-        self._readiness_cache = {}
+        # Shared with every other service on the same configuration file in
+        # this process, so a reader who reloads the page does not wait out a
+        # fresh interpreter probe. What the key already carries makes this
+        # safe: the configuration file's digest and the interpreter's path,
+        # size, mtime and digest, plus the provider selection. Change any of
+        # them and it is a different key, not a stale hit. Only a completed
+        # probe is written, so a failure is never cached.
+        self._readiness_cache = _shared_readiness(self.config_path)
         self._lock = threading.RLock()
         self._closed = False
         atexit.register(self._shutdown)
