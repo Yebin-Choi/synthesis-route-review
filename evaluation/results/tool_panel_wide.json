@@ -1,0 +1,1659 @@
+{
+  "truth_file": "ames_independent_unseen.csv",
+  "rows": 1201,
+  "positives": 429,
+  "negatives": 772,
+  "resamples": 2000,
+  "seed": 20261108,
+  "single": {
+    "rules": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 237,
+      "fp": 178,
+      "tn": 594,
+      "fn": 192,
+      "sensitivity": 0.5524475524475524,
+      "specificity": 0.7694300518134715,
+      "balanced_accuracy": 0.6609388021305119,
+      "caught_of_all_positives": 0.5524475524475524,
+      "label": "전문가 규칙 (ICH M7)",
+      "source": "evaluation/results/rules_independent_predictions.csv",
+      "balanced_interval": {
+        "low": 0.6331506253221615,
+        "high": 0.6894902429251683,
+        "width": 0.056339617603006764,
+        "resamples": 2000
+      }
+    },
+    "toxtree": {
+      "rows": 1201,
+      "decided": 933,
+      "coverage": 0.7768526228143214,
+      "tp": 226,
+      "fp": 127,
+      "tn": 479,
+      "fn": 101,
+      "sensitivity": 0.691131498470948,
+      "specificity": 0.7904290429042904,
+      "balanced_accuracy": 0.7407802706876192,
+      "caught_of_all_positives": 0.5268065268065268,
+      "label": "Toxtree 3.1.0",
+      "source": "evaluation/runs/toxtree_independent/toxtree_predictions.csv",
+      "balanced_interval": {
+        "low": 0.7105839674094997,
+        "high": 0.7725062050097947,
+        "width": 0.06192223760029503,
+        "resamples": 2000
+      }
+    },
+    "qsar_toolbox": {
+      "rows": 1201,
+      "decided": 1129,
+      "coverage": 0.9400499583680266,
+      "tp": 170,
+      "fp": 15,
+      "tn": 712,
+      "fn": 232,
+      "sensitivity": 0.4228855721393035,
+      "specificity": 0.9793672627235214,
+      "balanced_accuracy": 0.7011264174314125,
+      "caught_of_all_positives": 0.3962703962703963,
+      "label": "QSAR Toolbox 4.9 OASIS",
+      "source": "evaluation/results/qsar_toolbox_independent_qsar_toolbox_oasis.csv",
+      "balanced_interval": {
+        "low": 0.6761838435474383,
+        "high": 0.7249881569516237,
+        "width": 0.04880431340418534,
+        "resamples": 2000
+      }
+    },
+    "admet": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 291,
+      "fp": 139,
+      "tn": 633,
+      "fn": 138,
+      "sensitivity": 0.6783216783216783,
+      "specificity": 0.8199481865284974,
+      "balanced_accuracy": 0.7491349324250879,
+      "caught_of_all_positives": 0.6783216783216783,
+      "auc": 0.81822258052828,
+      "scored_rows": 1201,
+      "label": "ADMET-AI 2.0.1",
+      "source": "evaluation/results/admet_independent_predictions.csv",
+      "balanced_interval": {
+        "low": 0.7234608353086962,
+        "high": 0.7759206016525222,
+        "width": 0.052459766343825986,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.7919063066404477,
+        "high": 0.8438799832642231,
+        "width": 0.05197367662377539,
+        "resamples": 2000
+      }
+    },
+    "epa_test": {
+      "rows": 1201,
+      "decided": 734,
+      "coverage": 0.611157368859284,
+      "tp": 178,
+      "fp": 91,
+      "tn": 360,
+      "fn": 105,
+      "sensitivity": 0.6289752650176679,
+      "specificity": 0.7982261640798226,
+      "balanced_accuracy": 0.7136007145487453,
+      "caught_of_all_positives": 0.4149184149184149,
+      "auc": 0.7703493610586604,
+      "scored_rows": 734,
+      "label": "EPA TEST 5.1.2",
+      "source": "evaluation/results/epa_predictions.csv",
+      "balanced_interval": {
+        "low": 0.6796602859377965,
+        "high": 0.7460605765074844,
+        "width": 0.06640029056968788,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.7346893836700662,
+        "high": 0.8045563496790739,
+        "width": 0.06986696600900766,
+        "resamples": 2000
+      }
+    },
+    "ames_xgb": {
+      "rows": 1201,
+      "decided": 933,
+      "coverage": 0.7768526228143214,
+      "tp": 274,
+      "fp": 46,
+      "tn": 533,
+      "fn": 80,
+      "sensitivity": 0.7740112994350282,
+      "specificity": 0.9205526770293609,
+      "balanced_accuracy": 0.8472819882321946,
+      "caught_of_all_positives": 0.6386946386946387,
+      "auc": 0.9021496248158231,
+      "scored_rows": 933,
+      "label": "자체 모델 1: fingerprint",
+      "source": "evaluation/results/ames_balanced_independent_predictions.csv",
+      "balanced_interval": {
+        "low": 0.8212125767941308,
+        "high": 0.8709436500713025,
+        "width": 0.049731073277171634,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8787235973124441,
+        "high": 0.9240428392260852,
+        "width": 0.04531924191364112,
+        "resamples": 2000
+      }
+    },
+    "ames_desc": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 278,
+      "fp": 54,
+      "tn": 718,
+      "fn": 151,
+      "sensitivity": 0.6480186480186481,
+      "specificity": 0.9300518134715026,
+      "balanced_accuracy": 0.7890352307450753,
+      "caught_of_all_positives": 0.6480186480186481,
+      "auc": 0.8333046487191564,
+      "scored_rows": 1201,
+      "label": "자체 모델 2: descriptor",
+      "source": "evaluation/results/ames_descriptor_balanced_independent_predictions.csv",
+      "balanced_interval": {
+        "low": 0.7659987365075273,
+        "high": 0.8119539521690903,
+        "width": 0.04595521566156302,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8078906402220976,
+        "high": 0.8588826998542678,
+        "width": 0.05099205963217024,
+        "resamples": 2000
+      }
+    }
+  },
+  "agreement": {
+    "rules|toxtree": {
+      "shared_rows": 933,
+      "agree": 803,
+      "fraction": 0.8606645230439443
+    },
+    "rules|qsar_toolbox": {
+      "shared_rows": 1129,
+      "agree": 773,
+      "fraction": 0.6846767050487157
+    },
+    "rules|admet": {
+      "shared_rows": 1201,
+      "agree": 792,
+      "fraction": 0.6594504579517069
+    },
+    "rules|epa_test": {
+      "shared_rows": 734,
+      "agree": 448,
+      "fraction": 0.6103542234332425
+    },
+    "rules|ames_xgb": {
+      "shared_rows": 933,
+      "agree": 635,
+      "fraction": 0.6806002143622722
+    },
+    "rules|ames_desc": {
+      "shared_rows": 1201,
+      "agree": 858,
+      "fraction": 0.7144046627810158
+    },
+    "toxtree|qsar_toolbox": {
+      "shared_rows": 890,
+      "agree": 683,
+      "fraction": 0.7674157303370787
+    },
+    "toxtree|admet": {
+      "shared_rows": 933,
+      "agree": 649,
+      "fraction": 0.6956055734190782
+    },
+    "toxtree|epa_test": {
+      "shared_rows": 554,
+      "agree": 366,
+      "fraction": 0.6606498194945848
+    },
+    "toxtree|ames_xgb": {
+      "shared_rows": 701,
+      "agree": 518,
+      "fraction": 0.738944365192582
+    },
+    "toxtree|ames_desc": {
+      "shared_rows": 933,
+      "agree": 717,
+      "fraction": 0.7684887459807074
+    },
+    "qsar_toolbox|admet": {
+      "shared_rows": 1129,
+      "agree": 818,
+      "fraction": 0.7245349867139061
+    },
+    "qsar_toolbox|epa_test": {
+      "shared_rows": 719,
+      "agree": 496,
+      "fraction": 0.6898470097357441
+    },
+    "qsar_toolbox|ames_xgb": {
+      "shared_rows": 874,
+      "agree": 665,
+      "fraction": 0.7608695652173914
+    },
+    "qsar_toolbox|ames_desc": {
+      "shared_rows": 1129,
+      "agree": 906,
+      "fraction": 0.8024800708591674
+    },
+    "admet|epa_test": {
+      "shared_rows": 734,
+      "agree": 529,
+      "fraction": 0.720708446866485
+    },
+    "admet|ames_xgb": {
+      "shared_rows": 933,
+      "agree": 744,
+      "fraction": 0.797427652733119
+    },
+    "admet|ames_desc": {
+      "shared_rows": 1201,
+      "agree": 937,
+      "fraction": 0.7801831806827644
+    },
+    "epa_test|ames_xgb": {
+      "shared_rows": 734,
+      "agree": 536,
+      "fraction": 0.7302452316076294
+    },
+    "epa_test|ames_desc": {
+      "shared_rows": 734,
+      "agree": 539,
+      "fraction": 0.7343324250681199
+    },
+    "ames_xgb|ames_desc": {
+      "shared_rows": 933,
+      "agree": 879,
+      "fraction": 0.9421221864951769
+    }
+  },
+  "combinations": {
+    "순위 평균: 자체1+자체2+ADMET": {
+      "rows": 1201,
+      "decided": 933,
+      "coverage": 0.7768526228143214,
+      "tp": 300,
+      "fp": 56,
+      "tn": 523,
+      "fn": 54,
+      "sensitivity": 0.847457627118644,
+      "specificity": 0.9032815198618307,
+      "balanced_accuracy": 0.8753695734902374,
+      "caught_of_all_positives": 0.6993006993006993,
+      "auc": 0.9146297434696486,
+      "scored_rows": 933,
+      "kind": "rank_mean",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet"
+      ],
+      "cutoff_at_balance": 0.61,
+      "note": "적합 과정이 없다. 자른 지점은 폴드 밖에서 고른다.",
+      "balanced_interval": {
+        "low": 0.8531687252211705,
+        "high": 0.8965154518067947,
+        "width": 0.04334672658562422,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8925402594143418,
+        "high": 0.9351965560171234,
+        "width": 0.042656296602781585,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.61,
+          0.612,
+          0.61,
+          0.611,
+          0.613
+        ],
+        "balanced_accuracy": 0.8725447147331753,
+        "balanced_interval": {
+          "low": 0.8500214789568321,
+          "high": 0.8940702222857767,
+          "width": 0.044048743328944595,
+          "resamples": 2000
+        },
+        "coverage": 0.7768526228143214,
+        "tp": 298,
+        "fp": 56,
+        "tn": 523,
+        "fn": 56,
+        "sensitivity": 0.8418079096045198,
+        "specificity": 0.9032815198618307
+      },
+      "at_0.50": {
+        "coverage": 0.7768526228143214,
+        "sensitivity": 0.8983050847457628,
+        "specificity": 0.7495682210708118,
+        "balanced_accuracy": 0.8239366529082872,
+        "balanced_interval": {
+          "low": 0.8007996857917288,
+          "high": 0.8468009869378709,
+          "width": 0.04600130114614209,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 네 도구 전부": {
+      "rows": 1201,
+      "decided": 734,
+      "coverage": 0.611157368859284,
+      "tp": 223,
+      "fp": 33,
+      "tn": 418,
+      "fn": 60,
+      "sensitivity": 0.7879858657243817,
+      "specificity": 0.926829268292683,
+      "balanced_accuracy": 0.8574075670085324,
+      "caught_of_all_positives": 0.5198135198135199,
+      "auc": 0.9262964907194847,
+      "scored_rows": 734,
+      "kind": "rank_mean",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet",
+        "epa_test"
+      ],
+      "cutoff_at_balance": 0.619,
+      "note": "적합 과정이 없다. 자른 지점은 폴드 밖에서 고른다.",
+      "balanced_interval": {
+        "low": 0.8292617354368831,
+        "high": 0.8824090783872184,
+        "width": 0.0531473429503353,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.9046966093287278,
+        "high": 0.9448313498422946,
+        "width": 0.0401347405135668,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.619,
+          0.571,
+          0.619,
+          0.619,
+          0.576
+        ],
+        "balanced_accuracy": 0.8460782086137597,
+        "balanced_interval": {
+          "low": 0.817631294085499,
+          "high": 0.872130279311107,
+          "width": 0.05449898522560803,
+          "resamples": 2000
+        },
+        "coverage": 0.611157368859284,
+        "tp": 226,
+        "fp": 48,
+        "tn": 403,
+        "fn": 57,
+        "sensitivity": 0.7985865724381626,
+        "specificity": 0.893569844789357
+      },
+      "at_0.50": {
+        "coverage": 0.611157368859284,
+        "sensitivity": 0.911660777385159,
+        "specificity": 0.7228381374722838,
+        "balanced_accuracy": 0.8172494574287215,
+        "balanced_interval": {
+          "low": 0.7906854101447831,
+          "high": 0.8430945727159762,
+          "width": 0.0524091625711931,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 자체1+ADMET": {
+      "rows": 1201,
+      "decided": 933,
+      "coverage": 0.7768526228143214,
+      "tp": 271,
+      "fp": 29,
+      "tn": 550,
+      "fn": 83,
+      "sensitivity": 0.7655367231638418,
+      "specificity": 0.9499136442141624,
+      "balanced_accuracy": 0.8577251836890021,
+      "caught_of_all_positives": 0.6317016317016317,
+      "auc": 0.9115023955192568,
+      "scored_rows": 933,
+      "kind": "rank_mean",
+      "members": [
+        "ames_xgb",
+        "admet"
+      ],
+      "cutoff_at_balance": 0.653,
+      "note": "적합 과정이 없다. 자른 지점은 폴드 밖에서 고른다.",
+      "balanced_interval": {
+        "low": 0.8332158471080924,
+        "high": 0.8803288181085074,
+        "width": 0.047112971000415005,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8896540649401804,
+        "high": 0.9324512245197853,
+        "width": 0.04279715957960495,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.653,
+          0.588,
+          0.653,
+          0.588,
+          0.653
+        ],
+        "balanced_accuracy": 0.8535610784227627,
+        "balanced_interval": {
+          "low": 0.8276863380140868,
+          "high": 0.8764490569415649,
+          "width": 0.04876271892747819,
+          "resamples": 2000
+        },
+        "coverage": 0.7768526228143214,
+        "tp": 276,
+        "fp": 42,
+        "tn": 537,
+        "fn": 78,
+        "sensitivity": 0.7796610169491526,
+        "specificity": 0.927461139896373
+      },
+      "at_0.50": {
+        "coverage": 0.7768526228143214,
+        "sensitivity": 0.8813559322033898,
+        "specificity": 0.7754749568221071,
+        "balanced_accuracy": 0.8284154445127485,
+        "balanced_interval": {
+          "low": 0.8042716123046593,
+          "high": 0.8518149737614746,
+          "width": 0.04754336145681537,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 답한 모델만 (자체1+자체2+ADMET)": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 318,
+      "fp": 67,
+      "tn": 705,
+      "fn": 111,
+      "sensitivity": 0.7412587412587412,
+      "specificity": 0.9132124352331606,
+      "balanced_accuracy": 0.827235588245951,
+      "caught_of_all_positives": 0.7412587412587412,
+      "auc": 0.8608554657777455,
+      "scored_rows": 1201,
+      "kind": "rank_mean_available",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet"
+      ],
+      "cutoff_at_balance": 0.61,
+      "note": "셋 중 답한 것만 평균한다. 자체 모델 1이 못 읽는 염과 혼합물을 자체 모델 2가 답하므로 답한 비율이 1.000이 된다.",
+      "balanced_interval": {
+        "low": 0.8043786221460414,
+        "high": 0.850466404086692,
+        "width": 0.04608778194065066,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8366549711510509,
+        "high": 0.8845568003906057,
+        "width": 0.04790182923955477,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.61,
+          0.613,
+          0.612,
+          0.61,
+          0.61
+        ],
+        "balanced_accuracy": 0.8249045859149486,
+        "balanced_interval": {
+          "low": 0.8014833130978797,
+          "high": 0.8483973931584677,
+          "width": 0.04691408006058806,
+          "resamples": 2000
+        },
+        "coverage": 1.0,
+        "tp": 316,
+        "fp": 67,
+        "tn": 705,
+        "fn": 113,
+        "sensitivity": 0.7365967365967366,
+        "specificity": 0.9132124352331606
+      },
+      "at_0.50": {
+        "coverage": 1.0,
+        "sensitivity": 0.8041958041958042,
+        "specificity": 0.783678756476684,
+        "balanced_accuracy": 0.7939372803362441,
+        "balanced_interval": {
+          "low": 0.7718194503931203,
+          "high": 0.8178505472132233,
+          "width": 0.04603109682010298,
+          "resamples": 2000
+        }
+      }
+    },
+    "점수 평균: 자체1+자체2+ADMET": {
+      "rows": 1201,
+      "decided": 933,
+      "coverage": 0.7768526228143214,
+      "tp": 298,
+      "fp": 57,
+      "tn": 522,
+      "fn": 56,
+      "sensitivity": 0.8418079096045198,
+      "specificity": 0.9015544041450777,
+      "balanced_accuracy": 0.8716811568747987,
+      "caught_of_all_positives": 0.6946386946386947,
+      "auc": 0.9155128167598529,
+      "scored_rows": 933,
+      "kind": "score_mean",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet"
+      ],
+      "cutoff_at_balance": 0.415,
+      "note": "점수를 그대로 평균한다. 기준 집단이 필요 없으므로 물질 몇 개만 보는 화면에서도 그대로 쓸 수 있다.",
+      "balanced_interval": {
+        "low": 0.8478421750544125,
+        "high": 0.8935240417643862,
+        "width": 0.04568186670997365,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.893891001258493,
+        "high": 0.9360116324278599,
+        "width": 0.04212063116936693,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.415,
+          0.408,
+          0.441,
+          0.454,
+          0.461
+        ],
+        "balanced_accuracy": 0.8643848248002108,
+        "balanced_interval": {
+          "low": 0.8401273190927745,
+          "high": 0.8873607049408039,
+          "width": 0.047233385848029386,
+          "resamples": 2000
+        },
+        "coverage": 0.7768526228143214,
+        "tp": 291,
+        "fp": 54,
+        "tn": 525,
+        "fn": 63,
+        "sensitivity": 0.8220338983050848,
+        "specificity": 0.9067357512953368
+      },
+      "at_0.50": {
+        "coverage": 0.7768526228143214,
+        "sensitivity": 0.7909604519774012,
+        "specificity": 0.9360967184801382,
+        "balanced_accuracy": 0.8635285852287697,
+        "balanced_interval": {
+          "low": 0.8405377668308703,
+          "high": 0.886690246121596,
+          "width": 0.046152479290725634,
+          "resamples": 2000
+        }
+      }
+    },
+    "점수 평균: 답한 모델만": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 320,
+      "fp": 72,
+      "tn": 700,
+      "fn": 109,
+      "sensitivity": 0.745920745920746,
+      "specificity": 0.9067357512953368,
+      "balanced_accuracy": 0.8263282486080414,
+      "caught_of_all_positives": 0.745920745920746,
+      "auc": 0.8656699518098482,
+      "scored_rows": 1201,
+      "kind": "score_mean",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet"
+      ],
+      "cutoff_at_balance": 0.408,
+      "note": "점수를 그대로 평균한다. 기준 집단이 필요 없으므로 물질 몇 개만 보는 화면에서도 그대로 쓸 수 있다.",
+      "balanced_interval": {
+        "low": 0.8025246584019545,
+        "high": 0.8487406699012005,
+        "width": 0.046216011499245924,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.84157939895509,
+        "high": 0.8882152006691435,
+        "width": 0.04663580171405346,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.391,
+          0.391,
+          0.408,
+          0.408,
+          0.415
+        ],
+        "balanced_accuracy": 0.8219244054736283,
+        "balanced_interval": {
+          "low": 0.7985560232432921,
+          "high": 0.8444115249297574,
+          "width": 0.04585550168646524,
+          "resamples": 2000
+        },
+        "coverage": 1.0,
+        "tp": 319,
+        "fp": 77,
+        "tn": 695,
+        "fn": 110,
+        "sensitivity": 0.7435897435897436,
+        "specificity": 0.9002590673575129
+      },
+      "at_0.50": {
+        "coverage": 1.0,
+        "sensitivity": 0.6783216783216783,
+        "specificity": 0.9417098445595855,
+        "balanced_accuracy": 0.8100157614406319,
+        "balanced_interval": {
+          "low": 0.7876568227050184,
+          "high": 0.833089713084592,
+          "width": 0.045432890379573654,
+          "resamples": 2000
+        }
+      }
+    },
+    "다수결: 자체1+자체2+ADMET": {
+      "rows": 1201,
+      "decided": 1128,
+      "coverage": 0.9392173189009159,
+      "tp": 282,
+      "fp": 43,
+      "tn": 683,
+      "fn": 120,
+      "sensitivity": 0.7014925373134329,
+      "specificity": 0.940771349862259,
+      "balanced_accuracy": 0.8211319435878459,
+      "caught_of_all_positives": 0.6573426573426573,
+      "kind": "vote",
+      "members": [
+        "ames_xgb",
+        "ames_desc",
+        "admet"
+      ],
+      "balanced_interval": {
+        "low": 0.7972585619883206,
+        "high": 0.8436759749427659,
+        "width": 0.04641741295444535,
+        "resamples": 2000
+      }
+    },
+    "다수결: 규칙+Toxtree+자체1": {
+      "rows": 1201,
+      "decided": 1106,
+      "coverage": 0.9208992506244796,
+      "tp": 281,
+      "fp": 114,
+      "tn": 594,
+      "fn": 117,
+      "sensitivity": 0.7060301507537688,
+      "specificity": 0.8389830508474576,
+      "balanced_accuracy": 0.7725066008006132,
+      "caught_of_all_positives": 0.655011655011655,
+      "kind": "vote",
+      "members": [
+        "rules",
+        "toxtree",
+        "ames_xgb"
+      ],
+      "balanced_interval": {
+        "low": 0.7468716871631533,
+        "high": 0.8001518484310005,
+        "width": 0.05328016126784718,
+        "resamples": 2000
+      }
+    },
+    "하나라도 양성: 규칙+Toxtree": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 315,
+      "fp": 212,
+      "tn": 560,
+      "fn": 114,
+      "sensitivity": 0.7342657342657343,
+      "specificity": 0.7253886010362695,
+      "balanced_accuracy": 0.7298271676510019,
+      "caught_of_all_positives": 0.7342657342657343,
+      "kind": "vote",
+      "members": [
+        "rules",
+        "toxtree"
+      ],
+      "balanced_interval": {
+        "low": 0.7039700322833475,
+        "high": 0.756246781765864,
+        "width": 0.05227674948251648,
+        "resamples": 2000
+      }
+    },
+    "하나라도 양성: 자체1+ADMET": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 336,
+      "fp": 173,
+      "tn": 599,
+      "fn": 93,
+      "sensitivity": 0.7832167832167832,
+      "specificity": 0.7759067357512953,
+      "balanced_accuracy": 0.7795617594840393,
+      "caught_of_all_positives": 0.7832167832167832,
+      "kind": "vote",
+      "members": [
+        "ames_xgb",
+        "admet"
+      ],
+      "balanced_interval": {
+        "low": 0.7542950809890843,
+        "high": 0.8044151126738318,
+        "width": 0.050120031684747546,
+        "resamples": 2000
+      }
+    },
+    "적합한 결합: 로지스틱 (폴드 밖 예측)": {
+      "rows": 1201,
+      "decided": 1201,
+      "coverage": 1.0,
+      "tp": 320,
+      "fp": 58,
+      "tn": 714,
+      "fn": 109,
+      "sensitivity": 0.745920745920746,
+      "specificity": 0.9248704663212435,
+      "balanced_accuracy": 0.8353956061209947,
+      "caught_of_all_positives": 0.745920745920746,
+      "auc": 0.8980579006485743,
+      "scored_rows": 1201,
+      "kind": "stack",
+      "members": [
+        "ames_xgb_score",
+        "ames_xgb_missing",
+        "ames_desc_score",
+        "ames_desc_missing",
+        "admet_score",
+        "admet_missing",
+        "epa_test_score",
+        "epa_test_missing",
+        "rules_call",
+        "toxtree_call",
+        "qsar_toolbox_call"
+      ],
+      "cutoff_at_balance": 0.572,
+      "note": "5겹 교차검증의 폴드 밖 예측만 썼으므로 자기 학습 행을 되풀어 맞춘 수치가 아니다. 자른 지점은 이 자료에서 골랐다.",
+      "balanced_interval": {
+        "low": 0.8125581896419563,
+        "high": 0.858477687245456,
+        "width": 0.04591949760349978,
+        "resamples": 2000
+      },
+      "auc_interval": {
+        "low": 0.8766478497997475,
+        "high": 0.9172316418976039,
+        "width": 0.04058379209785634,
+        "resamples": 2000
+      },
+      "nested_cutoff": {
+        "cutoffs": [
+          0.548,
+          0.572,
+          0.625,
+          0.648,
+          0.648
+        ],
+        "balanced_accuracy": 0.8286622703721149,
+        "balanced_interval": {
+          "low": 0.8057944767673971,
+          "high": 0.8512926455244382,
+          "width": 0.045498168757041046,
+          "resamples": 2000
+        },
+        "coverage": 1.0,
+        "tp": 312,
+        "fp": 54,
+        "tn": 718,
+        "fn": 117,
+        "sensitivity": 0.7272727272727273,
+        "specificity": 0.9300518134715026
+      },
+      "at_0.50": {
+        "coverage": 1.0,
+        "sensitivity": 0.7622377622377622,
+        "specificity": 0.8924870466321243,
+        "balanced_accuracy": 0.8273624044349432,
+        "balanced_interval": {
+          "low": 0.8040853935128824,
+          "high": 0.8499127009519802,
+          "width": 0.0458273074390978,
+          "resamples": 2000
+        }
+      }
+    }
+  },
+  "against_best_single": {
+    "순위 평균: 자체1+자체2+ADMET": {
+      "shared_rows": 933,
+      "difference": 0.025262726500980714,
+      "interval": {
+        "low": 0.006849286200815172,
+        "high": 0.04501514382907622,
+        "width": 0.038165857628261045,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.01248011865382559,
+        "interval": {
+          "low": 0.004884112550357182,
+          "high": 0.02084314410815465,
+          "width": 0.015959031557797466,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 네 도구 전부": {
+      "shared_rows": 734,
+      "difference": -0.007102395148590124,
+      "interval": {
+        "low": -0.030714271848215846,
+        "high": 0.01558079284012561,
+        "width": 0.04629506468834146,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 734,
+        "difference": 0.011446882859448504,
+        "interval": {
+          "low": -0.0007825330200774416,
+          "high": 0.023206049602745995,
+          "width": 0.023988582622823437,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 자체1+ADMET": {
+      "shared_rows": 933,
+      "difference": 0.0062790901905681595,
+      "interval": {
+        "low": -0.01522039822941086,
+        "high": 0.028694946990697943,
+        "width": 0.0439153452201088,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.009352770703433766,
+        "interval": {
+          "low": -0.0012776549481396708,
+          "high": 0.02030302261550934,
+          "width": 0.02158067756364901,
+          "resamples": 2000
+        }
+      }
+    },
+    "순위 평균: 답한 모델만 (자체1+자체2+ADMET)": {
+      "shared_rows": 933,
+      "difference": 0.025262726500980714,
+      "interval": {
+        "low": 0.006849286200815172,
+        "high": 0.04501514382907622,
+        "width": 0.038165857628261045,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.01248011865382559,
+        "interval": {
+          "low": 0.004884112550357182,
+          "high": 0.02084314410815465,
+          "width": 0.015959031557797466,
+          "resamples": 2000
+        }
+      }
+    },
+    "점수 평균: 자체1+자체2+ADMET": {
+      "shared_rows": 933,
+      "difference": 0.017102836568016255,
+      "interval": {
+        "low": 0.0022241420379566688,
+        "high": 0.03336450107130039,
+        "width": 0.03114035903334372,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.013363191944029795,
+        "interval": {
+          "low": 0.005211783808533761,
+          "high": 0.022232159542392053,
+          "width": 0.01702037573385829,
+          "resamples": 2000
+        }
+      }
+    },
+    "점수 평균: 답한 모델만": {
+      "shared_rows": 933,
+      "difference": 0.01976669301249967,
+      "interval": {
+        "low": 0.0040728134799857185,
+        "high": 0.03723528453667926,
+        "width": 0.03316247105669354,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.013363191944029795,
+        "interval": {
+          "low": 0.005211783808533761,
+          "high": 0.022232159542392053,
+          "width": 0.01702037573385829,
+          "resamples": 2000
+        }
+      }
+    },
+    "다수결: 자체1+자체2+ADMET": {
+      "shared_rows": 933,
+      "difference": 0.008555077427475744,
+      "interval": {
+        "low": -0.0019599271234576796,
+        "high": 0.01963930361665075,
+        "width": 0.02159923074010843,
+        "resamples": 2000
+      }
+    },
+    "다수결: 규칙+Toxtree+자체1": {
+      "shared_rows": 853,
+      "difference": -0.057361299209408356,
+      "interval": {
+        "low": -0.08317890657404645,
+        "high": -0.030273940670719868,
+        "width": 0.05290496590332658,
+        "resamples": 2000
+      }
+    },
+    "하나라도 양성: 규칙+Toxtree": {
+      "shared_rows": 933,
+      "difference": -0.11046222300283948,
+      "interval": {
+        "low": -0.14227055050442147,
+        "high": -0.07706402330749394,
+        "width": 0.06520652719692753,
+        "resamples": 2000
+      }
+    },
+    "하나라도 양성: 자체1+ADMET": {
+      "shared_rows": 933,
+      "difference": -0.026711747314188683,
+      "interval": {
+        "low": -0.04596616533443359,
+        "high": -0.006843105915013688,
+        "width": 0.0391230594194199,
+        "resamples": 2000
+      }
+    },
+    "적합한 결합: 로지스틱 (폴드 밖 예측)": {
+      "shared_rows": 933,
+      "difference": 0.026367787828225242,
+      "interval": {
+        "low": 0.010561426970348696,
+        "high": 0.04379636869677515,
+        "width": 0.03323494172642645,
+        "resamples": 2000
+      },
+      "auc": {
+        "shared_rows": 933,
+        "difference": 0.024145468028843875,
+        "interval": {
+          "low": 0.011545929022742802,
+          "high": 0.03624903865850247,
+          "width": 0.024703109635759668,
+          "resamples": 2000
+        }
+      }
+    }
+  },
+  "best_single": "ames_xgb",
+  "half_split": {
+    "통계 모델 셋": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 601,
+          "coverage": 0.5004163197335554,
+          "tp": 161,
+          "fp": 46,
+          "tn": 340,
+          "fn": 54,
+          "sensitivity": 0.7488372093023256,
+          "specificity": 0.8808290155440415,
+          "balanced_accuracy": 0.8148331124231836,
+          "caught_of_all_positives": 0.3752913752913753,
+          "auc": 0.8910832630437402,
+          "scored_rows": 601,
+          "half": 1,
+          "fit_rows": 600,
+          "cutoff_from_fitting_half": 0.543,
+          "coefficients": {
+            "ames_xgb_score": 1.088661719566797,
+            "ames_xgb_missing": 0.4851119562991627,
+            "ames_desc_score": 0.5445397645852178,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.6614623855091826,
+            "admet_missing": 0.0
+          },
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.01759485629584001,
+            "interval": {
+              "low": 0.00045670958614695147,
+              "high": 0.03627539880429508,
+              "width": 0.03581868921814813,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 468,
+              "difference": 0.011453981943134295,
+              "interval": {
+                "low": 0.001087151371865536,
+                "high": 0.021877144357989597,
+                "width": 0.02078999298612406,
+                "resamples": 2000
+              }
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 600,
+          "coverage": 0.4995836802664446,
+          "tp": 158,
+          "fp": 39,
+          "tn": 347,
+          "fn": 56,
+          "sensitivity": 0.7383177570093458,
+          "specificity": 0.8989637305699482,
+          "balanced_accuracy": 0.818640743789647,
+          "caught_of_all_positives": 0.3682983682983683,
+          "auc": 0.8797455329039756,
+          "scored_rows": 600,
+          "half": 2,
+          "fit_rows": 601,
+          "cutoff_from_fitting_half": 0.554,
+          "coefficients": {
+            "ames_xgb_score": 1.0382826594125554,
+            "ames_xgb_missing": 0.3697392191236578,
+            "ames_desc_score": 0.6745550273400087,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.7113467051763154,
+            "admet_missing": 0.0
+          },
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.02729828173252047,
+            "interval": {
+              "low": 0.004903395272709286,
+              "high": 0.05165104993385809,
+              "width": 0.04674765466114881,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 465,
+              "difference": 0.014292501385699596,
+              "interval": {
+                "low": 0.003484581516232731,
+                "high": 0.02603590745121999,
+                "width": 0.02255132593498726,
+                "resamples": 2000
+              }
+            }
+          }
+        }
+      ],
+      "features": [
+        "ames_xgb_score",
+        "ames_xgb_missing",
+        "ames_desc_score",
+        "ames_desc_missing",
+        "admet_score",
+        "admet_missing"
+      ]
+    },
+    "통계 모델 셋 + 규칙 둘": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 601,
+          "coverage": 0.5004163197335554,
+          "tp": 153,
+          "fp": 26,
+          "tn": 360,
+          "fn": 62,
+          "sensitivity": 0.7116279069767442,
+          "specificity": 0.9326424870466321,
+          "balanced_accuracy": 0.8221351970116881,
+          "caught_of_all_positives": 0.35664335664335667,
+          "auc": 0.8973370285576575,
+          "scored_rows": 601,
+          "half": 1,
+          "fit_rows": 600,
+          "cutoff_from_fitting_half": 0.625,
+          "coefficients": {
+            "ames_xgb_score": 1.1876838223460846,
+            "ames_xgb_missing": 0.5027445169454082,
+            "ames_desc_score": 0.4216011922232023,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.5858116163151456,
+            "admet_missing": 0.0,
+            "rules_call": 0.30916365685655595,
+            "toxtree_call": 0.17610795715255248
+          },
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.013513773653916483,
+            "interval": {
+              "low": -0.0038448959129105654,
+              "high": 0.03173106499761213,
+              "width": 0.035575960910522696,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 468,
+              "difference": 0.011800488959901378,
+              "interval": {
+                "low": 7.484493659602318e-05,
+                "high": 0.023636170088083372,
+                "width": 0.023561325151487348,
+                "resamples": 2000
+              }
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 600,
+          "coverage": 0.4995836802664446,
+          "tp": 163,
+          "fp": 57,
+          "tn": 329,
+          "fn": 51,
+          "sensitivity": 0.7616822429906542,
+          "specificity": 0.8523316062176166,
+          "balanced_accuracy": 0.8070069246041354,
+          "caught_of_all_positives": 0.37995337995337997,
+          "auc": 0.8855200716672316,
+          "scored_rows": 600,
+          "half": 2,
+          "fit_rows": 601,
+          "cutoff_from_fitting_half": 0.474,
+          "coefficients": {
+            "ames_xgb_score": 1.0506796230307065,
+            "ames_xgb_missing": 0.4008116313464761,
+            "ames_desc_score": 0.606811309786489,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.6595801433269984,
+            "admet_missing": 0.0,
+            "rules_call": 0.2116422589441128,
+            "toxtree_call": 0.3594060789641894
+          },
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.006750336527040934,
+            "interval": {
+              "low": -0.020085540705537343,
+              "high": 0.03492435592816754,
+              "width": 0.05500989663370488,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 465,
+              "difference": 0.01637105075619605,
+              "interval": {
+                "low": 0.004012743452091306,
+                "high": 0.029961966534675193,
+                "width": 0.025949223082583885,
+                "resamples": 2000
+              }
+            }
+          }
+        }
+      ],
+      "features": [
+        "ames_xgb_score",
+        "ames_xgb_missing",
+        "ames_desc_score",
+        "ames_desc_missing",
+        "admet_score",
+        "admet_missing",
+        "rules_call",
+        "toxtree_call"
+      ]
+    },
+    "도구 일곱 전부": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 601,
+          "coverage": 0.5004163197335554,
+          "tp": 164,
+          "fp": 33,
+          "tn": 353,
+          "fn": 51,
+          "sensitivity": 0.7627906976744186,
+          "specificity": 0.9145077720207254,
+          "balanced_accuracy": 0.838649234847572,
+          "caught_of_all_positives": 0.3822843822843823,
+          "auc": 0.902156886371852,
+          "scored_rows": 601,
+          "half": 1,
+          "fit_rows": 600,
+          "cutoff_from_fitting_half": 0.569,
+          "coefficients": {
+            "ames_xgb_score": 1.3352093735268649,
+            "ames_xgb_missing": 0.1050481403631585,
+            "ames_desc_score": 0.33079141380038796,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.48922315314622217,
+            "admet_missing": 0.0,
+            "epa_test_score": 0.05260970493736839,
+            "epa_test_missing": 0.5568806790351386,
+            "rules_call": 0.32712499347676416,
+            "toxtree_call": 0.12398754280379239,
+            "qsar_toolbox_call": 0.6822753203013344
+          },
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.026604038731784296,
+            "interval": {
+              "low": 0.0057760028636245206,
+              "high": 0.0483714603891834,
+              "width": 0.04259545752555888,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 468,
+              "difference": 0.02196469478506935,
+              "interval": {
+                "low": 0.004069163638074395,
+                "high": 0.040651631777938485,
+                "width": 0.03658246813986409,
+                "resamples": 2000
+              }
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 600,
+          "coverage": 0.4995836802664446,
+          "tp": 156,
+          "fp": 32,
+          "tn": 354,
+          "fn": 58,
+          "sensitivity": 0.7289719626168224,
+          "specificity": 0.917098445595855,
+          "balanced_accuracy": 0.8230352041063387,
+          "caught_of_all_positives": 0.36363636363636365,
+          "auc": 0.8912582925766307,
+          "scored_rows": 600,
+          "half": 2,
+          "fit_rows": 601,
+          "cutoff_from_fitting_half": 0.541,
+          "coefficients": {
+            "ames_xgb_score": 0.9480994968476878,
+            "ames_xgb_missing": 0.06782755624803546,
+            "ames_desc_score": 0.6302124210641189,
+            "ames_desc_missing": 0.0,
+            "admet_score": 0.5450234186664193,
+            "admet_missing": 0.0,
+            "epa_test_score": 0.5445068284469754,
+            "epa_test_missing": 0.51173059912097,
+            "rules_call": 0.17467808205636143,
+            "toxtree_call": 0.2761308384146535,
+            "qsar_toolbox_call": 0.399719588544956
+          },
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.019696729748990505,
+            "interval": {
+              "low": -0.0050745571787284985,
+              "high": 0.0439643495766233,
+              "width": 0.049038906755351795,
+              "resamples": 2000
+            },
+            "auc": {
+              "shared_rows": 465,
+              "difference": 0.023774645656821636,
+              "interval": {
+                "low": 0.005038237720557327,
+                "high": 0.04474084662084568,
+                "width": 0.03970260890028836,
+                "resamples": 2000
+              }
+            }
+          }
+        }
+      ],
+      "features": [
+        "ames_xgb_score",
+        "ames_xgb_missing",
+        "ames_desc_score",
+        "ames_desc_missing",
+        "admet_score",
+        "admet_missing",
+        "epa_test_score",
+        "epa_test_missing",
+        "rules_call",
+        "toxtree_call",
+        "qsar_toolbox_call"
+      ]
+    },
+    "순위 평균: 자체1+자체2+ADMET": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 468,
+          "coverage": 0.3896752706078268,
+          "tp": 153,
+          "fp": 30,
+          "tn": 257,
+          "fn": 28,
+          "sensitivity": 0.8453038674033149,
+          "specificity": 0.8954703832752613,
+          "balanced_accuracy": 0.8703871253392881,
+          "caught_of_all_positives": 0.35664335664335667,
+          "auc": 0.9205343908214141,
+          "scored_rows": 468,
+          "half": 1,
+          "cutoff_from_fitting_half": 0.602,
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.018191618380272168,
+            "interval": {
+              "low": -0.008022409983883502,
+              "high": 0.04427173923286534,
+              "width": 0.052294149216748846,
+              "resamples": 2000
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 465,
+          "coverage": 0.3871773522064946,
+          "tp": 139,
+          "fp": 26,
+          "tn": 266,
+          "fn": 34,
+          "sensitivity": 0.8034682080924855,
+          "specificity": 0.910958904109589,
+          "balanced_accuracy": 0.8572135561010372,
+          "caught_of_all_positives": 0.32400932400932403,
+          "auc": 0.9090585161137066,
+          "scored_rows": 465,
+          "half": 2,
+          "cutoff_from_fitting_half": 0.636,
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.015094227571462504,
+            "interval": {
+              "low": -0.012391431217715304,
+              "high": 0.04220779220779225,
+              "width": 0.054599223425507555,
+              "resamples": 2000
+            }
+          }
+        }
+      ],
+      "features": null,
+      "fitted": false
+    },
+    "점수 평균: 자체1+자체2+ADMET": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 468,
+          "coverage": 0.3896752706078268,
+          "tp": 150,
+          "fp": 26,
+          "tn": 261,
+          "fn": 31,
+          "sensitivity": 0.8287292817679558,
+          "specificity": 0.9094076655052264,
+          "balanced_accuracy": 0.8690684736365911,
+          "caught_of_all_positives": 0.34965034965034963,
+          "auc": 0.91837834716153,
+          "scored_rows": 468,
+          "half": 1,
+          "cutoff_from_fitting_half": 0.422,
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.016872966677575207,
+            "interval": {
+              "low": -0.002945857322761248,
+              "high": 0.03743039353981367,
+              "width": 0.04037625086257492,
+              "resamples": 2000
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 465,
+          "coverage": 0.3871773522064946,
+          "tp": 144,
+          "fp": 28,
+          "tn": 264,
+          "fn": 29,
+          "sensitivity": 0.8323699421965318,
+          "specificity": 0.9041095890410958,
+          "balanced_accuracy": 0.8682397656188139,
+          "caught_of_all_positives": 0.3356643356643357,
+          "auc": 0.9124633779396627,
+          "scored_rows": 465,
+          "half": 2,
+          "cutoff_from_fitting_half": 0.441,
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.026120437089239168,
+            "interval": {
+              "low": 0.0041461420897154315,
+              "high": 0.050566424765812835,
+              "width": 0.04642028267609741,
+              "resamples": 2000
+            }
+          }
+        }
+      ],
+      "features": null,
+      "fitted": false
+    },
+    "점수 평균: 답한 모델만": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 601,
+          "coverage": 0.5004163197335554,
+          "tp": 161,
+          "fp": 40,
+          "tn": 346,
+          "fn": 54,
+          "sensitivity": 0.7488372093023256,
+          "specificity": 0.8963730569948186,
+          "balanced_accuracy": 0.8226051331485721,
+          "caught_of_all_positives": 0.3752913752913753,
+          "auc": 0.8750090372334016,
+          "scored_rows": 601,
+          "half": 1,
+          "cutoff_from_fitting_half": 0.391,
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.012965137544035166,
+            "interval": {
+              "low": -0.008546721498781823,
+              "high": 0.034423486016556905,
+              "width": 0.042970207515338726,
+              "resamples": 2000
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 600,
+          "coverage": 0.4995836802664446,
+          "tp": 154,
+          "fp": 33,
+          "tn": 353,
+          "fn": 60,
+          "sensitivity": 0.719626168224299,
+          "specificity": 0.9145077720207254,
+          "balanced_accuracy": 0.8170669701225122,
+          "caught_of_all_positives": 0.358974358974359,
+          "auc": 0.8560783981405259,
+          "scored_rows": 600,
+          "half": 2,
+          "cutoff_from_fitting_half": 0.441,
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.026120437089239168,
+            "interval": {
+              "low": 0.0041461420897154315,
+              "high": 0.050566424765812835,
+              "width": 0.04642028267609741,
+              "resamples": 2000
+            }
+          }
+        }
+      ],
+      "features": null,
+      "fitted": false
+    },
+    "순위 평균: 답한 모델만 (자체1+자체2+ADMET)": {
+      "rounds": [
+        {
+          "rows": 1201,
+          "decided": 601,
+          "coverage": 0.5004163197335554,
+          "tp": 160,
+          "fp": 37,
+          "tn": 349,
+          "fn": 55,
+          "sensitivity": 0.7441860465116279,
+          "specificity": 0.9041450777202072,
+          "balanced_accuracy": 0.8241655621159176,
+          "caught_of_all_positives": 0.372960372960373,
+          "auc": 0.871201349560188,
+          "scored_rows": 601,
+          "half": 1,
+          "cutoff_from_fitting_half": 0.602,
+          "versus_best_single": {
+            "shared_rows": 468,
+            "difference": 0.018191618380272168,
+            "interval": {
+              "low": -0.008022409983883502,
+              "high": 0.04427173923286534,
+              "width": 0.052294149216748846,
+              "resamples": 2000
+            }
+          }
+        },
+        {
+          "rows": 1201,
+          "decided": 600,
+          "coverage": 0.4995836802664446,
+          "tp": 157,
+          "fp": 35,
+          "tn": 351,
+          "fn": 57,
+          "sensitivity": 0.7336448598130841,
+          "specificity": 0.9093264248704663,
+          "balanced_accuracy": 0.8214856423417752,
+          "caught_of_all_positives": 0.36596736596736595,
+          "auc": 0.8502796474746985,
+          "scored_rows": 600,
+          "half": 2,
+          "cutoff_from_fitting_half": 0.613,
+          "versus_best_single": {
+            "shared_rows": 465,
+            "difference": 0.02676379760867853,
+            "interval": {
+              "low": -0.00045700299718220945,
+              "high": 0.055556711806711824,
+              "width": 0.056013714803894034,
+              "resamples": 2000
+            }
+          }
+        }
+      ],
+      "features": null,
+      "fitted": false
+    }
+  },
+  "notes": [
+    "모든 수치는 ames_independent_unseen.csv 한 파일에서 나왔다. 자체 모델이 적합과 선택에 쓴 행은 이 파일에 없다.",
+    "구간은 같은 구조를 다시 뽑아 만든 95% 백분위 구간이다. 다른 물질에서도 같은 값이 나온다는 뜻이 아니고, 이만큼은 운으로도 움직인다는 뜻이다.",
+    "결합의 '차이'는 두 쪽이 모두 답한 행만 쓴 짝지은 차이다. 답한 비율이 낮은 결합이 어려운 행을 버려 좋아 보이는 것을 막는다.",
+    "자른 지점을 이 자료에서 고른 행은 그만큼 이 자료에 유리하다. AUC는 자른 지점과 무관하므로 그 영향을 받지 않는다.",
+    "음성 예측은 선별 결과이며 안전성의 근거가 아니다."
+  ]
+}

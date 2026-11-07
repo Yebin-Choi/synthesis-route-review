@@ -1,0 +1,86 @@
+{
+  "truth_file": "ames_independent_unseen.csv",
+  "rows": 1201,
+  "threshold": 0.5,
+  "status_counts": {
+    "valid": 933,
+    "multiple_organic_components": 166,
+    "inorganic": 96,
+    "over_300_heavy_atoms": 4,
+    "unsupported_parent_standardization": 2
+  },
+  "fragments": {
+    "rows_tried": 166,
+    "fragments_scored": 402,
+    "fragments_unreadable": 0,
+    "rows_recovered": 166
+  },
+  "ways_of_combining_fragments": {
+    "최댓값": {
+      "rows": 166,
+      "sensitivity": 0.40816326530612246,
+      "specificity": 0.9658119658119658,
+      "balanced_accuracy": 0.6869876155590442,
+      "auc": 0.7986220129077272,
+      "own_balance_point": {
+        "cutoff": 0.383,
+        "balanced_accuracy": 0.749869178440607
+      }
+    },
+    "평균": {
+      "rows": 166,
+      "sensitivity": 0.2653061224489796,
+      "specificity": 0.9743589743589743,
+      "balanced_accuracy": 0.619832548403977,
+      "auc": 0.7949590092447235,
+      "own_balance_point": {
+        "cutoff": 0.251,
+        "balanced_accuracy": 0.7311180882609454
+      }
+    },
+    "가장 큰 조각": {
+      "rows": 166,
+      "sensitivity": 0.3673469387755102,
+      "specificity": 0.9658119658119658,
+      "balanced_accuracy": 0.666579452293738,
+      "auc": 0.6909994767137624,
+      "own_balance_point": {
+        "cutoff": 0.383,
+        "balanced_accuracy": 0.703122274550846
+      }
+    }
+  },
+  "recovered_rows": {
+    "rows": 166,
+    "positives": 49,
+    "negatives": 117,
+    "sensitivity": 0.40816326530612246,
+    "specificity": 0.9658119658119658,
+    "balanced_accuracy": 0.6869876155590442,
+    "auc": 0.7986220129077272
+  },
+  "shipped": {
+    "decided": 933,
+    "coverage": 0.7768526228143214,
+    "sensitivity": 0.7740112994350282,
+    "specificity": 0.9205526770293609,
+    "balanced_accuracy": 0.8472819882321946,
+    "auc": 0.9021496248158231,
+    "caught_of_all_positives": 0.6386946386946387
+  },
+  "with_fallback": {
+    "decided": 1099,
+    "coverage": 0.9150707743547044,
+    "sensitivity": 0.7295285359801489,
+    "specificity": 0.9281609195402298,
+    "balanced_accuracy": 0.8288447277601894,
+    "auc": 0.8867010353384102,
+    "caught_of_all_positives": 0.6853146853146853
+  },
+  "notes": [
+    "조각별 점수의 최댓값을 쓴다. 혼합물은 성분 하나가 변이원성이면 변이원성이라는 전제이고, 이 전제가 자료에서 맞는지를 재는 것이 이 파일이다.",
+    "모델 파일은 고치지 않았다. 못 읽겠다고 답하던 행에 같은 모델을 조각별로 돌린 것뿐이다.",
+    "탄소가 없는 구조는 그대로 답하지 않는다. 지문이 만들어지지 않는다.",
+    "음성 예측은 선별 결과이며 안전성의 근거가 아니다."
+  ]
+}

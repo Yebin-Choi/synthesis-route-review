@@ -494,3 +494,164 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
         self.assertEqual(rows["전문가 규칙 (ICH M7)"], "없음")
         self.assertEqual(rows[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")
+
+
+class ConsensusTests(unittest.TestCase):
+    """The averaged column, and the rules that keep it from double-counting.
+
+    Synthetic scores. Nothing here is an AMES measurement.
+    """
+
+    def _results(self, xgb, desc, admet):
+        return {
+            "ames_xgb": {"calls": [xgb]} if xgb else {"calls": []},
+            "ames_desc": {"calls": [desc]} if desc else {"calls": []},
+            "admet": {"calls": [admet]} if admet else {"calls": []},
+        }
+
+    def test_the_three_scores_are_averaged_and_judged_at_the_line(self):
+        result = screening_judges.consensus_from_results(
+            ["CCO"], self._results(_call("CCO", "0", score=0.20),
+                                   _call("CCO", "1", score=0.80),
+                                   _call("CCO", "1", score=0.80)),
+            threshold=0.50)
+        row = result["calls"][0]
+        self.assertAlmostEqual(row["score"], 0.60)
+        self.assertEqual(row["call"], "1")
+
+    def test_an_average_below_the_line_is_a_negative(self):
+        result = screening_judges.consensus_from_results(
+            ["CCO"], self._results(_call("CCO", "0", score=0.10),
+                                   _call("CCO", "0", score=0.20),
+                                   _call("CCO", "1", score=0.60)),
+            threshold=0.50)
+        self.assertEqual(result["calls"][0]["call"], "0")
+        self.assertAlmostEqual(result["calls"][0]["score"], 0.30)
+
+    def test_one_member_not_answering_abstains_and_names_it(self):
+        result = screening_judges.consensus_from_results(
+            ["CCO"], self._results(_call("CCO", "abstain", error="못 읽음"),
+                                   _call("CCO", "1", score=0.90),
+                                   _call("CCO", "1", score=0.90)),
+            threshold=0.50)
+        row = result["calls"][0]
+        self.assertEqual(row["call"], "abstain")
+        self.assertIsNone(row["score"])
+        self.assertIn("자체 모델 1", row["error"])
+
+    def test_a_missing_member_result_is_an_abstention_not_a_two_way_average(self):
+        result = screening_judges.consensus_from_results(
+            ["CCO"], self._results(_call("CCO", "1", score=0.90), None,
+                                   _call("CCO", "1", score=0.90)),
+            threshold=0.50)
+        self.assertEqual(result["calls"][0]["call"], "abstain")
+        self.assertIn("자체 모델 2", result["calls"][0]["error"])
+
+    def test_the_members_run_even_when_only_the_consensus_was_asked_for(self):
+        ran = []
+
+        def fake(tool_id, materials, **kwargs):
+            ran.append(tool_id)
+            return {"judge": tool_id,
+                    "calls": [_call("CCO", "1", score=0.90)]}
+
+        with mock.patch.object(screening_judges, "run_judge", fake):
+            results = view.run_tools(["CCO"], ["consensus"])
+        self.assertEqual(sorted(ran), ["admet", "ames_desc", "ames_xgb"])
+        # Only the column that was asked for comes back.
+        self.assertEqual(list(results), ["consensus"])
+        self.assertAlmostEqual(results["consensus"]["calls"][0]["score"], 0.90)
+
+    def test_a_member_asked_for_keeps_its_own_column_and_runs_once(self):
+        ran = []
+
+        def fake(tool_id, materials, **kwargs):
+            ran.append(tool_id)
+            return {"judge": tool_id,
+                    "calls": [_call("CCO", "1", score=0.80)]}
+
+        with mock.patch.object(screening_judges, "run_judge", fake):
+            results = view.run_tools(["CCO"], ["consensus", "ames_xgb"])
+        self.assertEqual(ran.count("ames_xgb"), 1)
+        self.assertEqual(list(results), ["consensus", "ames_xgb"])
+
+    def test_the_consensus_is_not_counted_as_a_tool_that_disagreed(self):
+        rows = view.build_comparison(["CCO"], {
+            "ames_xgb": {"calls": [_call("CCO", "1", score=0.90)]},
+            "ames_desc": {"calls": [_call("CCO", "1", score=0.90)]},
+            "admet": {"calls": [_call("CCO", "1", score=0.90)]},
+            "consensus": {"calls": [_call("CCO", "1", score=0.90)]},
+        })
+        self.assertFalse(rows[0]["_disagree"])
+        # And a real disagreement between two tools still reads as one.
+        rows = view.build_comparison(["CCO"], {
+            "ames_xgb": {"calls": [_call("CCO", "1", score=0.90)]},
+            "rules": {"calls": [_call("CCO", "0")]},
+            "consensus": {"calls": [_call("CCO", "1", score=0.90)]},
+        })
+        self.assertTrue(rows[0]["_disagree"])
+
+    def test_the_consensus_is_not_one_of_the_tools_the_header_counts(self):
+        self.assertNotIn("consensus", view.independent_tool_ids())
+        self.assertEqual(
+            len(view.independent_tool_ids()),
+            len(screening_judges.implemented_judge_ids()) - 1)
+
+    def test_the_recorded_figures_beat_the_best_single_model(self):
+        consensus = view.TOOL_PERFORMANCE["consensus"]
+        best = view.TOOL_PERFORMANCE["ames_xgb"]
+        self.assertGreater(consensus["balanced"], best["balanced"])
+        self.assertGreater(consensus["auc"], best["auc"])
+        # Measured at the line the members run at, not at a line chosen to
+        # make the figure look better.
+        self.assertEqual(consensus["line"], best["line"])
+        self.assertEqual(consensus["measured_on"], best["measured_on"])
+
+    def test_it_answers_no_more_often_than_its_strictest_member(self):
+        answered = view.TOOL_PERFORMANCE["consensus"]["answered"]
+        for member in screening_judges.CONSENSUS_MEMBERS:
+            self.assertLessEqual(answered,
+                                 view.TOOL_PERFORMANCE[member]["answered"])
+
+
+class MeasuredIntervalTests(unittest.TestCase):
+    """Each figure's measured range, and what the table does without one."""
+
+    def test_every_tool_with_a_balanced_figure_has_a_measured_range(self):
+        for tool_id, info in view.TOOL_PERFORMANCE.items():
+            with self.subTest(tool=tool_id):
+                bounds = info.get("balanced_interval")
+                self.assertIsNotNone(bounds, f"{tool_id}에 구간이 없습니다")
+                low, high = bounds
+                self.assertLess(low, info["balanced"])
+                self.assertGreater(high, info["balanced"])
+
+    def test_a_score_tool_has_a_range_for_its_auc_too(self):
+        for tool_id, info in view.TOOL_PERFORMANCE.items():
+            if info.get("auc") is None:
+                continue
+            with self.subTest(tool=tool_id):
+                low, high = info["auc_interval"]
+                self.assertLess(low, info["auc"])
+                self.assertGreater(high, info["auc"])
+
+    def test_the_table_prints_both_ranges(self):
+        row = view.performance_rows(["consensus"])[0]
+        self.assertEqual(row["균형 정확도 95% 구간"], "0.841 - 0.887")
+        self.assertEqual(row["AUC 95% 구간"], "0.894 - 0.936")
+
+    def test_a_rule_tool_says_it_has_no_score_rather_than_a_blank_range(self):
+        row = view.performance_rows(["rules"])[0]
+        self.assertEqual(row["AUC 95% 구간"], "점수를 내지 않음")
+        self.assertEqual(row["균형 정확도 95% 구간"], "0.633 - 0.689")
+
+    def test_overlapping_ranges_are_visible_where_the_order_implies_a_ranking(self):
+        # ADMET-AI is listed above Toxtree and reads higher, but the two
+        # ranges overlap, so the table has to let a reader see that.
+        admet = view.TOOL_PERFORMANCE["admet"]["balanced_interval"]
+        toxtree = view.TOOL_PERFORMANCE["toxtree"]["balanced_interval"]
+        self.assertLess(admet[0], toxtree[1])
+        # The fingerprint model's range does not overlap Toxtree's, so that
+        # gap is a real one.
+        self.assertGreater(view.TOOL_PERFORMANCE["ames_xgb"]["balanced_interval"][0],
+                           toxtree[1])

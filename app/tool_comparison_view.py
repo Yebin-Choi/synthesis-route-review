@@ -7,6 +7,12 @@ something to judge with. Where a tool did not answer, the reason it gave is
 shown instead of a blank, because "no alert" and "could not tell" are
 different statements and only one of them is reassuring.
 
+One column is not a tool: the consensus is the mean of the three statistical
+models' scores. It is here because it was measured to be better than any one
+of them (balanced accuracy 0.864 against 0.847, ROC-AUC 0.916 against 0.902,
+benchmark log 6-56), and because averaging is not a judgement about which
+tool is right. The three it averages stay on screen beside it.
+
 The decision of which routes stay selectable is made elsewhere, by the single
 tool named in the screening policy. This screen is for comparison.
 
@@ -63,13 +69,16 @@ MEASURED_ON = "외부 검증셋 1,201종"
 TOOL_PERFORMANCE = {
     "rules": {"label": "전문가 규칙 (ICH M7)", "method": "전문가 규칙 기반", "line": None,
               "sensitivity": 0.552, "specificity": 0.769, "balanced": 0.661,
+              "balanced_interval": (0.633, 0.689),
               "answered": 1.000, "measured_on": MEASURED_ON},
     "toxtree": {"label": "Toxtree 3.1.0", "method": "전문가 규칙 기반", "line": None,
                 "sensitivity": 0.691, "specificity": 0.790, "balanced": 0.741,
+                "balanced_interval": (0.711, 0.773),
                 "answered": 0.777, "measured_on": MEASURED_ON},
     "admet": {"label": "ADMET-AI 2.0.1", "method": "통계 기반", "line": 0.50,
               "sensitivity": 0.678, "specificity": 0.820, "balanced": 0.749,
-              "auc": 0.818,
+              "balanced_interval": (0.723, 0.776),
+              "auc": 0.818, "auc_interval": (0.792, 0.844),
               "answered": 1.000, "measured_on": MEASURED_ON},
     # EPA TEST publishes its own call beside its consensus value, and that
     # call is what was measured. We draw no line through its number, so
@@ -77,17 +86,32 @@ TOOL_PERFORMANCE = {
     "epa_test": {"label": "EPA TEST 5.1.2", "method": "통계 기반", "line": None,
                  "own_line": True,
                  "sensitivity": 0.629, "specificity": 0.798, "balanced": 0.714,
-                 "auc": 0.770,
+                 "balanced_interval": (0.680, 0.746),
+                 "auc": 0.770, "auc_interval": (0.735, 0.805),
                  "answered": 0.611, "measured_on": MEASURED_ON},
     "ames_xgb": {"label": "자체 모델 1: fingerprint", "method": "통계 기반", "line": 0.50,
                  "sensitivity": 0.774, "specificity": 0.921, "balanced": 0.847,
-                 "auc": 0.902,
+                 "balanced_interval": (0.821, 0.871),
+                 "auc": 0.902, "auc_interval": (0.879, 0.924),
                  "answered": 0.777, "measured_on": MEASURED_ON},
     "ames_desc": {"label": "자체 모델 2: descriptor", "method": "통계 기반",
                   "line": 0.50,
                   "sensitivity": 0.648, "specificity": 0.930, "balanced": 0.789,
-                  "auc": 0.833,
+                  "balanced_interval": (0.766, 0.812),
+                  "auc": 0.833, "auc_interval": (0.808, 0.859),
                   "answered": 1.000, "measured_on": MEASURED_ON},
+    # Not a tool of its own: the average of the three scores above, judged at
+    # the same line they are. Every figure here was measured on the same
+    # 1,201 structures as the rest of the table (benchmark log 6-56). The
+    # averaging is the whole method, so there is no fitted weight that could
+    # have been tuned on the structures these figures come from.
+    "consensus": {"label": "합의 점수: 세 모델 평균", "short_label": "합의 점수",
+                  "method": "통계 기반", "line": 0.50,
+                  "sensitivity": 0.791, "specificity": 0.936,
+                  "balanced": 0.864, "balanced_interval": (0.841, 0.887),
+                  "auc": 0.916, "auc_interval": (0.894, 0.936),
+                  "answered": 0.777, "measured_on": MEASURED_ON,
+                  "derived_from": ("ames_xgb", "ames_desc", "admet")},
     # An alert set, so there is no line to draw and `line` is None. The
     # OASIS alert set is the one registered: the Toolbox's other Ames
     # profiler (ISS) agreed with Toxtree on 99.2% of the structures both
@@ -96,8 +120,20 @@ TOOL_PERFORMANCE = {
     "qsar_toolbox": {"label": "QSAR Toolbox 4.9", "method": "전문가 규칙 기반",
                      "line": None,
                      "sensitivity": 0.423, "specificity": 0.979, "balanced": 0.701,
+                     "balanced_interval": (0.676, 0.725),
                      "answered": 0.940, "measured_on": MEASURED_ON},
 }
+
+
+def independent_tool_ids():
+    """The judges that are tools in their own right, not derived from others.
+
+    The consensus column is the mean of three of them, so counting it as an
+    eighth tool would overstate how many pieces of software are behind the
+    screen.
+    """
+    return tuple(tool_id for tool_id in screening_judges.implemented_judge_ids()
+                 if not TOOL_PERFORMANCE.get(tool_id, {}).get("derived_from"))
 
 
 def measured_line(tool_id):
@@ -108,7 +144,11 @@ def measured_line(tool_id):
 EXTERNAL_TOOLS = ("toxtree", "epa_test", "qsar_toolbox")
 # Both in-house models open by default: they disagree about one structure
 # in seven (benchmark log 6-11), and showing that is what the screen is for.
-DEFAULT_TOOLS = ("rules", "ames_xgb", "ames_desc", "admet")
+#
+# The consensus opens with them and costs nothing extra: it is the average
+# of exactly these three scores, so selecting it runs nothing the screen was
+# not already running.
+DEFAULT_TOOLS = ("rules", "consensus", "ames_xgb", "ames_desc", "admet")
 
 # Moving the line still trades sensitivity for specificity, and these are the
 # measured rows so a reader can see the size of the trade rather than take it
@@ -172,8 +212,22 @@ def run_tools(materials, tool_ids, *, threshold=None):
     one applies that single line to all of them, which is what the override on
     screen does; it is not the default because the measured lines differ.
     """
+    # The consensus is an average of three of the other judges, so its
+    # members are run whether or not the reader asked to see them, and their
+    # columns are dropped again at the end if they were not asked for.
+    requested = tuple(tool_ids)
+    derived = tuple(tool_id for tool_id in requested
+                    if screening_judges.get_judge(tool_id).get("derived_from"))
+    needed = list(requested)
+    for tool_id in derived:
+        for member in screening_judges.get_judge(tool_id)["derived_from"]:
+            if member not in needed:
+                needed.append(member)
+
     results = {}
-    for tool_id in tool_ids:
+    for tool_id in needed:
+        if tool_id in derived:
+            continue
         entry = screening_judges.get_judge(tool_id)
         try:
             line = measured_line(tool_id) if threshold is None else threshold
@@ -190,7 +244,19 @@ def run_tools(materials, tool_ids, *, threshold=None):
         except Exception as exc:  # noqa: BLE001 - surfaced per tool, never hidden
             results[tool_id] = {"judge": tool_id, "calls": [], "evidence": {},
                                 "tool_error": f"{type(exc).__name__}: {exc}"}
-    return results
+
+    for tool_id in derived:
+        try:
+            line = measured_line(tool_id) if threshold is None else threshold
+            results[tool_id] = screening_judges.consensus_from_results(
+                materials, results, threshold=line)
+        except Exception as exc:  # noqa: BLE001 - surfaced per tool, never hidden
+            results[tool_id] = {"judge": tool_id, "calls": [], "evidence": {},
+                                "tool_error": f"{type(exc).__name__}: {exc}"}
+
+    # Back in the order asked for, so the columns do not reshuffle because
+    # one of them had to wait for its members.
+    return {tool_id: results[tool_id] for tool_id in requested}
 
 
 def build_comparison(materials, results):
@@ -215,13 +281,31 @@ def build_comparison(materials, results):
             elif call.get("score") is not None:
                 text = f"{text} ({call['score']:.2f})"
             row[TOOL_PERFORMANCE[tool_id]["label"]] = text
-        decided = {call["call"] for call in calls.values()
-                   if call["call"] != "abstain"}
+        # A derived column is not a second opinion. The consensus is the mean
+        # of three columns already here, so counting it as a tool that
+        # disagreed would report one disagreement as two.
+        decided = {call["call"] for tool_id, call in calls.items()
+                   if call["call"] != "abstain"
+                   and not TOOL_PERFORMANCE.get(tool_id, {}).get("derived_from")}
         row["_calls"] = calls
         row["_disagree"] = len(decided) > 1
         row["_answered"] = len(decided)
         rows.append(row)
     return rows
+
+
+def interval_text(bounds):
+    """A measured 95% range, or a dash when none was measured.
+
+    Every figure in the table came off 1,201 structures, so each one could
+    have fallen somewhere else had the 1,201 been different structures. The
+    range says how far. Two tools whose ranges overlap are not ranked by the
+    table, whatever order the rows happen to be in.
+    """
+    if not bounds:
+        return "측정 안 함"
+    low, high = bounds
+    return f"{low:.3f} - {high:.3f}"
 
 
 def performance_rows(tool_ids):
@@ -235,10 +319,14 @@ def performance_rows(tool_ids):
                               else "없음")),
             "민감도": info["sensitivity"], "특이도": info["specificity"],
             "균형 정확도": info["balanced"],
+            "균형 정확도 95% 구간": interval_text(info.get("balanced_interval")),
             # A rule screen answers with an alert, not a score, so there is no
             # curve to take an area under. Saying so beats a blank cell.
             "AUC": (f"{info['auc']:.3f}" if info.get("auc") is not None
                     else "점수를 내지 않음"),
+            "AUC 95% 구간": (interval_text(info.get("auc_interval"))
+                          if info.get("auc") is not None
+                          else "점수를 내지 않음"),
             "판정 비율": info["answered"],
             "측정 자료": info["measured_on"],
         })
@@ -342,6 +430,9 @@ TOOL_HINTS = {
     "ames_desc": "직접 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
                  "어떤 성질이 판정을 밀었는지 말할 수 있습니다. 모델 1이 읽지 "
                  "못하는 구조도 읽습니다.",
+    "consensus": "도구가 아니라 위 세 모델의 점수를 평균한 값입니다. 셋이 "
+                 "모두 답한 물질에서만 나오고, 셋 중 하나라도 답하지 않으면 "
+                 "평균을 내지 않습니다.",
     "qsar_toolbox": "OECD가 배포하는 규제용 프로그램입니다. 이 컴퓨터에서 "
                     "실행하며 구조가 밖으로 나가지 않습니다. 고분자처럼 "
                     "경고구조를 적용할 수 없는 물질은 스스로 판정을 내지 않습니다.",
