@@ -3060,3 +3060,38 @@ TTC를 쓰면 안 되고, 그 "한도 없음"을 화면에서 말하는 자리�
 넘기도록 서식을 바꿨다.
 
 검사 674개 통과.
+
+## 6-42. 물질 하나만 검사 모드 제거
+
+첫 화면에 "경로 생성"과 나란히 있던 단일 물질 검사 버튼과 그에 딸린
+`inspection_mode` 분기를 모두 없앴다. 같은 규칙 검사가 경로 안의 모든 물질에
+이미 돌고, 부산물 탭이 임의 구조를 따로 받는다. 버튼 하나를 위해 앱 전체가
+두 가지 상태를 유지하고 있었다.
+
+지운 것
+- `app/app.py`: `material_check_button` 열, `inspection_mode` 기본값과 5곳의
+  초기화, `freeze_snapshot`의 material 갈래, "경로 결과 보기" 버튼
+- `app/review_views.py`: `material_check_button`, `show_material_risk`
+- `app/preview_with_example.py`: `inspection_mode` 초기화
+
+남긴 것
+- `review_export.py`가 `mode`로 `("route","material")`을 그대로 받는다. 이미
+  내려받은 파일이 열려야 하고, 앱은 더 이상 material 스냅샷을 만들지 않는다.
+  `schema_version`은 올리지 않았다.
+
+검사
+- `test_png_save_oserror_keeps_original_material_and_exported_assessment`는
+  지웠다. 그림 저장 실패 시 "구조 그림 없음"이 뜨는지는
+  `test_depiction_failure_and_invalid_non_target_preserve_assessment_and_text`가
+  경로 모드에서 이미 지킨다.
+- `test_independent_no_route_target_self_and_invalid_input_clear_old_result`가
+  지키던 두 가지(특별 우려 구조 표시, 빈 TTC 줄 없음)는
+  `test_special_concern_chip_shows_and_no_empty_ttc_row`로 옮겨 경로 모드에서
+  확인한다.
+- `test_independent_json_html_omit_detached_route_payload...`는 지웠다. 이
+  검사는 material 스냅샷이 이력을 통째로 비운다는 전제에 기대고 있었다.
+  떨어져 나간 응답이 이력으로만 남는다는 규칙은
+  `test_detached_response_is_historical_and_cannot_restore_old_report`가,
+  세 형식의 직렬화가 같다는 규칙은
+  `test_unified_download_formats_serialize_the_same_current_snapshot`가 지킨다.
+- 전체 671개 통과.

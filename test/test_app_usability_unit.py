@@ -503,72 +503,28 @@ class AppUsabilityTests(OfflineAppCase):
         self.assertIn("구조를 읽지 못함", exclusion)
         self.assertIn(presentation.STATUS["known_concern"], exclusion)
 
-    def test_png_save_oserror_keeps_original_material_and_exported_assessment(self):
-        presentation.structure_png.clear()
-        self.addCleanup(presentation.structure_png.clear)
-        self.start_patch(Image.Image, "save", side_effect=OSError("offline PNG save failure"))
-        raw = "ClCC1CO1"
-        expected = engine.assess_material(raw)
-        self.raw_target(raw)
-        self.app.button(key="screen_material").click().run()
-        self.assert_no_exception()
-        self.assertEqual(self.snapshot["original_input"], raw)
-        self.assertEqual(self.snapshot["material_result"], expected)
-        self.assertEqual(expected["status"], "known_concern")
-        self.assertIn(raw, self.text())
-        self.assertIn("구조 그림 없음", self.text())
-        self.assertIn(presentation.STATUS["known_concern"], self.text())
+    def test_special_concern_chip_shows_and_no_empty_ttc_row(self):
+        """A special-concern precursor is marked, and no card carries an
+        empty reference-intake row.
 
-    def test_independent_no_route_target_self_and_invalid_input_clear_old_result(self):
-        self.raw_target("CN(C)N=O")
-        self.app.button(key="screen_material").click().run()
+        A reference intake is known for very few structures, so that row sat
+        on every card saying "없음". Why a structure has none, including the
+        ICH M7 rule that the generic limit does not apply to a special
+        concern, stays in the stored record and in the download.
+        """
+        payload = fixture_payload()
+        payload["routes"][0]["steps"][0]["reagents"] = ["CN(C)N=O"]
+        self.apply_payload(payload)
         self.assert_no_exception()
-        result = self.snapshot["material_result"]
-        self.assertTrue(result["special_concern"])
-        self.assertIsNone(result["intake_ug_day"])
-        self.assertEqual(result["status"], "structural_alert")
-        # The screen marks the special-concern motif with its own chip. The
-        # card no longer carries a "TTC 참고 섭취량 / 없음" row: a reference
-        # intake is known for very few structures, so that row sat on every
-        # card saying nothing. Why this one has none, including the ICH M7
-        # rule that the generic limit does not apply to it, stays in the
-        # stored record and in the download.
+        materials = self.workspace["report"]["routes"][0]["steps"][0]["materials"]
+        flagged = next(item for item in materials if item["input_smiles"] == "CN(C)N=O")
+        self.assertTrue(flagged["special_concern"])
+        self.assertIsNone(flagged["intake_ug_day"])
+        self.assertEqual(flagged["status"], "structural_alert")
+        self.assertIn("No TTC fallback", flagged["intake_basis"])
         self.assertIn("특별 우려 구조", self.text())
         self.assertNotIn("TTC 참고 섭취량", self.text())
-        self.assertIn("No TTC fallback", result["intake_basis"])
-        self.assertIsNone(self.snapshot["report"])
-        self.raw_target("C1CC")
-        self.assertIsNone(self.workspace)
-        self.assertIsNone(self.snapshot["material_result"])
-        self.assertTrue(self.app.button(key="screen_material").disabled)
-        self.raw_target("CCO")
-        self.assertIsNone(self.snapshot["material_result"])
-        self.app.button(key="screen_material").click().run()
-        negative = self.snapshot["material_result"]
-        self.assertEqual(negative["status"], "no_alert_detected")
-        self.assertIn("경고구조 없음", self.text())
-        self.assertIn("does not mean safe or Class 5", " ".join(negative["limitations"]))
         self.admet.assert_not_called()
-
-    def test_independent_mode_never_exports_active_or_stale_route_data(self):
-        self.apply_payload(fixture_payload())
-        route_report = deepcopy(self.workspace["report"])
-        self.app.checkbox(key="strict_alerts").uncheck().run()
-        self.app.multiselect(key="excluded_smiles").select("CCO").run()
-        route_policy = deepcopy(self.workspace["policy"])
-        self.app.button(key="screen_material").click().run()
-        self.assert_no_exception()
-        self.assertEqual(self.snapshot["mode"], "material")
-        self.assertEqual(self.snapshot["original_input"], self.workspace["raw_target"])
-        for field in ("report", "selection", "route_id", "step_id", "model_evidence"):
-            self.assertIsNone(self.snapshot[field])
-        self.assertEqual(self.snapshot["byproduct_attempts"], [])
-        self.app.button(key="show_route_review").click().run()
-        self.assert_no_exception()
-        self.assertEqual(self.snapshot["report"], route_report)
-        self.assertEqual(self.workspace["policy"], route_policy)
-        self.assertFalse(self.app.checkbox(key="strict_alerts").value)
-        self.assertIsNone(self.snapshot["material_result"])
 
     def test_generation_is_explicit_and_never_runs_on_its_own(self):
         # The button is the only way routes arrive, and nothing is generated

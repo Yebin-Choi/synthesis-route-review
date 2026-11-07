@@ -25,6 +25,6 @@ if "review_workspace" not in st.session_state:
     st.session_state["review_workspace"] = state
     st.session_state["target_smiles"] = target
     st.session_state["target_catalog"] = "직접 입력"
-    st.session_state["inspection_mode"] = "route"
+
 
 runpy.run_path(str(Path(__file__).with_name("app.py")), run_name="__main__")
