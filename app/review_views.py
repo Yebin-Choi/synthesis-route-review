@@ -466,6 +466,12 @@ def show_byproducts(workspace):
     checkbox plus button with one button removes a step without removing the
     decision, because nothing leaves the machine until the button is pressed.
     """
+    # What the tab is for, before the address and the button. A reader who
+    # opened it first saw a URL and a primary button with nothing saying what
+    # pressing it would do, or that nothing had been sent yet.
+    st.caption("이 반응에서 생길 수 있는 부산물 후보를 ASKCOS에 물어봅니다. "
+               "누르기 전에는 아무것도 나가지 않고, 누르면 아래 구조가 공개 "
+               "서버로 전송됩니다. 받은 후보는 경로를 빼지 않고 순위만 내립니다.")
     workspace = _pick_step(workspace)
     step = context.selected_step(workspace)
     owner = context.context_key(workspace)
