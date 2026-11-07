@@ -355,8 +355,10 @@ def show_model_review(workspace):
     return capture_models(workspace)
 
 
-def show_material_risk(raw_target, target_error):
-    if st.button("독립 물질 검사", key="screen_material", disabled=target_error is not None):
+def material_check_button(raw_target, target_error):
+    """Check this one structure, with no route. Drawn beside the generate button."""
+    if st.button("물질 하나만 검사", key="screen_material",
+                 disabled=target_error is not None, width="stretch"):
         saved = {"raw_input": raw_target, "result": None, "error": None}
         try:
             context.validate_target(raw_target)
@@ -365,6 +367,10 @@ def show_material_risk(raw_target, target_error):
             saved["error"] = "물질 검사에 실패했습니다"
         st.session_state["material_inspection"] = saved
         st.session_state["inspection_mode"] = "material"
+
+
+def show_material_risk(raw_target, target_error):
+    """What that check found, drawn below the row the button sits on."""
     saved = st.session_state.get("material_inspection")
     if saved and saved["raw_input"] != raw_target:
         st.session_state.pop("material_inspection", None)
