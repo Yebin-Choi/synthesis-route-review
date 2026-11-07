@@ -470,7 +470,7 @@ class AppUsabilityTests(OfflineAppCase):
             self.assertIn(warning["basis"], text)
         self.assertIn("테스트용 실패 상태", text)
         self.assertIn("<dt>반응 조건</dt><dd>제안</dd>", text)
-        self.assertIn("물질 근거: proposed", text)
+        self.assertIn("<dt>근거</dt><dd>제안</dd>", text)
         for role in ("catalysts", "ligands", "bases", "coproducts"):
             self.assertIn("수동 시험 근거 · " + role, text)
 
@@ -526,7 +526,7 @@ class AppUsabilityTests(OfflineAppCase):
         # The screen marks the special-concern motif and that no intake exists;
         # the no-generic-TTC reasoning stays in the stored result.
         self.assertIn("특별 우려 구조", self.text())
-        self.assertIn("참고 섭취량 없음", self.text())
+        self.assertIn("<dt>TTC 참고 섭취량</dt><dd>없음</dd>", self.text())
         self.assertIn("No TTC fallback", result["intake_basis"])
         self.assertIsNone(self.snapshot["report"])
         self.raw_target("C1CC")
