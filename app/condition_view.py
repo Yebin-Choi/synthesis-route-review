@@ -29,8 +29,8 @@ COMPONENT_STATUS = {
 SCREEN_STATUS = {
     "known_concern": "알려진 우려 물질",
     "structural_alert": "경고구조",
-    "no_alert_detected": "해당 없음",
-    "invalid": "구조 해석 불가",
+    "no_alert_detected": "경고구조 없음",
+    "invalid": "구조를 읽지 못함",
 }
 
 

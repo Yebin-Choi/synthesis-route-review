@@ -12,16 +12,16 @@ from toxicology import canonicalize_smiles
 
 STATUS = {
     "known_concern": "ICH M7 목록 물질",
-    "structural_alert": "위험 구조",
-    "no_alert_detected": "해당 없음",
-    "invalid": "구조 해석 불가",
+    "structural_alert": "경고구조",
+    "no_alert_detected": "경고구조 없음",
+    "invalid": "구조를 읽지 못함",
 }
 # Short hover explanations for terms a reader cannot guess from the label.
 GLOSSARY = {
     "ICH M7 목록 물질": "의약품 불순물 지침 ICH M7(R2)이 변이원으로 이름을 올린 물질입니다.",
-    "위험 구조": "변이원과 자주 함께 나타나는 부분 구조가 분자 안에서 발견됐습니다.",
-    "해당 없음": "이 목록과 구조 규칙에서 걸리는 항목을 찾지 못했습니다.",
-    "구조 해석 불가": "SMILES 문자열을 분자 구조로 읽지 못했습니다.",
+    "경고구조": "변이원과 자주 함께 나타나는 부분 구조가 분자 안에서 발견됐습니다.",
+    "경고구조 없음": "이 목록과 구조 규칙에서 걸리는 항목을 찾지 못했습니다.",
+    "구조를 읽지 못함": "SMILES 문자열을 분자 구조로 읽지 못했습니다.",
     "모델 양성": "선별 정책에서 고른 모델이 Ames 시험 양성으로 예측했습니다. "
     "기본 설정은 ADMET-AI이며 기준선은 0.50입니다.",
     "모델 미평가": "모델이 이 물질에 결과를 내지 못했습니다. 음성이라는 뜻이 아닙니다.",

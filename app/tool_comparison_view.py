@@ -499,10 +499,14 @@ def _show_performance(chosen, *, with_note=False):
         ).properties(height=alt.Step(30))
         st.altair_chart(bars + coin, width="stretch")
         st.caption("가로축은 균형 정확도. 점선 0.5는 동전 던지기와 같습니다.")
-    st.dataframe(performance_rows(chosen), hide_index=True, width="stretch")
-    if with_note:
-        st.caption("모든 도구를 같은 자료에서 쟀습니다. 판정 비율이 낮으면 "
-                   "정확도가 높아도 그만큼 자주 답하지 않는다는 뜻입니다.")
+    # The graph answers which tool did better; the table answers by how much
+    # and how often it answered at all. Printing both on the surface was the
+    # same numbers twice, so the detail sits one click away.
+    with st.expander("숫자로 보기"):
+        st.dataframe(performance_rows(chosen), hide_index=True, width="stretch")
+        if with_note:
+            st.caption("모든 도구를 같은 자료에서 쟀습니다. 판정 비율이 낮으면 "
+                       "정확도가 높아도 그만큼 자주 답하지 않는다는 뜻입니다.")
 
 
 def show_tool_comparison(workspace):

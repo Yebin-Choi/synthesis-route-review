@@ -272,7 +272,7 @@ class ConditionViewTests(unittest.TestCase):
         # Only the screened structure gets a screening verdict. Unresolved and
         # missing components keep their own status and an unassessed alert cell,
         # so they can never be read as a negative screen.
-        self.assertEqual(rows.loc["리간드", "선별 결과"], "해당 없음")
+        self.assertEqual(rows.loc["리간드", "선별 결과"], "경고구조 없음")
         self.assertEqual(rows.loc["리간드", "경고구조"], "해당 없음")
         self.assertEqual(rows.loc["시약", "선별 결과"], "구조 미해결")
         self.assertEqual(rows.loc["촉매", "선별 결과"], "원자료 누락")

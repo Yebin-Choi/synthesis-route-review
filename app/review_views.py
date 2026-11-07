@@ -113,9 +113,9 @@ def show_step_unknowns(step):
     # line is unchanged because it is the line the saved file and the tests
     # both refer to.
     ui_kit.show_facts([
-        ("단계 자료", "반응 조건: " + EVIDENCE[condition["status"]] + " · 부산물: " +
-         {"not_run": "미실행", "failed": "평가 실패",
-          "success": "제안 후보 평가"}[byproducts["status"]]),
+        ("반응 조건", EVIDENCE[condition["status"]]),
+        ("부산물", {"not_run": "안 돌림", "failed": "실패",
+                  "success": "후보 검토함"}[byproducts["status"]]),
         ("조건 설명", ui_kit.text(condition.get("description") or "")),
         ("조건 출처", ui_kit.text(condition.get("source") or "")),
     ])
@@ -130,14 +130,14 @@ DECIDING_CODES = {
     # Same wording as presentation.STATUS, so one material does not carry two
     # different names for the same finding on one screen.
     "known_concern": "ICH M7 목록 물질",
-    "structural_alert": "위험 구조",
+    "structural_alert": "경고구조",
     "admet_positive": "모델 양성",
     "current_model_positive_exclusion": "모델 양성",
     "rule_admet_joint_positive": "규칙과 모델 모두 양성",
     "byproduct_concern": "부산물 우려 (제외 아님)",
     "prohibited_material": "제외하기로 한 물질",
     "prohibited_component": "제외하기로 한 성분",
-    "invalid_material": "구조 해석 불가",
+    "invalid_material": "구조를 읽지 못함",
 }
 # The deciding list gained the two prohibition codes and the unreadable-
 # structure code. All three were falling through to the routine line, where
@@ -469,10 +469,9 @@ def show_byproducts(workspace):
             ("반응물", ui_kit.text(request["reactants_smiles"])),
             ("주생성물", ui_kit.text(request["product_smiles"])),
         ])
-        with st.expander("보낼 내용"):
-            st.json({"rct_smi": request["reactants_smiles"],
-                     "prd_smi": request["product_smiles"]})
-    if st.button("ASKCOS로 보내 부산물 예측", key="byproduct_request", type="primary",
+    # The three lines above are the whole payload, so the fold that repeated
+    # them as raw JSON was showing the same two structures twice.
+    if st.button("ASKCOS로 보내기", key="byproduct_request", type="primary",
                  disabled=request is None):
         try:
             with st.spinner("예측 중"):
@@ -488,9 +487,9 @@ def show_byproducts(workspace):
         if latest["error"]:
             st.error("후보 요청 실패: " + latest["error"])
         elif latest["applied"]:
-            st.success("후보를 적용하고 경로를 다시 검토했습니다")
+            st.success("후보를 반영해 경로를 다시 봤습니다")
         if any(attempt["applied"] for attempt in attempts[:-1]):
-            st.caption("이전 성공은 이력에 남습니다")
+            st.caption("이전 결과는 기록에 남아 있습니다")
         show_byproduct_candidates(workspace)
         with st.expander("요청 기록"):
             st.json(attempts, expanded=False)
@@ -525,14 +524,14 @@ def show_byproduct_candidates(workspace):
     ui_kit.metric_row([
         ("후보", len(candidates), "ASKCOS가 이 단계에서 생길 수 있다고 내놓은 "
                                 "구조 수입니다. 실제로 생긴다는 뜻이 아닙니다."),
-        ("우려", concerning, "그 후보 중 ICH M7 목록에 있거나 위험 구조가 "
+        ("우려", concerning, "그 후보 중 ICH M7 목록에 있거나 경고구조가 "
                             "걸린 것의 수입니다."),
         ("못 읽음", sum((assessed.get(raw) or {}).get("status") == "invalid"
                       for raw in candidates),
          "구조를 읽지 못해 검사하지 못한 후보 수입니다."),
     ])
     if not candidates:
-        st.caption("이 단계에 적용된 부산물 후보가 없습니다.")
+        st.caption("이 반응에 반영된 후보가 없습니다")
         return
     ui_kit.show_table(
         ["구조", "이름", "판정"],
