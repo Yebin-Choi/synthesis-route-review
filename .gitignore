@@ -90,3 +90,6 @@ Thumbs.db
 # Generators for reports already submitted. They describe screens that no
 # longer exist, so running one would produce a wrong document.
 /evaluation/scripts/reports/
+
+# Streamlit's own cache for an older version of the screens. Nothing reads it.
+/app/cache/

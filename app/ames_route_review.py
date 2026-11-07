@@ -1,4 +1,4 @@
-"""Research-only AMES review of an existing, unchanged route-analysis report."""
+"""Research-only Ames review of an existing, unchanged route-analysis report."""
 
 from copy import deepcopy
 import math
@@ -33,19 +33,19 @@ _ASSESSMENT_FIELDS = {
     "applicability", "error",
 }
 _LIMITATIONS = (
-    "동일 비목표 물질의 규칙 우려 AND ADMET-AI AMES 양성일 때만 공동 연구 정책으로 제외합니다. "
+    "동일 비목표 물질의 규칙 우려 AND ADMET-AI Ames 양성일 때만 공동 연구 정책으로 제외합니다. "
     "명시적 금지 정책은 별도로 유지하며, 제외는 입증된 독성이나 실제 생성의 증거가 아닙니다.",
-    "구조가 특정되지 않은 조건부 경고를 가상의 AMES 평가 구조로 만들지 않습니다. "
+    "구조가 특정되지 않은 조건부 경고를 가상의 Ames 평가 구조로 만들지 않습니다. "
     "조건부 경고와 한쪽만 양성인 물질은 전문가 검토 대상입니다.",
     "ADMET-AI는 이 물질이 자기 적용 범위 안에 있는지 알려주지 않습니다. 적용 범위가 "
     "확인됐다거나 학습 자료와 겹치지 않는다고 보지 않습니다.",
-    "AMES 모델 점수는 보정된 독성 확률이 아닙니다. 음성 예측이나 규칙 경보 미검출은 "
+    "Ames 모델 점수는 보정된 독성 확률이 아닙니다. 음성 예측이나 규칙 경보 미검출은 "
     "안전성, ICH M7 Class 5 또는 규제 적합성 판정이 아닙니다.",
-    "누락·실패·유효하지 않은 AMES 평가는 미평가(abstain)이며 음성으로 대체하지 않습니다. "
+    "누락·실패·유효하지 않은 Ames 평가는 미평가(abstain)이며 음성으로 대체하지 않습니다. "
     "후보는 입력된 정보와 제한적 평가 범위 내에서만 의미가 있습니다.",
 )
 _ELIGIBILITY_LIMITATIONS = (
-    "기본 제시는 규칙 우려/조건부 경고 OR 유효한 현재 AMES 양성의 합집합으로 제외합니다. "
+    "기본 제시는 규칙 우려/조건부 경고 OR 유효한 현재 Ames 양성의 합집합으로 제외합니다. "
     "모델 음성은 규칙 우려를 덮지 않으며, 동일 물질 AND 비교와 별도 정책입니다.",
     *_LIMITATIONS[2:],
 )
@@ -146,7 +146,7 @@ _BYPRODUCT_DEMOTION = (
     "여부를 확인하지 않았으므로 경로를 빼지 않고 순위만 내립니다.")
 _CANDIDATE_REASON = {
     "code": "candidate_within_scope",
-    "message": "입력된 비목표 물질에서 규칙 우려·AMES 양성이 없고 기재 정보가 갖춰진 "
+    "message": "입력된 비목표 물질에서 규칙 우려·Ames 양성이 없고 기재 정보가 갖춰진 "
                "제한적 평가 범위의 후보입니다. 안전 보장이나 규제 적합성 판정이 아닙니다.",
     "step_id": None, "smiles": None,
 }
@@ -215,7 +215,7 @@ def _model_calls(identity, entries, *, model_status, model_error, reason):
         calls.append(CALL_ABSTAIN)
         detail = f" {model_error}" if model_error else ""
         reason("admet_unassessed",
-               f"ADMET-AI AMES 미평가({model_status}). 음성으로 간주하지 않습니다.{detail}")
+               f"ADMET-AI Ames 미평가({model_status}). 음성으로 간주하지 않습니다.{detail}")
     for assessments, _model, threshold in entries:
         row = assessments.get(identity)
         if row is None or row["status"] != "success":
@@ -224,12 +224,12 @@ def _model_calls(identity, entries, *, model_status, model_error, reason):
             error = row["error"] if row is not None else None
             detail = f" {error}" if error else ""
             reason("admet_unassessed",
-                   f"ADMET-AI AMES 미평가({state}). 음성으로 간주하지 않습니다.{detail}")
+                   f"ADMET-AI Ames 미평가({state}). 음성으로 간주하지 않습니다.{detail}")
             continue
         positive = row["score"] >= threshold
         calls.append(CALL_POSITIVE if positive else CALL_NEGATIVE)
         reason("admet_positive" if positive else "admet_negative",
-               f"ADMET-AI AMES 점수={row['score']:g}, 임계값={threshold:g}: "
+               f"ADMET-AI Ames 점수={row['score']:g}, 임계값={threshold:g}: "
                f"{'양성' if positive else '음성'} 예측. 독성 또는 안전성의 입증이 아닙니다.")
     return calls
 
@@ -252,7 +252,7 @@ def _union_statuses(material, calls, policy, severity, *, demote_only, participa
         return {"needs_review"}
     if model_positive and severity["model_positive"] == "exclude":
         reason("current_model_positive_exclusion",
-               "현재 보고서 생성에 명시적으로 결합된 AMES 양성 근거로 기본 제시에서 제외합니다. "
+               "현재 보고서 생성에 명시적으로 결합된 Ames 양성 근거로 기본 제시에서 제외합니다. "
                "규칙과의 OR 연구 정책이며 입증된 독성·실제 생성 또는 규제 판정이 아닙니다.")
     excludes = [kind for kind in kinds if severity[kind] == "exclude"]
     return {"excluded" if excludes or not kinds else "needs_review"}
@@ -275,7 +275,7 @@ def _joint_statuses(material, calls, policy, severity, *, demote_only, reason):
     if (severity[material["status"]] == "exclude"
             and severity["model_positive"] == "exclude"):
         reason("rule_admet_joint_positive",
-               "동일 물질의 규칙 우려 AND ADMET-AI AMES 양성에 따른 공동 연구 정책으로 제외합니다. "
+               "동일 물질의 규칙 우려 AND ADMET-AI Ames 양성에 따른 공동 연구 정책으로 제외합니다. "
                "입증된 독성·실제 생성·잔류 또는 규제 판정이 아닙니다.")
         return {"excluded"}
     return {"needs_review"}
@@ -386,7 +386,7 @@ def _review_routes(report, admet_result, *, excluded_smiles, strict_alerts,
 
 
 def review_ames_routes(report, admet_result, *, excluded_smiles=(), policy=None) -> dict:
-    """Compare same-material rule AND AMES separately from default presentation.
+    """Compare same-material rule AND Ames separately from default presentation.
 
     Preserve all routes and substantive baseline reasons. Missing/failed rows
     remain unassessed. Structure, provenance and threshold checks do not prove
