@@ -1,0 +1,51 @@
+{
+  "input": "evaluation/results/ames_independent_unseen.csv",
+  "n": 1201,
+  "toolbox_version": "4.9",
+  "webapi_version": "6",
+  "elapsed_seconds": 620.9,
+  "profilers": {
+    "qsar_toolbox_oasis": {
+      "profiler": "DNA alerts for AMES, CA and MNT by OASIS",
+      "guid": "cba502bd-358a-426d-ab7a-688a7202f091",
+      "predictions_csv": "evaluation\\results\\qsar_toolbox_independent_qsar_toolbox_oasis.csv",
+      "metrics": {
+        "n_total": 1201,
+        "n_answered": 1129,
+        "answered_rate": 0.9400499583680266,
+        "true_positive": 170,
+        "true_negative": 712,
+        "false_positive": 15,
+        "false_negative": 232,
+        "sensitivity": 0.4228855721393035,
+        "specificity": 0.9793672627235214,
+        "balanced": 0.7011264174314125
+      },
+      "abstain_reasons": {
+        "tool_rejected_structure": 70,
+        "not_applicable_record": 2
+      }
+    },
+    "qsar_toolbox_iss": {
+      "profiler": "in vitro mutagenicity (Ames test) alerts by ISS",
+      "guid": "50d215a3-adb9-4b37-b72b-6bc04f313056",
+      "predictions_csv": "evaluation\\results\\qsar_toolbox_independent_qsar_toolbox_iss.csv",
+      "metrics": {
+        "n_total": 1201,
+        "n_answered": 1129,
+        "answered_rate": 0.9400499583680266,
+        "true_positive": 290,
+        "true_negative": 593,
+        "false_positive": 134,
+        "false_negative": 112,
+        "sensitivity": 0.7213930348258707,
+        "specificity": 0.8156808803301238,
+        "balanced": 0.7685369575779972
+      },
+      "abstain_reasons": {
+        "tool_rejected_structure": 70,
+        "not_applicable_record": 2
+      }
+    }
+  }
+}
