@@ -80,6 +80,15 @@ TOOL_PERFORMANCE = {
                   "line": 0.50,
                   "sensitivity": 0.648, "specificity": 0.930, "balanced": 0.789,
                   "answered": 1.000, "measured_on": MEASURED_ON},
+    # An alert set, so there is no line to draw and `line` is None. The
+    # OASIS alert set is the one registered: the Toolbox's other Ames
+    # profiler (ISS) agreed with Toxtree on 99.2% of the structures both
+    # answered, so it would have added a second copy of a tool already here
+    # (benchmark log 6-34).
+    "qsar_toolbox": {"label": "QSAR Toolbox 4.9", "method": "전문가 규칙 기반",
+                     "line": None,
+                     "sensitivity": 0.423, "specificity": 0.979, "balanced": 0.701,
+                     "answered": 0.940, "measured_on": MEASURED_ON},
 }
 
 
@@ -88,7 +97,7 @@ def measured_line(tool_id):
     return TOOL_PERFORMANCE.get(tool_id, {}).get("line")
 # The two that shell out to a separate program. Every other tool runs in
 # this process or in a worker that is already warm.
-EXTERNAL_TOOLS = ("toxtree", "epa_test")
+EXTERNAL_TOOLS = ("toxtree", "epa_test", "qsar_toolbox")
 # Both in-house models open by default: they disagree about one structure
 # in seven (benchmark log 6-11), and showing that is what the screen is for.
 DEFAULT_TOOLS = ("rules", "ames_xgb", "ames_desc", "admet")
@@ -318,6 +327,9 @@ TOOL_HINTS = {
                 "왜 그렇게 판정했는지는 설명하지 못합니다.",
     "ames_desc": "직접 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
                  "어떤 성질이 판정을 밀었는지 말할 수 있습니다.",
+    "qsar_toolbox": "OECD가 배포하는 규제용 프로그램입니다. 이 컴퓨터에서 "
+                    "실행하며 구조가 밖으로 나가지 않습니다. 고분자처럼 "
+                    "경고구조를 적용할 수 없는 물질은 스스로 판정을 내지 않습니다.",
 }
 
 
@@ -550,7 +562,9 @@ def show_tool_comparison(workspace):
         # had been picked, which made a fast run look like a slow one.
         slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
                 if tool_id in EXTERNAL_TOOLS]
-        note = (" " + " · ".join(slow) + "는 외부 프로그램을 띄우므로 시간이 걸립니다."
+        # "띄우므로" would be wrong for the Toolbox: it does not launch it but
+        # calls one that has to be running already.
+        note = (" " + " · ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
                 if slow else "")
         st.caption(f"물질 {len(materials)}개 · 도구 {len(chosen)}개." + note)
         _show_performance(chosen)

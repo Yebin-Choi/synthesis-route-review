@@ -201,6 +201,41 @@ def _epa_test_judge(materials, *, threshold=0.5):
                            evidence={"kind": "model"})
 
 
+def _qsar_toolbox_judge(materials, *, threshold=None):
+    """Run the OECD QSAR Toolbox Ames alert profiler over its local WebAPI.
+
+    An alert set, so it has no cut-off and `threshold` is unused. The tool
+    declines in three distinct ways and each stays an abstention with its
+    reason: its SMILES reader rejects the structure, it returns no record for
+    it, or it answers "(N/A)" because the record is a polymer or UVCB it does
+    not evaluate.
+    """
+    from qsar_toolbox_service import assess_qsar_toolbox_materials
+
+    result = assess_qsar_toolbox_materials(list(materials))
+    calls = []
+    for row in result["assessments"]:
+        if row["status"] == "success" and row["verdict"] in ("positive", "negative"):
+            call = CALL_POSITIVE if row["verdict"] == "positive" else CALL_NEGATIVE
+        else:
+            call = CALL_ABSTAIN
+        calls.append(_call_row(row["input_smiles"], row["canonical_smiles"], call,
+                               kind="structural_alert" if call == CALL_POSITIVE else None,
+                               error=row.get("error")))
+    return {
+        "judge": "qsar_toolbox",
+        "calls": calls,
+        "evidence": {"tool": result["model"]["tool"],
+                     "version": result["model"]["version"],
+                     "endpoint": result["model"]["endpoint"],
+                     "source": result["model"]["source"],
+                     "threshold": None,
+                     "profiler": result["model"]["profiler"],
+                     "webapi_endpoint": result["model"]["webapi_endpoint"]},
+        "model_result": result,
+    }
+
+
 def _unintegrated(judge_id, tool):
     def run(materials, *, threshold=None):
         raise NotImplementedError(
@@ -226,6 +261,9 @@ JUDGES = {
                 "uses_threshold": False, "run": _toxtree_judge},
     "epa_test": {"tool": "EPA TEST", "kind": "model", "implemented": True,
                  "uses_threshold": True, "run": _epa_test_judge},
+    "qsar_toolbox": {"tool": "OECD QSAR Toolbox", "kind": "rule",
+                     "implemented": True, "uses_threshold": False,
+                     "run": _qsar_toolbox_judge},
 }
 
 

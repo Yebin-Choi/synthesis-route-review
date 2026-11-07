@@ -2661,3 +2661,127 @@ pipeline systems or to process vast arrays of data in batches."
 
 세 가지를 한 번에 말한다: 무엇을 하는지, 아직 전송 전이라는 것, 결과가 경로를
 빼지 않는다는 것. 마지막은 6-28에서 확인한 실제 동작이다.
+
+## 6-34. OECD QSAR Toolbox 4.9 연동과 측정 (2026-11-07)
+
+6-27에서 조사만 해둔 것을 설치하고 붙였다. 전문가 규칙 기반 칸이 0.661 하나뿐이던
+자리에 규제용 표준 도구가 들어왔다.
+
+### 설치
+
+| 단계 | 방법 |
+|---|---|
+| ASP.NET Core 10 런타임 | 패키지 동봉 설치 파일. WebAPI가 Kestrel로 돌아서 필요한데 이 컴퓨터에 없었다 |
+| 데이터베이스 | Portable 배포, `C:\ProgramData\QSAR Toolbox\4.9`, 13.57 GB. PostgreSQL 별도 설치는 4.9에서 선택사항이 됐다 |
+| 본체 | MSI 무인 설치, `DEPLOYMENTMODE=1`(Standalone) |
+
+도중에 벤더 패키지 결함을 하나 고쳤다. `Database\DatabaseDeployCL.runtimeconfig.json`이
+배포본에 **없어서** `DatabaseDeployCL.exe`가 self-contained 앱으로 오인돼 `hostpolicy.dll`을
+못 찾고 즉시 죽었다. GUI용 `DatabaseDeploy.runtimeconfig.json`을 본떠 만들어 넣어 해결했다.
+
+### WebAPI
+
+`LMC.Toolbox.WebAPI.exe`는 옵션 없이 실행하면 **127.0.0.1:5000과 ::1:5000에만** 묶인다.
+외부로 열리지 않는다. 6-27에서 "엔드포인트 경로·형식·인증 방식을 확인하지 못했다"고
+적었던 것은 전부 확인됐다. Swagger UI가 같이 깔린다(`/swagger`, `/swagger/v6/swagger.json`).
+
+API 버전은 **v6**. 라우트는 `api/v{version}/[controller]`.
+
+```
+GET /api/v6/search/smiles/{registerUnknown}/{ignoreStereo}?smiles=<SMILES>
+GET /api/v6/profiling
+GET /api/v6/profiling/{profilerGuid}/{chemId}/{simulatorGuid}
+```
+
+6-27에서 "QSAR 모델 예측 호출은 명시돼 있지 않다"고 적었는데, 실제로는 **있다.**
+`QsarController`에 `apply/{qsarGuid}/{chemId}`(예측)와 `domain/{qsarGuid}/{chemId}`(적용범위)가
+있다. 이번 작업 범위는 아니지만, 적용범위 확인이 된다는 것은 나중에 기권 근거로 쓸 수 있다는
+뜻이다. 실측값 조회(`DataController`)도 있다.
+
+### 응답을 읽을 때 걸린 것 세 가지
+
+전부 실제 응답으로 확인한 것이고, 하나라도 틀리면 판정이 뒤집힌다.
+
+**1. 검색 결과 순서가 호출마다 무작위로 섞인다.** 같은 SMILES를 세 번 넣으면 같은
+기록들이 매번 다른 순서로 온다. 첫 줄을 쓰면 같은 구조가 한 번은 양성, 한 번은 기권으로
+읽힌다. 실제로 에틸렌옥사이드가 첫 시도에서 기권으로 나왔다가 다음 시도에서 양성이 됐다.
+그래서 기록을 거르고 ChemId로 정렬해 고른다.
+
+**2. 고분자·UVCB 기록은 `(N/A)`를 돌려준다.** 프로파일러가 평가하지 않았다는 뜻이지
+음성이 아니다. 기권으로 간다.
+
+**3. 혼합물은 경고와 `No alert found`를 한 목록에 같이 돌려준다.** 한 성분은 경고가 뜨고
+다른 성분은 안 뜨기 때문이다(lou-1058 부틸히드라진 옥살산염에서 확인). 그래서 음성은
+`No alert found` **말고는 아무것도 없는** 목록일 때뿐이다.
+
+### 측정
+
+외부 검증셋 1,201종, 다른 도구와 같은 자료. 두 프로파일러를 한 번에 돌렸다(검색을 공유).
+소요 621초.
+
+| 프로파일러 | 민감도 | 특이도 | 균형 정확도 | 답한 비율 |
+|---|---|---|---|---|
+| DNA alerts for AMES, CA and MNT by OASIS | 0.423 | 0.979 | **0.701** | 0.940 |
+| in vitro mutagenicity (Ames test) alerts by ISS | 0.721 | 0.816 | **0.769** | 0.940 |
+
+기권 72개는 전부 도구가 스스로 답하지 않은 것이다: 구조 거절 70개
+(Toolbox의 SMILES 해석기가 RDKit이 받는 방향족 형태를 "Unrealistic valent state for
+atom"으로 거절한다), `(N/A)` 2개.
+
+### ISS는 붙이지 않았다
+
+균형 정확도만 보면 ISS(0.769)가 OASIS(0.701)보다 높다. 그런데 Toxtree의 Ames 모듈이
+같은 Benigni/Bossa ISS 규칙이라 겹칠 수 있어서, 같은 1,201개에서 직접 쟀다.
+
+| 쌍 | 둘 다 답한 수 | 판정 일치율 | 양성 집합 자카드 |
+|---|---|---|---|
+| Toolbox ISS vs Toxtree | 890 | **0.992** | **0.978** |
+| Toolbox OASIS vs Toxtree | 890 | 0.767 | 0.397 |
+| Toolbox OASIS vs Toolbox ISS | 1,129 | 0.748 | 0.362 |
+
+ISS는 Toxtree와 사실상 같은 도구다. 붙이면 이미 있는 도구를 한 번 더 세는 것이고,
+도구별 답을 나란히 두는 이 소프트웨어의 설계에서는 같은 답이 두 칸을 차지해 **합의가
+실제보다 강해 보이게** 만든다. OASIS는 Toxtree와 일치율 0.767, 양성 자카드 0.397로
+다른 알림 집합이고, 답한 비율도 0.940으로 Toxtree(0.777)보다 높다.
+
+그래서 **OASIS만 `qsar_toolbox`로 등록**했다. ISS 수치는 위에 남겨둔다.
+
+### 전문가 규칙 기반 칸
+
+| 도구 | 민감도 | 특이도 | 균형 정확도 | 답한 비율 |
+|---|---|---|---|---|
+| 전문가 규칙 (ICH M7) | 0.552 | 0.769 | 0.661 | 1.000 |
+| Toxtree 3.1.0 | 0.691 | 0.790 | 0.741 | 0.777 |
+| QSAR Toolbox 4.9 | 0.423 | 0.979 | 0.701 | 0.940 |
+
+Toolbox는 균형 정확도로는 Toxtree에 못 미친다. 대신 **특이도 0.979**로 세 도구 중
+가장 높다. 양성이라고 말하면 거의 맞고, 대신 놓치는 양성이 많다(민감도 0.423).
+성격이 다른 도구가 하나 늘어난 것이지 더 나은 도구가 들어온 것이 아니다.
+
+### 아직 안 한 것: 학습 자료 겹침
+
+Toolbox에는 `Bacterial mutagenicity ISSSTY` 데이터베이스가 있고 Ames 실측 7,367 구조가
+들어 있다. **자체 모델의 학습 자료와 겹칠 수 있다.** 겹치는 구조를 빼고 다시 재야
+자체 모델과 Toolbox를 같은 선에서 비교할 수 있다.
+
+이번 측정은 그 처리를 하지 않았다. 다만 Toolbox 쪽은 통계 모델이 아니라 **경고구조
+규칙**이라 학습이라는 개념이 없어서, 자체 모델에서 문제가 되는 방향(학습한 구조를
+다시 맞히는 것)과는 성격이 다르다. 그래도 ISSSTY 구조가 OASIS 경고구조를 만들 때
+근거로 쓰였을 수 있으므로, 숫자를 인용할 때는 이 처리를 하지 않았다는 점을 같이 말해야
+한다.
+
+### 파일
+
+| 파일 | 내용 |
+|---|---|
+| `app/qsar_toolbox_service.py` | WebAPI 호출. localhost가 아니면 거부한다 |
+| `evaluation/scripts/run_qsar_toolbox.py` | 측정 실행기 |
+| `evaluation/results/qsar_toolbox_independent_*.csv` | 1,201개 예측 |
+| `evaluation/results/qsar_toolbox_independent_manifest.json` | 측정 기록 |
+
+### 검사 환경
+
+- OECD QSAR Toolbox 4.9, WebAPI v6, `http://127.0.0.1:5000`
+- 프로파일러 GUID `cba502bd-358a-426d-ab7a-688a7202f091` (OASIS),
+  `50d215a3-adb9-4b37-b72b-6bc04f313056` (ISS)
+- 대사 시뮬레이터는 쓰지 않았다(빈 GUID). 모구조에 대한 경고구조다.
