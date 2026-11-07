@@ -2951,3 +2951,39 @@ evaluation/results/ames_descriptor_balanced_independent_predictions.csv (모델 
 ```
 `id`로 맞물려 `prediction`이 `0`/`1`인 것만 답한 것으로 세고, 기권 사유는 모델 1
 파일의 `reason` 열에서 읽는다.
+
+## 6-39. 자체 규칙은 남긴다 (2026-11-07)
+
+"ICH M7 규칙만 따로 도구로 두는 것이 의미 있나"는 물음에 답하려고 겹침을 쟀다.
+ISS를 뺄 때(6-34)와 같은 방법, 같은 미학습 독립셋 1,201종이다.
+
+| 쌍 | 둘 다 답함 | 일치율 | 양성 자카드 |
+|---|---|---|---|
+| 자체 규칙 vs **Toolbox (등록된 OASIS)** | 1,129 | **0.685** | **0.243** |
+| 자체 규칙 vs Toxtree | 933 | 0.861 | 0.650 |
+| Toxtree vs Toolbox | 890 | 0.767 | 0.397 |
+
+마지막 줄이 6-34의 수치와 소수점까지 같다. 방법이 같다는 자기 점검이다.
+
+**0.685는 이 행렬에서 가장 낮다.** ISS를 뺄 때의 0.992와 비교가 되지 않는다.
+양성 자카드 0.243은 두 도구가 서로 다른 물질을 양성으로 고른다는 뜻이다.
+**남긴다.** 코드 변경 없음.
+
+### 처음에 "계산 불가"라고 적었던 것은 내 실수였다
+
+`rules_predictions.csv`(7,255행, id `Drug 0`, 자료원 TDC)를 보고 미학습 독립셋과
+교집합이 0이라 재실행이 필요하다고 판단했다. 쓸 파일은
+`rules_independent_predictions.csv`(3,091행, id `lou-####`, MutagenLou2023)였고
+**미학습 1,201종을 전부 덮고 있었다.** 키 문제가 아니라 자료원이 다른 두 파일을
+맞물리려 한 것이다.
+
+### 재현
+
+```
+evaluation/results/ames_independent_unseen.csv                  (1,201종 id)
+evaluation/results/rules_independent_predictions.csv            (자체 규칙)
+evaluation/runs/toxtree_independent/toxtree_predictions.csv     (Toxtree)
+evaluation/results/qsar_toolbox_independent_qsar_toolbox_oasis.csv  (Toolbox)
+```
+`id`로 맞물려 `prediction`이 `0`/`1`인 것만 세고, 일치율은 그 교집합에서,
+양성 자카드는 양성 집합끼리 계산한다.
