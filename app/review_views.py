@@ -89,7 +89,13 @@ def show_policy(workspace):
         st.session_state["_policy_owner"] = owner
     strict = st.checkbox("규칙에 걸린 경로도 제외", key="strict_alerts")
     excluded = st.multiselect("직접 제외할 물질", list(choices), format_func=choices.get, key="excluded_smiles")
-    st.caption("알려진 우려 물질, 경고구조, 조건부 경고, 모델 양성 중 하나라도 걸리면 제외합니다")
+    # What each finding actually does, because the three are not the same.
+    # Only a structure named right here removes a route on its own; an alert
+    # removes one only while the box above is ticked, and a byproduct
+    # candidate never removes one at all.
+    st.caption("위에 적은 물질이 들어 있으면 경로를 뺍니다. "
+               "ICH M7 목록 물질과 경고구조는 기본값에서 검토 대상이고, "
+               "위 칸을 켜야 뺍니다. 부산물 후보는 어느 쪽이든 순위만 내립니다.")
     if {"strict_alerts": strict, "excluded_smiles": excluded} != workspace["policy"]:
         try:
             workspace = context.set_policy(workspace, strict, excluded)
