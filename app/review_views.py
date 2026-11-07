@@ -350,7 +350,16 @@ def show_route_risk(workspace):
 
 
 def show_model_review(workspace):
-    with st.expander("변이원성 모델 검토"):
+    """The model evidence behind the route verdicts, rolled up per route.
+
+    Named for what it is for, because a reader who had just come from the
+    comparison tab had no way to tell the two apart. The tab reads one
+    material at a time and changes nothing; this is the evidence the route
+    verdicts above were drawn from.
+    """
+    with st.expander("경로 판정에 쓴 모델 근거"):
+        st.caption("위 경로 판정이 어떤 모델 결과에서 나왔는지입니다. "
+                   "도구 비교 탭은 물질을 하나씩 보고, 여기서는 경로 단위로 묶습니다.")
         state = context.model_evidence_status(workspace)
         st.caption("모델 상태: " + state["status"])
         if state["error"]:
