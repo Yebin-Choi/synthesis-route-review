@@ -71,7 +71,7 @@ def step2_risk_judgement():
         if ich:
             basis = f"ICH M7 지정: {ich[0]}"
         elif alerts:
-            basis = "구조 경보: " + ", ".join(n for n, _ in alerts)
+            basis = "경고구조: " + ", ".join(n for n, _ in alerts)
         else:
             basis = "-"
         print(f"  {smi:<16} {desc:<32} {risk:<7.2f} {basis}")

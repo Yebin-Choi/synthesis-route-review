@@ -195,14 +195,14 @@ def _show_result(result, review, metadata):
         ("검사한 구조", len(assessments)),
         ("양성", positive),
         ("음성", len(decided) - positive),
-        ("판정 못함", len(assessments) - len(decided),
+        ("예측 결과 없음", len(assessments) - len(decided),
          "도구가 기권했거나 구조를 읽지 못한 경우입니다. 음성이 아닙니다."),
     ])
     if not decided:
-        st.warning("점수가 나온 구조가 없습니다. 아래는 모두 판정 못함이며, "
+        st.warning("점수가 나온 구조가 없습니다. 아래는 모두 예측 결과 없음이며, "
                    "음성으로 읽어서는 안 됩니다.")
     elif len(decided) != len(assessments):
-        st.warning("일부 구조는 판정하지 못했습니다. 판정 못함은 음성이 아닙니다.")
+        st.warning("일부 구조는 판정하지 못했습니다. 예측 결과 없음은 음성이 아닙니다.")
 
     if assessments:
         ui_kit.show_table(

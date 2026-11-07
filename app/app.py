@@ -237,7 +237,7 @@ def provider_settings():
     """The API provider panel, open until a key and a model are set."""
     ready = bool(st.session_state.get("llm_api_key")
                  and st.session_state.get("llm_model"))
-    with st.expander("모델 공급자 설정", expanded=not ready):
+    with st.expander("모델 공급자", expanded=not ready):
         st.selectbox("모델 공급자", list(PROVIDERS),
                      format_func=lambda key: PROVIDERS[key]["label"],
                      key="llm_provider", on_change=provider_changed)
@@ -350,40 +350,44 @@ def show_last_attempt():
     if not attempts:
         return
     latest = attempts[-1]
-    st.caption("최근 생성 요청: " + STATUS.get(latest["status"], "미확인")
+    st.caption("생성 상태: " + STATUS.get(latest["status"], "미확인")
                + (" · 이전 맥락" if latest["stale"] else ""))
     if latest["error"]:
         st.warning(reason_text(latest["error"].get("message")) or "생성 실패")
     if latest["status"] == "partial":
-        st.warning("부분 산출물은 이력에만 남습니다")
+        st.warning("중간까지 나온 결과는 기록에만 남습니다")
 
 
 def show_generation_controls(workspace):
-    service = st.session_state["_native_service"]
-    engine_id = st.selectbox(
-        "생성 엔진", list(ENGINES), format_func=ENGINES.get,
-        key="generation_engine", on_change=engine_changed,
-        help="AiZynthFinder는 이 컴퓨터에서 돌고, SynthEx는 목표 구조를 외부 "
-             "모델로 보냅니다.")
-    entry = (provider_settings() if engine_id == "synthex"
-             else PROVIDERS[st.session_state["llm_provider"]])
-    selection = llm_selection(engine_id)
-    readiness, configuration_id, workspace = check_readiness(
-        service, engine_id, selection, workspace)
-    bind_consent(engine_id, selection, readiness, configuration_id)
+    """The one button, with everything it needs folded behind it.
 
-    if engine_id == "synthex":
-        name = entry["label"].split(" · ")[0]
-        st.caption(f"목표 구조를 {name}로 전송합니다 · "
-                   + ("유료 호출 발생" if entry["paid"] else "무료 등급 한도 적용")
-                   + " · 전체 900초 한도")
-        st.checkbox("외부 전송과 유료 호출에 동의합니다" if entry["paid"]
-                    else "외부 전송에 동의합니다",
-                    key="generation_consent", disabled=not readiness["ready"])
-        st.caption("키·모델을 바꾸면 실행 취소를 요청합니다")
-    ui_kit.show_facts([
-        ("준비 상태", "준비됨" if readiness["ready"] else "확인 중 또는 자산 부족"),
-    ])
+    The engine choice, the provider keys and the readiness line used to stand
+    between the target and the button, four controls deep, although the
+    default engine runs on this machine and needs none of them. They are one
+    collapsed block now, and the button says when it is not ready.
+    """
+    service = st.session_state["_native_service"]
+    with st.expander("생성 설정"):
+        engine_id = st.selectbox(
+            "엔진", list(ENGINES), format_func=ENGINES.get,
+            key="generation_engine", on_change=engine_changed,
+            help="AiZynthFinder는 이 컴퓨터에서 돌고, SynthEx는 목표 구조를 외부 "
+                 "모델로 보냅니다.")
+        entry = (provider_settings() if engine_id == "synthex"
+                 else PROVIDERS[st.session_state["llm_provider"]])
+        selection = llm_selection(engine_id)
+        readiness, configuration_id, workspace = check_readiness(
+            service, engine_id, selection, workspace)
+        bind_consent(engine_id, selection, readiness, configuration_id)
+        if engine_id == "synthex":
+            name = entry["label"].split(" · ")[0]
+            st.caption(f"목표 구조를 {name}로 전송합니다 · "
+                       + ("유료 호출 발생" if entry["paid"] else "무료 등급 한도 적용")
+                       + " · 전체 900초 한도")
+            st.checkbox("외부 전송과 유료 호출에 동의합니다" if entry["paid"]
+                        else "외부 전송에 동의합니다",
+                        key="generation_consent", disabled=not readiness["ready"])
+            st.caption("키나 모델을 바꾸면 실행 중인 작업을 취소합니다")
 
     consented = (engine_id != "synthex"
                  or (bool(st.session_state.get("llm_api_key"))
@@ -435,25 +439,20 @@ def shared_selection(workspace):
         st.session_state["route_id"] = workspace["route_id"]
         st.session_state["step_id"] = workspace["step_id"]
         st.session_state["_selector_route"] = workspace["route_id"]
-    first, second = st.columns(2)
-    with first:
-        route_id = st.selectbox(
-            "경로", route_ids, key="route_id",
-            format_func=lambda value: labels.get(value, value),
-            help="우려가 적은 순으로 놓았습니다. 제외된 경로는 위에 따로 있습니다.")
+    route_id = st.selectbox(
+        "경로", route_ids, key="route_id",
+        format_func=lambda value: labels.get(value, value),
+        help="우려가 적은 순으로 놓았습니다. 제외된 경로는 위에 따로 있습니다.")
+    # A route is the unit a reader chooses; a step is not. The risk tab lays
+    # out every step of the route at once, so the only screen that still needs
+    # one step singled out is the byproduct request, and it asks there. The
+    # step kept here is just a valid default for that tab.
     route = next(item for item in routes if item["id"] == route_id)
     steps = [step["id"] for step in route["steps"]]
     if st.session_state.get("_selector_route") != route_id or st.session_state.get("step_id") not in steps:
         st.session_state["step_id"] = steps[0]
         st.session_state["_selector_route"] = route_id
-    with second:
-        order = {value: index for index, value in enumerate(steps, 1)}
-        step_id = st.selectbox(
-            "단계", steps, key="step_id",
-            format_func=lambda value: f"{order[value]}단계",
-            help="경로를 이루는 반응 하나하나입니다. 보고서에 적힌 순서 그대로 "
-                 "번호를 붙였습니다.")
-    workspace = context.select_step(workspace, route_id, step_id)
+    workspace = context.select_step(workspace, route_id, st.session_state["step_id"])
     st.session_state["_selector_context"] = context.context_key(workspace)
     return workspace
 
@@ -462,7 +461,7 @@ def freeze_snapshot(workspace, raw_target, target_error, inspection):
     material = st.session_state["inspection_mode"] == "material"
     active = workspace if workspace is not None and not material else {}
     data = {"schema_version": "1.0", "mode": "material" if material else "route",
-            "scope": "목표물 자체의 독립 검사 · 경로 불순물 검사 아님" if material else "전체 생성 경로·기본 제외 결정·선택 단계 산술",
+            "scope": "목표물 하나만 검사한 결과입니다 · 경로 불순물 검사 아님" if material else "전체 생성 경로·기본 제외 결정·선택 단계 산술",
             "raw_target": raw_target, "target_error": target_error,
             "target": workspace["target"] if workspace else None,
             "original_input": raw_target if material else active.get("original_input"),
@@ -511,11 +510,11 @@ ui_kit.use()
 # screen's own table, so the header cannot drift away from it.
 branding.show_header([
     (label, "균형 정확도", f"{row['balanced']:.3f} · 기준선 {row['line']:.2f}")
-    for label, row in (("우리 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"]),
-                       ("설명 가능 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_desc"]))
-] + [("연동 도구", "", f"{len(screening_judges.implemented_judge_ids())}개")])
+    for label, row in (("자체 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"]),
+                       ("기술자 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_desc"]))
+] + [("도구", "", f"{len(screening_judges.implemented_judge_ids())}종")])
 st.selectbox("목표 물질", list(TARGETS), key="target_catalog", on_change=pick_target)
-with st.expander("목표 구조·SMILES", expanded=st.session_state["target_catalog"] == "직접 입력"):
+with st.expander("목표 구조", expanded=st.session_state["target_catalog"] == "직접 입력"):
     raw_target = st.text_input("목표 물질 SMILES", key="target_smiles", on_change=raw_target_changed)
     if len(raw_target) <= 4096 and raw_target.strip():
         show_structure(raw_target)
@@ -542,11 +541,15 @@ inspection = show_material_risk(raw_target, target_error)
 if st.session_state["inspection_mode"] == "material" and workspace and workspace["report"]:
     st.button("경로 결과 보기", key="show_route_review", on_click=return_to_routes)
 if workspace and workspace["report"] is not None and st.session_state["inspection_mode"] == "route":
-    workspace = show_policy(workspace)
-    workspace = capture_models(workspace)
+    # The rule and what it dropped are one subject, so they are one block.
+    # Two expanders side by side made the reader open both to learn that the
+    # second was the consequence of the first.
+    with st.expander("제외 기준과 빠진 경로"):
+        workspace = show_policy(workspace)
+        workspace = capture_models(workspace)
+        show_excluded_routes(workspace)
     workspace = shared_selection(workspace)
     st.session_state["review_workspace"] = workspace
-    show_excluded_routes(workspace)
     if context.eligible_routes(workspace):
         risk, comparison, byproducts = st.tabs(
             TABS, key="review_tabs", on_change="rerun")
@@ -572,23 +575,24 @@ snapshot = freeze_snapshot(workspace, raw_target, target_error, inspection)
 st.session_state["review_export_snapshot"] = snapshot
 if workspace and workspace["report"] or inspection or st.session_state["generation_attempts"] or st.session_state.get("historical_reviews"):
     st.divider()
-    st.subheader("현재 검토 저장")
-    st.caption("독립 물질 검사만 저장" if snapshot["mode"] == "material" else "경로·제외 이유·생성 출처·이력을 함께 저장")
-    with st.expander("이전 결과·생성 시도 이력"):
+    # One expander instead of a headed section with its own caption, format
+    # radio and history block. Saving is the last thing a reader does and it
+    # was taking up as much room as the review.
+    with st.expander("저장"):
+        file_format = st.radio("형식", ("JSON", "HTML", "CSV"), horizontal=True,
+                               key="export_format")
+        try:
+            data = render_export(export_json(snapshot), file_format)
+            mime = {"JSON": "application/json", "HTML": "text/html",
+                    "CSV": "text/csv"}[file_format]
+            st.download_button("내려받기", data,
+                               "review_snapshot." + file_format.lower(), mime,
+                               type="primary", key="review_download")
+        except (ValueError, TypeError, KeyError, RecursionError):
+            st.error("저장하지 못했습니다")
+        st.caption("물질 하나만 검사한 결과입니다" if snapshot["mode"] == "material"
+                   else "경로와 제외 사유, 생성 기록이 함께 들어갑니다")
         st.json({"generation_attempts": st.session_state["generation_attempts"],
                  "historical_reviews": st.session_state.get("historical_reviews", []),
                  "historical_byproduct_attempts": st.session_state.get("historical_byproduct_attempts", [])}, expanded=False)
-    choice, action = st.columns([3, 1])
-    with choice:
-        file_format = st.radio("저장 형식", ("JSON", "HTML", "CSV"), horizontal=True,
-                               key="export_format")
-    try:
-        data = render_export(export_json(snapshot), file_format)
-        mime = {"JSON": "application/json", "HTML": "text/html", "CSV": "text/csv"}[file_format]
-        with action:
-            st.download_button("내려받기", data, "review_snapshot." + file_format.lower(),
-                               mime, type="primary", key="review_download",
-                               width="stretch")
-    except (ValueError, TypeError, KeyError, RecursionError):
-        st.error("저장하지 못했습니다")
-branding.show_footer([f"성능 측정: {tool_comparison_view.MEASURED_ON}"])
+branding.show_footer([f"{tool_comparison_view.MEASURED_ON} 기준"])

@@ -273,11 +273,11 @@ class ConditionViewTests(unittest.TestCase):
         # missing components keep their own status and an unassessed alert cell,
         # so they can never be read as a negative screen.
         self.assertEqual(rows.loc["리간드", "선별 결과"], "해당 없음")
-        self.assertEqual(rows.loc["리간드", "구조 경보"], "해당 없음")
+        self.assertEqual(rows.loc["리간드", "경고구조"], "해당 없음")
         self.assertEqual(rows.loc["시약", "선별 결과"], "구조 미해결")
         self.assertEqual(rows.loc["촉매", "선별 결과"], "원자료 누락")
-        self.assertEqual(rows.loc["시약", "구조 경보"], "미평가")
-        self.assertEqual(rows.loc["촉매", "구조 경보"], "미평가")
+        self.assertEqual(rows.loc["시약", "경고구조"], "미평가")
+        self.assertEqual(rows.loc["촉매", "경고구조"], "미평가")
 
     def test_resolved_label_without_canonical_structure_is_still_not_assessed(self):
         self.kb["combinations"][0]["components"].append(
@@ -295,7 +295,7 @@ class ConditionViewTests(unittest.TestCase):
         self.assess.assert_called_once_with("CCO")
         screened = self.table(app, "선별 결과").set_index("역할")
         self.assertEqual(screened.loc["염기", "선별 결과"], "구조 미확인")
-        self.assertEqual(screened.loc["염기", "구조 경보"], "미평가")
+        self.assertEqual(screened.loc["염기", "경고구조"], "미평가")
 
     def test_screening_failure_is_explicit_and_not_a_negative_result(self):
         app = self.open_view()
@@ -304,7 +304,7 @@ class ConditionViewTests(unittest.TestCase):
         self.assert_no_exception(app)
         rows = self.table(app, "선별 결과").set_index("역할")
         self.assertEqual(rows.loc["리간드", "선별 결과"], "선별 실패")
-        self.assertEqual(rows.loc["리간드", "구조 경보"], "미평가")
+        self.assertEqual(rows.loc["리간드", "경고구조"], "미평가")
         self.assertIn("software-only screening failure", self.text(app))
 
     def test_audit_counts_are_not_invented_when_audit_is_missing_or_mismatched(self):

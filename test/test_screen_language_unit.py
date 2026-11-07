@@ -62,7 +62,7 @@ class SweepHelperTests(unittest.TestCase):
                 self.assertTrue(internal_tokens(leak), f"놓침: {leak}")
 
     def test_it_does_not_object_to_ordinary_screen_text(self):
-        for fine in ("경보 없음", "판정 기준선 0.25", "CC(=O)[O-].[Na+]",
+        for fine in ("경고구조 없음", "판정 기준선 0.25", "CC(=O)[O-].[Na+]",
                      "ROC-AUC 0.9015", "ICH M7 목록 물질",
                      "https://example.invalid/doc?page=18"):
             with self.subTest(fine):

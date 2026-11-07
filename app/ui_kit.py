@@ -40,8 +40,8 @@ CONCERN, CLEAR, REVIEW, UNKNOWN, ABSENT = "pos", "neg", "warn", "abs", "none"
 VERDICT = {
     "positive": ("양성", CONCERN),
     "negative": ("음성", CLEAR),
-    "no_alert": ("경보 없음", CLEAR),
-    "indeterminate": ("판정 보류", UNKNOWN),
+    "no_alert": ("경고구조 없음", CLEAR),
+    "indeterminate": ("상충된 결과", UNKNOWN),
     "out_of_domain": ("적용 범위 밖", UNKNOWN),
     "not_run": ("실행 안 됨", ABSENT),
 }
@@ -188,12 +188,6 @@ def metric_row(items):
         column.metric(label, value, help=item[2] if len(item) > 2 else None)
 
 
-def reading_guide(bullets, *, title="이 화면을 읽는 법"):
-    """The explanation, collapsed. The screen itself stays results."""
-    with st.expander(title):
-        st.markdown("\n".join(f"- {line}" for line in bullets))
-
-
 def raw_record(payload, *, title="원본 기록"):
     """Keep the exact record reachable without printing it onto the page."""
     with st.expander(title):
@@ -202,6 +196,6 @@ def raw_record(payload, *, title="원본 기록"):
 
 __all__ = [
     "ABSENT", "CLEAR", "CONCERN", "KIT_CSS", "REVIEW", "UNKNOWN",
-    "VERDICT", "chip", "facts", "metric_row", "raw_record", "reading_guide",
+    "VERDICT", "chip", "facts", "metric_row", "raw_record",
     "show_facts", "show_table", "table", "text", "use", "verdict_chip",
 ]

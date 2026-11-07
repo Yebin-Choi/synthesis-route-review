@@ -28,7 +28,7 @@ COMPONENT_STATUS = {
 }
 SCREEN_STATUS = {
     "known_concern": "알려진 우려 물질",
-    "structural_alert": "구조 경보",
+    "structural_alert": "경고구조",
     "no_alert_detected": "해당 없음",
     "invalid": "구조 해석 불가",
 }
@@ -141,13 +141,13 @@ def _show_screening(components):
             "역할": ROLE_LABELS.get(role, _value(role)),
             "이름 / SMILES": component.get("name") or _value(component.get("canonical_smiles")),
             "선별 결과": _component_status(component),
-            "구조 경보": "미평가",
+            "경고구조": "미평가",
         }
         if _has_structure(component):
             try:
                 result = assess_material(component["canonical_smiles"])
                 row["선별 결과"] = SCREEN_STATUS.get(result["status"], "미확인")
-                row["구조 경보"] = ", ".join(result["alerts"]) or (
+                row["경고구조"] = ", ".join(result["alerts"]) or (
                     "해당 없음" if result["status"] == "no_alert_detected" else "미확인"
                 )
             except (ValueError, RuntimeError) as exc:

@@ -50,8 +50,8 @@ class HeaderTests(unittest.TestCase):
         return [(label, "균형 정확도",
                  f"{view.TOOL_PERFORMANCE[tool]['balanced']:.3f} · "
                  f"기준선 {view.TOOL_PERFORMANCE[tool]['line']:.2f}")
-                for label, tool in (("우리 모델", "ames_xgb"),
-                                    ("설명 가능 모델", "ames_desc"))]
+                for label, tool in (("자체 모델", "ames_xgb"),
+                                    ("기술자 모델", "ames_desc"))]
 
     def test_the_name_and_what_it_does_are_both_there(self):
         markup = branding.header_markup()
