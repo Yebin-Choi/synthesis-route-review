@@ -153,12 +153,14 @@ def llm_selection(engine_id):
     if engine_id != "synthex":
         return None
     entry = PROVIDERS[st.session_state["llm_provider"]]
-    model = st.session_state["llm_model"].strip()
+    # A provider that documents its own address and model carries them here.
+    # Only the ones left blank in PROVIDERS read what the reader typed.
+    model = entry["model"] or st.session_state["llm_model"].strip()
     if not model:
         return None
     if entry["base_url"] is None:
         return {"provider": "gemini", "base_url": None, "model": model}
-    base_url = st.session_state["llm_base_url"].strip().rstrip("/")
+    base_url = (entry["base_url"] or st.session_state["llm_base_url"].strip()).rstrip("/")
     if not base_url:
         return None
     return {"provider": "openai_compatible", "base_url": base_url, "model": model}
@@ -240,11 +242,17 @@ def provider_settings():
                      format_func=lambda key: PROVIDERS[key]["label"],
                      key="llm_provider", on_change=provider_changed)
         entry = PROVIDERS[st.session_state["llm_provider"]]
-        if entry["base_url"] is not None:
+        # Groq and Gemini document one address and one model that do tool
+        # calling and JSON output, and those are written in PROVIDERS. Asking
+        # for them again as empty boxes was asking the reader to retype a
+        # constant. The two providers that name no model of their own are the
+        # only ones that still get a box.
+        if entry["base_url"] == "":
             st.text_input("API 주소", key="llm_base_url", on_change=selection_changed,
                           help="OpenAI 호환 /chat/completions 엔드포인트입니다.")
-        st.text_input("모델 이름", key="llm_model", on_change=selection_changed,
-                      help="공급자 문서에 적힌 모델 ID를 그대로 넣습니다.")
+        if entry["model"] == "":
+            st.text_input("모델 이름", key="llm_model", on_change=selection_changed,
+                          help="공급자 문서에 적힌 모델 ID를 그대로 넣습니다.")
         st.text_input("API 키", type="password", key="llm_api_key",
                       on_change=key_changed,
                       help="이 세션과 SynthEx 실행에만 전달합니다.")
@@ -261,6 +269,13 @@ def check_readiness(service, engine_id, selection, workspace):
     incomplete = engine_id == "synthex" and selection is None
     readiness = (deepcopy(UNSET_PROVIDER) if incomplete
                  else service.readiness(engine_id, selection))
+    if incomplete:
+        # Name only what this provider actually leaves blank. Groq and Gemini
+        # never land here; the two that name no model of their own do.
+        entry = PROVIDERS[st.session_state["llm_provider"]]
+        missing = [name for name, blank in (("API 주소", entry["base_url"] == ""),
+                                            ("모델 이름", entry["model"] == "")) if blank]
+        readiness["error"] = {"message": "와 ".join(missing) + "을 채우세요"}
     configuration_id = readiness.get("configuration_id")
     previous = st.session_state.get("_configuration_ids", {}).get(engine_id)
     if previous is not None and previous != configuration_id:
@@ -380,7 +395,9 @@ def show_generation_controls(workspace, raw_target, target_error):
         bind_consent(engine_id, selection, readiness, configuration_id)
         if engine_id == "synthex":
             name = entry["label"].split(" · ")[0]
-            st.caption(f"목표 구조를 {name}로 전송합니다 · "
+            model = selection["model"] if selection else ""
+            st.caption(f"목표 구조를 {name}" + (f"의 {model}" if model else "")
+                       + "로 전송합니다 · "
                        + ("유료 호출 발생" if entry["paid"] else "무료 등급 한도 적용")
                        + " · 전체 900초 한도")
             st.checkbox("외부 전송과 유료 호출에 동의합니다" if entry["paid"]
