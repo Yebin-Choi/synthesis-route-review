@@ -172,7 +172,7 @@ class ReviewWorkflowTests(OfflineAppCase):
         self.assertEqual(self.workspace["report"], successful_report)
         self.assertFalse(self.workspace["byproduct_attempts"][-1]["applied"])
         self.assertEqual(self.workspace["byproduct_attempts"][-1]["result"]["raw_response"], FAILED["raw_response"])
-        self.assertIn("이전 성공", self.text())
+        self.assertIn("이전 결과는 기록에", self.text())
         self.assertIn("미평가", self.text())
         for malformed in (["not", "an", "object"], {"status": "success", "candidates": [None], "error": None},
                           {"status": "success", "candidates": [], "error": None},

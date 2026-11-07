@@ -433,7 +433,7 @@ class AppUsabilityTests(OfflineAppCase):
         decision = next(item for item in self.workspace["selection"]["routes"] if item["id"] == self.workspace["route_id"])
         self.assertEqual(decision["status"], "insufficient_data")
         self.assertIn("정보 부족", self.text(self.app.tabs[0]))
-        self.assertIn("부산물: 미실행", self.text(self.app.tabs[0]))
+        self.assertIn("안 돌림", self.text(self.app.tabs[0]))
 
     def test_policy_failure_never_reuses_a_candidate(self):
         self.enable_model()
@@ -469,7 +469,7 @@ class AppUsabilityTests(OfflineAppCase):
             self.assertIn(warning["message"], text)
             self.assertIn(warning["basis"], text)
         self.assertIn("테스트용 실패 상태", text)
-        self.assertIn("반응 조건: 제안", text)
+        self.assertIn("<dt>반응 조건</dt><dd>제안</dd>", text)
         self.assertIn("물질 근거: proposed", text)
         for role in ("catalysts", "ligands", "bases", "coproducts"):
             self.assertIn("수동 시험 근거 · " + role, text)
@@ -496,7 +496,7 @@ class AppUsabilityTests(OfflineAppCase):
         materials = self.workspace["report"]["routes"][0]["steps"][0]["materials"]
         self.assertTrue(any(item["status"] == "invalid" for item in materials))
         self.assertTrue(any(item["status"] == "known_concern" for item in materials))
-        self.assertIn("구조 해석 불가", exclusion)
+        self.assertIn("구조를 읽지 못함", exclusion)
         self.assertIn(presentation.STATUS["known_concern"], exclusion)
 
     def test_png_save_oserror_keeps_original_material_and_exported_assessment(self):
@@ -538,7 +538,7 @@ class AppUsabilityTests(OfflineAppCase):
         self.app.button(key="screen_material").click().run()
         negative = self.snapshot["material_result"]
         self.assertEqual(negative["status"], "no_alert_detected")
-        self.assertIn("해당 없음", self.text())
+        self.assertIn("경고구조 없음", self.text())
         self.assertIn("does not mean safe or Class 5", " ".join(negative["limitations"]))
         self.admet.assert_not_called()
 
