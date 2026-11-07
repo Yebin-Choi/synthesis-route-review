@@ -96,10 +96,10 @@ REASON_TEXT = (
      "작업 폴더 밖의 파일이 감지되어 중간에 멈췄습니다. 실행 중 만들어지는 임시 "
      "파일 때문에 드물게 생깁니다. '다시 확인'을 누르면 대개 넘어갑니다."),
     ("could not start the isolated worker",
-     "설정된 인터프리터가 작업 프로세스를 띄우지 못했습니다. 그 환경에 필요한 "
-     "패키지가 갖춰져 있는지 확인하세요."),
+     "실행 환경이 작업을 띄우지 못했습니다. 그 환경에 필요한 패키지가 빠졌는지 "
+     "확인해 주세요."),
     ("cannot import a required original backend",
-     "설정된 인터프리터에 필요한 패키지가 없습니다. 그 환경에서 따로 설치해야 합니다."),
+     "실행 환경에 필요한 패키지가 빠져 있습니다. 그 환경에 직접 설치해 주세요."),
     ("interpreter is missing",
      "설정 파일에 적힌 Python 실행 파일이 없습니다. generation.local.json의 경로를 "
      "확인하세요."),
@@ -458,7 +458,7 @@ def route_dot(route):
 def material_reason(material):
     alerts = ", ".join(ALERTS.get(value, value) for value in material.get("alerts", []))
     if material["status"] == "known_concern":
-        return f"목록 일치: {material.get('name') or '구성 성분'}" + (f" · 검출 구조 {alerts}" if alerts else "")
+        return f"목록 일치: {material.get('name') or '구성 성분'}" + (f", 검출 구조 {alerts}" if alerts else "")
     if material["status"] == "structural_alert":
         return f"검출 구조: {alerts}"
     return ""
@@ -472,7 +472,7 @@ def material_card(material, location="", *, tool=None):
         with evidence:
             st.subheader(material_name(material.get("canonical_smiles"), material.get("name")))
             role = ROLES.get(material.get("role"), "물질 하나만 검사")
-            st.caption(" · ".join(part for part in (location, role, tool) if part))
+            st.caption(", ".join(part for part in (location, role, tool) if part))
             # The same chip vocabulary the other screens use. This card used
             # to set the verdict in bold text, so one screen said a thing with
             # a chip and another said it with a sentence.

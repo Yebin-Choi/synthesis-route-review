@@ -172,7 +172,7 @@ def show_header(stats=()):
 
 
 def footer_markup(notes=()):
-    left = " · ".join(
+    left = ", ".join(
         [f'<span class="rx-dot">●</span> {ui_kit.text(NAME)} {ui_kit.text(VERSION)}']
         + [ui_kit.text(note) for note in notes if note])
     return ('<div class="rx-foot"><span>' + left + "</span>"

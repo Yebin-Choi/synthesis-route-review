@@ -3162,3 +3162,57 @@ SynthEx를 고르면 "API 주소"와 "모델 이름"을 빈 칸으로 물어보�
   `evaluation/verification/...`를 가리키는데 파일은
   `evaluation/runs/verification/...`에 있다. 이것 때문에 SynthEx 준비 상태가
   계속 `assets_missing`이었다. 로컬 파일이라 저장소에 올리지 않고 고쳤다.
+
+## 6-45. SynthEx가 안 돌던 원인 두 가지
+
+### pyarrow가 NumPy 2를 요구했다
+
+`external_tools/synthex-runtime`에 pyarrow 26.0.1과 NumPy 1.26.4가 같이 깔려
+있었다. pyarrow 21부터 NumPy 2 이상을 요구한다. 수입 경로는
+`aizynthfinder -> rxnutils -> swifter -> dask -> pyarrow`이고, 끊긴 자리는
+`aizynthfinder.reactiontree`였다. 화면에는 "필요한 패키지가 없습니다"로만
+보였다.
+
+NumPy를 올리면 aizynthfinder와 rdkit이 걸릴 수 있어 pyarrow를 20.0.0으로
+내렸다. 그 뒤 probe의 수입이 전부 통과한다. aizynthfinder 4.4.1이고 SynthEx가
+기대하는 값과 같다.
+
+진단은 `-I`(isolated)로 돌려야 재현된다. 일반 실행에서는 통과한다.
+
+### 설정 파일 경로가 옛 폴더를 가리켰다
+
+`evaluation/verification/`에서 `evaluation/runs/verification/`로 옮긴 흔적이
+절대 경로로 남아 있었다.
+
+- `generation.local.json`의 `synthex.config`
+- `synthex_full_runtime.json`의 `completion.aizynthfinder_config`와
+  `external_asset_manifest`
+
+셋 다 고쳤다. 전부 `.gitignore` 대상이라 저장소에는 올라가지 않는다. 이것 때문에
+준비 상태가 `assets_missing`이었다.
+
+## 6-46. 화면 글에서 가운뎃점을 걷어냈다
+
+이름과 설명 사이는 콜론, 나열은 쉼표, 문장이 이어지는 자리는 그냥 문장으로
+바꿨다. 낱말을 묶는 가운뎃점(규칙 우려·Ames 양성, 전략 수립·비평·분석)은
+한국어 표기가 맞으므로 그대로 뒀다.
+
+| 전 | 후 |
+|---|---|
+| `AiZynthFinder · 이 컴퓨터에서 탐색` | `AiZynthFinder: 이 컴퓨터에서 탐색` |
+| `Groq · 무료 등급` | `Groq: 무료 등급` |
+| `프로프라놀롤 (Propranolol) · 의약품` | `프로프라놀롤 (Propranolol), 의약품` |
+| `0.847 · 기준선 0.50` | `0.847, 기준선 0.50` |
+| `물질 5개 · 도구 4개` | `물질 5개, 도구 4개` |
+| `...로 전송합니다 · 무료 등급 한도 적용 · 전체 900초 한도` | `...로 보냅니다. 무료 등급 한도가 적용됩니다. 900초까지 기다립니다.` |
+
+로고 아래 영문 한 줄(`RETROSYNTHESIS · AMES GENOTOXICITY WORKBENCH`)은
+로고타이프라 남겼다.
+
+같이 고친 말
+- "설정된 인터프리터에 필요한 패키지가 없습니다" →
+  "실행 환경에 필요한 패키지가 빠져 있습니다. 그 환경에 직접 설치해 주세요."
+- "설정된 인터프리터가 작업 프로세스를 띄우지 못했습니다" →
+  "실행 환경이 작업을 띄우지 못했습니다."
+
+전체 677개 통과. 화면에서 첫 화면과 SynthEx 설정을 직접 확인했다.

@@ -22,7 +22,7 @@ from molecule_catalog import MOLECULES
 
 # The cost tab was removed with the pricing screen; three tabs remain.
 TABS = ["위험 검토", "독성 예측 툴 비교", "부산물"]
-CATALOG_NAMES = {item["name_en"].casefold(): f"{item['name_ko']} ({item['name_en']}) · {item['category']}" for item in MOLECULES}
+CATALOG_NAMES = {item["name_en"].casefold(): f"{item['name_ko']} ({item['name_en']}), {item['category']}" for item in MOLECULES}
 
 
 def fixture_payload(target="CCOC(C)=O", *, two_steps=False, two_routes=False):

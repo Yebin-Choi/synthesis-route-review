@@ -121,8 +121,8 @@ def show_step_unknowns(step, step_count=1):
         # The grounds as a caption, not a fold. A fold here could not be drawn
         # at all where this step is listed inside another one, and two lines
         # are shorter than the control that would have hidden them.
-        st.caption(" · ".join(part for part in
-                              (warning["basis"], warning.get("source_url")) if part))
+        st.caption(", ".join(part for part in
+                             (warning["basis"], warning.get("source_url")) if part))
     condition, byproducts = step["conditions"], step["byproducts"]
     # One record instead of four stacked remarks. The wording of the first
     # line is unchanged because it is the line the saved file and the tests
@@ -204,7 +204,7 @@ def routine_summary(decision):
              if reason["code"] not in DECIDING_CODES
              and reason["code"] not in QUIET_CODES}
     ordered = sorted(codes, key=lambda code: (_ROUTINE_ORDER.get(code, len(_ROUTINE_ORDER)), code))
-    return " · ".join(dict.fromkeys(
+    return ", ".join(dict.fromkeys(
         ROUTINE_CODES.get(code, UNKNOWN_CODE) for code in ordered))
 
 
@@ -225,9 +225,9 @@ def show_reasons(decision):
         shown = sorted(step for step in steps if step)
         where = f"단계 {', '.join(shown)}" if shown else "경로 전체"
         name = material_name(smiles) if smiles else ""
-        st.write(f"**{label}** · {name} · {where}" if name else f"**{label}** · {where}")
+        st.write(f"**{label}** {name}, {where}" if name else f"**{label}** {where}")
     if routine:
-        st.caption(" · ".join(dict.fromkeys(
+        st.caption(", ".join(dict.fromkeys(
             ROUTINE_CODES.get(code, UNKNOWN_CODE)
             for code in sorted(routine, key=lambda code: (
                 _ROUTINE_ORDER.get(code, len(_ROUTINE_ORDER)), code)))))
@@ -271,7 +271,7 @@ def _verdict_cell(row):
     assessment, so a chip here would be a claim nobody made.
     """
     if row["is_target"]:
-        return ui_kit.chip("목표물 · 검사 대상 아님", ui_kit.ABSENT)
+        return ui_kit.chip("목표물, 검사 대상 아님", ui_kit.ABSENT)
     assessment = row["assessment"]
     if assessment is None:
         return ui_kit.verdict_chip("not_run")
@@ -291,7 +291,7 @@ def _show_drawings(rows):
         for column, row in zip(columns, chunk):
             with column:
                 show_structure(row["raw"])
-                st.caption(ROLES[row["role"]] + " · " + row["name"])
+                st.caption(ROLES[row["role"]] + ", " + row["name"])
 
 
 def show_excluded_routes(workspace):
@@ -318,9 +318,9 @@ def show_excluded_routes(workspace):
                 ["구조", "역할·이름", "판정", "출처"],
                 [{"cells": [
                     ui_kit.text(row["raw"]),
-                    ui_kit.text(ROLES[row["role"]] + " · " + row["name"]),
+                    ui_kit.text(ROLES[row["role"]] + ", " + row["name"]),
                     _verdict_cell(row),
-                    ui_kit.text(" · ".join(part for part in (
+                    ui_kit.text(", ".join(part for part in (
                         (row["assessment"] or {}).get("origin"),
                         (row["assessment"] or {}).get("source_url")) if part)),
                 ], "mark": not row["is_target"] and (row["assessment"] or {}).get(
