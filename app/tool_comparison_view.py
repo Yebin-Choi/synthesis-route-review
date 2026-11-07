@@ -224,7 +224,7 @@ def performance_rows(tool_ids):
             "도구": info["label"], "방법론": info["method"],
             "판정 기준선": (f"{info['line']:.2f}" if info["line"] is not None
                         else ("도구 자체 판정" if info.get("own_line")
-                              else "해당 없음 (규칙)")),
+                              else "없음")),
             "민감도": info["sensitivity"], "특이도": info["specificity"],
             "균형 정확도": info["balanced"], "판정 비율": info["answered"],
             "측정 자료": info["measured_on"],
@@ -412,7 +412,7 @@ def _summary_metrics(rows, disagreed, silent, bands):
     third.metric("무응답", len(silent),
                  help="어느 도구도 답하지 않은 물질 수입니다. 음성이 아니라 "
                       "판정이 없는 것입니다.")
-    fourth.metric("근거 부족", weak if bands else "—",
+    fourth.metric("근거 부족", weak if bands else "없음",
                   help="자체 모델이 비슷한 구조를 거의 보지 못한 물질 수입니다. "
                        "위험하다는 뜻이 아니라 모델이 판단할 근거가 적다는 뜻입니다.")
 

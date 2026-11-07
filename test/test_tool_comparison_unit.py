@@ -346,7 +346,7 @@ class PerToolLineTest(unittest.TestCase):
     def test_performance_table_states_each_line(self):
         rows = view.performance_rows(["ames_xgb", "admet", "toxtree"])
         lines = [row["판정 기준선"] for row in rows]
-        self.assertEqual(lines, ["0.50", "0.50", "해당 없음 (규칙)"])
+        self.assertEqual(lines, ["0.50", "0.50", "없음"])
 
     def test_recorded_figures_match_the_line_they_were_measured_at(self):
         # The weighted refit measured on the independent rows, log 6-20.
@@ -432,6 +432,6 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
                 for row in view.performance_rows(
                     ["rules", "epa_test", "ames_xgb", "admet"])}
         self.assertEqual(rows["EPA TEST 5.1.2"], "도구 자체 판정")
-        self.assertEqual(rows["전문가 규칙 (ICH M7)"], "해당 없음 (규칙)")
+        self.assertEqual(rows["전문가 규칙 (ICH M7)"], "없음")
         self.assertEqual(rows["자체 모델 (지문·기술자)"], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")

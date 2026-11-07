@@ -18,6 +18,7 @@ from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 import ames_descriptor_service as service
+import ames_model_service as shared
 
 
 def _worker(payload, *, missing_output=False, exit_error=None):
@@ -60,9 +61,12 @@ class EnvelopeTests(unittest.TestCase):
             service.Path, "is_file", lambda self: True)
 
     def _assess(self, materials, payload, **kwargs):
-        with mock.patch.object(service, "AMES_PYTHON") as python, \
+        # The run itself lives in the shared worker runner, so the
+        # isolated interpreter and the subprocess are held there. The
+        # weights path is this model's own and stays here.
+        with mock.patch.object(shared, "AMES_PYTHON") as python, \
              mock.patch.object(service, "MODEL_DIR") as model_dir, \
-             mock.patch.object(service.subprocess, "run",
+             mock.patch.object(shared.subprocess, "run",
                                side_effect=_worker(payload, **kwargs)):
             python.is_file.return_value = True
             model_dir.__truediv__ = lambda self, name: mock.Mock(

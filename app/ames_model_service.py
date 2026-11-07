@@ -123,13 +123,20 @@ def _describe(code):
     return f"The Ames model worker failed: {code}"
 
 
-def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
-    """Score distinct valid structures with the in-house model.
+def score_with_worker(smiles, *, threshold, timeout, worker, model_dir,
+                      prefix, label, unknown_model, limitations,
+                      missing_weights=None, finish=None):
+    """Run one isolated scoring worker over the distinct valid structures.
 
-    A string is one material; otherwise an iterable supplies the materials.
-    Duplicate canonical structures are scored once and their original spellings
-    kept as aliases. More than 256 distinct valid structures raises before the
-    backend runs. Nothing is cached.
+    The two in-house models differ in four things: the worker they call, the
+    weights they load, the wording of their failures and the extra fields
+    each result carries. Everything else here — the argument checks, folding
+    duplicate structures into aliases, the 256 bound, the temporary run
+    directory and the shape of the report — was written out twice and had to
+    be kept in step by hand.
+
+    `finish(row, result)` copies whatever else a model reports onto a scored
+    row. A model that reports nothing extra passes None.
     """
     if not isinstance(threshold, (int, float)) or isinstance(threshold, bool):
         raise ValueError("threshold must be a number")
@@ -146,8 +153,8 @@ def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
         except TypeError:
             values = [smiles]
 
-    report = {"model": _unknown_model(), "threshold": float(threshold),
-              "assessments": [], "limitations": list(_LIMITATIONS)}
+    report = {"model": unknown_model(), "threshold": float(threshold),
+              "assessments": [], "limitations": list(limitations)}
     valid = {}
     for value in values:
         canonical = canonicalize_smiles(value)
@@ -173,12 +180,12 @@ def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
     if not AMES_PYTHON.is_file():
         _fail(rows, "격리된 Ames 모델 파이썬 환경이 설치되어 있지 않습니다.")
         return report
-    if not (MODEL_DIR / "model.joblib").is_file():
-        _fail(rows, "Ames 모델 가중치 파일이 없습니다.")
+    if not (model_dir / "model.joblib").is_file():
+        _fail(rows, missing_weights or f"{label} 가중치 파일이 없습니다.")
         return report
 
     try:
-        with tempfile.TemporaryDirectory(prefix="ames_model_") as directory:
+        with tempfile.TemporaryDirectory(prefix=prefix) as directory:
             run_dir = Path(directory)
             input_path = run_dir / "input.json"
             output_path = run_dir / "output.json"
@@ -188,27 +195,28 @@ def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
             env = dict(os.environ)
             env["PYTHONIOENCODING"] = "utf-8"
             subprocess.run(
-                [str(AMES_PYTHON), "-X", "utf8", "-B", str(AMES_WORKER),
+                [str(AMES_PYTHON), "-X", "utf8", "-B", str(worker),
                  "--input", str(input_path), "--output", str(output_path),
-                 "--model-dir", str(MODEL_DIR)],
+                 "--model-dir", str(model_dir)],
                 capture_output=True, timeout=timeout, env=env, check=False)
             if not output_path.is_file():
-                _fail(rows, "Ames 모델 작업자가 결과를 남기지 않았습니다.")
+                _fail(rows, f"{label} 작업자가 결과를 남기지 않았습니다.")
                 return report
             payload = json.loads(output_path.read_text(encoding="utf-8"))
     except subprocess.TimeoutExpired:
-        _fail(rows, "Ames 모델 실행이 제한 시간을 넘겼습니다.")
+        _fail(rows, f"{label} 실행이 제한 시간을 넘겼습니다.")
         return report
     except (OSError, ValueError) as exc:
-        _fail(rows, f"Ames 모델을 실행하지 못했습니다: {exc}")
+        _fail(rows, f"{label}을 실행하지 못했습니다: {exc}")
         return report
 
     if payload.get("error"):
         _fail(rows, _describe(str(payload["error"])))
         return report
-    report["model"] = payload.get("model") or _unknown_model()
+    report["model"] = payload.get("model") or unknown_model()
 
-    scored = {row.get("canonical_smiles"): row for row in payload.get("assessments", [])}
+    scored = {row.get("canonical_smiles"): row
+              for row in payload.get("assessments", [])}
     for row in rows:
         result = scored.get(row["canonical_smiles"])
         if result is None:
@@ -223,12 +231,34 @@ def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
         row["status"] = "success"
         row["score"] = float(result["score"])
         row["error"] = None
-        # The model normalizes again with its own rules, so the form it scored
-        # is kept when it differs from the one the application sent.
-        model_form = result.get("model_canonical_smiles")
-        if model_form and model_form != row["canonical_smiles"]:
-            row["model_canonical_smiles"] = model_form
+        if finish is not None:
+            finish(row, result)
     return report
+
+
+def _keep_model_form(row, result):
+    """The model normalizes again with its own rules, so the form it scored is
+    kept when it differs from the one the application sent."""
+    model_form = result.get("model_canonical_smiles")
+    if model_form and model_form != row["canonical_smiles"]:
+        row["model_canonical_smiles"] = model_form
+
+
+def assess_ames_model_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
+    """Score distinct valid structures with the in-house model.
+
+    A string is one material; otherwise an iterable supplies the materials.
+    Duplicate canonical structures are scored once and their original
+    spellings kept as aliases. More than 256 distinct valid structures raises
+    before the backend runs. Nothing is cached.
+    """
+    return score_with_worker(
+        smiles, threshold=threshold, timeout=timeout,
+        worker=AMES_WORKER, model_dir=MODEL_DIR, prefix="ames_model_",
+        label="Ames 모델", unknown_model=_unknown_model,
+        limitations=_LIMITATIONS,
+        missing_weights="Ames 모델 가중치 파일이 없습니다.",
+        finish=_keep_model_form)
 
 
 EXPLAIN_WORKER = Path(__file__).resolve().with_name("ames_explain_worker.py")

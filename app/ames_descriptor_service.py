@@ -14,18 +14,12 @@ interpreter, missing weights or a backend failure is an abstention. Nothing
 here turns a failure into a negative prediction.
 """
 
-import json
-import os
 from pathlib import Path
-import subprocess
-import tempfile
 
 if __package__:
-    from .ames_model_service import AMES_PYTHON, _assessment, _describe, _fail
-    from .toxicology import canonicalize_smiles
+    from .ames_model_service import AMES_PYTHON, score_with_worker
 else:
-    from ames_model_service import AMES_PYTHON, _assessment, _describe, _fail
-    from toxicology import canonicalize_smiles
+    from ames_model_service import AMES_PYTHON, score_with_worker
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -81,111 +75,27 @@ def descriptor_model_readiness() -> dict:
             "interpreter": str(AMES_PYTHON), "model_dir": str(MODEL_DIR)}
 
 
+def _keep_named_reasons(row, result):
+    """The named reasons travel with the score: this model has no unnamed
+    block to put the decision in, so the two belong together."""
+    row["pushed_positive"] = result.get("pushed_positive", [])
+    row["pushed_negative"] = result.get("pushed_negative", [])
+    row["baseline_log_odds"] = result.get("baseline_log_odds")
+
+
 def assess_ames_descriptor_materials(smiles, *, threshold=0.5, timeout=600) -> dict:
     """Score distinct valid structures, with the named reasons for each score.
 
     A string is one material; otherwise an iterable supplies the materials.
-    Duplicate canonical structures are scored once and their original spellings
-    kept as aliases. More than 256 distinct valid structures raises before the
-    backend runs. Nothing is cached.
+    Duplicate canonical structures are scored once and their original
+    spellings kept as aliases. More than 256 distinct valid structures raises
+    before the backend runs. Nothing is cached.
     """
-    if not isinstance(threshold, (int, float)) or isinstance(threshold, bool):
-        raise ValueError("threshold must be a number")
-    if not 0 <= threshold <= 1:
-        raise ValueError("threshold must be between zero and one, inclusive")
-    if timeout <= 0:
-        raise ValueError("timeout must be greater than zero")
-
-    if isinstance(smiles, (str, bytes)) or smiles is None:
-        values = [smiles]
-    else:
-        try:
-            values = list(smiles)
-        except TypeError:
-            values = [smiles]
-
-    report = {"model": _unknown_model(), "threshold": float(threshold),
-              "assessments": [], "limitations": list(_LIMITATIONS)}
-    valid = {}
-    for value in values:
-        canonical = canonicalize_smiles(value)
-        if canonical is not None and canonical in valid:
-            row = valid[canonical]
-            aliases = row.setdefault("input_smiles_list", [row["input_smiles"]])
-            text = value if isinstance(value, str) else repr(value)
-            if text not in aliases:
-                aliases.append(text)
-            continue
-        row = _assessment(value, canonical)
-        report["assessments"].append(row)
-        if canonical is not None:
-            valid[canonical] = row
-            if len(valid) > MAX_DISTINCT_VALID:
-                raise ValueError(
-                    f"이 모델은 한 번에 서로 다른 유효 구조를 "
-                    f"{MAX_DISTINCT_VALID}개까지만 받습니다")
-    if not valid:
-        return report
-
-    rows = list(valid.values())
-    if not AMES_PYTHON.is_file():
-        _fail(rows, "격리된 Ames 모델 파이썬 환경이 설치되어 있지 않습니다.")
-        return report
-    if not (MODEL_DIR / "model.joblib").is_file():
-        _fail(rows, "기술자 모델 가중치 파일이 없습니다. "
-                    "ames/scripts/train_descriptor_model.py를 먼저 실행하세요.")
-        return report
-
-    try:
-        with tempfile.TemporaryDirectory(prefix="ames_desc_") as directory:
-            run_dir = Path(directory)
-            input_path = run_dir / "input.json"
-            output_path = run_dir / "output.json"
-            input_path.write_text(
-                json.dumps({"canonical_smiles": list(valid)}, ensure_ascii=False),
-                encoding="utf-8")
-            env = dict(os.environ)
-            env["PYTHONIOENCODING"] = "utf-8"
-            subprocess.run(
-                [str(AMES_PYTHON), "-X", "utf8", "-B", str(WORKER),
-                 "--input", str(input_path), "--output", str(output_path),
-                 "--model-dir", str(MODEL_DIR)],
-                capture_output=True, timeout=timeout, env=env, check=False)
-            if not output_path.is_file():
-                _fail(rows, "기술자 모델 작업자가 결과를 남기지 않았습니다.")
-                return report
-            payload = json.loads(output_path.read_text(encoding="utf-8"))
-    except subprocess.TimeoutExpired:
-        _fail(rows, "기술자 모델 실행이 제한 시간을 넘겼습니다.")
-        return report
-    except (OSError, ValueError) as exc:
-        _fail(rows, f"기술자 모델을 실행하지 못했습니다: {exc}")
-        return report
-
-    if payload.get("error"):
-        _fail(rows, _describe(str(payload["error"])))
-        return report
-    report["model"] = payload.get("model") or _unknown_model()
-
-    scored = {row.get("canonical_smiles"): row
-              for row in payload.get("assessments", [])}
-    for row in rows:
-        result = scored.get(row["canonical_smiles"])
-        if result is None:
-            row["status"] = "failed"
-            row["error"] = "모델이 이 구조에 대한 결과를 돌려주지 않았습니다."
-            continue
-        if result.get("status") != "success":
-            row["status"] = "failed"
-            row["score"] = None
-            row["error"] = _describe(str(result.get("error") or "backend_error"))
-            continue
-        row["status"] = "success"
-        row["score"] = float(result["score"])
-        row["error"] = None
-        # The named reasons travel with the score: this model has no unnamed
-        # block to put the decision in, so the two belong together.
-        row["pushed_positive"] = result.get("pushed_positive", [])
-        row["pushed_negative"] = result.get("pushed_negative", [])
-        row["baseline_log_odds"] = result.get("baseline_log_odds")
-    return report
+    return score_with_worker(
+        smiles, threshold=threshold, timeout=timeout,
+        worker=WORKER, model_dir=MODEL_DIR, prefix="ames_desc_",
+        label="기술자 모델", unknown_model=_unknown_model,
+        limitations=_LIMITATIONS,
+        missing_weights="기술자 모델 가중치 파일이 없습니다. "
+                        "ames/scripts/train_descriptor_model.py로 먼저 만드세요.",
+        finish=_keep_named_reasons)
