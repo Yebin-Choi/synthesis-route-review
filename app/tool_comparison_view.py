@@ -73,10 +73,10 @@ TOOL_PERFORMANCE = {
                  "own_line": True,
                  "sensitivity": 0.629, "specificity": 0.798, "balanced": 0.714,
                  "answered": 0.611, "measured_on": MEASURED_ON},
-    "ames_xgb": {"label": "자체 모델 (지문·기술자)", "method": "통계 기반", "line": 0.50,
+    "ames_xgb": {"label": "자체 모델 1", "method": "통계 기반", "line": 0.50,
                  "sensitivity": 0.774, "specificity": 0.921, "balanced": 0.847,
                  "answered": 0.777, "measured_on": MEASURED_ON},
-    "ames_desc": {"label": "자체 모델 (기술자)", "method": "통계 기반",
+    "ames_desc": {"label": "자체 모델 2", "method": "통계 기반",
                   "line": 0.50,
                   "sensitivity": 0.648, "specificity": 0.930, "balanced": 0.789,
                   "answered": 1.000, "measured_on": MEASURED_ON},
@@ -324,9 +324,11 @@ TOOL_HINTS = {
     "admet": "공개된 약물성·독성 예측 모델입니다. 이 컴퓨터에서 실행하며 "
              "구조가 밖으로 나가지 않습니다.",
     "ames_xgb": "직접 학습시킨 모델입니다. 지문 비트와 기술자를 함께 쓰며, "
-                "왜 그렇게 판정했는지는 설명하지 못합니다.",
+                "왜 그렇게 판정했는지는 설명하지 못합니다. 염·혼합물·무기물은 "
+                "지문을 만들지 못해 답하지 않습니다.",
     "ames_desc": "직접 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
-                 "어떤 성질이 판정을 밀었는지 말할 수 있습니다.",
+                 "어떤 성질이 판정을 밀었는지 말할 수 있습니다. 모델 1이 읽지 "
+                 "못하는 구조도 읽습니다.",
     "qsar_toolbox": "OECD가 배포하는 규제용 프로그램입니다. 이 컴퓨터에서 "
                     "실행하며 구조가 밖으로 나가지 않습니다. 고분자처럼 "
                     "경고구조를 적용할 수 없는 물질은 스스로 판정을 내지 않습니다.",
@@ -520,6 +522,12 @@ def _show_performance(chosen, *, with_note=False):
         ).properties(height=alt.Step(30))
         st.altair_chart(bars + coin, width="stretch")
         st.caption("가로축은 균형 정확도. 점선 0.5는 동전 던지기와 같습니다.")
+        if {"ames_xgb", "ames_desc"} <= set(chosen):
+            # The two in-house models are not a better and a worse version of
+            # one thing. The answered column already carries the difference
+            # (77.7% against 100%); this says what it is.
+            st.caption("모델 1이 답하지 않은 구조는 대부분 염·혼합물·무기물입니다. "
+                       "모델 2가 그 자리를 메웁니다.")
     # The graph answers which tool did better; the table answers by how much
     # and how often it answered at all. Printing both on the surface was the
     # same numbers twice, so the detail sits one click away.

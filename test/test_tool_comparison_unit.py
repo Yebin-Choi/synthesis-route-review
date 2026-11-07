@@ -51,7 +51,7 @@ class ComparisonTests(unittest.TestCase):
         row = view.build_comparison(["CC=O"], results)[0]
         self.assertTrue(row["_disagree"])
         self.assertEqual(row["전문가 규칙 (ICH M7)"], "양성")
-        self.assertEqual(row["자체 모델 (지문·기술자)"], "음성 (0.07)")
+        self.assertEqual(row["자체 모델 1"], "음성 (0.07)")
 
     def test_tools_that_agree_are_not_marked_as_disagreeing(self):
         results = {
@@ -95,6 +95,23 @@ class ToolRunningTests(unittest.TestCase):
             screening_judges.JUDGES.update(original)
         self.assertIn("규칙 실행 실패", results["rules"]["tool_error"])
         self.assertNotIn("tool_error", results["ames_xgb"])
+
+
+class LabelContractTests(unittest.TestCase):
+    """A tool's label is also a dict key, so two tools may not share one.
+
+    `build_comparison` files each call under the tool's label, and the matrix,
+    the CSV and the score chart all read it back. Two tools with one label
+    would silently drop a column. Nothing enforced this before.
+    """
+
+    def test_every_tool_label_is_distinct(self):
+        labels = [info["label"] for info in view.TOOL_PERFORMANCE.values()]
+        self.assertEqual(len(labels), len(set(labels)))
+
+    def test_no_label_collides_with_a_fixed_column(self):
+        labels = {info["label"] for info in view.TOOL_PERFORMANCE.values()}
+        self.assertFalse(labels & {"물질", "엇갈림", "모델 적용 범위"})
 
 
 class PerformanceTableTests(unittest.TestCase):
@@ -433,5 +450,5 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
                     ["rules", "epa_test", "ames_xgb", "admet"])}
         self.assertEqual(rows["EPA TEST 5.1.2"], "도구 자체 판정")
         self.assertEqual(rows["전문가 규칙 (ICH M7)"], "없음")
-        self.assertEqual(rows["자체 모델 (지문·기술자)"], "0.50")
+        self.assertEqual(rows["자체 모델 1"], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")

@@ -28,7 +28,7 @@ TITLE = f"{branding.NAME} · {branding.SUBTITLE}"
 # prices it could not supply. The quantity screen back-calculated charges from
 # coefficients and a yield the reader also had to supply, which made the
 # software look as though it knew a recipe it had never been given.
-TABS = ("위험 검토", "도구 비교", "부산물")
+TABS = ("위험 검토", "독성 예측 툴 비교", "부산물")
 CATALOG = {f"{item['name_ko']} ({item['name_en']}) · {item['category']}": item for item in MOLECULES}
 TARGETS = {label: item["smiles"] for label, item in CATALOG.items()}
 TARGETS["직접 입력"] = ""
@@ -525,9 +525,9 @@ ui_kit.use()
 # never seen, and the line it decides at. They come from the comparison
 # screen's own table, so the header cannot drift away from it.
 branding.show_header([
-    (label, "균형 정확도", f"{row['balanced']:.3f} · 기준선 {row['line']:.2f}")
-    for label, row in (("자체 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"]),
-                       ("기술자 모델", tool_comparison_view.TOOL_PERFORMANCE["ames_desc"]))
+    (row["label"], "균형 정확도", f"{row['balanced']:.3f} · 기준선 {row['line']:.2f}")
+    for row in (tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"],
+                tool_comparison_view.TOOL_PERFORMANCE["ames_desc"])
 ] + [("도구", "", f"{len(screening_judges.implemented_judge_ids())}종")])
 st.selectbox("목표 물질", list(TARGETS), key="target_catalog", on_change=pick_target)
 with st.expander("목표 구조", expanded=st.session_state["target_catalog"] == "직접 입력"):
