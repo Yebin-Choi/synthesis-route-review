@@ -1,0 +1,706 @@
+{
+  "scenario_inputs": {
+    "unit_mass_mg": 100,
+    "production_units": 10000,
+    "target_mass_mg": 1000000.0,
+    "steps": [
+      {
+        "id": "scenario_only",
+        "product_smiles": "CCOC(C)=O",
+        "product_coefficient": 1,
+        "reactants": [
+          {
+            "smiles": "CC(=O)O",
+            "coefficient": 1
+          },
+          {
+            "smiles": "CCO",
+            "coefficient": 1
+          }
+        ],
+        "isolated_yield": 0.8,
+        "yield_basis": "user_scenario",
+        "yield_source": "Arithmetic scenario only: assumed 80 percent yield, not measured process data"
+      }
+    ]
+  },
+  "scenario_result": {
+    "status": "calculated",
+    "input_evidence": "user_scenario_hypothesis",
+    "evidence_note": "Hypothetical user-supplied scenario; not observed synthesis data or a real experimental result.",
+    "target": {
+      "canonical_smiles": "CCOC(C)=O",
+      "molecular_weight_g_mol": 88.106,
+      "amount_mmol": 11349.964815109073,
+      "mass_mg": 1000000.0
+    },
+    "demands": [
+      {
+        "canonical_smiles": "CC(=O)O",
+        "molecular_weight_g_mol": 60.05200000000001,
+        "amount_mmol": 14187.456018886342,
+        "mass_mg": 851985.1088461627,
+        "roles": [
+          "starting_reactant"
+        ],
+        "synthesis_demand_mmol": 14187.456018886342,
+        "reagent_demand_mmol": 0.0,
+        "external_amount_mmol": 14187.456018886342,
+        "external_mass_mg": 851985.1088461627
+      },
+      {
+        "canonical_smiles": "CCO",
+        "molecular_weight_g_mol": 46.069,
+        "amount_mmol": 14187.456018886342,
+        "mass_mg": 653601.9113340749,
+        "roles": [
+          "starting_reactant"
+        ],
+        "synthesis_demand_mmol": 14187.456018886342,
+        "reagent_demand_mmol": 0.0,
+        "external_amount_mmol": 14187.456018886342,
+        "external_mass_mg": 653601.9113340749
+      },
+      {
+        "canonical_smiles": "CCOC(C)=O",
+        "molecular_weight_g_mol": 88.106,
+        "amount_mmol": 11349.964815109073,
+        "mass_mg": 1000000.0,
+        "roles": [
+          "target_product"
+        ],
+        "synthesis_demand_mmol": 11349.964815109073,
+        "reagent_demand_mmol": 0.0,
+        "external_amount_mmol": 0.0,
+        "external_mass_mg": 0.0
+      }
+    ],
+    "step_requirements": [
+      {
+        "step_index": 1,
+        "step_id": "scenario_only",
+        "product_smiles": "CCOC(C)=O",
+        "product_coefficient": 1.0,
+        "product_amount_mmol": 11349.964815109073,
+        "product_mass_mg": 1000000.0,
+        "reaction_extent_mmol": 14187.456018886342,
+        "isolated_yield": 0.8,
+        "yield_basis": "user_scenario",
+        "yield_source": "Arithmetic scenario only: assumed 80 percent yield, not measured process data",
+        "input_evidence": "user_scenario_hypothesis",
+        "reactants": [
+          {
+            "canonical_smiles": "CC(=O)O",
+            "molecular_weight_g_mol": 60.05200000000001,
+            "amount_mmol": 14187.456018886342,
+            "mass_mg": 851985.1088461627,
+            "coefficient": 1.0,
+            "supply": "external_starting_material"
+          },
+          {
+            "canonical_smiles": "CCO",
+            "molecular_weight_g_mol": 46.069,
+            "amount_mmol": 14187.456018886342,
+            "mass_mg": 653601.9113340749,
+            "coefficient": 1.0,
+            "supply": "external_starting_material"
+          }
+        ],
+        "reagents": []
+      }
+    ],
+    "missing_information": [],
+    "limitations": [
+      "Backward input-demand calculation only: reactions, coefficients and yields are supplied, not predicted.",
+      "User-supplied isolated-yield sources are not independently verified; user_scenario means a hypothetical assumption, not an observed experiment.",
+      "Stoichiometric demand equations are arithmetic, not validation of a chemically balanced equation. Atom/charge balance and coproducts are unknown; listed masses must not be used as a total-mass conservation assertion.",
+      "Reagents are consumed external inputs, not recursively synthesized or recycled. Each equivalent is per mole of its explicit reaction-reactant or theoretical-product reference; no limiting reagent is inferred.",
+      "No solvent or catalyst quantities, purity corrections, stock concentrations, residuals, purge, toxicity, patient exposure or clinical dosing recommendation are inferred.",
+      "Target mass is the explicit desired material mass. Purity is unknown; no potency, salt/free-base or purity correction is applied.",
+      "Canonical identity preserves complete salts/disconnected components, charge, isotopes and stereochemistry; salt/free-base or stereoisomer equivalence is not assumed.",
+      "Any missing required reaction-specific input or unsupported yield basis prevents all input-amount results; no default coefficient or yield is supplied."
+    ]
+  },
+  "stored_route_readiness": {
+    "status": "insufficient_data",
+    "routes": [
+      {
+        "id": "aizynth-1",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      },
+      {
+        "id": "aizynth-2",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 2,
+            "step_id": "2",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[2].product_smiles: explicit nonempty value required",
+              "steps[2].product_coefficient: explicit reaction-specific value required",
+              "steps[2].isolated_yield: explicit reaction-specific value required",
+              "steps[2].yield_source: explicit nonempty value required",
+              "steps[2].yield_basis: explicit nonempty value required",
+              "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[2].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 3,
+            "step_id": "3",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[3].product_smiles: explicit nonempty value required",
+              "steps[3].product_coefficient: explicit reaction-specific value required",
+              "steps[3].isolated_yield: explicit reaction-specific value required",
+              "steps[3].yield_source: explicit nonempty value required",
+              "steps[3].yield_basis: explicit nonempty value required",
+              "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[2].product_smiles: explicit nonempty value required",
+          "steps[2].product_coefficient: explicit reaction-specific value required",
+          "steps[2].isolated_yield: explicit reaction-specific value required",
+          "steps[2].yield_source: explicit nonempty value required",
+          "steps[2].yield_basis: explicit nonempty value required",
+          "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[3].product_smiles: explicit nonempty value required",
+          "steps[3].product_coefficient: explicit reaction-specific value required",
+          "steps[3].isolated_yield: explicit reaction-specific value required",
+          "steps[3].yield_source: explicit nonempty value required",
+          "steps[3].yield_basis: explicit nonempty value required",
+          "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      },
+      {
+        "id": "aizynth-3",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 2,
+            "step_id": "2",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[2].product_smiles: explicit nonempty value required",
+              "steps[2].product_coefficient: explicit reaction-specific value required",
+              "steps[2].isolated_yield: explicit reaction-specific value required",
+              "steps[2].yield_source: explicit nonempty value required",
+              "steps[2].yield_basis: explicit nonempty value required",
+              "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[2].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 3,
+            "step_id": "3",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[3].product_smiles: explicit nonempty value required",
+              "steps[3].product_coefficient: explicit reaction-specific value required",
+              "steps[3].isolated_yield: explicit reaction-specific value required",
+              "steps[3].yield_source: explicit nonempty value required",
+              "steps[3].yield_basis: explicit nonempty value required",
+              "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[2].product_smiles: explicit nonempty value required",
+          "steps[2].product_coefficient: explicit reaction-specific value required",
+          "steps[2].isolated_yield: explicit reaction-specific value required",
+          "steps[2].yield_source: explicit nonempty value required",
+          "steps[2].yield_basis: explicit nonempty value required",
+          "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[3].product_smiles: explicit nonempty value required",
+          "steps[3].product_coefficient: explicit reaction-specific value required",
+          "steps[3].isolated_yield: explicit reaction-specific value required",
+          "steps[3].yield_source: explicit nonempty value required",
+          "steps[3].yield_basis: explicit nonempty value required",
+          "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      },
+      {
+        "id": "aizynth-4",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 2,
+            "step_id": "2",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[2].product_smiles: explicit nonempty value required",
+              "steps[2].product_coefficient: explicit reaction-specific value required",
+              "steps[2].isolated_yield: explicit reaction-specific value required",
+              "steps[2].yield_source: explicit nonempty value required",
+              "steps[2].yield_basis: explicit nonempty value required",
+              "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[2].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 3,
+            "step_id": "3",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[3].product_smiles: explicit nonempty value required",
+              "steps[3].product_coefficient: explicit reaction-specific value required",
+              "steps[3].isolated_yield: explicit reaction-specific value required",
+              "steps[3].yield_source: explicit nonempty value required",
+              "steps[3].yield_basis: explicit nonempty value required",
+              "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[2].product_smiles: explicit nonempty value required",
+          "steps[2].product_coefficient: explicit reaction-specific value required",
+          "steps[2].isolated_yield: explicit reaction-specific value required",
+          "steps[2].yield_source: explicit nonempty value required",
+          "steps[2].yield_basis: explicit nonempty value required",
+          "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[3].product_smiles: explicit nonempty value required",
+          "steps[3].product_coefficient: explicit reaction-specific value required",
+          "steps[3].isolated_yield: explicit reaction-specific value required",
+          "steps[3].yield_source: explicit nonempty value required",
+          "steps[3].yield_basis: explicit nonempty value required",
+          "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      },
+      {
+        "id": "aizynth-5",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[1].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 2,
+            "step_id": "2",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[2].product_smiles: explicit nonempty value required",
+              "steps[2].product_coefficient: explicit reaction-specific value required",
+              "steps[2].isolated_yield: explicit reaction-specific value required",
+              "steps[2].yield_source: explicit nonempty value required",
+              "steps[2].yield_basis: explicit nonempty value required",
+              "steps[2].reactants[1].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 3,
+            "step_id": "3",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[3].product_smiles: explicit nonempty value required",
+              "steps[3].product_coefficient: explicit reaction-specific value required",
+              "steps[3].isolated_yield: explicit reaction-specific value required",
+              "steps[3].yield_source: explicit nonempty value required",
+              "steps[3].yield_basis: explicit nonempty value required",
+              "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 4,
+            "step_id": "4",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[4].product_smiles: explicit nonempty value required",
+              "steps[4].product_coefficient: explicit reaction-specific value required",
+              "steps[4].isolated_yield: explicit reaction-specific value required",
+              "steps[4].yield_source: explicit nonempty value required",
+              "steps[4].yield_basis: explicit nonempty value required",
+              "steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[4].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[2].product_smiles: explicit nonempty value required",
+          "steps[2].product_coefficient: explicit reaction-specific value required",
+          "steps[2].isolated_yield: explicit reaction-specific value required",
+          "steps[2].yield_source: explicit nonempty value required",
+          "steps[2].yield_basis: explicit nonempty value required",
+          "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].product_smiles: explicit nonempty value required",
+          "steps[3].product_coefficient: explicit reaction-specific value required",
+          "steps[3].isolated_yield: explicit reaction-specific value required",
+          "steps[3].yield_source: explicit nonempty value required",
+          "steps[3].yield_basis: explicit nonempty value required",
+          "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[4].product_smiles: explicit nonempty value required",
+          "steps[4].product_coefficient: explicit reaction-specific value required",
+          "steps[4].isolated_yield: explicit reaction-specific value required",
+          "steps[4].yield_source: explicit nonempty value required",
+          "steps[4].yield_basis: explicit nonempty value required",
+          "steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[4].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      },
+      {
+        "id": "aizynth-6",
+        "target": "CC(C)NCC(O)COc1cccc2ccccc12",
+        "status": "insufficient_data",
+        "input_evidence": "incomplete_user_input",
+        "evidence_note": "Required process evidence is incomplete; no complete synthesis-input amounts are established.",
+        "steps": [
+          {
+            "step_index": 1,
+            "step_id": "1",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[1].product_smiles: explicit nonempty value required",
+              "steps[1].product_coefficient: explicit reaction-specific value required",
+              "steps[1].isolated_yield: explicit reaction-specific value required",
+              "steps[1].yield_source: explicit nonempty value required",
+              "steps[1].yield_basis: explicit nonempty value required",
+              "steps[1].reactants[1].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 2,
+            "step_id": "2",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[2].product_smiles: explicit nonempty value required",
+              "steps[2].product_coefficient: explicit reaction-specific value required",
+              "steps[2].isolated_yield: explicit reaction-specific value required",
+              "steps[2].yield_source: explicit nonempty value required",
+              "steps[2].yield_basis: explicit nonempty value required",
+              "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[2].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 3,
+            "step_id": "3",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[3].product_smiles: explicit nonempty value required",
+              "steps[3].product_coefficient: explicit reaction-specific value required",
+              "steps[3].isolated_yield: explicit reaction-specific value required",
+              "steps[3].yield_source: explicit nonempty value required",
+              "steps[3].yield_basis: explicit nonempty value required",
+              "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[3].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          },
+          {
+            "step_index": 4,
+            "step_id": "4",
+            "status": "insufficient_data",
+            "missing_information": [
+              "steps[4].product_smiles: explicit nonempty value required",
+              "steps[4].product_coefficient: explicit reaction-specific value required",
+              "steps[4].isolated_yield: explicit reaction-specific value required",
+              "steps[4].yield_source: explicit nonempty value required",
+              "steps[4].yield_basis: explicit nonempty value required",
+              "steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+              "steps[4].reactants[2].coefficient: explicit reaction-specific value required"
+            ]
+          }
+        ],
+        "missing_information": [
+          "steps[1].product_smiles: explicit nonempty value required",
+          "steps[1].product_coefficient: explicit reaction-specific value required",
+          "steps[1].isolated_yield: explicit reaction-specific value required",
+          "steps[1].yield_source: explicit nonempty value required",
+          "steps[1].yield_basis: explicit nonempty value required",
+          "steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[2].product_smiles: explicit nonempty value required",
+          "steps[2].product_coefficient: explicit reaction-specific value required",
+          "steps[2].isolated_yield: explicit reaction-specific value required",
+          "steps[2].yield_source: explicit nonempty value required",
+          "steps[2].yield_basis: explicit nonempty value required",
+          "steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[3].product_smiles: explicit nonempty value required",
+          "steps[3].product_coefficient: explicit reaction-specific value required",
+          "steps[3].isolated_yield: explicit reaction-specific value required",
+          "steps[3].yield_source: explicit nonempty value required",
+          "steps[3].yield_basis: explicit nonempty value required",
+          "steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+          "steps[4].product_smiles: explicit nonempty value required",
+          "steps[4].product_coefficient: explicit reaction-specific value required",
+          "steps[4].isolated_yield: explicit reaction-specific value required",
+          "steps[4].yield_source: explicit nonempty value required",
+          "steps[4].yield_basis: explicit nonempty value required",
+          "steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+          "steps[4].reactants[2].coefficient: explicit reaction-specific value required"
+        ]
+      }
+    ],
+    "missing_information": [
+      "routes[1]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[1]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[1]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[1]: steps[1].yield_source: explicit nonempty value required",
+      "routes[1]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[1]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[1]: steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[2]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[2]: steps[1].yield_source: explicit nonempty value required",
+      "routes[2]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[2]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[2].product_smiles: explicit nonempty value required",
+      "routes[2]: steps[2].product_coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[2].isolated_yield: explicit reaction-specific value required",
+      "routes[2]: steps[2].yield_source: explicit nonempty value required",
+      "routes[2]: steps[2].yield_basis: explicit nonempty value required",
+      "routes[2]: steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[3].product_smiles: explicit nonempty value required",
+      "routes[2]: steps[3].product_coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[3].isolated_yield: explicit reaction-specific value required",
+      "routes[2]: steps[3].yield_source: explicit nonempty value required",
+      "routes[2]: steps[3].yield_basis: explicit nonempty value required",
+      "routes[2]: steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[2]: steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[3]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[3]: steps[1].yield_source: explicit nonempty value required",
+      "routes[3]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[3]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[2].product_smiles: explicit nonempty value required",
+      "routes[3]: steps[2].product_coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[2].isolated_yield: explicit reaction-specific value required",
+      "routes[3]: steps[2].yield_source: explicit nonempty value required",
+      "routes[3]: steps[2].yield_basis: explicit nonempty value required",
+      "routes[3]: steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[3].product_smiles: explicit nonempty value required",
+      "routes[3]: steps[3].product_coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[3].isolated_yield: explicit reaction-specific value required",
+      "routes[3]: steps[3].yield_source: explicit nonempty value required",
+      "routes[3]: steps[3].yield_basis: explicit nonempty value required",
+      "routes[3]: steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[3]: steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[4]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[4]: steps[1].yield_source: explicit nonempty value required",
+      "routes[4]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[4]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[2].product_smiles: explicit nonempty value required",
+      "routes[4]: steps[2].product_coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[2].isolated_yield: explicit reaction-specific value required",
+      "routes[4]: steps[2].yield_source: explicit nonempty value required",
+      "routes[4]: steps[2].yield_basis: explicit nonempty value required",
+      "routes[4]: steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[3].product_smiles: explicit nonempty value required",
+      "routes[4]: steps[3].product_coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[3].isolated_yield: explicit reaction-specific value required",
+      "routes[4]: steps[3].yield_source: explicit nonempty value required",
+      "routes[4]: steps[3].yield_basis: explicit nonempty value required",
+      "routes[4]: steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[4]: steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[5]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[5]: steps[1].yield_source: explicit nonempty value required",
+      "routes[5]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[5]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[1].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[2].product_smiles: explicit nonempty value required",
+      "routes[5]: steps[2].product_coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[2].isolated_yield: explicit reaction-specific value required",
+      "routes[5]: steps[2].yield_source: explicit nonempty value required",
+      "routes[5]: steps[2].yield_basis: explicit nonempty value required",
+      "routes[5]: steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[3].product_smiles: explicit nonempty value required",
+      "routes[5]: steps[3].product_coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[3].isolated_yield: explicit reaction-specific value required",
+      "routes[5]: steps[3].yield_source: explicit nonempty value required",
+      "routes[5]: steps[3].yield_basis: explicit nonempty value required",
+      "routes[5]: steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[4].product_smiles: explicit nonempty value required",
+      "routes[5]: steps[4].product_coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[4].isolated_yield: explicit reaction-specific value required",
+      "routes[5]: steps[4].yield_source: explicit nonempty value required",
+      "routes[5]: steps[4].yield_basis: explicit nonempty value required",
+      "routes[5]: steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[5]: steps[4].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[1].product_smiles: explicit nonempty value required",
+      "routes[6]: steps[1].product_coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[1].isolated_yield: explicit reaction-specific value required",
+      "routes[6]: steps[1].yield_source: explicit nonempty value required",
+      "routes[6]: steps[1].yield_basis: explicit nonempty value required",
+      "routes[6]: steps[1].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[2].product_smiles: explicit nonempty value required",
+      "routes[6]: steps[2].product_coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[2].isolated_yield: explicit reaction-specific value required",
+      "routes[6]: steps[2].yield_source: explicit nonempty value required",
+      "routes[6]: steps[2].yield_basis: explicit nonempty value required",
+      "routes[6]: steps[2].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[2].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[3].product_smiles: explicit nonempty value required",
+      "routes[6]: steps[3].product_coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[3].isolated_yield: explicit reaction-specific value required",
+      "routes[6]: steps[3].yield_source: explicit nonempty value required",
+      "routes[6]: steps[3].yield_basis: explicit nonempty value required",
+      "routes[6]: steps[3].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[3].reactants[2].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[4].product_smiles: explicit nonempty value required",
+      "routes[6]: steps[4].product_coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[4].isolated_yield: explicit reaction-specific value required",
+      "routes[6]: steps[4].yield_source: explicit nonempty value required",
+      "routes[6]: steps[4].yield_basis: explicit nonempty value required",
+      "routes[6]: steps[4].reactants[1].coefficient: explicit reaction-specific value required",
+      "routes[6]: steps[4].reactants[2].coefficient: explicit reaction-specific value required"
+    ],
+    "next_action": "Use the manual calculator with explicit product/reactant identities, reaction-specific coefficients, isolated yield or labelled user_scenario, yield source, target production mass, and a reference_smiles for each reagent's equivalents. Engine products, route source, observed conditions and step order are not substitutes.",
+    "limitations": [
+      "Backward input-demand calculation only: reactions, coefficients and yields are supplied, not predicted.",
+      "User-supplied isolated-yield sources are not independently verified; user_scenario means a hypothetical assumption, not an observed experiment.",
+      "Stoichiometric demand equations are arithmetic, not validation of a chemically balanced equation. Atom/charge balance and coproducts are unknown; listed masses must not be used as a total-mass conservation assertion.",
+      "Reagents are consumed external inputs, not recursively synthesized or recycled. Each equivalent is per mole of its explicit reaction-reactant or theoretical-product reference; no limiting reagent is inferred.",
+      "No solvent or catalyst quantities, purity corrections, stock concentrations, residuals, purge, toxicity, patient exposure or clinical dosing recommendation are inferred.",
+      "Target mass is the explicit desired material mass. Purity is unknown; no potency, salt/free-base or purity correction is applied.",
+      "Canonical identity preserves complete salts/disconnected components, charge, isotopes and stereochemistry; salt/free-base or stereoisomer equivalence is not assumed.",
+      "Any missing required reaction-specific input or unsupported yield basis prevents all input-amount results; no default coefficient or yield is supplied."
+    ]
+  }
+}

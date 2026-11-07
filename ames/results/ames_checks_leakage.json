@@ -1,0 +1,104 @@
+{
+  "question": "Is the score real, and where does it hold?",
+  "features": "rdkit_fp_2048+descriptors_all",
+  "model": "xgboost",
+  "grouping": "leakage",
+  "structures": 19963,
+  "seed": 20261106,
+  "real": {
+    "auc_mean": 0.9171083246159668,
+    "auc_std": 0.007366196025467932,
+    "folds_scored": 10
+  },
+  "noise_floor": {
+    "auc_mean": 0.5007259760333591,
+    "auc_std": 0.010275930112289503,
+    "folds_scored": 10
+  },
+  "label_scrambling": {
+    "rounds": 5,
+    "scrambled_auc_mean": 0.49966898078665245,
+    "scrambled_auc_max": 0.5108509477772263,
+    "real_auc_mean": 0.9171083246159668,
+    "reading": "The real figure has to stand clear of the scrambled one."
+  },
+  "learning_curve": [
+    {
+      "training_fraction": 0.2,
+      "structures": 4013,
+      "auc_mean": 0.8811641485601106,
+      "auc_std": 0.009921584876622015,
+      "folds_scored": 5
+    },
+    {
+      "training_fraction": 0.4,
+      "structures": 7943,
+      "auc_mean": 0.8959309082256649,
+      "auc_std": 0.012676611957281909,
+      "folds_scored": 5
+    },
+    {
+      "training_fraction": 0.6,
+      "structures": 12011,
+      "auc_mean": 0.9079177103994951,
+      "auc_std": 0.00723630428609677,
+      "folds_scored": 5
+    },
+    {
+      "training_fraction": 0.8,
+      "structures": 15998,
+      "auc_mean": 0.9113988025976812,
+      "auc_std": 0.006855549943741926,
+      "folds_scored": 5
+    },
+    {
+      "training_fraction": 1.0,
+      "auc_mean": 0.9171083246159668,
+      "auc_std": 0.007366196025467932,
+      "folds_scored": 10
+    }
+  ],
+  "applicability": [
+    {
+      "similarity_from": 0.0,
+      "similarity_to": 0.3,
+      "structures": 686,
+      "auc": 0.759275248560963,
+      "active_fraction": 0.20408163265306123
+    },
+    {
+      "similarity_from": 0.3,
+      "similarity_to": 0.4,
+      "structures": 1828,
+      "auc": 0.8439729608861674,
+      "active_fraction": 0.22428884026258206
+    },
+    {
+      "similarity_from": 0.4,
+      "similarity_to": 0.5,
+      "structures": 3044,
+      "auc": 0.8490269844756884,
+      "active_fraction": 0.25229960578186594
+    },
+    {
+      "similarity_from": 0.5,
+      "similarity_to": 0.7,
+      "structures": 9031,
+      "auc": 0.9226491982593914,
+      "active_fraction": 0.3042852397298195
+    },
+    {
+      "similarity_from": 0.7,
+      "similarity_to": 1.01,
+      "structures": 5374,
+      "auc": 0.9529211363017918,
+      "active_fraction": 0.36620766654261255
+    }
+  ],
+  "median_similarity_to_nearest_training_structure": 0.5932203389830508,
+  "notes": [
+    "The noise floor is the same folds scored by a model that learns nothing. Differences smaller than its spread are not differences.",
+    "The learning curve drops whole groups, not random structures, so the smaller sets are genuinely smaller rather than thinner.",
+    "Applicability is measured out of fold: the similarity is to the training part of the fold that scored the structure."
+  ]
+}

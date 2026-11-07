@@ -1,0 +1,28 @@
+{
+  "source": "Perera Suzuki publicly distributed Sheet1",
+  "rows": 5760,
+  "quantity_values_and_counts": {
+    "Reactant_1_eq": {
+      "1": 5760
+    },
+    "Reactant_1_mmol": {
+      "0.0004": 5760
+    },
+    "Reactant_2_eq": {
+      "1": 5760
+    },
+    "Catalyst_1_eq": {
+      "0.0625": 5760
+    },
+    "Ligand_eq": {
+      "0.125": 5280,
+      "None": 480
+    },
+    "Reagent_1_eq": {
+      "2.5": 5760
+    }
+  },
+  "limitations": [
+    "Quantity fields are inputs, not byproduct concentrations. Fixed loadings cannot identify a dose-response threshold. Missing values are not zero."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "tool": "Toxtree",
+  "version": "3.1.0.1851",
+  "plugin_version": "3.1.0",
+  "module": "toxtree.plugins.ames.AmesMutagenicityRules",
+  "archive_sha256": "222479c996f6d91616c135b7f433c8176139d63672bd28c1ccdad6372b3d82e8",
+  "application_jar_sha256": "1a84ef8da411fc0871362f7d8d957a9423d21744d8442a960bca8f9d9f81a728",
+  "ames_plugin_sha256": "adceabee46cf938d7282d667baec7ca7c1151c179cca6411fe6c00ac95afd5ab",
+  "input_sha256": "07ff7515d81750dd93aa6e5dcaa5e57e798a734741375491b6c944f91c7bd0c3",
+  "input_rows": 200,
+  "command": [
+    "java",
+    "-Xmx2048m",
+    "-Djava.awt.headless=true",
+    "-Dfile.encoding=UTF-8",
+    "-jar",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_pilot200\\Toxtree\\Toxtree-3.1.0.1851.jar",
+    "-n",
+    "-i",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_pilot200\\toxtree_input.csv",
+    "-o",
+    "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_pilot200\\toxtree_raw.csv",
+    "-m",
+    "toxtree.plugins.ames.AmesMutagenicityRules"
+  ],
+  "working_directory": "C:\\Users\\hahab\\학술제\\evaluation\\toxtree_pilot200\\Toxtree",
+  "status": "completed_but_predictions_withheld",
+  "mapping": "Structural Alert YES / No alerts NO => 1; converse => 0; errors, ambiguous categories, missing records => abstain. QSAR-specific categories are retained in raw output but are not used by this structural-alert model.",
+  "limitations": "No general applicability-domain claim; applicability is unknown. A negative alert screen is not experimental proof of safety. Possible public AMES/training overlap has not been assessed.",
+  "returncode": 0,
+  "returned_rows": 200,
+  "counts": {
+    "0": 0,
+    "1": 0,
+    "abstain": 200
+  },
+  "raw_results_sha256": "ce252dd781936870a64cf6377504911bb4179351b4920bd86840b62fff8d5fe8",
+  "predictions_sha256": "779dcc2dbd6c06566c4da83f481ae12815a8526607cf0d4c03fdc06a7e5acfa4",
+  "raw_category_counts": {
+    "0": 70,
+    "1": 106,
+    "abstain": 24
+  },
+  "validation_warning": "Unattributed ArrayIndexOutOfBoundsException in model computation; raw results retained but not trusted as predictions."
+}

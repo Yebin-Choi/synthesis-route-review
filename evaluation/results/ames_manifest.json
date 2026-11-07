@@ -1,0 +1,155 @@
+{
+  "source": "https://dataverse.harvard.edu/api/access/datafile/4259564",
+  "metadata": "https://github.com/mims-harvard/TDC/blob/main/tdc/metadata.py",
+  "sha256": "825c2b4c31c9cec81aa32eb394fd24e6b32ee4959905d4272e56483ecb6f3e16",
+  "raw_rows": 7278,
+  "retained": 7255,
+  "class_counts": {
+    "1": 3951,
+    "0": 3304
+  },
+  "exclusion_counts": {
+    "duplicate_canonical_structure": 23
+  },
+  "exclusions": [
+    {
+      "Drug_ID": "Drug 6644",
+      "Drug": "[N-]=[N+]=CC(=O)NCC(=O)NN",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6867",
+      "Drug": "[N-]=[N+]=C1C=NC(=O)NC1=O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6747",
+      "Drug": "[N-]=[N+]=CC(=O)NCC(N)=O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6772",
+      "Drug": "CCCCN(CC(O)C1=CC(=[N+]=[N-])C(=O)C=C1)N=O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6933",
+      "Drug": "[N-]=[N+]=CC(=O)OCC(N)C(=O)O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6191",
+      "Drug": "[N-]=[N+]=NCCC(N)C(=O)O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 7389",
+      "Drug": "CC[N+]([O-])(CC)CCNc1ccc(CO)c2sc3ccccc3c(=O)c12",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6877",
+      "Drug": "[N-]=[N+]=NCC(O)Cn1cnc2c(N)ncnc21",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6899",
+      "Drug": "COc1cc(NS(C)(=O)=O)ccc1Nc1c2ccc(N=[N+]=[N-])cc2nc2c(C)cccc12",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6665",
+      "Drug": "[N-]=[N+]=C1C=CC(=O)C=C1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6663",
+      "Drug": "[N-]=[N+]=Nc1ccc2c(Nc3ccc(C(=O)O)cc3)c3ccccc3nc2c1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6699",
+      "Drug": "CC(C)(C)OC(=O)C(N)CN=[N+]=[N-]",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6905",
+      "Drug": "COc1cc(NS(C)(=O)=O)ccc1Nc1c2ccccc2nc2cc(N=[N+]=[N-])ccc12",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6805",
+      "Drug": "[N-]=[N+]=NCC(N)C(=O)O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6797",
+      "Drug": "[N-]=[N+]=Nc1ccc(Nc2c3ccccc3nc3ccccc23)cc1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6904",
+      "Drug": "[N-]=[N+]=NCc1ccccc1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 7390",
+      "Drug": "CC[N+]([O-])(CC)CCn1nc2c3c(c(CO)ccc31)Sc1cc(Cl)ccc1-2",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6917",
+      "Drug": "[N-]=[N+]=NCC(O)CN=[N+]=[N-]",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6647",
+      "Drug": "[N-]=[N+]=Nc1ccc(F)c([N+](=O)[O-])c1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6829",
+      "Drug": "CS(=O)(=O)Nc1ccc(Nc2c3ccccc3nc3ccc(N=[N+]=[N-])cc23)cc1",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 7357",
+      "Drug": "[O-][n+]1ccc(NO)c2ccccc21",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 6872",
+      "Drug": "[N-]=[N+]=NCC(O)CO",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    },
+    {
+      "Drug_ID": "Drug 7305",
+      "Drug": "Cc1cn(C2CC(N=[N+]=[N-])C(CO)O2)c(=O)[nH]c1=O",
+      "Y": "1",
+      "reason": "duplicate_canonical_structure"
+    }
+  ],
+  "limitation": "All retained records use split=test solely for fixed-rule descriptive evaluation. This is NOT an independent holdout for pretrained external models. Training overlap is unknown; no thresholds or rules were tuned on these labels. Conflicting structures excluded as a group, not resolved by majority."
+}

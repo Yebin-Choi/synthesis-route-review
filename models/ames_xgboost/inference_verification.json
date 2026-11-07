@@ -1,0 +1,10 @@
+{
+  "model": "expanded_fingerprint_representation_xgboost_f43095dd5017",
+  "model_sha256": "40f002a336b8c4e39c8898f8737130deb9e8b55846cb74b22a8710315b143758",
+  "recomputed_validation_structures": 32,
+  "maximum_probability_difference": 2.9126739464757634e-08,
+  "invalid_structure_rows_not_scored": 2,
+  "test_read_or_scored": false,
+  "selection": "highest training family CV AUC among completed classical configurations at agreement 0.70",
+  "deployment_status": "development candidate; independent test evaluation pending"
+}

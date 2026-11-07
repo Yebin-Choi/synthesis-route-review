@@ -1,0 +1,25 @@
+{
+  "purpose": "Ames evaluation set disjoint from the TDC-derived benchmark, so that a model trained on that benchmark and a rule system are scored on the same rows.",
+  "candidate_files": [
+    "C:\\Users\\hahab\\학술제\\evaluation\\independent_set\\train_test_test.csv",
+    "C:\\Users\\hahab\\학술제\\evaluation\\independent_set\\train_test_train.csv",
+    "C:\\Users\\hahab\\학술제\\evaluation\\independent_set\\validation_validation.csv"
+  ],
+  "candidate_rows": 10045,
+  "excluded_file": "C:\\Users\\hahab\\학술제\\evaluation\\ames_evaluation.csv",
+  "excluded_structures": 7255,
+  "removed_as_overlap": 6890,
+  "removed_as_duplicate": 64,
+  "removed_as_unreadable": 0,
+  "retained_rows": 3091,
+  "positives": 1549,
+  "negatives": 1542,
+  "source": "https://huggingface.co/datasets/maomlab/MutagenLou2023",
+  "license": "CC BY 4.0",
+  "normalization": "toxicology.canonicalize_smiles: atom-map-free isomeric canonical SMILES. No salt stripping, neutralization or tautomer merging, so overlap across those forms is not detected and may remain.",
+  "limitations": [
+    "Independence from ADMET-AI training data is established only for exact canonical structures present in the excluded benchmark, not for the model vendor's full training corpus, which is not published here.",
+    "Toxtree rule development may still overlap these labels; rule systems have no published training split to subtract.",
+    "Labels are taken from the source collection and are not independently verified."
+  ]
+}

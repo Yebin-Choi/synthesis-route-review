@@ -1,0 +1,58 @@
+{
+  "truth_file": "C:\\Users\\hahab\\학술제\\evaluation\\results\\ames_independent.csv",
+  "threshold": 0.5,
+  "scored_rows": 1201,
+  "active_rows": 429,
+  "active_fraction": 0.3572023313905079,
+  "at_threshold": [
+    {
+      "fit": "shipped (weighting off)",
+      "threshold": 0.5,
+      "rows": 1201,
+      "tp": 240,
+      "fp": 27,
+      "tn": 745,
+      "fn": 189,
+      "sensitivity": 0.5594405594405595,
+      "specificity": 0.9650259067357513,
+      "balanced_accuracy": 0.7622332330881554,
+      "accuracy": 0.8201498751040799,
+      "auc": 0.8306369796007101
+    },
+    {
+      "fit": "refit (weighting on)",
+      "threshold": 0.5,
+      "rows": 1201,
+      "tp": 278,
+      "fp": 54,
+      "tn": 718,
+      "fn": 151,
+      "sensitivity": 0.6480186480186481,
+      "specificity": 0.9300518134715026,
+      "balanced_accuracy": 0.7890352307450753,
+      "accuracy": 0.829308909242298,
+      "auc": 0.8333046487191564
+    }
+  ],
+  "own_balance_point": {
+    "shipped (weighting off)": {
+      "cutoff": 0.25,
+      "balanced_accuracy": 0.7868250057369228,
+      "sensitivity": 0.710955710955711,
+      "specificity": 0.8626943005181347
+    },
+    "refit (weighting on)": {
+      "cutoff": 0.43,
+      "balanced_accuracy": 0.7971892097539766,
+      "sensitivity": 0.6993006993006993,
+      "specificity": 0.8950777202072538
+    }
+  },
+  "notes": [
+    "Scored only on rows that overlap neither fit's shared collection and that both fits answered, so abstentions cannot flatter one.",
+    "AUC does not depend on the threshold. If it is unchanged while the figures at 0.50 move, the ranking is the same and only the scale moved, which is what the weighting was for.",
+    "own_balance_point is reference, not the line the software runs at. The software runs at the stated threshold.",
+    "This file is an evaluation set, not the locked test split.",
+    "A negative prediction is a screening result, not evidence of safety."
+  ]
+}

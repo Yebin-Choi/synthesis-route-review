@@ -1,0 +1,254 @@
+{
+  "scores_file": "C:\\Users\\hahab\\학술제\\evaluation\\admet_independent_predictions.csv",
+  "split": "sha256(id) parity; label never used to split",
+  "tune_rows": 1575,
+  "holdout_rows": 1516,
+  "grid": [
+    {
+      "cutoff": 0.05,
+      "tp": 738,
+      "fp": 689,
+      "tn": 125,
+      "fn": 23,
+      "sensitivity": 0.9697766097240473,
+      "specificity": 0.15356265356265356,
+      "balanced_accuracy": 0.5616696316433505
+    },
+    {
+      "cutoff": 0.1,
+      "tp": 724,
+      "fp": 590,
+      "tn": 224,
+      "fn": 37,
+      "sensitivity": 0.9513797634691196,
+      "specificity": 0.2751842751842752,
+      "balanced_accuracy": 0.6132820193266973
+    },
+    {
+      "cutoff": 0.15,
+      "tp": 712,
+      "fp": 517,
+      "tn": 297,
+      "fn": 49,
+      "sensitivity": 0.9356110381077529,
+      "specificity": 0.36486486486486486,
+      "balanced_accuracy": 0.6502379514863089
+    },
+    {
+      "cutoff": 0.2,
+      "tp": 686,
+      "fp": 439,
+      "tn": 375,
+      "fn": 75,
+      "sensitivity": 0.9014454664914586,
+      "specificity": 0.4606879606879607,
+      "balanced_accuracy": 0.6810667135897097
+    },
+    {
+      "cutoff": 0.25,
+      "tp": 666,
+      "fp": 373,
+      "tn": 441,
+      "fn": 95,
+      "sensitivity": 0.8751642575558476,
+      "specificity": 0.5417690417690417,
+      "balanced_accuracy": 0.7084666496624447
+    },
+    {
+      "cutoff": 0.3,
+      "tp": 645,
+      "fp": 324,
+      "tn": 490,
+      "fn": 116,
+      "sensitivity": 0.8475689881734559,
+      "specificity": 0.601965601965602,
+      "balanced_accuracy": 0.724767295069529
+    },
+    {
+      "cutoff": 0.35,
+      "tp": 631,
+      "fp": 276,
+      "tn": 538,
+      "fn": 130,
+      "sensitivity": 0.8291721419185283,
+      "specificity": 0.6609336609336609,
+      "balanced_accuracy": 0.7450529014260946
+    },
+    {
+      "cutoff": 0.4,
+      "tp": 608,
+      "fp": 230,
+      "tn": 584,
+      "fn": 153,
+      "sensitivity": 0.7989487516425755,
+      "specificity": 0.7174447174447175,
+      "balanced_accuracy": 0.7581967345436464
+    },
+    {
+      "cutoff": 0.45,
+      "tp": 590,
+      "fp": 195,
+      "tn": 619,
+      "fn": 171,
+      "sensitivity": 0.7752956636005256,
+      "specificity": 0.7604422604422605,
+      "balanced_accuracy": 0.767868962021393
+    },
+    {
+      "cutoff": 0.5,
+      "tp": 556,
+      "fp": 160,
+      "tn": 654,
+      "fn": 205,
+      "sensitivity": 0.7306176084099869,
+      "specificity": 0.8034398034398035,
+      "balanced_accuracy": 0.7670287059248952
+    },
+    {
+      "cutoff": 0.55,
+      "tp": 535,
+      "fp": 132,
+      "tn": 682,
+      "fn": 226,
+      "sensitivity": 0.7030223390275953,
+      "specificity": 0.8378378378378378,
+      "balanced_accuracy": 0.7704300884327165
+    },
+    {
+      "cutoff": 0.6,
+      "tp": 503,
+      "fp": 103,
+      "tn": 711,
+      "fn": 258,
+      "sensitivity": 0.6609724047306176,
+      "specificity": 0.8734643734643734,
+      "balanced_accuracy": 0.7672183890974955
+    },
+    {
+      "cutoff": 0.65,
+      "tp": 471,
+      "fp": 80,
+      "tn": 734,
+      "fn": 290,
+      "sensitivity": 0.6189224704336399,
+      "specificity": 0.9017199017199017,
+      "balanced_accuracy": 0.7603211860767708
+    },
+    {
+      "cutoff": 0.7,
+      "tp": 428,
+      "fp": 62,
+      "tn": 752,
+      "fn": 333,
+      "sensitivity": 0.5624178712220762,
+      "specificity": 0.9238329238329238,
+      "balanced_accuracy": 0.7431253975275001
+    },
+    {
+      "cutoff": 0.75,
+      "tp": 392,
+      "fp": 50,
+      "tn": 764,
+      "fn": 369,
+      "sensitivity": 0.5151116951379764,
+      "specificity": 0.9385749385749386,
+      "balanced_accuracy": 0.7268433168564574
+    },
+    {
+      "cutoff": 0.8,
+      "tp": 344,
+      "fp": 33,
+      "tn": 781,
+      "fn": 417,
+      "sensitivity": 0.4520367936925099,
+      "specificity": 0.9594594594594594,
+      "balanced_accuracy": 0.7057481265759846
+    },
+    {
+      "cutoff": 0.85,
+      "tp": 290,
+      "fp": 22,
+      "tn": 792,
+      "fn": 471,
+      "sensitivity": 0.38107752956636004,
+      "specificity": 0.972972972972973,
+      "balanced_accuracy": 0.6770252512696665
+    },
+    {
+      "cutoff": 0.9,
+      "tp": 208,
+      "fp": 13,
+      "tn": 801,
+      "fn": 553,
+      "sensitivity": 0.2733245729303548,
+      "specificity": 0.984029484029484,
+      "balanced_accuracy": 0.6286770284799194
+    },
+    {
+      "cutoff": 0.95,
+      "tp": 113,
+      "fp": 4,
+      "tn": 810,
+      "fn": 648,
+      "sensitivity": 0.14848883048620237,
+      "specificity": 0.995085995085995,
+      "balanced_accuracy": 0.5717874127860987
+    }
+  ],
+  "default_cutoff_on_holdout": {
+    "cutoff": 0.5,
+    "tp": 564,
+    "fp": 129,
+    "tn": 599,
+    "fn": 224,
+    "sensitivity": 0.7157360406091371,
+    "specificity": 0.8228021978021978,
+    "balanced_accuracy": 0.7692691192056674
+  },
+  "best_balanced_on_tune": {
+    "cutoff": 0.55,
+    "tp": 535,
+    "fp": 132,
+    "tn": 682,
+    "fn": 226,
+    "sensitivity": 0.7030223390275953,
+    "specificity": 0.8378378378378378,
+    "balanced_accuracy": 0.7704300884327165
+  },
+  "best_balanced_on_holdout": {
+    "cutoff": 0.55,
+    "tp": 536,
+    "fp": 106,
+    "tn": 622,
+    "fn": 252,
+    "sensitivity": 0.6802030456852792,
+    "specificity": 0.8543956043956044,
+    "balanced_accuracy": 0.7672993250404418
+  },
+  "min_specificity": 0.85,
+  "best_constrained_on_tune": {
+    "cutoff": 0.6,
+    "tp": 503,
+    "fp": 103,
+    "tn": 711,
+    "fn": 258,
+    "sensitivity": 0.6609724047306176,
+    "specificity": 0.8734643734643734,
+    "balanced_accuracy": 0.7672183890974955
+  },
+  "best_constrained_on_holdout": {
+    "cutoff": 0.6,
+    "tp": 506,
+    "fp": 81,
+    "tn": 647,
+    "fn": 282,
+    "sensitivity": 0.6421319796954315,
+    "specificity": 0.8887362637362637,
+    "balanced_accuracy": 0.7654341217158476
+  },
+  "notes": [
+    "The cut-off is selected on the tune half only; holdout numbers are the ones to report.",
+    "A cut-off raises specificity by calling fewer materials positive; it does not make the model better at telling them apart.",
+    "Scores are model outputs, not calibrated probabilities of mutagenicity."
+  ]
+}

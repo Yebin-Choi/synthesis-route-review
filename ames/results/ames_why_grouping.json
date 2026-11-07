@@ -1,0 +1,22 @@
+{
+  "question": "Why does a scaffold split score lower than a leakage-group split on the same data?",
+  "groupings": {
+    "leakage": {
+      "median_similarity_to_training_part": 0.5932203389830508,
+      "mean_similarity_to_training_part": 0.5962017949736838,
+      "share_above_0_7": 0.2691980163302109,
+      "share_below_0_4": 0.12593297600561038
+    },
+    "scaffold": {
+      "median_similarity_to_training_part": 0.5185185185185185,
+      "mean_similarity_to_training_part": 0.5479517301895658,
+      "share_above_0_7": 0.17557481340479889,
+      "share_below_0_4": 0.2130942243149827
+    }
+  },
+  "difference": {
+    "median_similarity": -0.07470182046453233,
+    "share_above_0_7": -0.09362320292541201
+  },
+  "reading": "A scaffold split holding out less similar structures is the mechanism that would explain the lower score. If the two distributions are the same, the explanation is wrong and something else causes the gap."
+}

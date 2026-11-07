@@ -1,0 +1,57 @@
+{
+  "question": "Which algorithms actually help, measured on grouped folds?",
+  "grouping": "scaffold",
+  "seed": 20261106,
+  "folds": "StratifiedGroupKFold, 5 folds, 2 repeats",
+  "fixed": {
+    "features": "rdkit_fp_2048+descriptors_all"
+  },
+  "structures": 19963,
+  "rows": [
+    {
+      "features": "rdkit_fp_2048+descriptors_all",
+      "model": "xgboost",
+      "columns": 2263,
+      "elapsed_s": 81.1,
+      "auc_mean": 0.901811019917649,
+      "auc_std": 0.007477836121261017,
+      "folds_scored": 10
+    },
+    {
+      "features": "rdkit_fp_2048+descriptors_all",
+      "model": "hist_gradient_boosting",
+      "columns": 2263,
+      "elapsed_s": 246.6,
+      "auc_mean": 0.8983465895284757,
+      "auc_std": 0.006810952577878099,
+      "folds_scored": 10
+    },
+    {
+      "features": "rdkit_fp_2048+descriptors_all",
+      "model": "random_forest",
+      "columns": 2263,
+      "elapsed_s": 69.5,
+      "auc_mean": 0.8915882376718397,
+      "auc_std": 0.010421966319515615,
+      "folds_scored": 10
+    },
+    {
+      "features": "rdkit_fp_2048+descriptors_all",
+      "model": "extra_trees",
+      "columns": 2263,
+      "elapsed_s": 129.2,
+      "auc_mean": 0.882593945569743,
+      "auc_std": 0.01042412997236645,
+      "folds_scored": 10
+    },
+    {
+      "features": "rdkit_fp_2048+descriptors_all",
+      "model": "logistic_regression",
+      "columns": 2263,
+      "elapsed_s": 43.7,
+      "auc_mean": 0.8159670793356402,
+      "auc_std": 0.013667620704910842,
+      "folds_scored": 10
+    }
+  ]
+}

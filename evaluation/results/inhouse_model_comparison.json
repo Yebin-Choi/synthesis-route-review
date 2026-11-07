@@ -1,0 +1,1211 @@
+{
+  "truth_file": "C:\\Users\\hahab\\학술제\\evaluation\\ames_independent.csv",
+  "rows_in_file": 3091,
+  "threshold": 0.25,
+  "scored_on_rows_both_models_answered": 933,
+  "models": [
+    {
+      "tool": "fingerprint+descriptors (in use)",
+      "unseen_rows_scored": 933,
+      "abstained": 0,
+      "labelled_positives": 354,
+      "auc": 0.8965682113130958,
+      "positives_caught_at_threshold": 289,
+      "sensitivity_at_threshold": 0.8163841807909604,
+      "threshold": 0.25
+    },
+    {
+      "tool": "descriptors only (explainable)",
+      "unseen_rows_scored": 933,
+      "abstained": 0,
+      "labelled_positives": 354,
+      "auc": 0.8934676970814671,
+      "positives_caught_at_threshold": 295,
+      "sensitivity_at_threshold": 0.8333333333333334,
+      "threshold": 0.25
+    }
+  ],
+  "each_model_on_everything_it_answered": [
+    {
+      "tool": "fingerprint+descriptors (in use)",
+      "unseen_rows_scored": 933,
+      "abstained": 268,
+      "labelled_positives": 429,
+      "auc": 0.8965682113130958,
+      "positives_caught_at_threshold": 289,
+      "sensitivity_at_threshold": 0.6736596736596736,
+      "threshold": 0.25
+    },
+    {
+      "tool": "descriptors only (explainable)",
+      "unseen_rows_scored": 1201,
+      "abstained": 0,
+      "labelled_positives": 429,
+      "auc": 0.8306369796007101,
+      "positives_caught_at_threshold": 305,
+      "sensitivity_at_threshold": 0.710955710955711,
+      "threshold": 0.25
+    }
+  ],
+  "notes": [
+    "Scored only on rows flagged as not overlapping the shared collection both models were fitted on.",
+    "The headline figures use only rows BOTH models answered. The fingerprint model abstains on structures the descriptor model reads, so scoring each on its own row set would compare two different sets.",
+    "each_model_on_everything_it_answered is kept for reference and must not be read as a ranking: the two row sets differ.",
+    "AUC is a ranking measure and does not depend on the threshold; sensitivity does.",
+    "An abstention is counted separately and never read as negative.",
+    "A negative prediction is a screening result, not evidence of safety."
+  ],
+  "agreement": {
+    "rows_both_decided": 933,
+    "agreed": 806,
+    "agreement_rate": 0.8638799571275455,
+    "disagreed": 127,
+    "fingerprint_right_when_they_differ": 74,
+    "descriptors_right_when_they_differ": 53
+  },
+  "disagreements": [
+    {
+      "id": "lou-3015",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.365676,
+      "descriptor_score": 0.533509,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-2753",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.023871,
+      "descriptor_score": 0.422571,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-8417",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.006694,
+      "descriptor_score": 0.272232,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-3524",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.387771,
+      "descriptor_score": 0.396413,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3727",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.156354,
+      "descriptor_score": 0.272311,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4140",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.3429,
+      "descriptor_score": 0.680644,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4516",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.123238,
+      "descriptor_score": 0.475931,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4511",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.421129,
+      "descriptor_score": 0.53401,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4565",
+      "label": "1",
+      "fingerprint": "1",
+      "descriptors": "0",
+      "fingerprint_score": 0.64797,
+      "descriptor_score": 0.215189,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-4608",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.474001,
+      "descriptor_score": 0.48379,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-70",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.234696,
+      "descriptor_score": 0.26942,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-172",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.197024,
+      "descriptor_score": 0.250908,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-265",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.483477,
+      "descriptor_score": 0.729801,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-810",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.373583,
+      "descriptor_score": 0.782847,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-815",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.287799,
+      "descriptor_score": 0.310669,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-816",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.465264,
+      "descriptor_score": 0.360982,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-822",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.349884,
+      "descriptor_score": 0.306548,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-1284",
+      "label": "1",
+      "fingerprint": "1",
+      "descriptors": "0",
+      "fingerprint_score": 0.671722,
+      "descriptor_score": 0.181744,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-2330",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.397713,
+      "descriptor_score": 0.334277,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-2719",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.396344,
+      "descriptor_score": 0.428232,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-2992",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.455075,
+      "descriptor_score": 0.466914,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-2998",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.4318,
+      "descriptor_score": 0.698267,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3029",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.152313,
+      "descriptor_score": 0.318004,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3275",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.227561,
+      "descriptor_score": 0.280155,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3290",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.420819,
+      "descriptor_score": 0.252977,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3507",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.449659,
+      "descriptor_score": 0.384199,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3541",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.404532,
+      "descriptor_score": 0.379755,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3767",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.443332,
+      "descriptor_score": 0.51903,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-3923",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.388653,
+      "descriptor_score": 0.43385,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4127",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.140441,
+      "descriptor_score": 0.332471,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4138",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.484428,
+      "descriptor_score": 0.469568,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4201",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.444459,
+      "descriptor_score": 0.26618,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4273",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.256329,
+      "descriptor_score": 0.351719,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4305",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.321291,
+      "descriptor_score": 0.255224,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-4446",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.430397,
+      "descriptor_score": 0.388237,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-6506",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.489588,
+      "descriptor_score": 0.312462,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-8131",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.269595,
+      "descriptor_score": 0.271398,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-8182",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.44165,
+      "descriptor_score": 0.370849,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-69",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.207579,
+      "descriptor_score": 0.27867,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-1369",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.019525,
+      "descriptor_score": 0.435423,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-1972",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.273151,
+      "descriptor_score": 0.401973,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-2",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.347053,
+      "descriptor_score": 0.325369,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-63",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.102405,
+      "descriptor_score": 0.355518,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-98",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.059969,
+      "descriptor_score": 0.723831,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-99",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.328154,
+      "descriptor_score": 0.837064,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-170",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.224193,
+      "descriptor_score": 0.561612,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-213",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.403477,
+      "descriptor_score": 0.429297,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-235",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.205043,
+      "descriptor_score": 0.263882,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-372",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.445522,
+      "descriptor_score": 0.417669,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-414",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.406367,
+      "descriptor_score": 0.39249,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-498",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.461048,
+      "descriptor_score": 0.554976,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-534",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.154447,
+      "descriptor_score": 0.25698,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-545",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.465529,
+      "descriptor_score": 0.442379,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-572",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.362595,
+      "descriptor_score": 0.398397,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-592",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.39179,
+      "descriptor_score": 0.568706,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-623",
+      "label": "1",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.322279,
+      "descriptor_score": 0.509903,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-675",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.355733,
+      "descriptor_score": 0.568463,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-684",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.14244,
+      "descriptor_score": 0.284917,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-695",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.375293,
+      "descriptor_score": 0.434626,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-696",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.482338,
+      "descriptor_score": 0.482291,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-699",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.160922,
+      "descriptor_score": 0.315106,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-706",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.025803,
+      "descriptor_score": 0.422004,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-718",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.139344,
+      "descriptor_score": 0.295313,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-728",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.28769,
+      "descriptor_score": 0.333464,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-743",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.063364,
+      "descriptor_score": 0.414191,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-769",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.183637,
+      "descriptor_score": 0.49894,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-791",
+      "label": "0",
+      "fingerprint": "1",
+      "descriptors": "0",
+      "fingerprint_score": 0.562948,
+      "descriptor_score": 0.136003,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-807",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.18087,
+      "descriptor_score": 0.307921,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-815",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.273472,
+      "descriptor_score": 0.255919,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-824",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.366959,
+      "descriptor_score": 0.309343,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-836",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.15145,
+      "descriptor_score": 0.407416,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-840",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.252234,
+      "descriptor_score": 0.29929,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-882",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.28558,
+      "descriptor_score": 0.262604,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-907",
+      "label": "0",
+      "fingerprint": "1",
+      "descriptors": "0",
+      "fingerprint_score": 0.684317,
+      "descriptor_score": 0.236529,
+      "which_was_right": "descriptors"
+    },
+    {
+      "id": "lou-validation_validation-909",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.221923,
+      "descriptor_score": 0.32141,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-916",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.430217,
+      "descriptor_score": 0.438814,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-922",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.422229,
+      "descriptor_score": 0.412241,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-937",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.34371,
+      "descriptor_score": 0.626799,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-950",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.036712,
+      "descriptor_score": 0.276884,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-960",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.165542,
+      "descriptor_score": 0.260729,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-988",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.464153,
+      "descriptor_score": 0.462401,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1002",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.357856,
+      "descriptor_score": 0.314893,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1010",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.216152,
+      "descriptor_score": 0.471178,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1016",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.457654,
+      "descriptor_score": 0.433786,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1029",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.12447,
+      "descriptor_score": 0.385788,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1033",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.078706,
+      "descriptor_score": 0.331637,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1034",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.155072,
+      "descriptor_score": 0.293044,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1042",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.411832,
+      "descriptor_score": 0.51353,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1052",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.190563,
+      "descriptor_score": 0.257509,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1053",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.144384,
+      "descriptor_score": 0.485167,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1055",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.150463,
+      "descriptor_score": 0.274441,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1059",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.465026,
+      "descriptor_score": 0.534412,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1073",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.468276,
+      "descriptor_score": 0.636983,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1093",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.33988,
+      "descriptor_score": 0.6301,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1121",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.139016,
+      "descriptor_score": 0.350535,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1122",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.284207,
+      "descriptor_score": 0.32789,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1144",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.090179,
+      "descriptor_score": 0.292181,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1148",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.350901,
+      "descriptor_score": 0.539015,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1155",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.187486,
+      "descriptor_score": 0.289385,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1157",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.218517,
+      "descriptor_score": 0.343733,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1165",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.158987,
+      "descriptor_score": 0.329528,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1167",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.195471,
+      "descriptor_score": 0.466168,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1169",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.181154,
+      "descriptor_score": 0.311881,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1171",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.38285,
+      "descriptor_score": 0.484329,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1172",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.44574,
+      "descriptor_score": 0.500521,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1187",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.177243,
+      "descriptor_score": 0.431453,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1194",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.11453,
+      "descriptor_score": 0.368312,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1196",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.097009,
+      "descriptor_score": 0.355219,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1197",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.0904,
+      "descriptor_score": 0.29037,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1201",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.231126,
+      "descriptor_score": 0.339809,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1224",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.256702,
+      "descriptor_score": 0.322643,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1225",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.104409,
+      "descriptor_score": 0.347121,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1226",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.18378,
+      "descriptor_score": 0.338785,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1243",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.25702,
+      "descriptor_score": 0.270908,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1277",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.089304,
+      "descriptor_score": 0.27444,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1297",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.201661,
+      "descriptor_score": 0.272546,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1341",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.294236,
+      "descriptor_score": 0.345472,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1363",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.299354,
+      "descriptor_score": 0.250144,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1367",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.439604,
+      "descriptor_score": 0.359951,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1368",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.091993,
+      "descriptor_score": 0.2537,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1374",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.114833,
+      "descriptor_score": 0.444352,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1377",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.306334,
+      "descriptor_score": 0.566756,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1388",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.266943,
+      "descriptor_score": 0.287959,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1390",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.207888,
+      "descriptor_score": 0.298319,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1394",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.243097,
+      "descriptor_score": 0.595838,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1418",
+      "label": "0",
+      "fingerprint": "0",
+      "descriptors": "1",
+      "fingerprint_score": 0.356074,
+      "descriptor_score": 0.353255,
+      "which_was_right": "fingerprint"
+    },
+    {
+      "id": "lou-validation_validation-1451",
+      "label": "0",
+      "fingerprint": "1",
+      "descriptors": "0",
+      "fingerprint_score": 0.737355,
+      "descriptor_score": 0.193921,
+      "which_was_right": "descriptors"
+    }
+  ]
+}

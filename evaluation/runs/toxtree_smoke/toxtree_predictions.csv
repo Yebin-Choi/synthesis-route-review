@@ -1,0 +1,6 @@
+id,smiles,tool,model,version,endpoint,prediction,applicability,source,reason
+Drug 0,O=[N+]([O-])c1ccc2ccc3ccc([N+](=O)[O-])c4c5ccccc5c1c2c34,Toxtree,ISS-Ames-structural-alerts,3.1.0,ames,abstain,unknown,https://toxtree.sourceforge.net/ames.html,unattributed_batch_model_exception
+Drug 1,O=[N+]([O-])c1c2c(c3ccc4cccc5ccc1c3c45)CCCC2,Toxtree,ISS-Ames-structural-alerts,3.1.0,ames,abstain,unknown,https://toxtree.sourceforge.net/ames.html,unattributed_batch_model_exception
+Drug 2,O=c1c2ccccc2c(=O)c2c1ccc1c2[nH]c2c3c(=O)c4ccccc4c(=O)c3c3[nH]c4c(ccc5c(=O)c6ccccc6c(=O)c54)c3c12,Toxtree,ISS-Ames-structural-alerts,3.1.0,ames,abstain,unknown,https://toxtree.sourceforge.net/ames.html,unattributed_batch_model_exception
+Drug 3,[N-]=[N+]=CC(=O)NCC(=O)NN,Toxtree,ISS-Ames-structural-alerts,3.1.0,ames,abstain,unknown,https://toxtree.sourceforge.net/ames.html,unattributed_batch_model_exception
+Drug 4,[N-]=[N+]=C1C=NC(=O)NC1=O,Toxtree,ISS-Ames-structural-alerts,3.1.0,ames,abstain,unknown,https://toxtree.sourceforge.net/ames.html,unattributed_batch_model_exception

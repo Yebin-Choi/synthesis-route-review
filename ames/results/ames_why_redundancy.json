@@ -1,0 +1,11 @@
+{
+  "question": "Do the descriptor and fingerprint views carry the same information, or different information the model cannot use?",
+  "grouping": "scaffold",
+  "model": "xgboost",
+  "descriptors_only_auc": 0.8998634059519568,
+  "fingerprint_only_auc": 0.8750440553997589,
+  "averaged_auc": 0.904109649264644,
+  "score_correlation": 0.849019494240771,
+  "calls_agree": 0.8976606722436508,
+  "reading": "A high correlation means the two views are redundant. A low correlation with no gain from averaging means they differ but the difference does not help."
+}

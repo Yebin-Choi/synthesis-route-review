@@ -1,0 +1,133 @@
+{
+  "version": "v3",
+  "created": "2026-11-05T04:36:34.158911+09:00",
+  "raw_ames_rows": 355009,
+  "system_counts": {
+    "in vitro": 350754,
+    "": 4255
+  },
+  "core_in_vitro_binary_rows": 349058,
+  "endpoint_conflict_excluded_rows": 193,
+  "toolbox_republication_excluded_rows": 37339,
+  "legacy_material_mismatch_excluded_rows": 3,
+  "invalid_structure_reasons": {
+    "missing": 32487,
+    "inorganic": 2956,
+    "multiple_organic_components": 1676,
+    "invalid_smiles": 943,
+    "structure_error:AssertionError": 44,
+    "unsupported_parent_standardization": 23,
+    "over_300_heavy_atoms": 16,
+    "wildcard_or_polymer": 6
+  },
+  "valid_structure_records": 273568,
+  "valid_exact_structures": 23601,
+  "structure_origin": {
+    "source_smiles": 266007,
+    "unambiguous_local_CAS": 50564,
+    "unresolved_missing_smiles": 32487
+  },
+  "tier_selected_records": 160545,
+  "unique_evidence_votes": 127267,
+  "conflicting_evidence_units": 2082,
+  "exact_tie_structures": 398,
+  "candidate_structures": 23160,
+  "split_counts": {
+    "train": 18507,
+    "validation": 2361,
+    "test": 2292
+  },
+  "split_ratios": {
+    "train": 0.7990932642487046,
+    "validation": 0.10194300518134715,
+    "test": 0.09896373056994819
+  },
+  "baseline_agreement": 0.7,
+  "threshold_training_sizes": [
+    {
+      "agreement": 0.6,
+      "train_rows": 18337,
+      "train_positive": 5688,
+      "train_negative": 12649
+    },
+    {
+      "agreement": 0.6666666666666666,
+      "train_rows": 18050,
+      "train_positive": 5530,
+      "train_negative": 12520
+    },
+    {
+      "agreement": 0.7,
+      "train_rows": 17717,
+      "train_positive": 5347,
+      "train_negative": 12370
+    },
+    {
+      "agreement": 0.75,
+      "train_rows": 17576,
+      "train_positive": 5281,
+      "train_negative": 12295
+    },
+    {
+      "agreement": 0.8,
+      "train_rows": 17270,
+      "train_positive": 5156,
+      "train_negative": 12114
+    },
+    {
+      "agreement": 0.9,
+      "train_rows": 16766,
+      "train_positive": 4940,
+      "train_negative": 11826
+    },
+    {
+      "agreement": 1.0,
+      "train_rows": 16473,
+      "train_positive": 4858,
+      "train_negative": 11615
+    }
+  ],
+  "validation_anchor_n": 2246,
+  "baseline_split_counts": {
+    "train": 17717,
+    "validation": 2246,
+    "test": 2194
+  },
+  "raw_source_counts": {
+    "CCRIS": 67966,
+    "Karamertzanis2025_S3": 53881,
+    "TOOLBOX_18_Bacterial_mutagenicity_ISSSTY": 38255,
+    "TOOLBOX_40_Genotoxicity_OASIS": 31800,
+    "Karamertzanis2025_S8": 25759,
+    "EPA_2021": 25609,
+    "TOOLBOX_151_ECHA_REACH": 20000,
+    "Foil2025_published_aggregate": 18945,
+    "EFSA_GENOTOX": 11864,
+    "Karamertzanis2025_S2": 11749,
+    "TOOLBOX_35_Genotoxicity_pesticides_EFSA": 11214,
+    "기존_DB": 6813,
+    "Karamertzanis2025_S9": 5959,
+    "VEGA_ts_muta_knn": 5770,
+    "VEGA_ts_muta_sarpy": 4204,
+    "VEGA_ts_muta_caesar": 4204,
+    "TOOLBOX_64_Toxicity_Japan_MHLW": 2965,
+    "TOOLBOX_34_Genotoxicity_Carcinogenicity_ECVAM": 2396,
+    "ECVAM_positive_panel": 2059,
+    "GENETOX": 1274,
+    "ECVAM_negative_panel": 828,
+    "VEGA_ts_muta_bb": 670,
+    "CGX_2007_CGX_Appendix1_v2_Apr07": 542,
+    "CGX_2007_CGX_Appendix2_v2_Apr07": 176,
+    "TOOLBOX_33_Open_Food_Tox_Hazard_EFSA": 107
+  },
+  "selected_tier_structures": {
+    "1": 15739,
+    "3": 5864,
+    "2": 1955
+  },
+  "known_vega_structure_count": 5959,
+  "test_scoring_performed": false,
+  "structural_family_overlap_between_partitions": 0,
+  "rdkit_version": "2026.03.4",
+  "policy": "Exact canonical isomeric structures for labels; broader parent only for split. Detailed DB evidence preferred, condition aggregates next, compiled/model-archive labels only as fallback. No complete cross-literature duplication guarantee."
+}

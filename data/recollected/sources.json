@@ -1,0 +1,34 @@
+{
+  "purpose": "Independent recollection from publicly distributed experimental datasets referenced by Jaeyun; not restoration of original team KB v1.8/v2.3",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/data/Buchwald-Hartwig/Dreher_and_Doyle_input_data.xlsx",
+      "file": "data\\recollected\\raw\\Dreher_and_Doyle_input_data.xlsx",
+      "bytes": 2134762,
+      "sha256": "d7f318abfbb42eaadca482b1e9aa54540eeed60e0089b6a0eb4e75366c31ee2e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/data/Suzuki-Miyaura/aap9112_Data_File_S1.xlsx",
+      "file": "data\\recollected\\raw\\aap9112_Data_File_S1.xlsx",
+      "bytes": 628918,
+      "sha256": "a869e020ba31bd5676c67a4791c3b7384711b5216de6af444b8cd0a24c284640"
+    }
+  ],
+  "retrieved_at_utc": "2026-10-29T05:50:52.009105+00:00",
+  "repository": "https://github.com/rxn4chemistry/rxn_yields",
+  "note": "Public research redistribution; team original transformations and release not recovered. Original bytes preserved. License text for repository does not establish all underlying dataset rights.",
+  "attribution_files": [
+    {
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/README.md",
+      "http_status": 200,
+      "file": "data\\recollected\\raw\\upstream_README.txt",
+      "sha256": "a5d0ea23bce6bcd91dc68ea6ee2e6931b24d7cdfd8d1157e47424c521884df7c"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/rxn4chemistry/rxn_yields/master/LICENSE",
+      "http_status": 200,
+      "file": "data\\recollected\\raw\\upstream_LICENSE",
+      "sha256": "4cd19ee3f984c4cf21234b36d941f80fe7cbac61b4a104a558813cd3948857ce"
+    }
+  ]
+}

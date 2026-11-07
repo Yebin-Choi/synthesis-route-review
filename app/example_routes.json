@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "description": "소프트웨어 검증용 가상 입력입니다. 실제 합성 경로·실험 성공·독성 실험 결과가 아니며 합성 가능성을 검증하지 않습니다. 세 사례는 경고 및 누락 상태 표시를 시험합니다.",
+  "routes": [
+    {
+      "id": "example-known-concern",
+      "target": "CCOC(C)=O",
+      "source": "가상 소프트웨어 테스트 입력 (실험 검증 안 됨)",
+      "steps": [{
+        "id": "1", "reactants": ["CCO", "CC(=O)O"], "products": ["CCOC(C)=O"],
+        "reagents": ["ClCC1CO1"], "solvents": [],
+        "conditions": {"status": "unknown"},
+        "byproducts": {"status": "not_run", "candidates": []}
+      }]
+    },
+    {
+      "id": "example-conditional-warning",
+      "target": "CCOC(C)=O",
+      "source": "가상 소프트웨어 테스트 입력 (실험 검증 안 됨)",
+      "steps": [{
+        "id": "1", "reactants": ["CCO", "CC(=O)O"], "products": ["CCOC(C)=O"],
+        "reagents": ["CNC", "[Na+].[O-]N=O"], "solvents": [],
+        "conditions": {"status": "proposed", "source": "수동 작성 테스트 시나리오", "description": "pH·온도·농도 미확인. 생성 여부를 단정하지 않음."},
+        "byproducts": {"status": "failed", "candidates": [], "error": "테스트용 실패 상태"}
+      }]
+    },
+    {
+      "id": "example-information-gap",
+      "target": "CCOC(C)=O",
+      "source": "가상 소프트웨어 테스트 입력 (실험 검증 안 됨)",
+      "steps": [{
+        "id": "1", "reactants": ["CCO", "CC(=O)O"], "products": ["CCOC(C)=O"],
+        "reagents": [], "solvents": [],
+        "conditions": {"status": "unknown"},
+        "byproducts": {"status": "not_run", "candidates": []}
+      }]
+    }
+  ]
+}

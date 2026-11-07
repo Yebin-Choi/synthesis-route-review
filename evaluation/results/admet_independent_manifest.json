@@ -1,0 +1,21 @@
+{
+  "tool": "ADMET-AI",
+  "version": "2.0.1",
+  "threshold": 0.5,
+  "input_file": "evaluation\\ames_independent.csv",
+  "dataset_rows": 3091,
+  "returned_rows": 3091,
+  "model_files_sha256": {
+    "admet_classification\\model_0.pt": "9a5fb298a6564e8ef739890c90b02e831521073f49eefd2310fb56cdb61a2378",
+    "admet_classification\\model_1.pt": "2bf047553eef397060af376e78dd4e990114df8428e05f734c4e4aca284280ca",
+    "admet_classification\\model_2.pt": "0e9d7eb3ff0b53bd2f20e43a75e0872c682b0ee27059dd50735c416d97a3fd24",
+    "admet_classification\\model_3.pt": "4b35cb5686f23c6e3e5a4c587a5c4dd79b7f1f46be26684260c0b78366145d58",
+    "admet_classification\\model_4.pt": "9fdac559e3058b5f7b03780f9c696223d27adb94c78f9eb9aba6154e2dbff492",
+    "admet_regression\\model_0.pt": "c709dc4526dc7f6cf39cea64190f63adbb2b95e280d34582c492fc53da64a1a4",
+    "admet_regression\\model_1.pt": "57e8011a180cddf8acf66f94f5b123023c3fed503e3870a2f3f6f5300a7f3c82",
+    "admet_regression\\model_2.pt": "05e8509fea4ddc4686c521d75ee2fe770113cb93f09a849a6378b0a0e3ce113e",
+    "admet_regression\\model_3.pt": "04b265ff444190247b159932ab2225afc844bae9552299bf1ddf99b336c28d71",
+    "admet_regression\\model_4.pt": "b58c76493744edfb022e50e531a8ad82453bdf543c2195d878ecfd248795c7c8"
+  },
+  "limitation": "Public TDC AMES may overlap model training. These are descriptive predictions on known data, NOT independent generalization accuracy. Scores are not clinically calibrated probabilities. Applicability domain is unknown."
+}

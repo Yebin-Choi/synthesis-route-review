@@ -1,0 +1,62 @@
+===== --stage scaffolds started 2026-11-05T22:51:49+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  전체 out-of-fold AUC 0.9020
+  c1ccccc1                                        2601개 활성 0.23 AUC 0.873
+  C1CCCCC1                                         208개 활성 0.04 AUC 0.836
+  c1ccc(-c2ccccc2)cc1                              181개 활성 0.45 AUC 0.881
+  c1ccncc1                                         170개 활성 0.19 AUC 0.926
+  c1ccc(N=Nc2ccccc2)cc1                            167개 활성 0.64 AUC 0.723
+  c1ccc2ccccc2c1                                   164개 활성 0.34 AUC 0.888
+  C1CO1                                            130개 활성 0.70 AUC 0.892
+  c1ccoc1                                          122개 활성 0.62 AUC 0.970
+  c1ccc(Cc2ccccc2)cc1                              116개 활성 0.13 AUC 0.912
+  c1ccc2ncccc2c1                                   104개 활성 0.39 AUC 0.766
+  (고리 없는 구조 전체) 3855개 AUC 0.940
+  기록: C:\Users\hahab\학술제\ames\results\ames_scaffolds_scaffold.json
+
+scaffolds 단계 완료 · 170초
+===== --stage scaffolds finished 2026-11-05T22:54:42+09:00 rc=0 =====
+===== --stage agreement started 2026-11-05T22:54:43+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  합의율 60% 이상: 구조  19963개 · AUC 0.9018 ± 0.0075
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+  합의율 70% 이상: 구조  19963개 · AUC 0.9018 ± 0.0075
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+  합의율 80% 이상: 구조  19472개 · AUC 0.9070 ± 0.0115
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+  합의율 90% 이상: 구조  18909개 · AUC 0.9070 ± 0.0146
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+  합의율 100% 이상: 구조  18583개 · AUC 0.9079 ± 0.0104
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+  기록: C:\Users\hahab\학술제\ames\results\ames_agreement_scaffold.json
+
+agreement 단계 완료 · 850초
+===== --stage agreement finished 2026-11-05T23:08:59+09:00 rc=0 =====
+===== --stage descriptors started 2026-11-05T23:08:59+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  기술자 215개에서 시작
+  기술자    5개: AUC 0.7433 ± 0.0233 · 모든 겹에서 뽑힌 열 3개 · 48초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자   10개: AUC 0.7960 ± 0.0232 · 모든 겹에서 뽑힌 열 4개 · 47초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자   20개: AUC 0.8521 ± 0.0138 · 모든 겹에서 뽑힌 열 10개 · 48초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자   40개: AUC 0.8861 ± 0.0079 · 모든 겹에서 뽑힌 열 17개 · 57초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자   80개: AUC 0.8958 ± 0.0067 · 모든 겹에서 뽑힌 열 38개 · 61초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자  160개: AUC 0.8983 ± 0.0070 · 모든 겹에서 뽑힌 열 102개 · 69초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+  기술자  215개: AUC 0.8998 ± 0.0070 · 모든 겹에서 뽑힌 열 215개 · 73초
+  기록: C:\Users\hahab\학술제\ames\results\ames_descriptors_scaffold.json
+
+descriptors 단계 완료 · 664초
+===== --stage descriptors finished 2026-11-05T23:20:10+09:00 rc=0 =====
+===== --stage figures started 2026-11-05T23:20:10+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  그림 5장: scaffold_sizes.png, applicability.png, learning_curve.png, feature_comparison.png, descriptor_reduction.png
+  기록: C:\Users\hahab\학술제\ames\results\ames_figures.json
+
+figures 단계 완료 · 14초
+===== --stage figures finished 2026-11-05T23:20:29+09:00 rc=0 =====
+ALL AMES ANALYSIS DONE 2026-11-05T23:20:29+09:00

@@ -1,0 +1,51 @@
+{
+  "question": "Does a stricter label agreement threshold help?",
+  "features": "rdkit_fp_2048+descriptors_all",
+  "model": "xgboost",
+  "grouping": "scaffold",
+  "rows": [
+    {
+      "agreement_at_least": 0.6,
+      "structures": 19963,
+      "active_fraction": 0.3022591794820418,
+      "auc_mean": 0.901811019917649,
+      "auc_std": 0.007477836121261017,
+      "folds_scored": 10
+    },
+    {
+      "agreement_at_least": 0.7,
+      "structures": 19963,
+      "active_fraction": 0.3022591794820418,
+      "auc_mean": 0.901811019917649,
+      "auc_std": 0.007477836121261017,
+      "folds_scored": 10
+    },
+    {
+      "agreement_at_least": 0.8,
+      "structures": 19472,
+      "active_fraction": 0.2988393590797042,
+      "auc_mean": 0.9069641133894748,
+      "auc_std": 0.011508749620255486,
+      "folds_scored": 10
+    },
+    {
+      "agreement_at_least": 0.9,
+      "structures": 18909,
+      "active_fraction": 0.2950975725844836,
+      "auc_mean": 0.90696752461403,
+      "auc_std": 0.014615000663502315,
+      "folds_scored": 10
+    },
+    {
+      "agreement_at_least": 1.0,
+      "structures": 18583,
+      "active_fraction": 0.29553893343378357,
+      "auc_mean": 0.9078736189582077,
+      "auc_std": 0.01044071592789954,
+      "folds_scored": 10
+    }
+  ],
+  "notes": [
+    "Each threshold is scored on its own structures, so a higher score may mean an easier remaining set rather than a better model."
+  ]
+}

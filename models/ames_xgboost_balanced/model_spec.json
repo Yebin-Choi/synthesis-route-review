@@ -1,0 +1,51 @@
+{
+  "algorithm": "xgboost",
+  "stage": "fingerprint_representation",
+  "recipe": "CUSTOM",
+  "params": {
+    "n_estimators": 400,
+    "max_depth": 6,
+    "learning_rate": 0.0677977974602176,
+    "subsample": 0.993506466625609,
+    "colsample_bytree": 0.6552092851888845,
+    "reg_lambda": 0.1,
+    "min_child_weight": 1.1821791088876834,
+    "balanced": true
+  },
+  "seed": 20261105,
+  "encoding": "float",
+  "parent_baseline": "v3_baseline_xgboost_a0b61831b47c",
+  "blocks": [
+    "rdkit",
+    "desc2d"
+  ],
+  "parent_feature": "expanded_feature_composition_xgboost_bf965ca0f814",
+  "fingerprint_variant": "rdkit",
+  "experiment_id": "expanded_fingerprint_representation_xgboost_f43095dd5017",
+  "dataset_version": "v3",
+  "agreement": 0.7,
+  "train_n": 17717,
+  "validation_n": 2246,
+  "train_positive": 5347,
+  "validation_positive": 687,
+  "input_features": 2265,
+  "selected_raw_features": 2263,
+  "encoded_features": 2263,
+  "test_read_or_scored": false,
+  "warnings": [],
+  "linear_post_scaling": false,
+  "parameter_policy": "Fixed best prior baseline parameters per algorithm; feature and encoding effects are controlled contrasts.",
+  "balanced": true,
+  "scale_pos_weight": 2.308418959231024,
+  "fitted_on": {
+    "splits": [
+      "train",
+      "validation"
+    ],
+    "structures": 19963,
+    "active_fraction": 0.3022591794820418
+  },
+  "refit_of": "expanded_fingerprint_representation_xgboost_f43095dd5017",
+  "refit_reason": "The collection is 30.2% positive and the shipped fit left that to the decision line. Carried in the training weights instead so the line stays at 0.5. Recipe, pipeline, hyperparameters and seed unchanged (benchmark log 6-19).",
+  "refit_rdkit": "2026.03.4"
+}

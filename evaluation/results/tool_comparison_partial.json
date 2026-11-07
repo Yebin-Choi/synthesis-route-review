@@ -1,0 +1,85 @@
+{
+  "truth_file": "C:\\Users\\hahab\\학술제\\evaluation\\ames_independent.csv",
+  "rows": 3091,
+  "positives": 1549,
+  "negatives": 1542,
+  "tools": {
+    "우리규칙": "evaluation/rules_independent_predictions.csv",
+    "ADMET-AI": "evaluation/admet_independent_predictions.csv"
+  },
+  "single": {
+    "우리규칙": {
+      "tp": 962,
+      "tn": 1135,
+      "fp": 407,
+      "fn": 587,
+      "abstain": 0,
+      "decided": 3091,
+      "coverage": 1.0,
+      "sensitivity": 0.6210458360232408,
+      "specificity": 0.7360570687418937,
+      "balanced_accuracy": 0.6785514523825673,
+      "positives_caught_of_all_positives": 0.6210458360232408
+    },
+    "ADMET-AI": {
+      "tp": 1120,
+      "tn": 1253,
+      "fp": 289,
+      "fn": 429,
+      "abstain": 0,
+      "decided": 3091,
+      "coverage": 1.0,
+      "sensitivity": 0.723047127178825,
+      "specificity": 0.8125810635538262,
+      "balanced_accuracy": 0.7678140953663256,
+      "positives_caught_of_all_positives": 0.723047127178825
+    }
+  },
+  "combinations": {
+    "우리규칙+ADMET-AI | any_positive": {
+      "tp": 1300,
+      "tn": 952,
+      "fp": 590,
+      "fn": 249,
+      "abstain": 0,
+      "decided": 3091,
+      "coverage": 1.0,
+      "sensitivity": 0.8392511297611362,
+      "specificity": 0.6173800259403373,
+      "balanced_accuracy": 0.7283155778507368,
+      "positives_caught_of_all_positives": 0.8392511297611362
+    },
+    "우리규칙+ADMET-AI | unanimous": {
+      "tp": 782,
+      "tn": 952,
+      "fp": 106,
+      "fn": 249,
+      "abstain": 1002,
+      "decided": 2089,
+      "coverage": 0.6758330637334196,
+      "sensitivity": 0.7584869059165859,
+      "specificity": 0.8998109640831758,
+      "balanced_accuracy": 0.8291489349998808,
+      "positives_caught_of_all_positives": 0.5048418334409296
+    },
+    "우리규칙+ADMET-AI | majority": {
+      "tp": 782,
+      "tn": 952,
+      "fp": 106,
+      "fn": 249,
+      "abstain": 1002,
+      "decided": 2089,
+      "coverage": 0.6758330637334196,
+      "sensitivity": 0.7584869059165859,
+      "specificity": 0.8998109640831758,
+      "balanced_accuracy": 0.8291489349998808,
+      "positives_caught_of_all_positives": 0.5048418334409296
+    }
+  },
+  "notes": [
+    "Sensitivity and specificity condition on decided rows; read them with coverage.",
+    "positives_caught_of_all_positives divides true positives by every labelled positive, including rows the rule abstained on.",
+    "A no-alert or negative prediction is a screening result, not evidence of safety.",
+    "Label provenance is taken from the source collection and is not re-verified here."
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "insilico.mutagenicity_sarpy.ismMutagenicitySarpy": {
+    "constructors": [
+      "public insilico.mutagenicity_sarpy.ismMutagenicitySarpy() throws insilico.core.exception.InitFailureException"
+    ],
+    "methods": [
+      "public insilico.core.alerts.AlertList insilico.mutagenicity_sarpy.ismMutagenicitySarpy.GetCalculatedAlert() throws java.lang.CloneNotSupportedException",
+      "public java.util.ArrayList insilico.mutagenicity_sarpy.ismMutagenicitySarpy.GetRequiredAlertBlocks()",
+      "public insilico.core.model.InsilicoModelInfo insilico.core.model.InsilicoModel.getInfo()",
+      "public double insilico.core.model.InsilicoModel.GetDescriptor(int) throws insilico.core.exception.GenericFailureException",
+      "public int insilico.core.model.InsilicoModel.GetResultsSize()",
+      "public java.lang.String[] insilico.core.model.InsilicoModel.GetADItemsName()",
+      "public int insilico.core.model.InsilicoModel.getDescriptorsSize()",
+      "public void insilico.core.model.InsilicoModel.ProcessTrainingSet() throws java.lang.Exception",
+      "public java.lang.String[] insilico.core.model.InsilicoModel.GetResultsName()",
+      "public insilico.core.model.trainingset.iTrainingSet insilico.core.model.InsilicoModel.GetTrainingSet()",
+      "public java.util.ArrayList insilico.core.model.InsilicoModel.GetRequiredDescriptorBlocks()",
+      "public void insilico.core.model.InsilicoModel.setSkipADandTSLoading(boolean)",
+      "public void insilico.core.model.InsilicoModel.SetKnnSkipExperimental(boolean)",
+      "public java.lang.String[] insilico.core.model.InsilicoModel.getDescriptorsNames()",
+      "public void insilico.core.model.InsilicoModel.Purge()",
+      "public insilico.core.model.InsilicoModelOutput insilico.core.model.InsilicoModel.Execute(insilico.core.molecule.InsilicoMolecule) throws insilico.core.exception.GenericFailureException",
+      "public insilico.core.model.InsilicoModelOutput insilico.core.model.InsilicoModel.Execute(insilico.core.molecule.InsilicoMolecule,insilico.core.descriptor.DescriptorsEngine,boolean) throws insilico.core.exception.GenericFailureException"
+    ]
+  },
+  "insilico.mutagenicity_sarpy.mainScriptSarpy": {
+    "constructors": [
+      "public insilico.mutagenicity_sarpy.mainScriptSarpy()"
+    ],
+    "methods": [
+      "public static void insilico.mutagenicity_sarpy.mainScriptSarpy.main(java.lang.String[]) throws java.lang.Exception"
+    ]
+  }
+}

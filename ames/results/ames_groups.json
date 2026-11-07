@@ -1,0 +1,172 @@
+{
+  "question": "How are the structures grouped, and does the grouping choice change what a held-out fold means?",
+  "structures": 19963,
+  "actives": 6034,
+  "active_fraction": 0.3022591794820418,
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "leakage_group": {
+    "groups": 15132,
+    "largest": 14,
+    "median_size": 1.0,
+    "singletons": 12120,
+    "share_in_singletons": 0.6071231778790763
+  },
+  "scaffold_group": {
+    "groups": 8422,
+    "largest": 2601,
+    "median_size": 1.0,
+    "singletons": 6530,
+    "share_in_singletons": 0.3271051445173571
+  },
+  "scaffolds_spanning_several_leakage_groups": 1245,
+  "structures_in_those_scaffolds": 11795,
+  "share_of_structures_affected": 0.5908430596603717,
+  "scaffold_size_distribution": {
+    "1": 6530,
+    "2": 830,
+    "3": 402,
+    "4": 189,
+    "5": 103,
+    "6": 67,
+    "7": 47,
+    "8": 32,
+    "9": 24,
+    "10": 21,
+    "11": 21,
+    "12": 16,
+    "13": 16,
+    "14": 7,
+    "15": 5,
+    "16": 12,
+    "17": 9,
+    "18": 7,
+    "19": 2,
+    "20": 7,
+    "21": 3,
+    "22": 3,
+    "23": 1,
+    "24": 4,
+    "25": 2,
+    "27": 3,
+    "28": 3,
+    "29": 3,
+    "30": 3,
+    "31": 2,
+    "32": 3,
+    "33": 1,
+    "34": 4,
+    "36": 2,
+    "37": 4,
+    "38": 1,
+    "39": 2,
+    "41": 2,
+    "42": 2,
+    "44": 2,
+    "45": 1,
+    "46": 1,
+    "48": 2,
+    "49": 1,
+    "50": 2,
+    "52": 1,
+    "65": 2,
+    "67": 1,
+    "73": 1,
+    "77": 1,
+    "79": 1,
+    "96": 1,
+    "104": 1,
+    "116": 1,
+    "122": 1,
+    "130": 1,
+    "164": 1,
+    "167": 1,
+    "170": 1,
+    "181": 1,
+    "208": 1,
+    "2601": 1
+  },
+  "largest_scaffolds": [
+    {
+      "scaffold": "c1ccccc1",
+      "structures": 2601,
+      "active_fraction": 0.23260284505959247
+    },
+    {
+      "scaffold": "C1CCCCC1",
+      "structures": 208,
+      "active_fraction": 0.038461538461538464
+    },
+    {
+      "scaffold": "c1ccc(-c2ccccc2)cc1",
+      "structures": 181,
+      "active_fraction": 0.4530386740331492
+    },
+    {
+      "scaffold": "c1ccncc1",
+      "structures": 170,
+      "active_fraction": 0.18823529411764706
+    },
+    {
+      "scaffold": "c1ccc(N=Nc2ccccc2)cc1",
+      "structures": 167,
+      "active_fraction": 0.6407185628742516
+    },
+    {
+      "scaffold": "c1ccc2ccccc2c1",
+      "structures": 164,
+      "active_fraction": 0.34146341463414637
+    },
+    {
+      "scaffold": "C1CO1",
+      "structures": 130,
+      "active_fraction": 0.7
+    },
+    {
+      "scaffold": "c1ccoc1",
+      "structures": 122,
+      "active_fraction": 0.6229508196721312
+    },
+    {
+      "scaffold": "c1ccc(Cc2ccccc2)cc1",
+      "structures": 116,
+      "active_fraction": 0.12931034482758622
+    },
+    {
+      "scaffold": "c1ccc2ncccc2c1",
+      "structures": 104,
+      "active_fraction": 0.3942307692307692
+    },
+    {
+      "scaffold": "C1=CCCCC1",
+      "structures": 96,
+      "active_fraction": 0.125
+    },
+    {
+      "scaffold": "c1ccc(N=Nc2cccc3ccccc23)cc1",
+      "structures": 79,
+      "active_fraction": 0.22784810126582278
+    },
+    {
+      "scaffold": "C(=Cc1ccccc1)c1ccccc1",
+      "structures": 77,
+      "active_fraction": 0.5714285714285714
+    },
+    {
+      "scaffold": "c1ccc(Oc2ccccc2)cc1",
+      "structures": 73,
+      "active_fraction": 0.3972602739726027
+    },
+    {
+      "scaffold": "O=C1c2ccccc2C(=O)c2ccccc21",
+      "structures": 67,
+      "active_fraction": 0.47761194029850745
+    }
+  ],
+  "notes": [
+    "A scaffold spanning several leakage groups means the two groupings are not nested, so the choice changes what a held-out fold contains.",
+    "Acyclic structures have no Murcko scaffold and each keeps its own group rather than being pooled into one."
+  ]
+}

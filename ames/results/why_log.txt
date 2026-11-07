@@ -1,0 +1,48 @@
+===== --stage redundancy started 2026-11-05T23:29:00+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  기술자만 AUC 0.8999 · 지문만 0.8750 · 둘을 평균 0.9041
+  점수 상관 0.849 · 판정 일치 89.8%
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_redundancy.json
+
+redundancy 단계 완료 · 411초
+===== --stage redundancy finished 2026-11-05T23:35:58+09:00 rc=0 =====
+===== --stage grouping started 2026-11-05T23:35:58+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  leakage   유사도 중앙값 0.593 · 0.7 이상 26.9% · 0.4 미만 12.6%
+  scaffold  유사도 중앙값 0.519 · 0.7 이상 17.6% · 0.4 미만 21.3%
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_grouping.json
+
+grouping 단계 완료 · 203초
+===== --stage grouping finished 2026-11-05T23:39:28+09:00 rc=0 =====
+===== --stage calibration started 2026-11-05T23:39:28+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  화면 0.0~0.20  12384개: 평균 표시 0.053 → 실제 활성 0.083 (차이 +0.030)
+  화면 0.2~0.40   2002개: 평균 표시 0.287 → 실제 활성 0.350 (차이 +0.063)
+  화면 0.4~0.60   1261개: 평균 표시 0.495 → 실제 활성 0.544 (차이 +0.049)
+  화면 0.6~0.80   1291개: 평균 표시 0.705 → 실제 활성 0.696 (차이 -0.009)
+  화면 0.8~1.01   3025개: 평균 표시 0.920 → 실제 활성 0.900 (차이 -0.021)
+  균형이 가장 좋은 기준선 0.25 (균형 0.824) · 앱은 0.50을 씁니다
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_calibration.json
+
+calibration 단계 완료 · 496초
+===== --stage calibration finished 2026-11-05T23:47:51+09:00 rc=0 =====
+===== --stage difficulty started 2026-11-05T23:47:51+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  structures               AUC와의 상관 +0.023
+  label_skew               AUC와의 상관 +0.155
+  internal_similarity      AUC와의 상관 -0.047
+  similarity_to_training   AUC와의 상관 -0.138
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_difficulty.json
+
+difficulty 단계 완료 · 486초
+===== --stage difficulty finished 2026-11-05T23:56:04+09:00 rc=0 =====
+===== --stage tuning started 2026-11-05T23:56:04+09:00 =====
+구조 19963개 · 묶음 기준 scaffold
+  xgboost          기본 0.9018 → 중첩 0.9060 ± 0.0069 (차이 +0.0042) · 2769초
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_tuning.json
+  random_forest    기본 0.8911 → 중첩 0.8975 ± 0.0077 (차이 +0.0065) · 3410초
+  기록: C:\Users\hahab\학술제\ames\results\ames_why_tuning.json
+
+tuning 단계 완료 · 6516초
+===== --stage tuning finished 2026-11-06T01:44:46+09:00 rc=0 =====
+ALL AMES WHY DONE 2026-11-06T01:44:46+09:00

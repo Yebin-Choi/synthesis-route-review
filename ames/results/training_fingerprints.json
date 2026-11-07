@@ -1,0 +1,8 @@
+{
+  "structures": 22157,
+  "fingerprint": "morgan",
+  "radius": 2,
+  "bits": 2048,
+  "source": "Ames_모델용_전체_22157개.csv",
+  "note": "Every split of the shared collection, deduplicated by canonical structure. Used only to place a material in a measured accuracy band, never for prediction."
+}

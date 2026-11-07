@@ -1,0 +1,38 @@
+{
+  "checked_date": "2026-10-29",
+  "scope": "Local prerequisite and source inspection only; no live LLM route generation performed.",
+  "synthex": {
+    "composition_root": "synthex/src/synthex/application.py:create_pipeline",
+    "current_provider": "GeminiClient",
+    "provider_contract": "synthex/src/synthex/llm.py:LLMClient.generate",
+    "note": "A provider-neutral protocol exists, but the live composition root constructs GeminiClient. An Ollama or Solar key alone does not make this checkout use that provider. Tool calls, tool results and structured output need a tested adapter."
+  },
+  "ollama": {
+    "executable_on_path": false,
+    "local_server": "http://127.0.0.1:11434/api/tags",
+    "observed_result": "ConnectionError",
+    "inference_performed": false,
+    "required": "Install/start Ollama and select/download a model with sufficient local RAM and tool-calling capability. No large model download was started."
+  },
+  "solar": {
+    "model_alias_documented": "solar-pro4",
+    "documentation": "https://console.upstage.ai/docs/capabilities/generate/chat",
+    "protocol": "OpenAI-compatible API",
+    "UPSTAGE_API_KEY_in_process_environment": false,
+    "inference_performed": false,
+    "free_access_verified": false,
+    "required": "User-provided authorized Upstage credentials and account quota; tested SynthEx adapter. API keys must not be pasted into conversation or committed."
+  },
+  "gemini": {
+    "GOOGLE_API_KEY_in_process_environment": false,
+    "GEMINI_API_KEY_in_process_environment": false,
+    "inference_performed": false,
+    "required": "Authorized Gemini credentials and live dependencies. No claim is made about keys stored outside the current process environment."
+  },
+  "evaluation_requirements": [
+    "Use the same target molecules, prompt version, search budgets and recorded model version across providers.",
+    "Measure structured output validity, RDKit render validity, route completion, elapsed time and actual API usage separately.",
+    "None of these technical metrics establishes chemical feasibility or experimentally measured synthesis accuracy.",
+    "Compare a limited set of literature-grounded transformations with qualified chemical review before making accuracy claims."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "retrieved_date_utc": "2026-10-30",
+  "endpoint": "Bacterial mutagenicity (Ames), not all genotoxicity, carcinogenicity or general toxicity",
+  "ich_m7": {
+    "source": "https://database.ich.org/sites/default/files/ICH_M7%28R2%29_Guideline_Step4_2023_0216_0.pdf",
+    "section": "6, Hazard Assessment Elements, printed pages 6-7 (PDF pages 10-11)",
+    "requirements": ["Search available experimental and literature data first.", "Use complementary expert rule-based and statistical-based bacterial-mutagenicity methodologies.", "Models should follow OECD general validation principles.", "Expert review can support interpretation of positive, negative, conflicting or inconclusive predictions."],
+    "local_limitation": "Two application names, or agreement of our custom rules and ADMET, do not establish these requirements. This project does not assign regulatory Class 5 or claim ICH compliance."
+  },
+  "local_tools": [
+    {"tool": "Custom rules", "role": "Transparent exploratory structural alerts and exact reference lookup", "limitation": "Not independently validated as a complete expert (Q)SAR system; no-alert is not safety."},
+    {"tool": "ADMET-AI 2.0.1", "role": "Learned AMES model with retained raw scores", "limitation": "Applicability unknown; TDC training overlap unresolved; fixed 0.5 not calibrated probability or validated optimum."},
+    {"tool": "Toxtree AmesMutagenicityRules", "role": "Selected structural-alert rule method", "limitation": "Current pilot batch exceptions caused predictions to be withheld. Do not count withheld outputs as negative or validated expert coverage."},
+    {"tool": "VEGA SarPy-IRFMN 1.0.8", "role": "Model-specific learned structural-alert QSAR comparison with raw classes, domain evidence and reference values", "limitation": "SARpy derives rules from experimental data; structural-alert output alone does not make it an independent expert-rule counterpart. Reference-backed default assessment must not replace raw prediction. Possible NON remains abstention."}
+  ],
+  "sarpy_method": {
+    "title": "Automatic knowledge extraction from chemical structures: the case of mutagenicity prediction",
+    "doi": "10.1080/1062936X.2013.773376",
+    "author_hosted_source": "https://gini.faculty.polimi.it/papers/SARQSAR13.pdf",
+    "verified_scope": "Abstract and introduction describe automatically mining molecular fragments/rules from biological experimental data. This supports methodology classification, not validation of the installed 1.0.8 binary.",
+    "extraction_limit": "Reader warned of an unextractable scanned page and some font encoding issues; no claims rely on missing text."
+  },
+  "external_complementary_example": {
+    "tools": ["Derek Nexus", "Sarah Nexus"],
+    "role": "Officially documented expert-rule and statistical complementary methodologies, with expert review and optional experimental-data lookup via Vitic.",
+    "current_source": "https://www.lhasalimited.org/solutions/in-silico-mutagenicity-assessment/",
+    "documentation_source": "https://productdocumentation.lhasalimited.org/Nexus/ICH_M7/Welcome_ICH_M7.htm",
+    "documentation_age": "Help version 2.1.2, September 2017; current solution page also checked.",
+    "execution_status": "Not installed or run; no purchase, account, license or free-access assumption. Vendor positioning is not an independent performance result."
+  },
+  "decision": "Preserve disagreement, applicability gaps and experimental-reference provenance. Assess methodological complementarity at model level, not brand count. Additional metabolism/read-across or other endpoint tools supplement evidence but do not automatically replace either Ames methodology."
+}
