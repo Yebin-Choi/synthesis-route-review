@@ -236,15 +236,21 @@ def _review_step(step, exclusions, strict_alerts, reason):
         # entry, so it does not also sit at the front of the shown sentence.
         decision = _MESSAGES["warning_excluded" if strict_alerts else "warning_review"]
         reason("conditional_warning", f"{warning['message']} {decision}")
+    # These three are recorded but do not decide the route's status, because
+    # they are the same for every route in the report. Measured 2026-11-08 on
+    # ten generated aspirin routes: conditions were unobserved on 10 steps of
+    # 10 and byproducts unrun on 10 of 10, so "정보 부족" landed on 8 routes
+    # for a reason that was equally true of the other 2. A label that every
+    # route carries separates nothing, and it was hiding the two routes that
+    # did have a structural alert. The gaps stay in the reasons, in the line
+    # under the route chip and in the limitations; what they no longer do is
+    # stand in for a finding about this route.
     for missing in step["missing_information"]:
-        found.add("incomplete")
         reason("missing_information", missing)
     if step["conditions"]["status"] != "observed":
-        found.add("incomplete")
         reason("conditions_not_observed",
                _MESSAGES["conditions_not_observed"].format(state=step["conditions"]["status"]))
     if step["byproducts"]["status"] != "success":
-        found.add("incomplete")
         reason("byproducts_incomplete",
                _MESSAGES["byproducts_incomplete"].format(state=step["byproducts"]["status"]))
     return found

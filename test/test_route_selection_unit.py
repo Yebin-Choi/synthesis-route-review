@@ -161,7 +161,11 @@ class RouteSelectionTests(unittest.TestCase):
         self.assertEqual([reason["step_id"] for reason in route["reasons"]
                           if reason["code"] == "no_materials"], ["empty-step"])
 
-    def test_unresolved_conditions_independently_require_information(self):
+    def test_unresolved_conditions_are_recorded_without_deciding_the_route(self):
+        # Every generated route has unobserved conditions, so this cannot
+        # separate one route from another. Measured on ten aspirin routes:
+        # 10 steps of 10. It stays in the reasons and leaves the status to
+        # findings that differ between routes.
         for state in ("unknown", "proposed"):
             with self.subTest(state=state):
                 report = _report("CCO")
@@ -170,12 +174,13 @@ class RouteSelectionTests(unittest.TestCase):
                 step["missing_information"] = []
                 for strict in (False, True):
                     route = select_routes(report, strict_alerts=strict)["routes"][0]
-                    self.assertEqual(route["status"], "insufficient_data")
-                    self.assertEqual(_codes(route), {"conditions_not_observed"})
+                    self.assertEqual(route["status"], "candidate")
+                    self.assertEqual(_codes(route),
+                                     {"conditions_not_observed", "candidate_within_scope"})
                     self.assertIn("추천·제안 조건은 관측 조건이 아닙니다", route["reasons"][0]["message"])
                 self.assertEqual(step["conditions"]["status"], state)
 
-    def test_failed_or_not_run_byproducts_independently_require_information(self):
+    def test_unrun_byproducts_are_recorded_without_deciding_the_route(self):
         for state in ("failed", "not_run"):
             with self.subTest(state=state):
                 report = _report("CCO")
@@ -183,16 +188,25 @@ class RouteSelectionTests(unittest.TestCase):
                 step["byproducts"]["status"] = state
                 step["missing_information"] = []
                 route = select_routes(report)["routes"][0]
-                self.assertEqual(route["status"], "insufficient_data")
-                self.assertEqual(_codes(route), {"byproducts_incomplete"})
+                self.assertEqual(route["status"], "candidate")
+                self.assertEqual(_codes(route),
+                                 {"byproducts_incomplete", "candidate_within_scope"})
 
-    def test_missing_information_alone_is_not_ignored(self):
+    def test_missing_information_is_kept_even_though_it_does_not_decide(self):
         report = _report("CCO")
         report["routes"][0]["steps"][0]["missing_information"] = ["중간체 근거 미확인"]
         route = select_routes(report)["routes"][0]
+        self.assertEqual(route["status"], "candidate")
+        self.assertIn({"code": "missing_information", "message": "중간체 근거 미확인",
+                       "step_id": "step-1", "smiles": None}, route["reasons"])
+
+    def test_a_structure_that_cannot_be_read_still_holds_the_route_back(self):
+        # This one is about the route in hand, not about the whole report,
+        # so it keeps its say.
+        report = _report("not-a-molecule")
+        route = select_routes(report)["routes"][0]
         self.assertEqual(route["status"], "insufficient_data")
-        self.assertEqual(route["reasons"], [{"code": "missing_information", "message": "중간체 근거 미확인",
-                                            "step_id": "step-1", "smiles": None}])
+        self.assertIn("invalid_material", _codes(route))
 
     def test_conditional_warnings_review_or_conservatively_exclude(self):
         payload = _payload("CNC")
