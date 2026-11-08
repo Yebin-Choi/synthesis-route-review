@@ -394,7 +394,8 @@ def show_model_review(workspace):
         if state["error"]:
             st.warning(state["error"])
         show_route_ames_review(workspace["report"], report_generation=workspace["report_generation"],
-                               excluded_smiles=workspace["policy"]["excluded_smiles"])
+                               excluded_smiles=workspace["policy"]["excluded_smiles"],
+                               route_id=workspace["route_id"])
     return capture_models(workspace)
 
 

@@ -21,7 +21,7 @@ from uuid import UUID, uuid4
 import streamlit as st
 
 import ui_kit
-from presentation import limitation_text, reason_text
+from presentation import ROLES, limitation_text, reason_text
 from admet_service import admet_readiness, assess_admet_materials
 from ames_route_review import review_ames_routes
 from route_selection import select_routes
@@ -162,6 +162,61 @@ def _material_verdict(row):
     return ui_kit.verdict_chip(name, aside=f"{row['score']:.2f}")
 
 
+def _material_places(report):
+    """Where each listed structure shows up: which route, which step, what role.
+
+    `_input_smiles` flattens the whole report, so the table printed every
+    route's materials while the reader was looking at one route. This index
+    walks the report the same way, so the two cannot drift apart.
+    """
+    places = {}
+    for number, route in enumerate(report["routes"], 1):
+        for order, step in enumerate(route["steps"], 1):
+            for material in step["materials"]:
+                entry = places.setdefault(material["input_smiles"],
+                                          {"roles": [], "steps": []})
+                role = ROLES.get(material["role"], material["role"])
+                if role not in entry["roles"]:
+                    entry["roles"].append(role)
+                place = (route["id"], number, order)
+                if place not in entry["steps"]:
+                    entry["steps"].append(place)
+    return places
+
+
+def _row_places(row, places):
+    """One assessment's roles and step positions, across its input aliases.
+
+    A row can stand for several written inputs of the same structure, so
+    every alias is looked up and the positions are merged.
+    """
+    aliases = row.get("input_smiles_list") or [row["input_smiles"]]
+    roles, steps = [], []
+    for smiles in aliases:
+        entry = places.get(smiles)
+        if entry is None:
+            continue
+        for role in entry["roles"]:
+            if role not in roles:
+                roles.append(role)
+        for place in entry["steps"]:
+            if place not in steps:
+                steps.append(place)
+    return roles, steps
+
+
+def _step_text(steps, route_id):
+    """Which step the structure appears at, as the reader counts steps.
+
+    Inside one route only the step numbers are needed. Across the whole
+    report the route has to be named too, or two routes' steps read as one.
+    """
+    if route_id is None:
+        return " / ".join(f"경로 {number} {order}단계" for _, number, order in steps)
+    orders = sorted({order for member, _, order in steps if member == route_id})
+    return "·".join(str(order) for order in orders) + "단계" if orders else ""
+
+
 def _show_provenance(result, metadata):
     """Where the numbers came from, in the field order QMRF asks for.
 
@@ -184,10 +239,22 @@ def _show_provenance(result, metadata):
                    "확인할 수 없습니다.")
 
 
-def _show_result(result, review, metadata):
+def _show_result(result, review, metadata, *, report, route_id=None):
     _show_provenance(result, metadata)
 
-    assessments = result["assessments"]
+    # The reader picked one route upstairs, so that route is what the table
+    # shows. The whole report stays one toggle away.
+    places = _material_places(report)
+    rows = [(row, *_row_places(row, places)) for row in result["assessments"]]
+    scope = route_id
+    if route_id is not None and len(report["routes"]) > 1:
+        if st.toggle("전체 경로 보기", key="route_ames_all_routes",
+                     help="끄면 지금 보고 있는 경로에 나오는 물질만 나옵니다."):
+            scope = None
+    if scope is not None:
+        rows = [item for item in rows
+                if any(member == scope for member, _, _ in item[2])]
+    assessments = [item[0] for item in rows]
     decided = [row for row in assessments
                if row["status"] == "success" and row["score"] is not None]
     positive = sum(row["prediction"] == "positive" for row in decided)
@@ -205,14 +272,18 @@ def _show_result(result, review, metadata):
         st.warning("일부 구조는 판정하지 못했습니다. 예측 결과 없음은 음성이 아닙니다.")
 
     if assessments:
+        # The merged-alias column is gone. It repeated the structure column
+        # for all but a few rows, and the full alias list is still in the
+        # raw record below. What is here instead is where the structure sits
+        # in the route: what it is used as, and at which step.
         ui_kit.show_table(
-            ["구조", "모델 판정", "같은 구조로 합친 입력"],
+            ["구조", "물질 구분", "등장 단계", "모델 판정"],
             [{"cells": [ui_kit.text(row["canonical_smiles"] or row["input_smiles"]),
-                        _material_verdict(row),
-                        ui_kit.text(" / ".join(row.get(
-                            "input_smiles_list", [row["input_smiles"]])))],
+                        ui_kit.text(" / ".join(roles)),
+                        ui_kit.text(_step_text(steps, scope)),
+                        _material_verdict(row)],
               "mark": row["status"] != "success"}
-             for row in assessments])
+             for row, roles, steps in rows])
     else:
         st.info("모델 결과가 없습니다")
 
@@ -249,7 +320,8 @@ def _show_result(result, review, metadata):
     }, title="원본 기록 (평가 식별자·모델 해시·사유 코드)")
 
 
-def show_route_ames_review(report, *, report_generation, excluded_smiles=()):
+def show_route_ames_review(report, *, report_generation, excluded_smiles=(),
+                           route_id=None):
     """Infer only on a button click, bound to the supplied workspace generation.
 
     Policy changes reuse frozen results. A new generation, even with identical
@@ -357,5 +429,5 @@ def show_route_ames_review(report, *, report_generation, excluded_smiles=()):
         st.json(review["policy"], expanded=False)
         for note in review["limitations"]:
             st.write(limitation_text(note))
-    _show_result(result, review, entry["metadata"])
+    _show_result(result, review, entry["metadata"], report=report, route_id=route_id)
     return snapshot
