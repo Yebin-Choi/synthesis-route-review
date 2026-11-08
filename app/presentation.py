@@ -1,4 +1,6 @@
 """Shared presentation: theme, structure and a concise evidence-first material card."""
+from base64 import b64encode
+from html import escape
 from io import BytesIO
 import json
 
@@ -501,51 +503,87 @@ def show_structure(smiles):
         st.caption("구조 그림 없음")
 
 
-def _structure_cell(smiles, *, caption=None):
-    """One drawing with its SMILES under it, or the SMILES alone.
+# Colours follow the theme the way the rest of the kit does: the review
+# variables where they are set, and `inherit` otherwise, so the labels stay
+# readable in dark mode. The drawing keeps a white card of its own, because
+# RDKit draws black bonds on transparent and they vanish on a dark page.
+ROUTE_FLOW_CSS = """<style>
+.route-flow { overflow-x: auto; padding: 4px 0 10px; }
+.route-step { display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-top: 1px solid var(--review-panel,#e2e8f0); }
+.route-step:first-child { border-top: none; }
+.route-stage { min-width: 56px; padding-top: 30px; font-weight: 600;
+  color: inherit; white-space: nowrap; }
+.route-row { display: flex; align-items: center; gap: 8px; }
+.route-node { width: 164px; text-align: center; }
+.route-node img { width: 100%; border: 1px solid var(--review-panel,#e2e8f0);
+  border-radius: 8px; background: #fff; }
+.route-node .route-name { font-size: 0.78rem; font-weight: 600;
+  color: inherit; margin-top: 4px; }
+.route-node .route-smiles { font-family: ui-monospace,Consolas,monospace;
+  font-size: 0.68rem; color: var(--review-muted,#64748b);
+  word-break: break-all; line-height: 1.3; }
+.route-node .route-missing { font-size: 0.75rem;
+  color: var(--review-muted,#64748b); padding: 26px 0; }
+.route-join { font-size: 1.1rem; color: var(--review-muted,#64748b);
+  padding-bottom: 30px; }
+.route-arrow { font-size: 1.3rem; color: var(--review-accent,#2563eb);
+  padding-bottom: 30px; }
+</style>"""
 
-    The SMILES stays on screen either way. It is what the reader copies into
-    another tool, and a picture of a structure is not something you can paste.
+
+def _structure_node(smiles):
+    """One node of the route: the drawing, the name if known, the SMILES.
+
+    The SMILES stays because it is what a reader pastes into another tool,
+    and a picture cannot be pasted.
     """
+    canonical = canonicalize_smiles(smiles) if len(smiles) <= 4096 else None
+    name = NAMES.get(canonical)
     image = structure_png(smiles)
-    if image:
-        st.image(image, width="stretch")
-    else:
-        st.caption("구조 그림 없음")
-    if caption:
-        st.markdown(f"**{caption}**")
-    st.caption(smiles)
+    drawing = (f'<img src="data:image/png;base64,{b64encode(image).decode()}" alt="">'
+               if image else '<div class="route-missing">구조 그림 없음</div>')
+    label = f'<div class="route-name">{escape(name)}</div>' if name else ""
+    return (f'<div class="route-node">{drawing}{label}'
+            f'<div class="route-smiles">{escape(smiles)}</div></div>')
 
 
-def show_route_structures(route, *, per_row=4):
-    """Each reaction as drawn structures, reactants then product.
+def route_flow_html(route):
+    """The route as it runs, with structures in place of the SMILES strings.
 
-    This replaced a graph whose nodes were SMILES strings. A reader looking
-    at a route wants to see what the molecules are, and
-    `CC(C)N(CC(O)COc1cccc2ccccc12)S(C)(=O)=O` does not show that to anyone
-    reading at normal speed. The strings are still under each drawing.
+    The graph this replaced had the same shape and put the SMILES inside the
+    node: `CC(C)N(CC(O)COc1cccc2ccccc12)S(C)(=O)=O` is not a structure anyone
+    reads at a glance. Steps run earliest first, so the chain reads left to
+    right and top to bottom and ends at the target, which is the order the
+    graph drew them in.
     """
-    for order, step in enumerate(route.get("steps", []), 1):
-        st.markdown(f"**{order}단계**")
+    blocks = []
+    for step in reversed(route.get("steps", [])):
         reactants = list(step.get("reactants") or [])
         products = list(step.get("products") or [])
-        if not reactants and not products:
-            st.caption("기재된 구조가 없습니다")
-            continue
-        for start in range(0, len(reactants), per_row):
-            chunk = reactants[start:start + per_row]
-            for column, smiles in zip(st.columns(len(chunk)), chunk):
-                with column:
-                    _structure_cell(smiles, caption=NAMES.get(
-                        canonicalize_smiles(smiles) if len(smiles) <= 4096 else None))
+        nodes = []
+        for index, smiles in enumerate(reactants):
+            if index:
+                nodes.append('<div class="route-join">+</div>')
+            nodes.append(_structure_node(smiles))
         if products:
-            st.caption("반응물 위, 생성물 아래")
-            for start in range(0, len(products), per_row):
-                chunk = products[start:start + per_row]
-                for column, smiles in zip(st.columns(len(chunk)), chunk):
-                    with column:
-                        _structure_cell(smiles, caption=NAMES.get(
-                            canonicalize_smiles(smiles) if len(smiles) <= 4096 else None))
+            nodes.append('<div class="route-arrow">&#8594;</div>')
+        for index, smiles in enumerate(products):
+            if index:
+                nodes.append('<div class="route-join">+</div>')
+            nodes.append(_structure_node(smiles))
+        if not nodes:
+            nodes.append('<div class="route-missing">기재된 구조가 없습니다</div>')
+        blocks.append(
+            f'<div class="route-step"><div class="route-stage">'
+            f'{escape(str(step.get("id", "")))}단계</div>'
+            f'<div class="route-row">{"".join(nodes)}</div></div>')
+    return f'<div class="route-flow">{"".join(blocks)}</div>'
+
+
+def show_route_structures(route):
+    """Draw the route. One step per row, reactants then the product."""
+    st.markdown(ROUTE_FLOW_CSS + route_flow_html(route), unsafe_allow_html=True)
 
 
 def route_dot(route):
