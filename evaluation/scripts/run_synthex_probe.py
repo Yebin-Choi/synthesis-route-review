@@ -112,15 +112,27 @@ def main():
         snapshot = _wait(service, run_id, context_id, RUN_TIMEOUT, "경로 생성")
         record["generation"] = _redacted(snapshot)
         result = snapshot.get("result") or {}
-        routes = (result.get("routes") or []) if isinstance(result, dict) else []
+        # The routes are under payload. Reading result["routes"] printed
+        # "0 routes" for a run that had produced three, which is worse than
+        # printing nothing: it reads as a failure that did not happen.
+        payload = result.get("payload") if isinstance(result, dict) else None
+        routes = (payload or {}).get("routes") or []
         print(f"\n상태: {snapshot['status']}")
         print(f"경로 수: {len(routes)}")
+        for route in routes:
+            steps = route.get("steps") or []
+            print(f"  {route.get('id')}: {len(steps)}단계")
+            for step in steps:
+                print(f"    {'.'.join(step.get('reactants') or [])}"
+                      f" -> {'.'.join(step.get('products') or [])}")
+        failures = result.get("item_failures") if isinstance(result, dict) else None
+        for entry in failures or []:
+            detail = entry.get("failure") or {}
+            print(f"  미완: {entry.get('stage')} {entry.get('status')}"
+                  + (f" {detail.get('category')}: {detail.get('message')}"
+                     if detail else ""))
         if snapshot.get("error"):
             print(f"오류: {json.dumps(snapshot['error'], ensure_ascii=False)[:400]}")
-        stages = (result.get("stages") if isinstance(result, dict) else None) or {}
-        for name, entry in stages.items() if isinstance(stages, dict) else []:
-            state = entry.get("status") if isinstance(entry, dict) else entry
-            print(f"  단계 {name}: {state}")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(record, ensure_ascii=False, indent=1),
