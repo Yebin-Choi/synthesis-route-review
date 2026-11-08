@@ -16,6 +16,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import time
 
 # -I deliberately excludes the script directory and all inherited PYTHONPATHs.
 HERE = Path(__file__).resolve().parent
@@ -52,10 +53,42 @@ class _ArtifactPath(type(Path())):
         return super().read_text(encoding=encoding or "utf-8", errors=errors)
 
 
+# How often and how long to wait out a denied manifest rename.
+MANIFEST_RENAME_RETRIES = 10
+MANIFEST_RENAME_BACKOFF = 0.15
+
+
+def _patient_manifest(store):
+    """Retry the manifest rename, which Windows denies while anything holds it.
+
+    The store writes `.manifest.json.tmp` and renames it over `manifest.json`
+    after every stage. On Windows that rename raises PermissionError
+    (WinError 5) whenever another process has either file open for even a
+    moment, and a real-time virus scanner opens both as they are written.
+    Measured 2026-11-08: a live run died at the analyses stage this way after
+    a dozen successful saves, taking every route with it. Only the rename is
+    retried; the bytes written and the digests over them are untouched.
+    """
+    original = store.save_manifest
+
+    def save_manifest(manifest):
+        for attempt in range(MANIFEST_RENAME_RETRIES):
+            try:
+                return original(manifest)
+            except PermissionError:
+                if attempt == MANIFEST_RENAME_RETRIES - 1:
+                    raise
+                time.sleep(MANIFEST_RENAME_BACKOFF * (attempt + 1))
+        return None
+
+    store.save_manifest = save_manifest
+    return store
+
+
 def _utf8_lf_store(store_type, root):
     store = store_type(root)
     store.root = _ArtifactPath(store.root)
-    return store
+    return _patient_manifest(store)
 
 
 @contextmanager

@@ -71,6 +71,14 @@ def main():
     if not key:
         print("GEMINI_API_KEY가 비어 있습니다.")
         return 2
+    # The key travels as an HTTP header, and a header carries ASCII only. A
+    # paste that picked up Korean text fails deep inside the first LLM call
+    # as UnicodeEncodeError, 36 seconds in, naming no cause. Caught here it
+    # costs nothing. The key itself is never printed.
+    if not key.isascii():
+        print(f"키에 ASCII가 아닌 글자가 있습니다 (길이 {len(key)}자). "
+              "한글이나 따옴표가 섞여 들어간 것 같습니다. 키만 다시 붙여넣으세요.")
+        return 2
     target = sys.argv[1] if len(sys.argv) > 1 else ASPIRIN
     print(f"목표: {target}")
     print(f"모델: {SELECTION['model']}")

@@ -1,0 +1,399 @@
+{
+ "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+ "model": "gemini-3.1-pro-preview",
+ "readiness": {
+  "configuration": {
+   "asset_sha256": {
+    "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "e8cb0c9f5c8733d60d17d46c6c4773891d81edafd6e61c1050adb08383624b76",
+    "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "1c7da7366da783ffe760deb13cacb013996f9d60eacebfa24acf77f9bf956f2f",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+    "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+   },
+   "effective_config": {
+    "agents": {
+     "analyst_temperature": 0.3,
+     "analyst_thinking_level": null,
+     "critic_temperature": 0.1,
+     "critic_thinking_level": "medium",
+     "edit_iteration_limit": 6,
+     "editor_temperature": 0.3,
+     "editor_thinking_level": "medium",
+     "editor_turn_limit": 60,
+     "route_proposal_attempts": 3,
+     "route_step_limit": 25,
+     "route_temperature": 0.3,
+     "route_thinking_level": "medium",
+     "strategy_count": 3,
+     "strategy_temperature": 0.1,
+     "strategy_thinking_level": null
+    },
+    "completion": {
+     "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+     "budget": {
+      "iteration_limit": 500,
+      "max_transforms": 6,
+      "return_first": true,
+      "time_limit": 1200
+     },
+     "enabled": true,
+     "expansion_policies": null,
+     "filter_policies": null,
+     "stocks": null
+    },
+    "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+    "format_version": "synthex-config-1.0",
+    "llm": {
+     "base_url": null,
+     "max_attempts": 3,
+     "model": "gemini-3.1-pro-preview",
+     "provider": "gemini",
+     "thinking_level": null,
+     "timeout_seconds": 600.0,
+     "use_vertex_ai": false
+    },
+    "profile": "manuscript"
+   },
+   "interpreter_config": "97754159ea23d71e25070bf787784c50c0a9faf9c62055d512c534d027cee347",
+   "platform_io_adapter": {
+    "digest_validation": "unchanged upstream byte digests",
+    "encoding": "utf-8",
+    "name": "original-store-utf8-lf-1",
+    "newline_translation": false,
+    "scope": "SynthEx ArtifactStore root paths only"
+   },
+   "source_sha256": {
+    "engine.py": "9ffbd3a59cc44186d019797884328dd396170d3921812e49d52ddab44a492d86",
+    "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+    "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+    "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+    "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+   },
+   "versions": {
+    "aizynthfinder": "4.4.1",
+    "google-genai": "1.75.0",
+    "pydantic": "2.13.4",
+    "rdkit": "2023.9.6",
+    "synthex": "0.1.0"
+   }
+  },
+  "configuration_id": "9ee22c3144d23c60912ed432b367fcff733074e1362a558d14ae07505305060c",
+  "dependency_compatibility": "unverified",
+  "error": null,
+  "live_verified": false,
+  "ready": true,
+  "state": "live_unverified"
+ },
+ "probe_status": "succeeded",
+ "generation": {
+  "request_id": "e5989f67-bf61-43a4-9f09-1e15ed8f1a5d",
+  "context_id": "1f8c4bf0-44bc-4cb6-b428-2e9c17bf9bdb",
+  "engine": "synthex",
+  "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+  "operation": "generate",
+  "status": "partial",
+  "configuration_id": "9ee22c3144d23c60912ed432b367fcff733074e1362a558d14ae07505305060c",
+  "readiness": {
+   "configuration": {
+    "asset_sha256": {
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "e8cb0c9f5c8733d60d17d46c6c4773891d81edafd6e61c1050adb08383624b76",
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "1c7da7366da783ffe760deb13cacb013996f9d60eacebfa24acf77f9bf956f2f",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+     "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+    },
+    "effective_config": {
+     "agents": {
+      "analyst_temperature": 0.3,
+      "analyst_thinking_level": null,
+      "critic_temperature": 0.1,
+      "critic_thinking_level": "medium",
+      "edit_iteration_limit": 6,
+      "editor_temperature": 0.3,
+      "editor_thinking_level": "medium",
+      "editor_turn_limit": 60,
+      "route_proposal_attempts": 3,
+      "route_step_limit": 25,
+      "route_temperature": 0.3,
+      "route_thinking_level": "medium",
+      "strategy_count": 3,
+      "strategy_temperature": 0.1,
+      "strategy_thinking_level": null
+     },
+     "completion": {
+      "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+      "budget": {
+       "iteration_limit": 500,
+       "max_transforms": 6,
+       "return_first": true,
+       "time_limit": 1200
+      },
+      "enabled": true,
+      "expansion_policies": null,
+      "filter_policies": null,
+      "stocks": null
+     },
+     "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+     "format_version": "synthex-config-1.0",
+     "llm": {
+      "base_url": null,
+      "max_attempts": 3,
+      "model": "gemini-3.1-pro-preview",
+      "provider": "gemini",
+      "thinking_level": null,
+      "timeout_seconds": 600.0,
+      "use_vertex_ai": false
+     },
+     "profile": "manuscript"
+    },
+    "interpreter_config": "97754159ea23d71e25070bf787784c50c0a9faf9c62055d512c534d027cee347",
+    "platform_io_adapter": {
+     "digest_validation": "unchanged upstream byte digests",
+     "encoding": "utf-8",
+     "name": "original-store-utf8-lf-1",
+     "newline_translation": false,
+     "scope": "SynthEx ArtifactStore root paths only"
+    },
+    "source_sha256": {
+     "engine.py": "9ffbd3a59cc44186d019797884328dd396170d3921812e49d52ddab44a492d86",
+     "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+     "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+     "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+     "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+    },
+    "versions": {
+     "aizynthfinder": "4.4.1",
+     "google-genai": "1.75.0",
+     "pydantic": "2.13.4",
+     "rdkit": "2023.9.6",
+     "synthex": "0.1.0"
+    }
+   },
+   "configuration_id": "9ee22c3144d23c60912ed432b367fcff733074e1362a558d14ae07505305060c",
+   "dependency_compatibility": "executed",
+   "error": null,
+   "live_verified": false,
+   "ready": true,
+   "state": "live_unverified"
+  },
+  "result": {
+   "artifacts": [
+    {
+     "content": "{\n  \"format_version\": \"run-manifest-1.0\",\n  \"run_id\": \"22f4daffaa37046d\",\n  \"target\": \"CC(=O)OC1=CC=CC=C1C(=O)O\",\n  \"target_id\": \"e5989f67-bf61-43a4-9f09-1e15ed8f1a5d\",\n  \"constraint\": null,\n  \"input_sha256\": \"7a6ddd5286c12441076e094bf2141a0be19a2a2370359ab3daa546614d7828a8\",\n  \"config\": {\n    \"format_version\": \"synthex-config-1.0\",\n    \"profile\": \"manuscript\",\n    \"llm\": {\n      \"provider\": \"gemini\",\n      \"model\": \"gemini-3.1-pro-preview\",\n      \"base_url\": null,\n      \"use_vertex_ai\": false,\n      \"timeout_seconds\": 600.0,\n      \"max_attempts\": 3,\n      \"thinking_level\": null\n    },\n    \"agents\": {\n      \"strategy_count\": 3,\n      \"route_step_limit\": 25,\n      \"route_proposal_attempts\": 3,\n      \"edit_iteration_limit\": 6,\n      \"editor_turn_limit\": 60,\n      \"strategy_temperature\": 0.1,\n      \"route_temperature\": 0.3,\n      \"critic_temperature\": 0.1,\n      \"editor_temperature\": 0.3,\n      \"analyst_temperature\": 0.3,\n      \"strategy_thinking_level\": null,\n      \"route_thinking_level\": \"medium\",\n      \"critic_thinking_level\": \"medium\",\n      \"editor_thinking_level\": \"medium\",\n      \"analyst_thinking_level\": null\n    },\n    \"completion\": {\n      \"enabled\": true,\n      \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n      \"stocks\": null,\n      \"expansion_policies\": null,\n      \"filter_policies\": null,\n      \"budget\": {\n        \"max_transforms\": 6,\n        \"iteration_limit\": 500,\n        \"time_limit\": 1200,\n        \"return_first\": true\n      }\n    },\n    \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n  },\n  \"config_sha256\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n  \"code_revision\": \"package:0.1.0\",\n  \"dependency_versions\": {\n    \"synthex\": \"0.1.0\",\n    \"aizynthfinder\": \"4.4.1\",\n    \"google-genai\": \"1.75.0\",\n    \"pydantic\": \"2.13.4\",\n    \"rdkit\": \"2023.9.6\"\n  },\n  \"dependency_lock_sha256\": \"73279d5062067ab4c36eeb665882128fac1351a0a43bba3b3accfc53c5d4fc3f\",\n  \"provider\": \"gemini\",\n  \"model\": \"gemini-3.1-pro-preview\",\n  \"prompt_versions\": {\n    \"strategy_generator\": \"strategy-generator-v1\",\n    \"route_builder\": \"route-builder-reactionjson-v2\",\n    \"critic\": \"critic-v2-atom-accounting+ich-m7-rule-screen\",\n    \"editor\": \"editor-v1\",\n    \"analyst\": \"analyst-v1\"\n  },\n  \"prompt_sha256\": {\n    \"strategy_generator\": \"7d1576d28634c7ec5f2b6fa8965d3b0dcbb2f981a25674a0437ce73cc10370ec\",\n    \"route_builder\": \"30964ffc3e4e4f8012dc6dff32f538ba243c1a4b011f991014fa3627b142e48f\",\n    \"critic\": \"7a22d3f990d6973926d4daf6f0bffed06197a1c5ac72025c9ebd728c83513f9d\",\n    \"editor\": \"071f9055b023b0f2443f59d36ada60819841e923f1102a7710675059ed28b023\",\n    \"analyst\": \"66287e23f36fa03d13839cbd0a81046fb820f6772321a0105b141e0e03ea6d5d\"\n  },\n  \"external_assets\": {\n    \"aizynthfinder_config\": \"1c7da7366da783ffe760deb13cacb013996f9d60eacebfa24acf77f9bf956f2f\",\n    \"asset_manifest\": \"e8cb0c9f5c8733d60d17d46c6c4773891d81edafd6e61c1050adb08383624b76\",\n    \"asset:uspto_model.onnx\": \"bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8\",\n    \"asset:uspto_templates.csv.gz\": \"a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe\",\n    \"asset:uspto_filter_model.onnx\": \"ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320\",\n    \"asset:zinc_stock.hdf5\": \"99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d\",\n    \"asset:uspto_ringbreaker_model.onnx\": \"1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be\",\n    \"asset:uspto_ringbreaker_templates.csv.gz\": \"5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14\"\n  },\n  \"stage_configs\": {},\n  \"stage_config_sha256\": {},\n  \"llm_usage\": {\n    \"calls\": 0,\n    \"input_tokens\": 0,\n    \"cached_input_tokens\": 0,\n    \"output_tokens\": 0,\n    \"thought_tokens\": 0,\n    \"total_tokens\": 0\n  },\n  \"stage_durations_seconds\": {\n    \"strategies\": 15.656058\n  },\n  \"status\": \"failed\",\n  \"current_stage\": \"strategies\",\n  \"completed_stages\": [],\n  \"artifacts\": {},\n  \"failure\": {\n    \"stage\": \"strategies\",\n    \"category\": \"UnicodeEncodeError\",\n    \"message\": \"'ascii' codec can't encode characters in position 0-4: ordinal not in range(128)\"\n  },\n  \"created_at\": \"2026-11-08T11:47:22.287613+00:00\",\n  \"updated_at\": \"2026-11-08T11:47:37.957386+00:00\"\n}\n",
+     "export_sha256": "4f8575a845690c27ffe6cfaab61fab5516ae4a82449db5aaec99e806962649ad",
+     "original_sha256": "4f8575a845690c27ffe6cfaab61fab5516ae4a82449db5aaec99e806962649ad",
+     "path": "run/manifest.json",
+     "redacted": false
+    },
+    {
+     "content": "{\"agents\":{\"analyst_temperature\":0.3,\"analyst_thinking_level\":null,\"critic_temperature\":0.1,\"critic_thinking_level\":\"medium\",\"edit_iteration_limit\":6,\"editor_temperature\":0.3,\"editor_thinking_level\":\"medium\",\"editor_turn_limit\":60,\"route_proposal_attempts\":3,\"route_step_limit\":25,\"route_temperature\":0.3,\"route_thinking_level\":\"medium\",\"strategy_count\":3,\"strategy_temperature\":0.1,\"strategy_thinking_level\":null},\"completion\":{\"aizynthfinder_config\":\"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\"budget\":{\"iteration_limit\":500,\"max_transforms\":6,\"return_first\":true,\"time_limit\":1200},\"enabled\":true,\"expansion_policies\":null,\"filter_policies\":null,\"stocks\":null},\"external_asset_manifest\":\"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\",\"format_version\":\"synthex-config-1.0\",\"llm\":{\"base_url\":null,\"max_attempts\":3,\"model\":\"gemini-3.1-pro-preview\",\"provider\":\"gemini\",\"thinking_level\":null,\"timeout_seconds\":600.0,\"use_vertex_ai\":false},\"profile\":\"manuscript\"}",
+     "export_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "original_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "path": "runtime_config.json",
+     "redacted": false
+    }
+   ],
+   "item_failures": [
+    {
+     "failure": {
+      "category": "UnicodeEncodeError",
+      "message": "'ascii' codec can't encode characters in position 0-4: ordinal not in range(128)",
+      "stage": "strategies"
+     },
+     "stage": "strategies",
+     "status": "failed"
+    },
+    {
+     "stage": "stitched_routes",
+     "status": "no_completed_routes"
+    },
+    {
+     "exit_code": 2,
+     "stage": "cli",
+     "status": "failed"
+    }
+   ],
+   "payload": null,
+   "provenance": {
+    "asset_sha256": {
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "e8cb0c9f5c8733d60d17d46c6c4773891d81edafd6e61c1050adb08383624b76",
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "1c7da7366da783ffe760deb13cacb013996f9d60eacebfa24acf77f9bf956f2f",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+     "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+    },
+    "backend": "synthex",
+    "cli_command": "plan",
+    "cli_exit_code": 2,
+    "configured_source_sha256": "8bf4b622179518596ec29a719767aedde9b6175eed022aec8064163e05316f19",
+    "context_id": "1f8c4bf0-44bc-4cb6-b428-2e9c17bf9bdb",
+    "converted_route_count": 0,
+    "created_at": "2026-11-08T11:47:38.475088+00:00",
+    "edit_iteration_limit": 6,
+    "full_workflow_stages": [
+     "strategies",
+     "routes",
+     "reviewed_routes",
+     "analyses",
+     "stitched_routes"
+    ],
+    "limitations": [
+     "Research-only generation is not experimental or safety validation.",
+     "Dependency presence is not a compatibility or chemical-performance guarantee.",
+     "No new assets, saved-route substitutions, reduced workflow or alternative engine are used."
+    ],
+    "live_verified": false,
+    "manifest": {
+     "artifacts": {},
+     "code_revision": "package:0.1.0",
+     "completed_stages": [],
+     "config": {
+      "agents": {
+       "analyst_temperature": 0.3,
+       "analyst_thinking_level": null,
+       "critic_temperature": 0.1,
+       "critic_thinking_level": "medium",
+       "edit_iteration_limit": 6,
+       "editor_temperature": 0.3,
+       "editor_thinking_level": "medium",
+       "editor_turn_limit": 60,
+       "route_proposal_attempts": 3,
+       "route_step_limit": 25,
+       "route_temperature": 0.3,
+       "route_thinking_level": "medium",
+       "strategy_count": 3,
+       "strategy_temperature": 0.1,
+       "strategy_thinking_level": null
+      },
+      "completion": {
+       "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+       "budget": {
+        "iteration_limit": 500,
+        "max_transforms": 6,
+        "return_first": true,
+        "time_limit": 1200
+       },
+       "enabled": true,
+       "expansion_policies": null,
+       "filter_policies": null,
+       "stocks": null
+      },
+      "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+      "format_version": "synthex-config-1.0",
+      "llm": {
+       "base_url": null,
+       "max_attempts": 3,
+       "model": "gemini-3.1-pro-preview",
+       "provider": "gemini",
+       "thinking_level": null,
+       "timeout_seconds": 600.0,
+       "use_vertex_ai": false
+      },
+      "profile": "manuscript"
+     },
+     "config_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "constraint": null,
+     "created_at": "2026-11-08T11:47:22.287613+00:00",
+     "current_stage": "strategies",
+     "dependency_lock_sha256": "73279d5062067ab4c36eeb665882128fac1351a0a43bba3b3accfc53c5d4fc3f",
+     "dependency_versions": {
+      "aizynthfinder": "4.4.1",
+      "google-genai": "1.75.0",
+      "pydantic": "2.13.4",
+      "rdkit": "2023.9.6",
+      "synthex": "0.1.0"
+     },
+     "external_assets": {
+      "aizynthfinder_config": "1c7da7366da783ffe760deb13cacb013996f9d60eacebfa24acf77f9bf956f2f",
+      "asset:uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+      "asset:uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+      "asset:uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+      "asset:uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+      "asset:uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+      "asset:zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d",
+      "asset_manifest": "e8cb0c9f5c8733d60d17d46c6c4773891d81edafd6e61c1050adb08383624b76"
+     },
+     "failure": {
+      "category": "UnicodeEncodeError",
+      "message": "'ascii' codec can't encode characters in position 0-4: ordinal not in range(128)",
+      "stage": "strategies"
+     },
+     "format_version": "run-manifest-1.0",
+     "input_sha256": "7a6ddd5286c12441076e094bf2141a0be19a2a2370359ab3daa546614d7828a8",
+     "llm_usage": {
+      "cached_input_tokens": 0,
+      "calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "thought_tokens": 0,
+      "total_tokens": 0
+     },
+     "model": "gemini-3.1-pro-preview",
+     "prompt_sha256": {
+      "analyst": "66287e23f36fa03d13839cbd0a81046fb820f6772321a0105b141e0e03ea6d5d",
+      "critic": "7a22d3f990d6973926d4daf6f0bffed06197a1c5ac72025c9ebd728c83513f9d",
+      "editor": "071f9055b023b0f2443f59d36ada60819841e923f1102a7710675059ed28b023",
+      "route_builder": "30964ffc3e4e4f8012dc6dff32f538ba243c1a4b011f991014fa3627b142e48f",
+      "strategy_generator": "7d1576d28634c7ec5f2b6fa8965d3b0dcbb2f981a25674a0437ce73cc10370ec"
+     },
+     "prompt_versions": {
+      "analyst": "analyst-v1",
+      "critic": "critic-v2-atom-accounting+ich-m7-rule-screen",
+      "editor": "editor-v1",
+      "route_builder": "route-builder-reactionjson-v2",
+      "strategy_generator": "strategy-generator-v1"
+     },
+     "provider": "gemini",
+     "run_id": "22f4daffaa37046d",
+     "stage_config_sha256": {},
+     "stage_configs": {},
+     "stage_durations_seconds": {
+      "strategies": 15.656058
+     },
+     "status": "failed",
+     "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+     "target_id": "e5989f67-bf61-43a4-9f09-1e15ed8f1a5d",
+     "updated_at": "2026-11-08T11:47:37.957386+00:00"
+    },
+    "original_call": "synthex.cli.main",
+    "platform_io_adapter": {
+     "digest_validation": "unchanged upstream byte digests",
+     "encoding": "utf-8",
+     "name": "original-store-utf8-lf-1",
+     "newline_translation": false,
+     "scope": "SynthEx ArtifactStore root paths only"
+    },
+    "python_version": "3.11.16",
+    "request_id": "e5989f67-bf61-43a4-9f09-1e15ed8f1a5d",
+    "source_sha256": {
+     "engine.py": "9ffbd3a59cc44186d019797884328dd396170d3921812e49d52ddab44a492d86",
+     "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+     "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+     "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+     "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+    },
+    "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+    "versions": {
+     "aizynthfinder": "4.4.1",
+     "google-genai": "1.75.0",
+     "pydantic": "2.13.4",
+     "rdkit": "2023.9.6",
+     "synthex": "0.1.0"
+    }
+   }
+  },
+  "error": {
+   "code": "partial_output",
+   "message": "The original workflow returned partial, failed, unreviewed, or unsolved items. They remain explicit in the retained evidence."
+  }
+ }
+}

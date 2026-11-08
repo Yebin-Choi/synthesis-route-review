@@ -107,6 +107,12 @@ def main():
     if not key:
         print("GEMINI_API_KEY가 비어 있습니다. 키를 환경변수로 넣고 다시 실행하세요.")
         return 2
+    # A header carries ASCII only, so a paste that picked up Korean text
+    # fails inside the request rather than here. The key is never printed.
+    if not key.isascii():
+        print(f"키에 ASCII가 아닌 글자가 있습니다 (길이 {len(key)}자). "
+              "키만 다시 붙여넣으세요.")
+        return 2
 
     listed, listing_error = list_models(key)
     if listing_error:

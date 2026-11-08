@@ -254,7 +254,9 @@ class PlatformArtifactIoTests(unittest.TestCase):
             store = worker._utf8_lf_store(ArtifactStore, directory)
             payload = {"message": "학술제 단계", "items": [1, 2]}
             self.assertIs(type(store), ArtifactStore)
-            for method in ("write_checkpoint", "read_checkpoint", "save_manifest", "load_manifest", "validate"):
+            # save_manifest is deliberately wrapped to retry a denied rename;
+            # every other method stays the original, unbound and unpatched.
+            for method in ("write_checkpoint", "read_checkpoint", "load_manifest", "validate"):
                 self.assertIs(getattr(store, method).__func__, getattr(ArtifactStore, method))
             reference = store.write_checkpoint("unicode", payload)
             path = store.root / reference.path
@@ -271,6 +273,54 @@ class PlatformArtifactIoTests(unittest.TestCase):
                 store.read_checkpoint(reference)
             with self.assertRaisesRegex(ValueError, "immutable checkpoint"):
                 store.write_checkpoint("unicode", payload)
+
+    def test_a_denied_manifest_rename_is_retried_rather_than_losing_the_run(self):
+        # Measured on a live run: Windows denied this rename at the analyses
+        # stage and every route went with it.
+        calls = []
+
+        def flaky(manifest):
+            calls.append(manifest)
+            if len(calls) < 3:
+                raise PermissionError(5, "액세스가 거부되었습니다")
+            return "saved"
+
+        store = SimpleNamespace(save_manifest=flaky)
+        worker._patient_manifest(store)
+        with patch.object(worker.time, "sleep") as slept:
+            self.assertEqual(store.save_manifest("manifest"), "saved")
+        self.assertEqual(calls, ["manifest"] * 3)
+        self.assertEqual(slept.call_count, 2)
+        # Each wait is longer than the last, so a scanner holding the file
+        # for a moment is waited out without spinning on it.
+        waits = [call.args[0] for call in slept.call_args_list]
+        self.assertEqual(waits, sorted(waits))
+
+    def test_a_rename_denied_every_time_still_raises(self):
+        def always_denied(manifest):
+            raise PermissionError(5, "액세스가 거부되었습니다")
+
+        store = SimpleNamespace(save_manifest=always_denied)
+        worker._patient_manifest(store)
+        with patch.object(worker.time, "sleep") as slept:
+            with self.assertRaises(PermissionError):
+                store.save_manifest("manifest")
+        self.assertEqual(slept.call_count, worker.MANIFEST_RENAME_RETRIES - 1)
+
+    def test_another_error_is_not_retried(self):
+        # Only a denied rename is transient. A bad manifest must surface at
+        # once rather than after ten waits.
+        calls = []
+
+        def broken(manifest):
+            calls.append(1)
+            raise ValueError("manifest is invalid")
+
+        store = SimpleNamespace(save_manifest=broken)
+        worker._patient_manifest(store)
+        with self.assertRaises(ValueError):
+            store.save_manifest("manifest")
+        self.assertEqual(len(calls), 1)
 
     def test_store_factory_scopes_both_original_import_seams_and_restores_on_error(self):
         original_store = synthex.artifacts.ArtifactStore
