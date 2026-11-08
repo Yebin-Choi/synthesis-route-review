@@ -207,6 +207,28 @@ def record_generation(snapshot, job):
         attempt.update(status="failed", error={"message": "생성 결과의 목표·스키마를 확인하지 못했습니다."})
 
 
+def maybe_sweep_byproducts(workspace):
+    """Run the whole-route ASKCOS sweep once per generated set of routes.
+
+    Keyed on the generation attempt rather than the report, because applying
+    candidates rewrites the report: keying on that would make every sweep
+    look like a new set of routes and resend the same structures.
+    """
+    if not st.session_state.get("byproduct_sweep_consent"):
+        return workspace
+    applied = next((attempt for attempt in reversed(st.session_state["generation_attempts"])
+                    if attempt.get("applied")), None)
+    if applied is None:
+        return workspace
+    marker = applied["request"]["request_id"]
+    if st.session_state.get("_byproduct_swept") == marker:
+        return workspace
+    st.session_state["_byproduct_swept"] = marker
+    workspace, skipped = review_signals.sweep_byproducts(workspace)
+    st.session_state["_byproduct_sweep_skipped"] = skipped
+    return workspace
+
+
 @st.fragment(run_every=0.5)
 def poll_native_jobs():
     """Poll session-owned jobs without blocking the UI or starting an engine."""
@@ -428,6 +450,14 @@ def show_generation_controls(workspace, raw_target, target_error):
                         else "외부 전송에 동의합니다",
                         key="generation_consent", disabled=not readiness["ready"])
             st.caption("키나 모델을 바꾸면 실행 중인 작업을 취소합니다")
+        # Off until it is ticked. Ticking it is the consent: the line says
+        # what leaves this computer, and the per-reaction button in the
+        # byproduct tab stays where it is for anyone who would rather send
+        # one reaction at a time.
+        st.checkbox("부산물 후보도 같이 받기", key="byproduct_sweep_consent")
+        st.caption("켜면 경로를 만든 뒤 남은 경로의 모든 반응을 공개 ASKCOS "
+                   "서버로 보냅니다. 반응마다 반응물과 주생성물 구조가 나갑니다. "
+                   "끄면 아무것도 나가지 않습니다.")
 
     consented = (engine_id != "synthex"
                  or (bool(st.session_state.get("llm_api_key"))
@@ -533,6 +563,7 @@ for name, value in (("target_catalog", DEFAULT_TARGET), ("target_smiles", TARGET
                     ("llm_base_url", PROVIDERS[DEFAULT_PROVIDER]["base_url"] or ""),
                     ("llm_model", PROVIDERS[DEFAULT_PROVIDER]["model"]),
                     ("_key_revision", 0), ("generation_consent", False),
+                    ("byproduct_sweep_consent", False),
                     ("generation_attempts", [])):
     st.session_state.setdefault(name, value)
 st.session_state.setdefault("_native_session_id", str(uuid4()))
@@ -584,6 +615,11 @@ workspace = show_generation_controls(workspace, raw_target, target_error)
 st.session_state["review_workspace"] = workspace
 poll_native_jobs()
 if workspace and workspace["report"] is not None:
+    workspace = maybe_sweep_byproducts(workspace)
+    st.session_state["review_workspace"] = workspace
+    for entry in st.session_state.get("_byproduct_sweep_skipped", []):
+        st.caption(f"{entry['route_id']} {entry['step_id']}단계는 부산물 요청을 "
+                   f"보내지 않았습니다: {entry['reason']}")
     # The rule and what it dropped are one subject, so they are one block.
     # Two expanders side by side made the reader open both to learn that the
     # second was the consequence of the first.
@@ -594,6 +630,9 @@ if workspace and workspace["report"] is not None:
     workspace = shared_selection(workspace)
     st.session_state["review_workspace"] = workspace
     if context.eligible_routes(workspace):
+        # One picker, above the tabs, next to the route it applies to. Both
+        # the risk screen and the comparison screen read the run it starts.
+        tool_comparison_view.show_tool_controls(workspace)
         risk, comparison, byproducts = st.tabs(
             TABS, key="review_tabs", on_change="rerun")
         with risk:

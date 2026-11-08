@@ -436,6 +436,74 @@ def _pick_step(workspace):
     return workspace
 
 
+def byproduct_plan(workspace):
+    """Every reaction a sweep would ask about, in the routes' own order.
+
+    Excluded routes are left out because a selection cannot point at one. A
+    step with more than one listed product is left in the plan with no
+    product, so the sweep can say it was skipped and why rather than picking
+    one: which product the impurities are counted against changes the answer.
+    """
+    eligible = {route["id"] for route in (workspace.get("selection") or {}).get("routes", [])
+                if route["status"] != "excluded"}
+    plan = []
+    for route in (workspace.get("active_input") or {}).get("routes", []):
+        if route["id"] not in eligible:
+            continue
+        for step in route["steps"]:
+            products = list(dict.fromkeys(step.get("products") or []))
+            plan.append({"route_id": route["id"], "step_id": step["id"],
+                         "product": products[0] if len(products) == 1 else None})
+    return plan
+
+
+def sweep_byproducts(workspace, *, predict=None):
+    """Send every reaction of the kept routes to ASKCOS, one after another.
+
+    Consent used to be one click per reaction. It is one tick in the
+    generation settings now, which names the transfer and starts off, and
+    this sends the same payloads the per-step button would have sent, in the
+    same order. A reaction that fails is recorded and the sweep carries on:
+    one dead call must not cost the others their candidates.
+    """
+    predict = predict or engine.predict_byproducts
+    plan = byproduct_plan(workspace)
+    if not plan:
+        return workspace, []
+    origin = (workspace["route_id"], workspace["step_id"])
+    skipped = []
+    progress = st.progress(0.0, text="부산물 후보를 받고 있습니다")
+    for index, entry in enumerate(plan, 1):
+        progress.progress(index / len(plan),
+                          text=f"부산물 후보 {index}/{len(plan)} 반응")
+        if entry["product"] is None:
+            skipped.append({**entry, "reason": "주생성물이 하나가 아니어서 "
+                                               "건너뛰었습니다."})
+            continue
+        try:
+            selected = context.select_step(workspace, entry["route_id"], entry["step_id"])
+            request = context.make_byproduct_request(selected, entry["product"])
+        except (ValueError, KeyError) as exc:
+            skipped.append({**entry, "reason": str(exc)})
+            continue
+        try:
+            result = predict(request["reactants_smiles"], request["product_smiles"],
+                             timeout=60)
+        except Exception as exc:
+            result = {"status": "failed", "candidates": [],
+                      "error": f"{type(exc).__name__}: {exc}",
+                      "source": engine.ASKCOS_API}
+        workspace = context.apply_byproduct_result(selected, request, result)
+    progress.empty()
+    # The sweep walked the selection through every step; put it back where
+    # the reader left it, if that step is still there.
+    try:
+        workspace = context.select_step(workspace, *origin)
+    except (ValueError, KeyError):
+        pass
+    return workspace, skipped
+
+
 def show_byproducts(workspace):
     """One explicit click sends this step to the public ASKCOS server.
 

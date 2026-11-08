@@ -500,20 +500,70 @@ def explanation_lines(entry):
     return lines
 
 
-def _tool_picker(available):
-    """The tool multiselect and the run button, side by side."""
+def show_tool_controls(workspace):
+    """The one place the reader picks tools and runs them.
+
+    There used to be a picker in the comparison tab and another under the
+    risk cards, each with its own run button and its own stored answers.
+    Two pickers for one question is a question asked twice, and the two
+    could disagree. This one sits above the tabs, next to the route, and
+    both screens read what it produced.
+    """
+    report = (workspace or {}).get("report")
+    route_id = (workspace or {}).get("route_id")
+    if not report or not route_id:
+        return
+    materials = materials_of_route(report, route_id)
+    available = list(screening_judges.implemented_judge_ids())
     controls, action = st.columns([4, 1])
     with controls:
         chosen = st.multiselect(
             "도구", available,
-            default=[tool for tool in DEFAULT_TOOLS if tool in available],
+            default=[tool_id for tool_id in DEFAULT_TOOLS if tool_id in available],
             format_func=lambda tool_id: TOOL_PERFORMANCE[tool_id]["label"],
-            key="comparison_tools", label_visibility="collapsed",
-            placeholder="비교할 도구를 고르세요")
+            key="review_tools", label_visibility="collapsed",
+            placeholder="돌릴 도구를 고르세요")
     with action:
-        run = st.button("실행", key="comparison_run", type="primary",
-                        width="stretch")
-    return chosen, run
+        run = st.button("실행", key="review_tools_run", type="primary",
+                        width="stretch", disabled=not (chosen and materials))
+    if not chosen:
+        st.caption("도구를 하나 이상 고르세요.")
+        return
+    if not materials:
+        st.caption("이 경로에 검사할 물질이 없습니다.")
+        return
+    if run:
+        with st.spinner(f"도구 {len(chosen)}개를 물질 {len(materials)}개에 "
+                        "실행하고 있습니다"):
+            st.session_state["_tool_result"] = {
+                "results": run_tools(materials, chosen), "materials": materials,
+                "tools": chosen, "route_id": route_id}
+    if stored_tool_result(workspace) is None:
+        slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
+                if tool_id in EXTERNAL_TOOLS]
+        note = (" " + ", ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
+                if slow else "")
+        st.caption(f"물질 {len(materials)}개, 도구 {len(chosen)}개." + note)
+
+
+def stored_tool_result(workspace):
+    """The last run, but only if it is still about what is on screen.
+
+    A run belongs to one route and one tool set. Switching either has to
+    show the button again rather than another route's answers.
+    """
+    stored = st.session_state.get("_tool_result")
+    if not stored:
+        return None
+    report = (workspace or {}).get("report")
+    route_id = (workspace or {}).get("route_id")
+    if not report or stored["route_id"] != route_id:
+        return None
+    if stored["tools"] != st.session_state.get("review_tools"):
+        return None
+    if stored["materials"] != materials_of_route(report, route_id):
+        return None
+    return stored
 
 
 def _summary_metrics(rows, disagreed, silent, bands):
@@ -664,55 +714,16 @@ def show_route_tool_table(workspace):
     The risk screen gives each material one chip, and that chip is the rule
     screen alone: its sensitivity is 0.552, so half the real positives carry
     no mark there. A reader who wanted the model calls had to leave for the
-    comparison tab and find the same material again. The picker and the table
-    are here too now, scoped to this route.
+    comparison tab and find the same material again. The table is here too
+    now, drawn from the run started above the tabs.
     """
-    report = (workspace or {}).get("report")
-    route_id = (workspace or {}).get("route_id")
-    if not report or not route_id:
+    stored = stored_tool_result(workspace)
+    if stored is None:
         return
-    materials = materials_of_route(report, route_id)
-    if not materials:
-        return
-
     st.subheader("도구별 판정")
-    st.caption("위 카드의 칩은 규칙 판정 하나입니다. 여기서 도구를 골라 같은 "
-               "물질에 대한 다른 판정을 함께 볼 수 있습니다.")
-    available = list(screening_judges.implemented_judge_ids())
-    controls, action = st.columns([4, 1])
-    with controls:
-        chosen = st.multiselect(
-            "도구", available,
-            default=[tool_id for tool_id in DEFAULT_TOOLS if tool_id in available],
-            format_func=lambda tool_id: TOOL_PERFORMANCE[tool_id]["label"],
-            key="route_tools", label_visibility="collapsed",
-            placeholder="실행할 도구를 고르세요")
-    with action:
-        run = st.button("실행", key="route_tools_run", type="primary",
-                        width="stretch")
-    if not chosen:
-        st.caption("도구를 하나 이상 고르세요.")
-        return
-
-    state_key = "_route_tool_result"
-    if run:
-        with st.spinner(f"도구 {len(chosen)}개를 물질 {len(materials)}개에 "
-                        "실행하고 있습니다"):
-            st.session_state[state_key] = {
-                "results": run_tools(materials, chosen), "materials": materials,
-                "tools": chosen, "route_id": route_id}
-    stored = st.session_state.get(state_key)
-    # A stored run belongs to one route and one tool set. Switching either
-    # must show the button again rather than the previous route's answers.
-    if (not stored or stored["tools"] != chosen or stored["route_id"] != route_id
-            or stored["materials"] != materials):
-        slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
-                if tool_id in EXTERNAL_TOOLS]
-        note = (" " + ", ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
-                if slow else "")
-        st.caption(f"물질 {len(materials)}개, 도구 {len(chosen)}개." + note)
-        return
-
+    st.caption("위 카드의 칩은 규칙 판정 하나입니다. 같은 물질에 대한 다른 "
+               "판정을 아래에 나란히 둡니다.")
+    chosen = stored["tools"]
     for tool_id, result in stored["results"].items():
         if result.get("tool_error"):
             st.error(f"{TOOL_PERFORMANCE[tool_id]['label']}를 실행하지 못했습니다: "
@@ -729,45 +740,19 @@ def show_route_tool_table(workspace):
 
 
 def show_tool_comparison(workspace):
-    """The comparison screen. Runs nothing until the user asks for it."""
+    """The deeper read of the run the reader started above the tabs."""
     report = (workspace or {}).get("report")
     if not report:
         st.info("경로를 먼저 불러오세요.")
         return
-    materials = route_materials(report)
-    if not materials:
-        st.info("비교할 물질이 없습니다.")
-        return
-
     ui_kit.use()
-    chosen, run = _tool_picker(list(screening_judges.implemented_judge_ids()))
-    threshold = None
-    if not chosen:
-        st.warning("도구를 하나 이상 고르세요.")
+    stored = stored_tool_result(workspace)
+    if stored is None:
+        st.caption("위에서 도구를 고르고 실행을 누르면 여기에 나옵니다.")
+        _show_performance(st.session_state.get("review_tools") or [])
         return
 
-    state_key = "_comparison_result"
-    if run:
-        with st.spinner(f"도구 {len(chosen)}개를 물질 {len(materials)}개에 "
-                        "실행하고 있습니다"):
-            st.session_state[state_key] = {
-                "results": run_tools(materials, chosen, threshold=threshold),
-                "materials": materials, "tools": chosen, "threshold": threshold}
-    stored = st.session_state.get(state_key)
-    if not stored or stored["tools"] != chosen:
-        # Only name the slow ones when one of them is actually in the run.
-        # The line used to warn about Toxtree and EPA TEST whether or not they
-        # had been picked, which made a fast run look like a slow one.
-        slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
-                if tool_id in EXTERNAL_TOOLS]
-        # "띄우므로" would be wrong for the Toolbox: it does not launch it but
-        # calls one that has to be running already.
-        note = (" " + ", ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
-                if slow else "")
-        st.caption(f"물질 {len(materials)}개, 도구 {len(chosen)}개." + note)
-        _show_performance(chosen)
-        return
-
+    chosen = stored["tools"]
     for tool_id, result in stored["results"].items():
         if result.get("tool_error"):
             st.error(f"{TOOL_PERFORMANCE[tool_id]['label']}를 실행하지 못했습니다: "
@@ -782,7 +767,7 @@ def show_tool_comparison(workspace):
 
     _summary_metrics(rows, disagreed, silent, bands)
     st.markdown(_matrix_html(rows, chosen, bands), unsafe_allow_html=True)
-    _show_scores(rows, chosen, stored["threshold"])
+    _show_scores(rows, chosen, None)
     st.download_button("비교표 내려받기 (CSV)", comparison_csv(rows, chosen),
                        file_name="tool_comparison.csv", mime="text/csv")
     if disagreed:
