@@ -50,7 +50,7 @@ class ComparisonTests(unittest.TestCase):
         }
         row = view.build_comparison(["CC=O"], results)[0]
         self.assertTrue(row["_disagree"])
-        self.assertEqual(row["전문가 규칙 (ICH M7)"], "양성")
+        self.assertEqual(row["ICH M7"], "양성")
         self.assertEqual(row[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "음성 (0.07)")
 
     def test_tools_that_agree_are_not_marked_as_disagreeing(self):
@@ -78,7 +78,7 @@ class ComparisonTests(unittest.TestCase):
     def test_a_tool_that_returned_nothing_is_marked_rather_than_dropped(self):
         results = {"rules": {"calls": []}}
         row = view.build_comparison(["CCO"], results)[0]
-        self.assertEqual(row["전문가 규칙 (ICH M7)"], "실행 안 됨")
+        self.assertEqual(row["ICH M7"], "실행 안 됨")
 
 
 class ToolRunningTests(unittest.TestCase):
@@ -449,7 +449,7 @@ class RuleNegativeLabelTest(unittest.TestCase):
         rows = view.build_comparison(
             ["CCO"], {"rules": {"judge": "rules", "calls": [_call("CCO", "0")],
                                 "evidence": {}}})
-        self.assertEqual(rows[0]["전문가 규칙 (ICH M7)"], "경고구조 없음")
+        self.assertEqual(rows[0]["ICH M7"], "경고구조 없음")
         self.assertIn("경고구조 없음", view._matrix_html(rows, ["rules"]))
         self.assertIn("경고구조 없음", view.comparison_csv(rows, ["rules"]))
 
@@ -491,7 +491,7 @@ class ToolKeepsItsOwnLineTest(unittest.TestCase):
                 for row in view.performance_rows(
                     ["rules", "epa_test", "ames_xgb", "admet"])}
         self.assertEqual(rows["EPA TEST 5.1.2"], "도구 자체 판정")
-        self.assertEqual(rows["전문가 규칙 (ICH M7)"], "없음")
+        self.assertEqual(rows["ICH M7"], "없음")
         self.assertEqual(rows[view.TOOL_PERFORMANCE["ames_xgb"]["label"]], "0.50")
         self.assertEqual(rows["ADMET-AI 2.0.1"], "0.50")
 

@@ -56,14 +56,14 @@ SCORED = {
 ORDER = ["rules", "qsar_toolbox", "epa_test", "toxtree", "admet",
          "ames_desc", "ames_xgb"]
 PANEL_LABELS = {
-    "rules": "Expert rules (ICH M7)", "qsar_toolbox": "QSAR Toolbox 4.9 OASIS",
+    "rules": "ICH M7", "qsar_toolbox": "QSAR Toolbox 4.9 OASIS",
     "epa_test": "EPA TEST 5.1.2", "toxtree": "Toxtree 3.1.0",
     "admet": "ADMET-AI 2.0.1", "ames_desc": "Model 2: descriptor",
     "ames_xgb": "Model 1: fingerprint + descriptor",
 }
 # Two lines, because seven of these have to sit side by side under a bar group.
 SHORT_LABELS = {
-    "rules": "Expert rules\n(ICH M7)", "qsar_toolbox": "QSAR Toolbox\n4.9 OASIS",
+    "rules": "ICH M7", "qsar_toolbox": "QSAR Toolbox\n4.9 OASIS",
     "epa_test": "EPA TEST\n5.1.2", "toxtree": "Toxtree\n3.1.0",
     "admet": "ADMET-AI\n2.0.1", "ames_desc": "Model 2\ndescriptor",
     "ames_xgb": "Model 1\nfingerprint",

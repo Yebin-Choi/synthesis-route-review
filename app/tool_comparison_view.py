@@ -67,7 +67,7 @@ MEASURED_ON = "외부 검증셋 1,201종"
 # A rule tool returns a verdict, so a line does not apply, and EPA TEST
 # publishes its own call.
 TOOL_PERFORMANCE = {
-    "rules": {"label": "전문가 규칙 (ICH M7)", "method": "전문가 규칙 기반", "line": None,
+    "rules": {"label": "ICH M7", "method": "전문가 규칙 기반", "line": None,
               "sensitivity": 0.552, "specificity": 0.769, "balanced": 0.661,
               "balanced_interval": (0.633, 0.689),
               "answered": 1.000, "measured_on": MEASURED_ON},
@@ -432,8 +432,9 @@ def _band_cell(placed):
 # One line per tool, shown on hover over its column so the header can stay
 # short. A reader should not have to know what "전문가 규칙" is to read the row.
 TOOL_HINTS = {
-    "rules": "이 소프트웨어가 직접 넣은 규칙입니다. ICH M7(R2)이 이름을 올린 "
-             "물질 목록과, 변이원에서 자주 보이는 부분 구조를 대조합니다.",
+    "rules": "ICH M7(R2)이 이름을 올린 물질 목록과, 변이원에서 자주 보이는 부분 "
+             "구조를 대조합니다. 지침을 이 소프트웨어가 구현한 것이고 ICH가 "
+             "배포하는 도구는 아닙니다.",
     "toxtree": "독성 경고구조를 판정하는 공개 프로그램입니다. 따로 설치해서 "
                "이 컴퓨터에서 실행합니다.",
     "epa_test": "미국 환경보호청이 배포하는 독성 예측 프로그램입니다. 구조가 "
