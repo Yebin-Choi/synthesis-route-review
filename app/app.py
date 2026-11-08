@@ -28,7 +28,7 @@ TITLE = f"{branding.NAME}: {branding.SUBTITLE}"
 # prices it could not supply. The quantity screen back-calculated charges from
 # coefficients and a yield the reader also had to supply, which made the
 # software look as though it knew a recipe it had never been given.
-TABS = ("위험 검토", "독성 예측 툴 비교")
+TABS = ("위험 검토 (ICH M7)", "독성 예측 툴 비교")
 CATALOG = {f"{item['name_ko']} ({item['name_en']}), {item['category']}": item for item in MOLECULES}
 TARGETS = {label: item["smiles"] for label, item in CATALOG.items()}
 TARGETS["직접 입력"] = ""
@@ -634,10 +634,6 @@ if workspace and workspace["report"] is not None:
             st.caption(f"엔진: {ENGINES[st.session_state['generation_engine']]}"
                        f" · {byproducts_note}")
             show_route_risk(workspace)
-            # The cards above carry the ICH M7 rule screen's call only. One
-            # tool of the reader's choosing goes beside it here; every tool
-            # at once is the next tab.
-            tool_comparison_view.show_route_tool_table(workspace)
             # The candidates themselves are cards above, so what is left is
             # the request: what was sent where, what came back, what failed.
             # That is a record to reach for, not a tab to sit beside the

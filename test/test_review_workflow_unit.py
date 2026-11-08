@@ -105,7 +105,7 @@ class ReviewWorkflowTests(OfflineAppCase):
         self.assertIn(engine.ASKCOS_API, self.text())
         # The byproduct request moved out of its own tab and into a fold on
         # the risk screen; the request itself is unchanged.
-        self.open_tab("위험 검토")
+        self.open_tab("위험 검토 (ICH M7)")
         self.app.checkbox(key="strict_alerts").uncheck().run()
         self.assertEqual(self.app.session_state["_byproduct_request"], pending)
         self.predict.assert_not_called()

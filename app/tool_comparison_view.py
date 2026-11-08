@@ -628,53 +628,6 @@ def _show_performance(chosen, *, with_note=False):
                        "정확도가 높아도 그만큼 자주 답하지 않는다는 뜻입니다.")
 
 
-def show_route_tool_table(workspace):
-    """One tool, on the route the reader is looking at.
-
-    The risk screen is the working screen: one route, one judgement, the
-    cards above it. Comparing every tool is the other tab's job, so this
-    picker takes exactly one. The cards' own chip is the ICH M7 rule screen,
-    whose sensitivity is 0.552, and that is why a second column belongs here.
-    """
-    report = (workspace or {}).get("report")
-    route_id = (workspace or {}).get("route_id")
-    if not report or not route_id:
-        return
-    materials = materials_of_route(report, route_id)
-    if not materials:
-        return
-
-    st.subheader("독성 예측")
-    available = list(screening_judges.implemented_judge_ids())
-    default = "ames_xgb" if "ames_xgb" in available else available[0]
-    controls, action = st.columns([4, 1])
-    with controls:
-        chosen = st.selectbox(
-            "도구", available, index=available.index(default),
-            format_func=lambda tool_id: TOOL_PERFORMANCE[tool_id]["label"],
-            key="risk_tool", label_visibility="collapsed")
-    with action:
-        run = st.button("실행", key="risk_tool_run", type="primary",
-                        width="stretch")
-    if run:
-        _run_tools_for(workspace, [chosen], state_key="_risk_tool_result")
-    stored = stored_tool_result(workspace, state_key="_risk_tool_result",
-                                tools=[chosen])
-    if stored is None:
-        _pending_note(materials, [chosen])
-        return
-    result = stored["results"].get(chosen) or {}
-    if result.get("tool_error"):
-        st.error(f"{TOOL_PERFORMANCE[chosen]['label']}를 실행하지 못했습니다: "
-                 f"{result['tool_error']}")
-    rows = build_comparison(stored["materials"], stored["results"])
-    st.markdown(_matrix_html(rows, [chosen]), unsafe_allow_html=True)
-    st.caption(TOOL_HINTS.get(chosen, ""))
-    st.download_button("이 표 내려받기 (CSV)", comparison_csv(rows, [chosen]),
-                       file_name="route_tool_calls.csv", mime="text/csv",
-                       key="risk_tool_csv")
-
-
 def show_tool_comparison(workspace):
     """Every chosen tool side by side, with the scores and the measured table.
 

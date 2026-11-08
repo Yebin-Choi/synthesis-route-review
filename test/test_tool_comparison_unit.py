@@ -567,15 +567,14 @@ class RouteScopedTableTests(unittest.TestCase):
         self.assertEqual(view.materials_of_route(self._report(), "nope"), [])
         self.assertEqual(view.materials_of_route({}, "r1"), [])
 
-    def test_each_section_has_its_own_picker_and_run_button(self):
-        # The risk screen takes one tool; the comparison screen takes many.
-        # Merging them made the second question vanish into the first.
+    def test_the_comparison_screen_owns_the_only_picker(self):
+        # The risk tab is the ICH M7 rule screen and the byproduct request.
+        # Comparing tools is this screen's question, and it asks it once.
         source = Path(view.__file__).read_text(encoding="utf-8")
-        for key in ("risk_tool", "risk_tool_run", "comparison_tools",
-                    "comparison_run"):
+        for key in ("comparison_tools", "comparison_run"):
             self.assertEqual(source.count('key="%s"' % key), 1)
-        self.assertIn('key="risk_tool", label_visibility', source)
-        self.assertIn("st.selectbox(", source.split("def show_route_tool_table")[1])
+        for gone in ("risk_tool", "risk_tool_run", "risk_tool_csv"):
+            self.assertNotIn('key="%s"' % gone, source)
         self.assertIn("st.multiselect(", source.split("def show_tool_comparison")[1])
 
     def test_a_stored_run_is_dropped_when_the_route_changes(self):
@@ -610,7 +609,7 @@ class RouteScopedTableTests(unittest.TestCase):
                 {"report": report, "route_id": "r1"}, state_key="k",
                 tools=["rules"]))
 
-    def test_the_two_sections_keep_their_answers_apart(self):
+    def test_the_comparison_run_is_stored_under_its_own_key(self):
         source = Path(view.__file__).read_text(encoding="utf-8")
-        self.assertIn('state_key="_risk_tool_result"', source)
         self.assertIn('state_key="_comparison_result"', source)
+        self.assertNotIn('state_key="_risk_tool_result"', source)

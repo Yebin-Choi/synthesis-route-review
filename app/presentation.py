@@ -501,6 +501,53 @@ def show_structure(smiles):
         st.caption("구조 그림 없음")
 
 
+def _structure_cell(smiles, *, caption=None):
+    """One drawing with its SMILES under it, or the SMILES alone.
+
+    The SMILES stays on screen either way. It is what the reader copies into
+    another tool, and a picture of a structure is not something you can paste.
+    """
+    image = structure_png(smiles)
+    if image:
+        st.image(image, width="stretch")
+    else:
+        st.caption("구조 그림 없음")
+    if caption:
+        st.markdown(f"**{caption}**")
+    st.caption(smiles)
+
+
+def show_route_structures(route, *, per_row=4):
+    """Each reaction as drawn structures, reactants then product.
+
+    This replaced a graph whose nodes were SMILES strings. A reader looking
+    at a route wants to see what the molecules are, and
+    `CC(C)N(CC(O)COc1cccc2ccccc12)S(C)(=O)=O` does not show that to anyone
+    reading at normal speed. The strings are still under each drawing.
+    """
+    for order, step in enumerate(route.get("steps", []), 1):
+        st.markdown(f"**{order}단계**")
+        reactants = list(step.get("reactants") or [])
+        products = list(step.get("products") or [])
+        if not reactants and not products:
+            st.caption("기재된 구조가 없습니다")
+            continue
+        for start in range(0, len(reactants), per_row):
+            chunk = reactants[start:start + per_row]
+            for column, smiles in zip(st.columns(len(chunk)), chunk):
+                with column:
+                    _structure_cell(smiles, caption=NAMES.get(
+                        canonicalize_smiles(smiles) if len(smiles) <= 4096 else None))
+        if products:
+            st.caption("반응물 위, 생성물 아래")
+            for start in range(0, len(products), per_row):
+                chunk = products[start:start + per_row]
+                for column, smiles in zip(st.columns(len(chunk)), chunk):
+                    with column:
+                        _structure_cell(smiles, caption=NAMES.get(
+                            canonicalize_smiles(smiles) if len(smiles) <= 4096 else None))
+
+
 def route_dot(route):
     """Draw only supplied reaction edges; equal valid structures share nodes."""
     lines = ['digraph route { rankdir=LR; node [fontname="sans-serif"];']

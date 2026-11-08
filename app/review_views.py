@@ -18,7 +18,7 @@ import workspace as context
 from presentation import (
     GLOSSARY,
     ALERTS, EVIDENCE_TEXT, ROLES, STATUS, STATUS_KINDS, material_card,
-    material_name, material_reason, route_dot, show_structure,
+    material_name, material_reason, show_route_structures, show_structure,
 )
 from route_ames_view import ensure_route_ames_evidence, get_route_ames_evidence, show_route_ames_review
 
@@ -373,11 +373,11 @@ def show_route_risk(workspace):
     with st.expander("판정 사유와 원문"):
         show_reasons(decision)
         source = next(item for item in workspace["active_input"]["routes"] if item["id"] == route["id"])
-        st.graphviz_chart(route_dot(source))
-        # "잇습니다" read as a typo for "있습니다" on first pass. The sentence
-        # has to say what the picture is without making the reader work out
-        # which verb it is.
-        st.caption("보고서에 적힌 반응물과 생성물만 연결해서 보여줍니다")
+        # The graph's nodes were SMILES strings, which is not something a
+        # reader takes in at a glance. Each reaction is drawn instead, with
+        # the string kept under every drawing.
+        show_route_structures(source)
+        st.caption("보고서에 적힌 반응물과 생성물만 보여줍니다")
         st.json(source, expanded=False)
 
 

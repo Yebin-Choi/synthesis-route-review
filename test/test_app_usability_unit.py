@@ -21,7 +21,7 @@ import workspace as context
 from molecule_catalog import MOLECULES
 
 # The cost tab was removed with the pricing screen; three tabs remain.
-TABS = ["위험 검토", "독성 예측 툴 비교"]
+TABS = ["위험 검토 (ICH M7)", "독성 예측 툴 비교"]
 CATALOG_NAMES = {item["name_en"].casefold(): f"{item['name_ko']} ({item['name_en']}), {item['category']}" for item in MOLECULES}
 
 
