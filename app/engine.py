@@ -362,8 +362,18 @@ def generate_routes(smiles: str, time_limit: int = 30, iteration_limit: int = 30
         raise FileNotFoundError("test/models의 AiZynthFinder 모델 또는 재고 파일이 없습니다.")
     config = {"expansion": {"uspto": [str(models / names[0]), str(models / names[1])]},
               "filter": {"uspto": str(models / names[2])}, "stock": {"zinc": str(models / names[3])}}
+    # ZINC is a drug-like screening library and lists almost no small
+    # inorganics: measured 2026-11-08, it has neither carbon dioxide nor
+    # water. A route ending there read as unfinished, which stopped the
+    # search from ever calling it solved. The bulk list is optional so a
+    # checkout without it still runs on ZINC alone.
+    bulk = models / "bulk_reagents_stock.hdf5"
+    if bulk.is_file():
+        config["stock"]["bulk_reagents"] = str(bulk)
+    # Read the names before constructing: AiZynthFinder consumes the dict.
+    stock_names = list(config["stock"])
     finder = AiZynthFinder(configdict=config)
-    finder.stock.select_first()
+    finder.stock.select(stock_names)
     finder.expansion_policy.select_first()
     finder.filter_policy.select("uspto")
     finder.config.search.time_limit = time_limit
