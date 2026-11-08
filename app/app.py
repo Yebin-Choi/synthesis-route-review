@@ -630,16 +630,20 @@ if workspace and workspace["report"] is not None:
     workspace = shared_selection(workspace)
     st.session_state["review_workspace"] = workspace
     if context.eligible_routes(workspace):
-        # One picker, above the tabs, next to the route it applies to. Both
-        # the risk screen and the comparison screen read the run it starts.
-        tool_comparison_view.show_tool_controls(workspace)
         risk, comparison, byproducts = st.tabs(
             TABS, key="review_tabs", on_change="rerun")
         with risk:
+            # What produced these routes, and whether byproduct candidates
+            # are in them, decides how to read everything below.
+            byproducts_note = ("부산물 후보 포함"
+                               if st.session_state.get("byproduct_sweep_consent")
+                               else "부산물 미조회")
+            st.caption(f"엔진: {ENGINES[st.session_state['generation_engine']]}"
+                       f" · {byproducts_note}")
             show_route_risk(workspace)
-            # The cards above carry the rule screen's call only. The tool
-            # table sits under them so the other judgements on the same
-            # materials are on this screen rather than a tab away.
+            # The cards above carry the ICH M7 rule screen's call only. One
+            # tool of the reader's choosing goes beside it here; every tool
+            # at once is the next tab.
             tool_comparison_view.show_route_tool_table(workspace)
         with comparison:
             show_tool_comparison(workspace)

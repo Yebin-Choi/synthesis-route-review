@@ -685,42 +685,50 @@ class RouteScopedTableTests(unittest.TestCase):
         self.assertEqual(view.materials_of_route(self._report(), "nope"), [])
         self.assertEqual(view.materials_of_route({}, "r1"), [])
 
-    def test_one_picker_and_one_run_button_serve_both_screens(self):
-        # Two pickers for one question is the question asked twice, and the
-        # two could hold different answers while both are on screen.
+    def test_each_section_has_its_own_picker_and_run_button(self):
+        # The risk screen takes one tool; the comparison screen takes many.
+        # Merging them made the second question vanish into the first.
         source = Path(view.__file__).read_text(encoding="utf-8")
-        for key in ("review_tools", "review_tools_run"):
+        for key in ("risk_tool", "risk_tool_run", "comparison_tools",
+                    "comparison_run"):
             self.assertEqual(source.count('key="%s"' % key), 1)
-        for gone in ("comparison_tools", "comparison_run", "route_tools_run"):
-            self.assertNotIn('key="%s"' % gone, source)
+        self.assertIn('key="risk_tool", label_visibility', source)
+        self.assertIn("st.selectbox(", source.split("def show_route_tool_table")[1])
+        self.assertIn("st.multiselect(", source.split("def show_tool_comparison")[1])
 
     def test_a_stored_run_is_dropped_when_the_route_changes(self):
         report = self._report()
         stored = {"results": {}, "materials": ["CCO", "CC=O"],
                   "tools": ["rules"], "route_id": "r1"}
-        state = {"_tool_result": stored, "review_tools": ["rules"]}
-        with mock.patch.object(view.st, "session_state", state):
+        with mock.patch.object(view.st, "session_state", {"k": stored}):
             self.assertIs(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}), stored)
+                {"report": report, "route_id": "r1"}, state_key="k",
+                tools=["rules"]), stored)
             self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r2"}))
+                {"report": report, "route_id": "r2"}, state_key="k",
+                tools=["rules"]))
 
     def test_a_stored_run_is_dropped_when_the_tool_set_changes(self):
         report = self._report()
         stored = {"results": {}, "materials": ["CCO", "CC=O"],
                   "tools": ["rules"], "route_id": "r1"}
-        state = {"_tool_result": stored, "review_tools": ["rules", "ames_xgb"]}
-        with mock.patch.object(view.st, "session_state", state):
+        with mock.patch.object(view.st, "session_state", {"k": stored}):
             self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}))
+                {"report": report, "route_id": "r1"}, state_key="k",
+                tools=["rules", "ames_xgb"]))
 
     def test_a_stored_run_is_dropped_when_the_route_gained_a_material(self):
-        # A byproduct sweep adds candidates to the report, so the answers
-        # from before it no longer cover the route.
+        # A byproduct sweep adds candidates to the report, so answers from
+        # before it no longer cover the route.
         report = self._report()
         stored = {"results": {}, "materials": ["CCO"], "tools": ["rules"],
                   "route_id": "r1"}
-        state = {"_tool_result": stored, "review_tools": ["rules"]}
-        with mock.patch.object(view.st, "session_state", state):
+        with mock.patch.object(view.st, "session_state", {"k": stored}):
             self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}))
+                {"report": report, "route_id": "r1"}, state_key="k",
+                tools=["rules"]))
+
+    def test_the_two_sections_keep_their_answers_apart(self):
+        source = Path(view.__file__).read_text(encoding="utf-8")
+        self.assertIn('state_key="_risk_tool_result"', source)
+        self.assertIn('state_key="_comparison_result"', source)
