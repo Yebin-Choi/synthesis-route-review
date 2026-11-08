@@ -2,17 +2,1715 @@
  "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
  "model": "gemini-3.1-pro-preview",
  "readiness": {
-  "configuration": null,
-  "configuration_id": null,
-  "dependency_compatibility": "unverified",
-  "error": {
-   "code": "assets_missing",
-   "message": "Required local models or stocks are missing. Full SynthEx also requires distinct ring-breaker model/templates and a companion asset manifest with matching SHA-256 digests. No download or reduced workflow was attempted."
+  "configuration": {
+   "asset_sha256": {
+    "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "846aa41cbf39da86fadf379929ca48106b51e4d682f0a1a075c6eadc8a007bd1",
+    "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "8c875ad728b12f6a6da16b231e67d0c49031d98bd292594326902ceb449415a9",
+    "C:\\Users\\hahab\\학술제\\test\\models\\bulk_reagents_stock.hdf5": "c8df12e3371d109ba5c0c39746ccd4614945c5c3ab046af82a57bea5ea3aa1df",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+    "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+    "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+   },
+   "effective_config": {
+    "agents": {
+     "analyst_temperature": 0.3,
+     "analyst_thinking_level": null,
+     "critic_temperature": 0.1,
+     "critic_thinking_level": "medium",
+     "edit_iteration_limit": 6,
+     "editor_temperature": 0.3,
+     "editor_thinking_level": "medium",
+     "editor_turn_limit": 60,
+     "route_proposal_attempts": 3,
+     "route_step_limit": 25,
+     "route_temperature": 0.3,
+     "route_thinking_level": "medium",
+     "strategy_count": 3,
+     "strategy_temperature": 0.1,
+     "strategy_thinking_level": null
+    },
+    "completion": {
+     "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+     "budget": {
+      "iteration_limit": 500,
+      "max_transforms": 6,
+      "return_first": true,
+      "time_limit": 1200
+     },
+     "enabled": true,
+     "expansion_policies": null,
+     "filter_policies": null,
+     "stocks": null
+    },
+    "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+    "format_version": "synthex-config-1.0",
+    "llm": {
+     "base_url": null,
+     "max_attempts": 3,
+     "model": "gemini-3.1-pro-preview",
+     "provider": "gemini",
+     "thinking_level": null,
+     "timeout_seconds": 600.0,
+     "use_vertex_ai": false
+    },
+    "profile": "manuscript"
+   },
+   "interpreter_config": "97754159ea23d71e25070bf787784c50c0a9faf9c62055d512c534d027cee347",
+   "platform_io_adapter": {
+    "digest_validation": "unchanged upstream byte digests",
+    "encoding": "utf-8",
+    "name": "original-store-utf8-lf-1",
+    "newline_translation": false,
+    "scope": "SynthEx ArtifactStore root paths only"
+   },
+   "source_sha256": {
+    "engine.py": "353eaf866b5add7510a8849981ad13b9b1b9d9a17cab2e3d611c1656ff5dd6da",
+    "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+    "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+    "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+    "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+   },
+   "versions": {
+    "aizynthfinder": "4.4.1",
+    "google-genai": "1.75.0",
+    "pydantic": "2.13.4",
+    "rdkit": "2023.9.6",
+    "synthex": "0.1.0"
+   }
   },
+  "configuration_id": "63cc01158253c57d26a86887e7802619584bcfe72b144265c8132a33ab4da91f",
+  "dependency_compatibility": "unverified",
+  "error": null,
   "live_verified": false,
-  "ready": false,
-  "state": "assets_missing"
+  "ready": true,
+  "state": "live_unverified"
  },
- "probe_status": "failed",
- "generation": null
+ "probe_status": "succeeded",
+ "generation": {
+  "request_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+  "context_id": "6e8183ae-7049-4d29-8b11-6ab6052c6706",
+  "engine": "synthex",
+  "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+  "operation": "generate",
+  "status": "succeeded",
+  "configuration_id": "63cc01158253c57d26a86887e7802619584bcfe72b144265c8132a33ab4da91f",
+  "readiness": {
+   "configuration": {
+    "asset_sha256": {
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "846aa41cbf39da86fadf379929ca48106b51e4d682f0a1a075c6eadc8a007bd1",
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "8c875ad728b12f6a6da16b231e67d0c49031d98bd292594326902ceb449415a9",
+     "C:\\Users\\hahab\\학술제\\test\\models\\bulk_reagents_stock.hdf5": "c8df12e3371d109ba5c0c39746ccd4614945c5c3ab046af82a57bea5ea3aa1df",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+     "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+    },
+    "effective_config": {
+     "agents": {
+      "analyst_temperature": 0.3,
+      "analyst_thinking_level": null,
+      "critic_temperature": 0.1,
+      "critic_thinking_level": "medium",
+      "edit_iteration_limit": 6,
+      "editor_temperature": 0.3,
+      "editor_thinking_level": "medium",
+      "editor_turn_limit": 60,
+      "route_proposal_attempts": 3,
+      "route_step_limit": 25,
+      "route_temperature": 0.3,
+      "route_thinking_level": "medium",
+      "strategy_count": 3,
+      "strategy_temperature": 0.1,
+      "strategy_thinking_level": null
+     },
+     "completion": {
+      "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+      "budget": {
+       "iteration_limit": 500,
+       "max_transforms": 6,
+       "return_first": true,
+       "time_limit": 1200
+      },
+      "enabled": true,
+      "expansion_policies": null,
+      "filter_policies": null,
+      "stocks": null
+     },
+     "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+     "format_version": "synthex-config-1.0",
+     "llm": {
+      "base_url": null,
+      "max_attempts": 3,
+      "model": "gemini-3.1-pro-preview",
+      "provider": "gemini",
+      "thinking_level": null,
+      "timeout_seconds": 600.0,
+      "use_vertex_ai": false
+     },
+     "profile": "manuscript"
+    },
+    "interpreter_config": "97754159ea23d71e25070bf787784c50c0a9faf9c62055d512c534d027cee347",
+    "platform_io_adapter": {
+     "digest_validation": "unchanged upstream byte digests",
+     "encoding": "utf-8",
+     "name": "original-store-utf8-lf-1",
+     "newline_translation": false,
+     "scope": "SynthEx ArtifactStore root paths only"
+    },
+    "source_sha256": {
+     "engine.py": "353eaf866b5add7510a8849981ad13b9b1b9d9a17cab2e3d611c1656ff5dd6da",
+     "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+     "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+     "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+     "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+    },
+    "versions": {
+     "aizynthfinder": "4.4.1",
+     "google-genai": "1.75.0",
+     "pydantic": "2.13.4",
+     "rdkit": "2023.9.6",
+     "synthex": "0.1.0"
+    }
+   },
+   "configuration_id": "63cc01158253c57d26a86887e7802619584bcfe72b144265c8132a33ab4da91f",
+   "dependency_compatibility": "executed",
+   "error": null,
+   "live_verified": true,
+   "ready": true,
+   "state": "ready"
+  },
+  "result": {
+   "artifacts": [
+    {
+     "content": "[\n  {\n    \"details\": {\n      \"asymmetric_catalysis\": {\n        \"asymmetric_catalysis_used\": false,\n        \"detected_methods\": [],\n        \"missed_opportunities\": [],\n        \"summary\": \"No asymmetric catalysis is required as the target molecule is achiral.\"\n      },\n      \"cascade_reactions\": {\n        \"cascade_opportunities\": [],\n        \"cascades_proposed\": false,\n        \"detected_cascades\": [],\n        \"summary\": \"No cascade reactions are proposed or applicable for this single-step synthesis.\"\n      },\n      \"convergence\": {\n        \"assembly_order_optimal\": true,\n        \"branch_points\": [],\n        \"longest_linear_path\": 1,\n        \"suggestions\": \"None. The route is a single step.\",\n        \"topology\": \"linear\",\n        \"total_steps\": 1\n      },\n      \"feasibility_verdict\": {\n        \"one_line_summary\": \"A highly feasible, textbook one-step synthesis of aspirin from cheap, commercially available salicylic acid.\",\n        \"overall_rating\": \"excellent\",\n        \"top_risks\": [\n          {\n            \"mitigation\": \"Ensure proper aqueous workup to hydrolyze any mixed anhydride formed.\",\n            \"rank\": 1,\n            \"risk\": \"Formation of acetylsalicylic anhydride (mixed anhydride) byproduct.\"\n          },\n          {\n            \"mitigation\": \"Use a suitable acid catalyst (e.g., H3PO4) and slight excess of acetic anhydride.\",\n            \"rank\": 2,\n            \"risk\": \"Incomplete conversion of salicylic acid.\"\n          },\n          {\n            \"mitigation\": \"Avoid prolonged exposure to hot water or strong aqueous base during isolation.\",\n            \"rank\": 3,\n            \"risk\": \"Hydrolysis of the product during workup.\"\n          }\n        ]\n      },\n      \"handover_point\": {\n        \"confidence\": \"high\",\n        \"depth_from_target\": 1,\n        \"justification\": \"Salicylic acid is a widely available, inexpensive bulk chemical, making it the ultimate starting material.\",\n        \"mol_index\": \"B\"\n      },\n      \"key_steps\": {\n        \"key_steps\": [\n          {\n            \"main_risk\": \"Formation of a mixed anhydride byproduct if reaction conditions are not properly controlled.\",\n            \"step_description\": \"O-acetylation of salicylic acid\",\n            \"step_index\": 0,\n            \"why_critical\": \"It is the sole step in the synthesis, responsible for installing the acetyl group on the phenolic oxygen.\"\n          }\n        ]\n      },\n      \"ops_completeness\": {\n        \"flagged_ops\": [],\n        \"overall_ops_quality\": \"good\",\n        \"total_flagged\": 0\n      },\n      \"reaction_conditions\": {\n        \"steps\": [\n          {\n            \"assessment\": \"absent\",\n            \"conditions_as_given\": null,\n            \"incompatibility_note\": null,\n            \"proposed_conditions\": \"Acetic anhydride (Ac2O), catalytic H3PO4 or H2SO4, 85-90 °C, followed by aqueous workup.\",\n            \"step_description\": \"O-acetylation of salicylic acid\",\n            \"step_index\": 0\n          }\n        ]\n      },\n      \"redundant_reactions\": {\n        \"comment\": \"The route consists of only one step; no redundancy is possible.\",\n        \"redundant_pairs\": [],\n        \"total_redundant\": 0\n      },\n      \"route_score\": {\n        \"feasibility\": 10,\n        \"green\": 9,\n        \"overall\": 10,\n        \"rationale\": \"The route is optimal in terms of overall strategy and feasibility; the green score is slightly reduced due to the inherent atom economy of using acetic anhydride (produces acetic acid as a byproduct).\",\n        \"summary\": \"This is a textbook, one-step synthesis of aspirin via the O-acetylation of salicylic acid. The route is perfectly efficient, utilizing a cheap and widely available starting material. Reaction conditions are well-established and highly reliable. No further optimization is required.\"\n      },\n      \"route_summary\": {\n        \"summary\": \"The route proposes a direct, single-step synthesis of the target molecule via the O-acetylation of salicylic acid. This is a classic and highly efficient approach that forms the required ester bond in one operation. The strategy is optimal and requires no further optimization.\"\n      },\n      \"starting_materials\": {\n        \"building_blocks\": [\n          {\n            \"availability\": \"common\",\n            \"cost_tier\": \"cheap (<$10/g)\",\n            \"flag\": null,\n            \"mol_index\": \"B\"\n          }\n        ],\n        \"overall_bb_accessibility\": \"good\"\n      },\n      \"stereoselectivity\": {\n        \"overall_comment\": \"The target molecule is achiral and does not contain any stereocenters.\",\n        \"overall_stereo_risk\": \"low\",\n        \"stereogenic_steps\": []\n      }\n    },\n    \"feasibility_category\": \"excellent\",\n    \"key_steps\": [\n      \"O-acetylation of salicylic acid\"\n    ],\n    \"risks\": [\n      \"Formation of acetylsalicylic anhydride (mixed anhydride) byproduct.\",\n      \"Incomplete conversion of salicylic acid.\",\n      \"Hydrolysis of the product during workup.\"\n    ],\n    \"status\": \"ok\",\n    \"summary\": \"A highly feasible, textbook one-step synthesis of aspirin from cheap, commercially available salicylic acid.\"\n  },\n  {\n    \"details\": {\n      \"asymmetric_catalysis\": {\n        \"asymmetric_catalysis_used\": false,\n        \"detected_methods\": [],\n        \"missed_opportunities\": [],\n        \"summary\": \"No asymmetric catalysis is required or applicable as the target molecule is achiral.\"\n      },\n      \"cascade_reactions\": {\n        \"cascade_opportunities\": [],\n        \"cascades_proposed\": false,\n        \"detected_cascades\": [],\n        \"summary\": \"No cascade reactions are present or necessary for this short, two-step sequence.\"\n      },\n      \"convergence\": {\n        \"assembly_order_optimal\": true,\n        \"branch_points\": [],\n        \"longest_linear_path\": 2,\n        \"suggestions\": \"The linear topology is perfectly optimal for a two-step synthesis of this simplicity.\",\n        \"topology\": \"linear\",\n        \"total_steps\": 2\n      },\n      \"feasibility_verdict\": {\n        \"one_line_summary\": \"A flawless reproduction of the standard industrial synthesis of aspirin, highly feasible for any laboratory equipped for basic organic synthesis.\",\n        \"overall_rating\": \"excellent\",\n        \"top_risks\": [\n          {\n            \"mitigation\": \"Use a specialized pressure reactor (autoclave) or simply purchase salicylic acid, which is commercially abundant.\",\n            \"rank\": 1,\n            \"risk\": \"High pressure and temperature requirements for the Kolbe-Schmitt carboxylation (Step 1).\"\n          },\n          {\n            \"mitigation\": \"Ensure glassware is thoroughly dried and use fresh acetic anhydride.\",\n            \"rank\": 2,\n            \"risk\": \"Moisture sensitivity during the O-acetylation (Step 0) leading to poor yields.\"\n          },\n          {\n            \"mitigation\": \"Perform controlled, dropwise addition of the catalyst and monitor the internal temperature.\",\n            \"rank\": 3,\n            \"risk\": \"Exotherm during the addition of the acid catalyst in the acetylation step.\"\n          }\n        ]\n      },\n      \"handover_point\": {\n        \"confidence\": \"high\",\n        \"depth_from_target\": 1,\n        \"justification\": \"Salicylic acid is a ubiquitous, extremely cheap, and commercially available bulk chemical. In practice, the synthesis would start here rather than from phenol.\",\n        \"mol_index\": \"B\"\n      },\n      \"key_steps\": {\n        \"key_steps\": [\n          {\n            \"main_risk\": \"Requires specialized high-pressure equipment for CO2 and strictly anhydrous conditions for the intermediate phenoxide salt.\",\n            \"step_description\": \"Kolbe-Schmitt carboxylation of phenol\",\n            \"step_index\": 1,\n            \"why_critical\": \"Installs the carboxylic acid group regioselectively ortho to the phenol, forming the core carbon skeleton.\"\n          },\n          {\n            \"main_risk\": \"Hydrolysis of the acetic anhydride reagent or the final product if moisture is not strictly excluded.\",\n            \"step_description\": \"O-acetylation of salicylic acid\",\n            \"step_index\": 0,\n            \"why_critical\": \"Final step to install the acetyl group and complete the target molecule.\"\n          }\n        ]\n      },\n      \"ops_completeness\": {\n        \"flagged_ops\": [],\n        \"overall_ops_quality\": \"good\",\n        \"total_flagged\": 0\n      },\n      \"reaction_conditions\": {\n        \"steps\": [\n          {\n            \"assessment\": \"absent\",\n            \"conditions_as_given\": null,\n            \"incompatibility_note\": null,\n            \"proposed_conditions\": \"Acetic anhydride (Ac2O), catalytic H3PO4 or H2SO4, 85-90 °C, followed by aqueous quench.\",\n            \"step_description\": \"O-acetylation of salicylic acid\",\n            \"step_index\": 0\n          },\n          {\n            \"assessment\": \"absent\",\n            \"conditions_as_given\": null,\n            \"incompatibility_note\": null,\n            \"proposed_conditions\": \"1. NaOH (to form sodium phenoxide), evaporate to dryness; 2. CO2 (100 atm), 125 °C; 3. Aqueous H2SO4 workup.\",\n            \"step_description\": \"Kolbe-Schmitt carboxylation of phenol\",\n            \"step_index\": 1\n          }\n        ]\n      },\n      \"redundant_reactions\": {\n        \"comment\": \"The route is highly step-economical with no redundant reactions.\",\n        \"redundant_pairs\": [],\n        \"total_redundant\": 0\n      },\n      \"route_score\": {\n        \"feasibility\": 10,\n        \"green\": 8,\n        \"overall\": 10,\n        \"rationale\": \"The route scores perfectly on overall strategy and feasibility as it is the established industrial standard; the green score is slightly lower due to the high energy demands of the Kolbe-Schmitt reaction and the stoichiometric acetic acid byproduct from acetylation.\",\n        \"summary\": \"This route represents the textbook industrial synthesis of acetylsalicylic acid (aspirin). It is highly efficient, utilizing cheap and readily available starting materials. The sequence is perfectly ordered and poses minimal risk to a bench chemist, provided standard high-pressure equipment is available for the carboxylation step, though in practice one would simply start from salicylic acid.\"\n      },\n      \"route_summary\": {\n        \"summary\": \"The synthetic strategy outlines the classic industrial two-step preparation of aspirin from phenol. The sequence begins with the Kolbe-Schmitt carboxylation of phenol to install the ortho-carboxylic acid, yielding salicylic acid. Subsequent O-acetylation of the phenolic hydroxyl group provides the target molecule, acetylsalicylic acid.\"\n      },\n      \"starting_materials\": {\n        \"building_blocks\": [\n          {\n            \"availability\": \"common\",\n            \"cost_tier\": \"cheap (<$10/g)\",\n            \"flag\": null,\n            \"mol_index\": \"C\"\n          }\n        ],\n        \"overall_bb_accessibility\": \"good\"\n      },\n      \"stereoselectivity\": {\n        \"overall_comment\": \"The target molecule and all intermediates are achiral. Stereoselectivity is not applicable to this route.\",\n        \"overall_stereo_risk\": \"low\",\n        \"stereogenic_steps\": []\n      }\n    },\n    \"feasibility_category\": \"excellent\",\n    \"key_steps\": [\n      \"Kolbe-Schmitt carboxylation of phenol\",\n      \"O-acetylation of salicylic acid\"\n    ],\n    \"risks\": [\n      \"High pressure and temperature requirements for the Kolbe-Schmitt carboxylation (Step 1).\",\n      \"Moisture sensitivity during the O-acetylation (Step 0) leading to poor yields.\",\n      \"Exotherm during the addition of the acid catalyst in the acetylation step.\"\n    ],\n    \"status\": \"ok\",\n    \"summary\": \"A flawless reproduction of the standard industrial synthesis of aspirin, highly feasible for any laboratory equipped for basic organic synthesis.\"\n  },\n  {\n    \"details\": {\n      \"asymmetric_catalysis\": {\n        \"asymmetric_catalysis_used\": false,\n        \"detected_methods\": [],\n        \"missed_opportunities\": [],\n        \"summary\": \"No stereocenters are present in the target molecule; asymmetric catalysis is not applicable.\"\n      },\n      \"cascade_reactions\": {\n        \"cascade_opportunities\": [],\n        \"cascades_proposed\": false,\n        \"detected_cascades\": [],\n        \"summary\": \"The route is too short and the transformations too distinct to offer cascade opportunities.\"\n      },\n      \"convergence\": {\n        \"assembly_order_optimal\": true,\n        \"branch_points\": [],\n        \"longest_linear_path\": 2,\n        \"suggestions\": \"The route is linear and short, though starting from salicylic acid would reduce the entire synthesis to a single step.\",\n        \"topology\": \"linear\",\n        \"total_steps\": 2\n      },\n      \"feasibility_verdict\": {\n        \"one_line_summary\": \"A chemically feasible but strategically overcomplicated two-step synthesis of aspirin that introduces unnecessary risks of ester hydrolysis during carbonylation.\",\n        \"overall_rating\": \"acceptable\",\n        \"top_risks\": [\n          {\n            \"mitigation\": \"Use a mild organic base (e.g., Et3N) and strictly stoichiometric water, or use a CO surrogate/formate approach.\",\n            \"rank\": 1,\n            \"risk\": \"Hydrolysis of the acetate group during the Pd-catalyzed hydroxycarbonylation.\"\n          },\n          {\n            \"mitigation\": \"Perform in a specialized pressure reactor or use ex situ CO generation / CO surrogates.\",\n            \"rank\": 2,\n            \"risk\": \"Requirement for toxic CO gas handling at elevated pressures.\"\n          },\n          {\n            \"mitigation\": \"Redesign the route to start from salicylic acid, reducing the synthesis to a single acetylation step.\",\n            \"rank\": 3,\n            \"risk\": \"Strategic inefficiency compared to commercial methods.\"\n          }\n        ]\n      },\n      \"handover_point\": {\n        \"confidence\": \"high\",\n        \"depth_from_target\": 1,\n        \"justification\": \"2-acetoxybromobenzene is a very simple intermediate that is easily synthesized from cheap starting materials or purchased directly, making it a trivial handover point for template-based expansion.\",\n        \"mol_index\": \"B\"\n      },\n      \"key_steps\": {\n        \"key_steps\": [\n          {\n            \"main_risk\": \"Hydrolysis of the sensitive acetate ester under the aqueous basic conditions typically required for hydroxycarbonylation.\",\n            \"step_description\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n            \"step_index\": 0,\n            \"why_critical\": \"Forms the key C-C bond to install the carboxylate group.\"\n          }\n        ]\n      },\n      \"ops_completeness\": {\n        \"flagged_ops\": [],\n        \"overall_ops_quality\": \"good\",\n        \"total_flagged\": 0\n      },\n      \"reaction_conditions\": {\n        \"steps\": [\n          {\n            \"assessment\": \"absent\",\n            \"conditions_as_given\": null,\n            \"incompatibility_note\": \"Strong aqueous bases (like NaOH or Na2CO3) typically used in hydroxycarbonylation will hydrolyze the acetate group; a mild amine base is required.\",\n            \"proposed_conditions\": \"Pd(OAc)2, dppf, CO (atm or pressurized), H2O, Et3N, DMF, 80 °C.\",\n            \"step_description\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n            \"step_index\": 0\n          },\n          {\n            \"assessment\": \"absent\",\n            \"conditions_as_given\": null,\n            \"incompatibility_note\": null,\n            \"proposed_conditions\": \"Ac2O, pyridine, DMAP (cat.), DCM, RT.\",\n            \"step_description\": \"Acetylation of 2-bromophenol.\",\n            \"step_index\": 1\n          }\n        ]\n      },\n      \"redundant_reactions\": {\n        \"comment\": \"The two steps are distinct and necessary for this specific strategy.\",\n        \"redundant_pairs\": [],\n        \"total_redundant\": 0\n      },\n      \"route_score\": {\n        \"feasibility\": 7,\n        \"green\": 3,\n        \"overall\": 4,\n        \"rationale\": \"The route works on paper but is unnecessarily complex, uses heavy metals and toxic gas for a trivial target, and risks ester hydrolysis.\",\n        \"summary\": \"The proposed route to aspirin is logically sound but practically inefficient, opting to install the carboxylic acid via carbonylation rather than starting with it already in place (as in salicylic acid). The key carbonylation step poses a chemoselectivity risk regarding the stability of the acetate group under aqueous basic conditions. While feasible with careful condition tuning, it scores poorly on green metrics and overall elegance due to the unnecessary use of palladium and carbon monoxide for such a simple, cheap target.\"\n      },\n      \"route_summary\": {\n        \"summary\": \"The route proposes a two-step synthesis of acetylsalicylic acid (aspirin) starting from 2-bromophenol. The strategy involves O-acetylation of the phenol followed by a palladium-catalyzed carbonylation of the aryl bromide to install the carboxylic acid. While chemically valid, this sequence is a highly unconventional and less efficient alternative to the standard industrial acetylation of salicylic acid.\"\n      },\n      \"starting_materials\": {\n        \"building_blocks\": [\n          {\n            \"availability\": \"common\",\n            \"cost_tier\": \"cheap (<$10/g)\",\n            \"flag\": null,\n            \"mol_index\": \"C\"\n          }\n        ],\n        \"overall_bb_accessibility\": \"good\"\n      },\n      \"stereoselectivity\": {\n        \"overall_comment\": \"The target molecule and all intermediates are achiral; stereoselectivity is not applicable to this route.\",\n        \"overall_stereo_risk\": \"low\",\n        \"stereogenic_steps\": []\n      }\n    },\n    \"feasibility_category\": \"acceptable\",\n    \"key_steps\": [\n      \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\"\n    ],\n    \"risks\": [\n      \"Hydrolysis of the acetate group during the Pd-catalyzed hydroxycarbonylation.\",\n      \"Requirement for toxic CO gas handling at elevated pressures.\",\n      \"Strategic inefficiency compared to commercial methods.\"\n    ],\n    \"status\": \"ok\",\n    \"summary\": \"A chemically feasible but strategically overcomplicated two-step synthesis of aspirin that introduces unnecessary risks of ester hydrolysis during carbonylation.\"\n  }\n]\n",
+     "export_sha256": "a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4",
+     "original_sha256": "a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4",
+     "path": "run/analyses.json",
+     "redacted": false
+    },
+    {
+     "content": "{\n  \"format_version\": \"run-manifest-1.0\",\n  \"run_id\": \"2025d840a22f5fe6\",\n  \"target\": \"CC(=O)OC1=CC=CC=C1C(=O)O\",\n  \"target_id\": \"c3af5880-5d4a-4a62-b9aa-6662bf6239cb\",\n  \"constraint\": null,\n  \"input_sha256\": \"86dfcdb7bbc3cfae32599412c44f593be1f6d95f9ebaa888d1eb5595e9ca61b6\",\n  \"config\": {\n    \"format_version\": \"synthex-config-1.0\",\n    \"profile\": \"manuscript\",\n    \"llm\": {\n      \"provider\": \"gemini\",\n      \"model\": \"gemini-3.1-pro-preview\",\n      \"base_url\": null,\n      \"use_vertex_ai\": false,\n      \"timeout_seconds\": 600.0,\n      \"max_attempts\": 3,\n      \"thinking_level\": null\n    },\n    \"agents\": {\n      \"strategy_count\": 3,\n      \"route_step_limit\": 25,\n      \"route_proposal_attempts\": 3,\n      \"edit_iteration_limit\": 6,\n      \"editor_turn_limit\": 60,\n      \"strategy_temperature\": 0.1,\n      \"route_temperature\": 0.3,\n      \"critic_temperature\": 0.1,\n      \"editor_temperature\": 0.3,\n      \"analyst_temperature\": 0.3,\n      \"strategy_thinking_level\": null,\n      \"route_thinking_level\": \"medium\",\n      \"critic_thinking_level\": \"medium\",\n      \"editor_thinking_level\": \"medium\",\n      \"analyst_thinking_level\": null\n    },\n    \"completion\": {\n      \"enabled\": true,\n      \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n      \"stocks\": null,\n      \"expansion_policies\": null,\n      \"filter_policies\": null,\n      \"budget\": {\n        \"max_transforms\": 6,\n        \"iteration_limit\": 500,\n        \"time_limit\": 1200,\n        \"return_first\": true\n      }\n    },\n    \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n  },\n  \"config_sha256\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n  \"code_revision\": \"package:0.1.0\",\n  \"dependency_versions\": {\n    \"synthex\": \"0.1.0\",\n    \"aizynthfinder\": \"4.4.1\",\n    \"google-genai\": \"1.75.0\",\n    \"pydantic\": \"2.13.4\",\n    \"rdkit\": \"2023.9.6\"\n  },\n  \"dependency_lock_sha256\": \"73279d5062067ab4c36eeb665882128fac1351a0a43bba3b3accfc53c5d4fc3f\",\n  \"provider\": \"gemini\",\n  \"model\": \"gemini-3.1-pro-preview\",\n  \"prompt_versions\": {\n    \"strategy_generator\": \"strategy-generator-v1\",\n    \"route_builder\": \"route-builder-reactionjson-v2\",\n    \"critic\": \"critic-v2-atom-accounting+ich-m7-rule-screen\",\n    \"editor\": \"editor-v1\",\n    \"analyst\": \"analyst-v1\"\n  },\n  \"prompt_sha256\": {\n    \"strategy_generator\": \"7d1576d28634c7ec5f2b6fa8965d3b0dcbb2f981a25674a0437ce73cc10370ec\",\n    \"route_builder\": \"30964ffc3e4e4f8012dc6dff32f538ba243c1a4b011f991014fa3627b142e48f\",\n    \"critic\": \"7a22d3f990d6973926d4daf6f0bffed06197a1c5ac72025c9ebd728c83513f9d\",\n    \"editor\": \"071f9055b023b0f2443f59d36ada60819841e923f1102a7710675059ed28b023\",\n    \"analyst\": \"66287e23f36fa03d13839cbd0a81046fb820f6772321a0105b141e0e03ea6d5d\"\n  },\n  \"external_assets\": {\n    \"aizynthfinder_config\": \"8c875ad728b12f6a6da16b231e67d0c49031d98bd292594326902ceb449415a9\",\n    \"asset_manifest\": \"846aa41cbf39da86fadf379929ca48106b51e4d682f0a1a075c6eadc8a007bd1\",\n    \"asset:uspto_model.onnx\": \"bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8\",\n    \"asset:uspto_templates.csv.gz\": \"a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe\",\n    \"asset:uspto_filter_model.onnx\": \"ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320\",\n    \"asset:zinc_stock.hdf5\": \"99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d\",\n    \"asset:uspto_ringbreaker_model.onnx\": \"1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be\",\n    \"asset:uspto_ringbreaker_templates.csv.gz\": \"5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14\",\n    \"asset:bulk_reagents_stock.hdf5\": \"c8df12e3371d109ba5c0c39746ccd4614945c5c3ab046af82a57bea5ea3aa1df\"\n  },\n  \"stage_configs\": {\n    \"strategies\": {\n      \"format_version\": \"synthex-config-1.0\",\n      \"profile\": \"manuscript\",\n      \"llm\": {\n        \"provider\": \"gemini\",\n        \"model\": \"gemini-3.1-pro-preview\",\n        \"base_url\": null,\n        \"use_vertex_ai\": false,\n        \"timeout_seconds\": 600.0,\n        \"max_attempts\": 3,\n        \"thinking_level\": null\n      },\n      \"agents\": {\n        \"strategy_count\": 3,\n        \"route_step_limit\": 25,\n        \"route_proposal_attempts\": 3,\n        \"edit_iteration_limit\": 6,\n        \"editor_turn_limit\": 60,\n        \"strategy_temperature\": 0.1,\n        \"route_temperature\": 0.3,\n        \"critic_temperature\": 0.1,\n        \"editor_temperature\": 0.3,\n        \"analyst_temperature\": 0.3,\n        \"strategy_thinking_level\": null,\n        \"route_thinking_level\": \"medium\",\n        \"critic_thinking_level\": \"medium\",\n        \"editor_thinking_level\": \"medium\",\n        \"analyst_thinking_level\": null\n      },\n      \"completion\": {\n        \"enabled\": true,\n        \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n        \"stocks\": null,\n        \"expansion_policies\": null,\n        \"filter_policies\": null,\n        \"budget\": {\n          \"max_transforms\": 6,\n          \"iteration_limit\": 500,\n          \"time_limit\": 1200,\n          \"return_first\": true\n        }\n      },\n      \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n    },\n    \"routes\": {\n      \"format_version\": \"synthex-config-1.0\",\n      \"profile\": \"manuscript\",\n      \"llm\": {\n        \"provider\": \"gemini\",\n        \"model\": \"gemini-3.1-pro-preview\",\n        \"base_url\": null,\n        \"use_vertex_ai\": false,\n        \"timeout_seconds\": 600.0,\n        \"max_attempts\": 3,\n        \"thinking_level\": null\n      },\n      \"agents\": {\n        \"strategy_count\": 3,\n        \"route_step_limit\": 25,\n        \"route_proposal_attempts\": 3,\n        \"edit_iteration_limit\": 6,\n        \"editor_turn_limit\": 60,\n        \"strategy_temperature\": 0.1,\n        \"route_temperature\": 0.3,\n        \"critic_temperature\": 0.1,\n        \"editor_temperature\": 0.3,\n        \"analyst_temperature\": 0.3,\n        \"strategy_thinking_level\": null,\n        \"route_thinking_level\": \"medium\",\n        \"critic_thinking_level\": \"medium\",\n        \"editor_thinking_level\": \"medium\",\n        \"analyst_thinking_level\": null\n      },\n      \"completion\": {\n        \"enabled\": true,\n        \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n        \"stocks\": null,\n        \"expansion_policies\": null,\n        \"filter_policies\": null,\n        \"budget\": {\n          \"max_transforms\": 6,\n          \"iteration_limit\": 500,\n          \"time_limit\": 1200,\n          \"return_first\": true\n        }\n      },\n      \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n    },\n    \"reviewed_routes\": {\n      \"format_version\": \"synthex-config-1.0\",\n      \"profile\": \"manuscript\",\n      \"llm\": {\n        \"provider\": \"gemini\",\n        \"model\": \"gemini-3.1-pro-preview\",\n        \"base_url\": null,\n        \"use_vertex_ai\": false,\n        \"timeout_seconds\": 600.0,\n        \"max_attempts\": 3,\n        \"thinking_level\": null\n      },\n      \"agents\": {\n        \"strategy_count\": 3,\n        \"route_step_limit\": 25,\n        \"route_proposal_attempts\": 3,\n        \"edit_iteration_limit\": 6,\n        \"editor_turn_limit\": 60,\n        \"strategy_temperature\": 0.1,\n        \"route_temperature\": 0.3,\n        \"critic_temperature\": 0.1,\n        \"editor_temperature\": 0.3,\n        \"analyst_temperature\": 0.3,\n        \"strategy_thinking_level\": null,\n        \"route_thinking_level\": \"medium\",\n        \"critic_thinking_level\": \"medium\",\n        \"editor_thinking_level\": \"medium\",\n        \"analyst_thinking_level\": null\n      },\n      \"completion\": {\n        \"enabled\": true,\n        \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n        \"stocks\": null,\n        \"expansion_policies\": null,\n        \"filter_policies\": null,\n        \"budget\": {\n          \"max_transforms\": 6,\n          \"iteration_limit\": 500,\n          \"time_limit\": 1200,\n          \"return_first\": true\n        }\n      },\n      \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n    },\n    \"analyses\": {\n      \"format_version\": \"synthex-config-1.0\",\n      \"profile\": \"manuscript\",\n      \"llm\": {\n        \"provider\": \"gemini\",\n        \"model\": \"gemini-3.1-pro-preview\",\n        \"base_url\": null,\n        \"use_vertex_ai\": false,\n        \"timeout_seconds\": 600.0,\n        \"max_attempts\": 3,\n        \"thinking_level\": null\n      },\n      \"agents\": {\n        \"strategy_count\": 3,\n        \"route_step_limit\": 25,\n        \"route_proposal_attempts\": 3,\n        \"edit_iteration_limit\": 6,\n        \"editor_turn_limit\": 60,\n        \"strategy_temperature\": 0.1,\n        \"route_temperature\": 0.3,\n        \"critic_temperature\": 0.1,\n        \"editor_temperature\": 0.3,\n        \"analyst_temperature\": 0.3,\n        \"strategy_thinking_level\": null,\n        \"route_thinking_level\": \"medium\",\n        \"critic_thinking_level\": \"medium\",\n        \"editor_thinking_level\": \"medium\",\n        \"analyst_thinking_level\": null\n      },\n      \"completion\": {\n        \"enabled\": true,\n        \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n        \"stocks\": null,\n        \"expansion_policies\": null,\n        \"filter_policies\": null,\n        \"budget\": {\n          \"max_transforms\": 6,\n          \"iteration_limit\": 500,\n          \"time_limit\": 1200,\n          \"return_first\": true\n        }\n      },\n      \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n    },\n    \"stitched_routes\": {\n      \"format_version\": \"synthex-config-1.0\",\n      \"profile\": \"manuscript\",\n      \"llm\": {\n        \"provider\": \"gemini\",\n        \"model\": \"gemini-3.1-pro-preview\",\n        \"base_url\": null,\n        \"use_vertex_ai\": false,\n        \"timeout_seconds\": 600.0,\n        \"max_attempts\": 3,\n        \"thinking_level\": null\n      },\n      \"agents\": {\n        \"strategy_count\": 3,\n        \"route_step_limit\": 25,\n        \"route_proposal_attempts\": 3,\n        \"edit_iteration_limit\": 6,\n        \"editor_turn_limit\": 60,\n        \"strategy_temperature\": 0.1,\n        \"route_temperature\": 0.3,\n        \"critic_temperature\": 0.1,\n        \"editor_temperature\": 0.3,\n        \"analyst_temperature\": 0.3,\n        \"strategy_thinking_level\": null,\n        \"route_thinking_level\": \"medium\",\n        \"critic_thinking_level\": \"medium\",\n        \"editor_thinking_level\": \"medium\",\n        \"analyst_thinking_level\": null\n      },\n      \"completion\": {\n        \"enabled\": true,\n        \"aizynthfinder_config\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\n        \"stocks\": null,\n        \"expansion_policies\": null,\n        \"filter_policies\": null,\n        \"budget\": {\n          \"max_transforms\": 6,\n          \"iteration_limit\": 500,\n          \"time_limit\": 1200,\n          \"return_first\": true\n        }\n      },\n      \"external_asset_manifest\": \"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\"\n    }\n  },\n  \"stage_config_sha256\": {\n    \"strategies\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n    \"routes\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n    \"reviewed_routes\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n    \"analyses\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\",\n    \"stitched_routes\": \"bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf\"\n  },\n  \"llm_usage\": {\n    \"calls\": 15,\n    \"input_tokens\": 44121,\n    \"cached_input_tokens\": 821,\n    \"output_tokens\": 6584,\n    \"thought_tokens\": 13312,\n    \"total_tokens\": 64017\n  },\n  \"stage_durations_seconds\": {\n    \"strategies\": 11.703746,\n    \"routes\": 52.930727,\n    \"reviewed_routes\": 40.640351,\n    \"analyses\": 70.722705,\n    \"stitched_routes\": 0.029502\n  },\n  \"status\": \"complete\",\n  \"current_stage\": \"complete\",\n  \"completed_stages\": [\n    \"strategies\",\n    \"routes\",\n    \"reviewed_routes\",\n    \"analyses\",\n    \"stitched_routes\"\n  ],\n  \"artifacts\": {\n    \"strategies\": {\n      \"path\": \"strategies.json\",\n      \"sha256\": \"083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4\",\n      \"parent_sha256\": null\n    },\n    \"routes\": {\n      \"path\": \"routes.json\",\n      \"sha256\": \"c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64\",\n      \"parent_sha256\": \"083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4\"\n    },\n    \"reviewed_routes\": {\n      \"path\": \"reviewed_routes.json\",\n      \"sha256\": \"95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb\",\n      \"parent_sha256\": \"c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64\"\n    },\n    \"analyses\": {\n      \"path\": \"analyses.json\",\n      \"sha256\": \"a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4\",\n      \"parent_sha256\": \"95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb\"\n    },\n    \"stitched_routes\": {\n      \"path\": \"stitched_routes.json\",\n      \"sha256\": \"ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b\",\n      \"parent_sha256\": \"a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4\"\n    }\n  },\n  \"failure\": null,\n  \"created_at\": \"2026-11-08T12:18:59.046317+00:00\",\n  \"updated_at\": \"2026-11-08T12:21:55.158223+00:00\"\n}\n",
+     "export_sha256": "8ab2cd1049b4dfb92bf7cbbe68651da21698133dc925e9ded662a4f3bf034a21",
+     "original_sha256": "8ab2cd1049b4dfb92bf7cbbe68651da21698133dc925e9ded662a4f3bf034a21",
+     "path": "run/manifest.json",
+     "redacted": false
+    },
+    {
+     "content": "[\n  {\n    \"final_critique\": {\n      \"balance_check\": \"Step S1: MISSING from precursors (present in product): 2x C, 1x O; SURPLUS in precursors (lost in the forward step): none. The missing atoms correspond to the acetyl group, which is chemically justified by the intended use of acetic anhydride or acetyl chloride as the reagent. PASS.\",\n      \"is_satisfactory\": true,\n      \"overall_feedback\": \"The proposed route is excellent. It correctly identifies the standard one-step synthesis of aspirin via the O-acetylation of salicylic acid.\",\n      \"problematic_steps\": []\n    },\n    \"iterations\": [],\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride.\"\n  },\n  {\n    \"final_critique\": {\n      \"balance_check\": \"Step S1: MISSING from precursors (present in product): 2x C, 1x O. SURPLUS in precursors (lost in the forward step): none. The missing atoms are chemically justified as they correspond to the acetyl group provided by a reagent like acetic anhydride or acetyl chloride. Step S2: MISSING from precursors (present in product): 1x C, 2x O. SURPLUS in precursors (lost in the forward step): none. The missing atoms are chemically justified as they correspond to carbon dioxide used in the Kolbe-Schmitt carboxylation. PASS.\",\n      \"is_satisfactory\": true,\n      \"overall_feedback\": \"The route is excellent and represents the classic, highly efficient industrial synthesis of aspirin.\",\n      \"problematic_steps\": []\n    },\n    \"iterations\": [],\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\"\n        },\n        {\n          \"conditions\": \"Basic conditions; high temperature and pressure.\",\n          \"description\": \"Kolbe-Schmitt carboxylation of phenol\",\n          \"id\": \"S2\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            }\n          ],\n          \"rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid.\"\n  },\n  {\n    \"final_critique\": {\n      \"balance_check\": \"Step S1: MISSING 1x C, 2x O (chemically justified by the incorporation of CO and H2O during carbonylation); SURPLUS 1x Br (chemically justified as the leaving group). Step S2: MISSING 2x C, 1x O (chemically justified by the acetylating agent, e.g., acetic anhydride or acetyl chloride); SURPLUS none. PASS.\",\n      \"is_satisfactory\": true,\n      \"overall_feedback\": \"The route is theoretically valid and concise, but the final carbonylation step carries a significant chemoselectivity risk regarding the stability of the acetate group.\",\n      \"problematic_steps\": [\n        {\n          \"feedback\": \"Chemoselectivity risk: The hydroxycarbonylation of the aryl bromide requires CO, water, and a base. Under these conditions (especially at the high temperatures mentioned), the phenolic acetate group is very prone to hydrolysis. This would result in the formation of salicylic acid rather than the target acetylsalicylic acid. Careful optimization of the base and temperature would be required to prevent this side reaction.\",\n          \"severity\": \"suggestion\",\n          \"step_id\": \"S1\"\n        }\n      ]\n    },\n    \"iterations\": [],\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n          \"description\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"fragment_smiles\": \"*Br\",\n              \"map_idx\": 10,\n              \"op\": \"add_group\",\n              \"order\": 1\n            }\n          ],\n          \"rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\"\n        },\n        {\n          \"conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n          \"description\": \"Acetylation of 2-bromophenol.\",\n          \"id\": \"S2\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Reveals the commercially available 2-bromophenol.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid.\"\n  }\n]\n",
+     "export_sha256": "95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb",
+     "original_sha256": "95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb",
+     "path": "run/reviewed_routes.json",
+     "redacted": false
+    },
+    {
+     "content": "[\n  {\n    \"strategy_prompt\": \"Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"O=C(O)c1ccccc1O>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"O-acetylation of salicylic acid\",\n    \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\",\n    \"reaction_conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n    \"kind\": \"key\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 4,\n        \"map_root_idx\": 2\n      },\n      {\n        \"op\": \"set_explicit_h\",\n        \"map_idx\": 4,\n        \"n\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"O=C(O)c1ccccc1O\",\n        \"in_stock\": false\n      }\n    ]\n  },\n  {\n    \"strategy_prompt\": \"Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"O=C(O)c1ccccc1O>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"O-acetylation of salicylic acid\",\n    \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\",\n    \"reaction_conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n    \"kind\": \"supporting\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 4,\n        \"map_root_idx\": 2\n      },\n      {\n        \"op\": \"set_explicit_h\",\n        \"map_idx\": 4,\n        \"n\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"O=C(O)c1ccccc1O\",\n        \"in_stock\": false,\n        \"reaction_smiles\": \"Oc1ccccc1>>O=C(O)c1ccccc1O\",\n        \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n        \"strategy\": \"Kolbe-Schmitt carboxylation of phenol\",\n        \"step_rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\",\n        \"reaction_conditions\": \"Basic conditions; high temperature and pressure.\",\n        \"kind\": \"key\",\n        \"ops\": [\n          {\n            \"op\": \"remove_group\",\n            \"map_idx\": 10,\n            \"map_root_idx\": 11\n          }\n        ],\n        \"children\": [\n          {\n            \"molecule\": \"Oc1ccccc1\",\n            \"in_stock\": false\n          }\n        ]\n      }\n    ]\n  },\n  {\n    \"strategy_prompt\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"CC(=O)Oc1ccccc1Br>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n    \"step_rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\",\n    \"reaction_conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n    \"kind\": \"key\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 10,\n        \"map_root_idx\": 11\n      },\n      {\n        \"op\": \"add_group\",\n        \"map_idx\": 10,\n        \"fragment_smiles\": \"*Br\",\n        \"order\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"CC(=O)Oc1ccccc1Br\",\n        \"in_stock\": false,\n        \"reaction_smiles\": \"Oc1ccccc1Br>>CC(=O)Oc1ccccc1Br\",\n        \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n        \"strategy\": \"Acetylation of 2-bromophenol.\",\n        \"step_rationale\": \"Reveals the commercially available 2-bromophenol.\",\n        \"reaction_conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n        \"kind\": \"supporting\",\n        \"ops\": [\n          {\n            \"op\": \"remove_group\",\n            \"map_idx\": 4,\n            \"map_root_idx\": 2\n          },\n          {\n            \"op\": \"set_explicit_h\",\n            \"map_idx\": 4,\n            \"n\": 1\n          }\n        ],\n        \"children\": [\n          {\n            \"molecule\": \"Oc1ccccc1Br\",\n            \"in_stock\": false\n          }\n        ]\n      }\n    ]\n  }\n]\n",
+     "export_sha256": "519a5cd73aef6396410d32df0f03a53ed9b109acfbd98996d0d4172a8be8e639",
+     "original_sha256": "519a5cd73aef6396410d32df0f03a53ed9b109acfbd98996d0d4172a8be8e639",
+     "path": "run/reviewed_routes.tree.json",
+     "redacted": false
+    },
+    {
+     "content": "[\n  {\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride.\",\n    \"termination\": \"model_finished\"\n  },\n  {\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\"\n        },\n        {\n          \"conditions\": \"Basic conditions; high temperature and pressure.\",\n          \"description\": \"Kolbe-Schmitt carboxylation of phenol\",\n          \"id\": \"S2\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            }\n          ],\n          \"rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid.\",\n    \"termination\": \"model_finished\"\n  },\n  {\n    \"route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n          \"description\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"fragment_smiles\": \"*Br\",\n              \"map_idx\": 10,\n              \"op\": \"add_group\",\n              \"order\": 1\n            }\n          ],\n          \"rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\"\n        },\n        {\n          \"conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n          \"description\": \"Acetylation of 2-bromophenol.\",\n          \"id\": \"S2\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Reveals the commercially available 2-bromophenol.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"status\": \"ok\",\n    \"strategy\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid.\",\n    \"termination\": \"model_finished\"\n  }\n]\n",
+     "export_sha256": "c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64",
+     "original_sha256": "c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64",
+     "path": "run/routes.json",
+     "redacted": false
+    },
+    {
+     "content": "[\n  {\n    \"strategy_prompt\": \"Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"O=C(O)c1ccccc1O>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"O-acetylation of salicylic acid\",\n    \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\",\n    \"reaction_conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n    \"kind\": \"key\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 4,\n        \"map_root_idx\": 2\n      },\n      {\n        \"op\": \"set_explicit_h\",\n        \"map_idx\": 4,\n        \"n\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"O=C(O)c1ccccc1O\",\n        \"in_stock\": false\n      }\n    ]\n  },\n  {\n    \"strategy_prompt\": \"Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"O=C(O)c1ccccc1O>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"O-acetylation of salicylic acid\",\n    \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\",\n    \"reaction_conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n    \"kind\": \"supporting\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 4,\n        \"map_root_idx\": 2\n      },\n      {\n        \"op\": \"set_explicit_h\",\n        \"map_idx\": 4,\n        \"n\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"O=C(O)c1ccccc1O\",\n        \"in_stock\": false,\n        \"reaction_smiles\": \"Oc1ccccc1>>O=C(O)c1ccccc1O\",\n        \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n        \"strategy\": \"Kolbe-Schmitt carboxylation of phenol\",\n        \"step_rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\",\n        \"reaction_conditions\": \"Basic conditions; high temperature and pressure.\",\n        \"kind\": \"key\",\n        \"ops\": [\n          {\n            \"op\": \"remove_group\",\n            \"map_idx\": 10,\n            \"map_root_idx\": 11\n          }\n        ],\n        \"children\": [\n          {\n            \"molecule\": \"Oc1ccccc1\",\n            \"in_stock\": false\n          }\n        ]\n      }\n    ]\n  },\n  {\n    \"strategy_prompt\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid.\",\n    \"molecule\": \"CC(=O)Oc1ccccc1C(=O)O\",\n    \"in_stock\": false,\n    \"mapped_molecule\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"reaction_smiles\": \"CC(=O)Oc1ccccc1Br>>CC(=O)Oc1ccccc1C(=O)O\",\n    \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n    \"strategy\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n    \"step_rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\",\n    \"reaction_conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n    \"kind\": \"key\",\n    \"ops\": [\n      {\n        \"op\": \"remove_group\",\n        \"map_idx\": 10,\n        \"map_root_idx\": 11\n      },\n      {\n        \"op\": \"add_group\",\n        \"map_idx\": 10,\n        \"fragment_smiles\": \"*Br\",\n        \"order\": 1\n      }\n    ],\n    \"children\": [\n      {\n        \"molecule\": \"CC(=O)Oc1ccccc1Br\",\n        \"in_stock\": false,\n        \"reaction_smiles\": \"Oc1ccccc1Br>>CC(=O)Oc1ccccc1Br\",\n        \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n        \"strategy\": \"Acetylation of 2-bromophenol.\",\n        \"step_rationale\": \"Reveals the commercially available 2-bromophenol.\",\n        \"reaction_conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n        \"kind\": \"supporting\",\n        \"ops\": [\n          {\n            \"op\": \"remove_group\",\n            \"map_idx\": 4,\n            \"map_root_idx\": 2\n          },\n          {\n            \"op\": \"set_explicit_h\",\n            \"map_idx\": 4,\n            \"n\": 1\n          }\n        ],\n        \"children\": [\n          {\n            \"molecule\": \"Oc1ccccc1Br\",\n            \"in_stock\": false\n          }\n        ]\n      }\n    ]\n  }\n]\n",
+     "export_sha256": "519a5cd73aef6396410d32df0f03a53ed9b109acfbd98996d0d4172a8be8e639",
+     "original_sha256": "519a5cd73aef6396410d32df0f03a53ed9b109acfbd98996d0d4172a8be8e639",
+     "path": "run/routes.tree.json",
+     "redacted": false
+    },
+    {
+     "content": "[\n  {\n    \"completions\": [],\n    \"format_version\": \"stitched-route-1.0\",\n    \"is_solved\": true,\n    \"status\": \"ok\",\n    \"stitched_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"O=C(O)c1ccccc1O\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"key\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n            \"operations\": [\n              {\n                \"map_idx\": 4,\n                \"map_root_idx\": 2,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"map_idx\": 4,\n                \"n\": 1,\n                \"op\": \"set_explicit_h\"\n              }\n            ],\n            \"reaction_conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n            \"reaction_prompt\": \"O-acetylation of salicylic acid\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    },\n    \"strategic_route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"strategic_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"O=C(O)c1ccccc1O\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"key\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n            \"operations\": [\n              {\n                \"map_idx\": 4,\n                \"map_root_idx\": 2,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"map_idx\": 4,\n                \"n\": 1,\n                \"op\": \"set_explicit_h\"\n              }\n            ],\n            \"reaction_conditions\": \"Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.\",\n            \"reaction_prompt\": \"O-acetylation of salicylic acid\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    }\n  },\n  {\n    \"completions\": [],\n    \"format_version\": \"stitched-route-1.0\",\n    \"is_solved\": true,\n    \"status\": \"ok\",\n    \"stitched_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [\n                {\n                  \"children\": [\n                    {\n                      \"children\": [],\n                      \"in_stock\": true,\n                      \"is_chemical\": true,\n                      \"smiles\": \"Oc1ccccc1\",\n                      \"type\": \"mol\"\n                    }\n                  ],\n                  \"is_reaction\": true,\n                  \"metadata\": {\n                    \"from_route_ops_plan\": true,\n                    \"kind\": \"key\",\n                    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1\",\n                    \"operations\": [\n                      {\n                        \"map_idx\": 10,\n                        \"map_root_idx\": 11,\n                        \"op\": \"remove_group\"\n                      }\n                    ],\n                    \"reaction_conditions\": \"Basic conditions; high temperature and pressure.\",\n                    \"reaction_prompt\": \"Kolbe-Schmitt carboxylation of phenol\",\n                    \"step_id\": \"S2\",\n                    \"step_rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\"\n                  },\n                  \"smiles\": \"O=C(O)c1ccccc1O>>Oc1ccccc1\",\n                  \"type\": \"reaction\"\n                }\n              ],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"O=C(O)c1ccccc1O\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"supporting\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n            \"operations\": [\n              {\n                \"map_idx\": 4,\n                \"map_root_idx\": 2,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"map_idx\": 4,\n                \"n\": 1,\n                \"op\": \"set_explicit_h\"\n              }\n            ],\n            \"reaction_conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n            \"reaction_prompt\": \"O-acetylation of salicylic acid\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    },\n    \"strategic_route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n          \"description\": \"O-acetylation of salicylic acid\",\n          \"id\": \"S1\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\"\n        },\n        {\n          \"conditions\": \"Basic conditions; high temperature and pressure.\",\n          \"description\": \"Kolbe-Schmitt carboxylation of phenol\",\n          \"id\": \"S2\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            }\n          ],\n          \"rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"strategic_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [\n                {\n                  \"children\": [\n                    {\n                      \"children\": [],\n                      \"in_stock\": true,\n                      \"is_chemical\": true,\n                      \"smiles\": \"Oc1ccccc1\",\n                      \"type\": \"mol\"\n                    }\n                  ],\n                  \"is_reaction\": true,\n                  \"metadata\": {\n                    \"from_route_ops_plan\": true,\n                    \"kind\": \"key\",\n                    \"mapped_reaction_smiles\": \"[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1\",\n                    \"operations\": [\n                      {\n                        \"map_idx\": 10,\n                        \"map_root_idx\": 11,\n                        \"op\": \"remove_group\"\n                      }\n                    ],\n                    \"reaction_conditions\": \"Basic conditions; high temperature and pressure.\",\n                    \"reaction_prompt\": \"Kolbe-Schmitt carboxylation of phenol\",\n                    \"step_id\": \"S2\",\n                    \"step_rationale\": \"Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction.\"\n                  },\n                  \"smiles\": \"O=C(O)c1ccccc1O>>Oc1ccccc1\",\n                  \"type\": \"reaction\"\n                }\n              ],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"O=C(O)c1ccccc1O\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"supporting\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\",\n            \"operations\": [\n              {\n                \"map_idx\": 4,\n                \"map_root_idx\": 2,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"map_idx\": 4,\n                \"n\": 1,\n                \"op\": \"set_explicit_h\"\n              }\n            ],\n            \"reaction_conditions\": \"Acidic or basic conditions; ambient to elevated temperature.\",\n            \"reaction_prompt\": \"O-acetylation of salicylic acid\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    }\n  },\n  {\n    \"completions\": [],\n    \"format_version\": \"stitched-route-1.0\",\n    \"is_solved\": true,\n    \"status\": \"ok\",\n    \"stitched_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [\n                {\n                  \"children\": [\n                    {\n                      \"children\": [],\n                      \"in_stock\": true,\n                      \"is_chemical\": true,\n                      \"smiles\": \"Oc1ccccc1Br\",\n                      \"type\": \"mol\"\n                    }\n                  ],\n                  \"is_reaction\": true,\n                  \"metadata\": {\n                    \"from_route_ops_plan\": true,\n                    \"kind\": \"supporting\",\n                    \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n                    \"operations\": [\n                      {\n                        \"map_idx\": 4,\n                        \"map_root_idx\": 2,\n                        \"op\": \"remove_group\"\n                      },\n                      {\n                        \"map_idx\": 4,\n                        \"n\": 1,\n                        \"op\": \"set_explicit_h\"\n                      }\n                    ],\n                    \"reaction_conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n                    \"reaction_prompt\": \"Acetylation of 2-bromophenol.\",\n                    \"step_id\": \"S2\",\n                    \"step_rationale\": \"Reveals the commercially available 2-bromophenol.\"\n                  },\n                  \"smiles\": \"CC(=O)Oc1ccccc1Br>>Oc1ccccc1Br\",\n                  \"type\": \"reaction\"\n                }\n              ],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"CC(=O)Oc1ccccc1Br\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"key\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n            \"operations\": [\n              {\n                \"map_idx\": 10,\n                \"map_root_idx\": 11,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"fragment_smiles\": \"*Br\",\n                \"map_idx\": 10,\n                \"op\": \"add_group\",\n                \"order\": 1\n              }\n            ],\n            \"reaction_conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n            \"reaction_prompt\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>CC(=O)Oc1ccccc1Br\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    },\n    \"strategic_route\": {\n      \"format_version\": \"routejson-1.0\",\n      \"metadata\": {},\n      \"steps\": [\n        {\n          \"conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n          \"description\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n          \"id\": \"S1\",\n          \"kind\": \"key\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 10,\n              \"map_root_idx\": 11,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"fragment_smiles\": \"*Br\",\n              \"map_idx\": 10,\n              \"op\": \"add_group\",\n              \"order\": 1\n            }\n          ],\n          \"rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\"\n        },\n        {\n          \"conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n          \"description\": \"Acetylation of 2-bromophenol.\",\n          \"id\": \"S2\",\n          \"kind\": \"supporting\",\n          \"metadata\": {},\n          \"operations\": [\n            {\n              \"map_idx\": 4,\n              \"map_root_idx\": 2,\n              \"op\": \"remove_group\"\n            },\n            {\n              \"map_idx\": 4,\n              \"n\": 1,\n              \"op\": \"set_explicit_h\"\n            }\n          ],\n          \"rationale\": \"Reveals the commercially available 2-bromophenol.\"\n        }\n      ],\n      \"target\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]\"\n    },\n    \"strategic_tree\": {\n      \"children\": [\n        {\n          \"children\": [\n            {\n              \"children\": [\n                {\n                  \"children\": [\n                    {\n                      \"children\": [],\n                      \"in_stock\": true,\n                      \"is_chemical\": true,\n                      \"smiles\": \"Oc1ccccc1Br\",\n                      \"type\": \"mol\"\n                    }\n                  ],\n                  \"is_reaction\": true,\n                  \"metadata\": {\n                    \"from_route_ops_plan\": true,\n                    \"kind\": \"supporting\",\n                    \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n                    \"operations\": [\n                      {\n                        \"map_idx\": 4,\n                        \"map_root_idx\": 2,\n                        \"op\": \"remove_group\"\n                      },\n                      {\n                        \"map_idx\": 4,\n                        \"n\": 1,\n                        \"op\": \"set_explicit_h\"\n                      }\n                    ],\n                    \"reaction_conditions\": \"Basic, polar aprotic solvent, ambient temperature.\",\n                    \"reaction_prompt\": \"Acetylation of 2-bromophenol.\",\n                    \"step_id\": \"S2\",\n                    \"step_rationale\": \"Reveals the commercially available 2-bromophenol.\"\n                  },\n                  \"smiles\": \"CC(=O)Oc1ccccc1Br>>Oc1ccccc1Br\",\n                  \"type\": \"reaction\"\n                }\n              ],\n              \"in_stock\": true,\n              \"is_chemical\": true,\n              \"smiles\": \"CC(=O)Oc1ccccc1Br\",\n              \"type\": \"mol\"\n            }\n          ],\n          \"is_reaction\": true,\n          \"metadata\": {\n            \"from_route_ops_plan\": true,\n            \"kind\": \"key\",\n            \"mapped_reaction_smiles\": \"[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]\",\n            \"operations\": [\n              {\n                \"map_idx\": 10,\n                \"map_root_idx\": 11,\n                \"op\": \"remove_group\"\n              },\n              {\n                \"fragment_smiles\": \"*Br\",\n                \"map_idx\": 10,\n                \"op\": \"add_group\",\n                \"order\": 1\n              }\n            ],\n            \"reaction_conditions\": \"Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.\",\n            \"reaction_prompt\": \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.\",\n            \"step_id\": \"S1\",\n            \"step_rationale\": \"Installs the carboxylic acid group via carbonylation of an aryl bromide.\"\n          },\n          \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O>>CC(=O)Oc1ccccc1Br\",\n          \"type\": \"reaction\"\n        }\n      ],\n      \"in_stock\": true,\n      \"is_chemical\": true,\n      \"smiles\": \"CC(=O)Oc1ccccc1C(=O)O\",\n      \"type\": \"mol\"\n    }\n  }\n]\n",
+     "export_sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b",
+     "original_sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b",
+     "path": "run/stitched_routes.json",
+     "redacted": false
+    },
+    {
+     "content": "{\n  \"origin\": \"generated\",\n  \"strategies\": [\n    \"Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride.\",\n    \"Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid.\",\n    \"Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid.\"\n  ]\n}\n",
+     "export_sha256": "083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4",
+     "original_sha256": "083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4",
+     "path": "run/strategies.json",
+     "redacted": false
+    },
+    {
+     "content": "{\"agents\":{\"analyst_temperature\":0.3,\"analyst_thinking_level\":null,\"critic_temperature\":0.1,\"critic_thinking_level\":\"medium\",\"edit_iteration_limit\":6,\"editor_temperature\":0.3,\"editor_thinking_level\":\"medium\",\"editor_turn_limit\":60,\"route_proposal_attempts\":3,\"route_step_limit\":25,\"route_temperature\":0.3,\"route_thinking_level\":\"medium\",\"strategy_count\":3,\"strategy_temperature\":0.1,\"strategy_thinking_level\":null},\"completion\":{\"aizynthfinder_config\":\"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_models.yml\",\"budget\":{\"iteration_limit\":500,\"max_transforms\":6,\"return_first\":true,\"time_limit\":1200},\"enabled\":true,\"expansion_policies\":null,\"filter_policies\":null,\"stocks\":null},\"external_asset_manifest\":\"C:\\\\Users\\\\hahab\\\\학술제\\\\evaluation\\\\runs\\\\verification\\\\native_assets_manifest.json\",\"format_version\":\"synthex-config-1.0\",\"llm\":{\"base_url\":null,\"max_attempts\":3,\"model\":\"gemini-3.1-pro-preview\",\"provider\":\"gemini\",\"thinking_level\":null,\"timeout_seconds\":600.0,\"use_vertex_ai\":false},\"profile\":\"manuscript\"}",
+     "export_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "original_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "path": "runtime_config.json",
+     "redacted": false
+    }
+   ],
+   "item_failures": [],
+   "payload": {
+    "routes": [
+     {
+      "id": "synthex-c3af5880-5d4a-4a62-b9aa-6662bf6239cb-0001",
+      "source": "SynthEx original full workflow / stitched route (실험 타당성 검증 아님)",
+      "steps": [
+       {
+        "byproducts": {
+         "candidates": [],
+         "status": "not_run"
+        },
+        "conditions": {
+         "status": "unknown"
+        },
+        "id": "1",
+        "products": [
+         "CC(=O)Oc1ccccc1C(=O)O"
+        ],
+        "reactants": [
+         "O=C(O)c1ccccc1O"
+        ],
+        "reagents": [],
+        "solvents": []
+       }
+      ],
+      "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+      "upstream": {
+       "checkpoint_path": "stitched_routes.json",
+       "checkpoint_sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b",
+       "context_id": "6e8183ae-7049-4d29-8b11-6ab6052c6706",
+       "engine": "synthex",
+       "manifest_run_id": "2025d840a22f5fe6",
+       "ordinal": 1,
+       "original_id": "stitched-1",
+       "request_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+       "reviewed": {
+        "final_critique": {
+         "balance_check": "Step S1: MISSING from precursors (present in product): 2x C, 1x O; SURPLUS in precursors (lost in the forward step): none. The missing atoms correspond to the acetyl group, which is chemically justified by the intended use of acetic anhydride or acetyl chloride as the reagent. PASS.",
+         "is_satisfactory": true,
+         "overall_feedback": "The proposed route is excellent. It correctly identifies the standard one-step synthesis of aspirin via the O-acetylation of salicylic acid.",
+         "problematic_steps": []
+        },
+        "iterations": [],
+        "route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.",
+           "description": "O-acetylation of salicylic acid",
+           "id": "S1",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "status": "ok",
+        "strategy": "Direct O-acetylation of the phenolic hydroxyl group of salicylic acid using acetic anhydride or acetyl chloride."
+       },
+       "stitched": {
+        "completions": [],
+        "format_version": "stitched-route-1.0",
+        "is_solved": true,
+        "status": "ok",
+        "stitched_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "O=C(O)c1ccccc1O",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "key",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+            "operations": [
+             {
+              "map_idx": 4,
+              "map_root_idx": 2,
+              "op": "remove_group"
+             },
+             {
+              "map_idx": 4,
+              "n": 1,
+              "op": "set_explicit_h"
+             }
+            ],
+            "reaction_conditions": "Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.",
+            "reaction_prompt": "O-acetylation of salicylic acid",
+            "step_id": "S1",
+            "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        },
+        "strategic_route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.",
+           "description": "O-acetylation of salicylic acid",
+           "id": "S1",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "strategic_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "O=C(O)c1ccccc1O",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "key",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+            "operations": [
+             {
+              "map_idx": 4,
+              "map_root_idx": 2,
+              "op": "remove_group"
+             },
+             {
+              "map_idx": 4,
+              "n": 1,
+              "op": "set_explicit_h"
+             }
+            ],
+            "reaction_conditions": "Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.",
+            "reaction_prompt": "O-acetylation of salicylic acid",
+            "step_id": "S1",
+            "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        }
+       },
+       "tree": {
+        "children": [
+         {
+          "children": [
+           {
+            "children": [],
+            "in_stock": true,
+            "is_chemical": true,
+            "smiles": "O=C(O)c1ccccc1O",
+            "type": "mol"
+           }
+          ],
+          "is_reaction": true,
+          "metadata": {
+           "from_route_ops_plan": true,
+           "kind": "key",
+           "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "reaction_conditions": "Acidic or basic catalyst; aprotic solvent; ambient to slightly elevated temperature.",
+           "reaction_prompt": "O-acetylation of salicylic acid",
+           "step_id": "S1",
+           "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, which can be acetylated using acetic anhydride or acetyl chloride."
+          },
+          "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+          "type": "reaction"
+         }
+        ],
+        "in_stock": true,
+        "is_chemical": true,
+        "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+        "type": "mol"
+       }
+      }
+     },
+     {
+      "id": "synthex-c3af5880-5d4a-4a62-b9aa-6662bf6239cb-0002",
+      "source": "SynthEx original full workflow / stitched route (실험 타당성 검증 아님)",
+      "steps": [
+       {
+        "byproducts": {
+         "candidates": [],
+         "status": "not_run"
+        },
+        "conditions": {
+         "status": "unknown"
+        },
+        "id": "1",
+        "products": [
+         "CC(=O)Oc1ccccc1C(=O)O"
+        ],
+        "reactants": [
+         "O=C(O)c1ccccc1O"
+        ],
+        "reagents": [],
+        "solvents": []
+       },
+       {
+        "byproducts": {
+         "candidates": [],
+         "status": "not_run"
+        },
+        "conditions": {
+         "status": "unknown"
+        },
+        "id": "2",
+        "products": [
+         "O=C(O)c1ccccc1O"
+        ],
+        "reactants": [
+         "Oc1ccccc1"
+        ],
+        "reagents": [],
+        "solvents": []
+       }
+      ],
+      "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+      "upstream": {
+       "checkpoint_path": "stitched_routes.json",
+       "checkpoint_sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b",
+       "context_id": "6e8183ae-7049-4d29-8b11-6ab6052c6706",
+       "engine": "synthex",
+       "manifest_run_id": "2025d840a22f5fe6",
+       "ordinal": 2,
+       "original_id": "stitched-2",
+       "request_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+       "reviewed": {
+        "final_critique": {
+         "balance_check": "Step S1: MISSING from precursors (present in product): 2x C, 1x O. SURPLUS in precursors (lost in the forward step): none. The missing atoms are chemically justified as they correspond to the acetyl group provided by a reagent like acetic anhydride or acetyl chloride. Step S2: MISSING from precursors (present in product): 1x C, 2x O. SURPLUS in precursors (lost in the forward step): none. The missing atoms are chemically justified as they correspond to carbon dioxide used in the Kolbe-Schmitt carboxylation. PASS.",
+         "is_satisfactory": true,
+         "overall_feedback": "The route is excellent and represents the classic, highly efficient industrial synthesis of aspirin.",
+         "problematic_steps": []
+        },
+        "iterations": [],
+        "route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Acidic or basic conditions; ambient to elevated temperature.",
+           "description": "O-acetylation of salicylic acid",
+           "id": "S1",
+           "kind": "supporting",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation."
+          },
+          {
+           "conditions": "Basic conditions; high temperature and pressure.",
+           "description": "Kolbe-Schmitt carboxylation of phenol",
+           "id": "S2",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 10,
+             "map_root_idx": 11,
+             "op": "remove_group"
+            }
+           ],
+           "rationale": "Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "status": "ok",
+        "strategy": "Kolbe-Schmitt carboxylation of sodium phenoxide with carbon dioxide followed by O-acetylation of the resulting salicylic acid."
+       },
+       "stitched": {
+        "completions": [],
+        "format_version": "stitched-route-1.0",
+        "is_solved": true,
+        "status": "ok",
+        "stitched_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [
+              {
+               "children": [
+                {
+                 "children": [],
+                 "in_stock": true,
+                 "is_chemical": true,
+                 "smiles": "Oc1ccccc1",
+                 "type": "mol"
+                }
+               ],
+               "is_reaction": true,
+               "metadata": {
+                "from_route_ops_plan": true,
+                "kind": "key",
+                "mapped_reaction_smiles": "[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1",
+                "operations": [
+                 {
+                  "map_idx": 10,
+                  "map_root_idx": 11,
+                  "op": "remove_group"
+                 }
+                ],
+                "reaction_conditions": "Basic conditions; high temperature and pressure.",
+                "reaction_prompt": "Kolbe-Schmitt carboxylation of phenol",
+                "step_id": "S2",
+                "step_rationale": "Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction."
+               },
+               "smiles": "O=C(O)c1ccccc1O>>Oc1ccccc1",
+               "type": "reaction"
+              }
+             ],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "O=C(O)c1ccccc1O",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "supporting",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+            "operations": [
+             {
+              "map_idx": 4,
+              "map_root_idx": 2,
+              "op": "remove_group"
+             },
+             {
+              "map_idx": 4,
+              "n": 1,
+              "op": "set_explicit_h"
+             }
+            ],
+            "reaction_conditions": "Acidic or basic conditions; ambient to elevated temperature.",
+            "reaction_prompt": "O-acetylation of salicylic acid",
+            "step_id": "S1",
+            "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        },
+        "strategic_route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Acidic or basic conditions; ambient to elevated temperature.",
+           "description": "O-acetylation of salicylic acid",
+           "id": "S1",
+           "kind": "supporting",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation."
+          },
+          {
+           "conditions": "Basic conditions; high temperature and pressure.",
+           "description": "Kolbe-Schmitt carboxylation of phenol",
+           "id": "S2",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 10,
+             "map_root_idx": 11,
+             "op": "remove_group"
+            }
+           ],
+           "rationale": "Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "strategic_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [
+              {
+               "children": [
+                {
+                 "children": [],
+                 "in_stock": true,
+                 "is_chemical": true,
+                 "smiles": "Oc1ccccc1",
+                 "type": "mol"
+                }
+               ],
+               "is_reaction": true,
+               "metadata": {
+                "from_route_ops_plan": true,
+                "kind": "key",
+                "mapped_reaction_smiles": "[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1",
+                "operations": [
+                 {
+                  "map_idx": 10,
+                  "map_root_idx": 11,
+                  "op": "remove_group"
+                 }
+                ],
+                "reaction_conditions": "Basic conditions; high temperature and pressure.",
+                "reaction_prompt": "Kolbe-Schmitt carboxylation of phenol",
+                "step_id": "S2",
+                "step_rationale": "Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction."
+               },
+               "smiles": "O=C(O)c1ccccc1O>>Oc1ccccc1",
+               "type": "reaction"
+              }
+             ],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "O=C(O)c1ccccc1O",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "supporting",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+            "operations": [
+             {
+              "map_idx": 4,
+              "map_root_idx": 2,
+              "op": "remove_group"
+             },
+             {
+              "map_idx": 4,
+              "n": 1,
+              "op": "set_explicit_h"
+             }
+            ],
+            "reaction_conditions": "Acidic or basic conditions; ambient to elevated temperature.",
+            "reaction_prompt": "O-acetylation of salicylic acid",
+            "step_id": "S1",
+            "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        }
+       },
+       "tree": {
+        "children": [
+         {
+          "children": [
+           {
+            "children": [
+             {
+              "children": [
+               {
+                "children": [],
+                "in_stock": true,
+                "is_chemical": true,
+                "smiles": "Oc1ccccc1",
+                "type": "mol"
+               }
+              ],
+              "is_reaction": true,
+              "metadata": {
+               "from_route_ops_plan": true,
+               "kind": "key",
+               "mapped_reaction_smiles": "[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][cH:10]1",
+               "operations": [
+                {
+                 "map_idx": 10,
+                 "map_root_idx": 11,
+                 "op": "remove_group"
+                }
+               ],
+               "reaction_conditions": "Basic conditions; high temperature and pressure.",
+               "reaction_prompt": "Kolbe-Schmitt carboxylation of phenol",
+               "step_id": "S2",
+               "step_rationale": "Disconnect the carboxyl group to yield phenol, which is the starting material for the Kolbe-Schmitt reaction."
+              },
+              "smiles": "O=C(O)c1ccccc1O>>Oc1ccccc1",
+              "type": "reaction"
+             }
+            ],
+            "in_stock": true,
+            "is_chemical": true,
+            "smiles": "O=C(O)c1ccccc1O",
+            "type": "mol"
+           }
+          ],
+          "is_reaction": true,
+          "metadata": {
+           "from_route_ops_plan": true,
+           "kind": "supporting",
+           "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]",
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "reaction_conditions": "Acidic or basic conditions; ambient to elevated temperature.",
+           "reaction_prompt": "O-acetylation of salicylic acid",
+           "step_id": "S1",
+           "step_rationale": "Disconnect the acetyl group to reveal salicylic acid, setting up the Kolbe-Schmitt carboxylation."
+          },
+          "smiles": "CC(=O)Oc1ccccc1C(=O)O>>O=C(O)c1ccccc1O",
+          "type": "reaction"
+         }
+        ],
+        "in_stock": true,
+        "is_chemical": true,
+        "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+        "type": "mol"
+       }
+      }
+     },
+     {
+      "id": "synthex-c3af5880-5d4a-4a62-b9aa-6662bf6239cb-0003",
+      "source": "SynthEx original full workflow / stitched route (실험 타당성 검증 아님)",
+      "steps": [
+       {
+        "byproducts": {
+         "candidates": [],
+         "status": "not_run"
+        },
+        "conditions": {
+         "status": "unknown"
+        },
+        "id": "1",
+        "products": [
+         "CC(=O)Oc1ccccc1C(=O)O"
+        ],
+        "reactants": [
+         "CC(=O)Oc1ccccc1Br"
+        ],
+        "reagents": [],
+        "solvents": []
+       },
+       {
+        "byproducts": {
+         "candidates": [],
+         "status": "not_run"
+        },
+        "conditions": {
+         "status": "unknown"
+        },
+        "id": "2",
+        "products": [
+         "CC(=O)Oc1ccccc1Br"
+        ],
+        "reactants": [
+         "Oc1ccccc1Br"
+        ],
+        "reagents": [],
+        "solvents": []
+       }
+      ],
+      "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+      "upstream": {
+       "checkpoint_path": "stitched_routes.json",
+       "checkpoint_sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b",
+       "context_id": "6e8183ae-7049-4d29-8b11-6ab6052c6706",
+       "engine": "synthex",
+       "manifest_run_id": "2025d840a22f5fe6",
+       "ordinal": 3,
+       "original_id": "stitched-3",
+       "request_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+       "reviewed": {
+        "final_critique": {
+         "balance_check": "Step S1: MISSING 1x C, 2x O (chemically justified by the incorporation of CO and H2O during carbonylation); SURPLUS 1x Br (chemically justified as the leaving group). Step S2: MISSING 2x C, 1x O (chemically justified by the acetylating agent, e.g., acetic anhydride or acetyl chloride); SURPLUS none. PASS.",
+         "is_satisfactory": true,
+         "overall_feedback": "The route is theoretically valid and concise, but the final carbonylation step carries a significant chemoselectivity risk regarding the stability of the acetate group.",
+         "problematic_steps": [
+          {
+           "feedback": "Chemoselectivity risk: The hydroxycarbonylation of the aryl bromide requires CO, water, and a base. Under these conditions (especially at the high temperatures mentioned), the phenolic acetate group is very prone to hydrolysis. This would result in the formation of salicylic acid rather than the target acetylsalicylic acid. Careful optimization of the base and temperature would be required to prevent this side reaction.",
+           "severity": "suggestion",
+           "step_id": "S1"
+          }
+         ]
+        },
+        "iterations": [],
+        "route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.",
+           "description": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.",
+           "id": "S1",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 10,
+             "map_root_idx": 11,
+             "op": "remove_group"
+            },
+            {
+             "fragment_smiles": "*Br",
+             "map_idx": 10,
+             "op": "add_group",
+             "order": 1
+            }
+           ],
+           "rationale": "Installs the carboxylic acid group via carbonylation of an aryl bromide."
+          },
+          {
+           "conditions": "Basic, polar aprotic solvent, ambient temperature.",
+           "description": "Acetylation of 2-bromophenol.",
+           "id": "S2",
+           "kind": "supporting",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Reveals the commercially available 2-bromophenol."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "status": "ok",
+        "strategy": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene or 2-acetoxyphenyl triflate using carbon monoxide and water to install the carboxylic acid."
+       },
+       "stitched": {
+        "completions": [],
+        "format_version": "stitched-route-1.0",
+        "is_solved": true,
+        "status": "ok",
+        "stitched_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [
+              {
+               "children": [
+                {
+                 "children": [],
+                 "in_stock": true,
+                 "is_chemical": true,
+                 "smiles": "Oc1ccccc1Br",
+                 "type": "mol"
+                }
+               ],
+               "is_reaction": true,
+               "metadata": {
+                "from_route_ops_plan": true,
+                "kind": "supporting",
+                "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+                "operations": [
+                 {
+                  "map_idx": 4,
+                  "map_root_idx": 2,
+                  "op": "remove_group"
+                 },
+                 {
+                  "map_idx": 4,
+                  "n": 1,
+                  "op": "set_explicit_h"
+                 }
+                ],
+                "reaction_conditions": "Basic, polar aprotic solvent, ambient temperature.",
+                "reaction_prompt": "Acetylation of 2-bromophenol.",
+                "step_id": "S2",
+                "step_rationale": "Reveals the commercially available 2-bromophenol."
+               },
+               "smiles": "CC(=O)Oc1ccccc1Br>>Oc1ccccc1Br",
+               "type": "reaction"
+              }
+             ],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "CC(=O)Oc1ccccc1Br",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "key",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+            "operations": [
+             {
+              "map_idx": 10,
+              "map_root_idx": 11,
+              "op": "remove_group"
+             },
+             {
+              "fragment_smiles": "*Br",
+              "map_idx": 10,
+              "op": "add_group",
+              "order": 1
+             }
+            ],
+            "reaction_conditions": "Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.",
+            "reaction_prompt": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.",
+            "step_id": "S1",
+            "step_rationale": "Installs the carboxylic acid group via carbonylation of an aryl bromide."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>CC(=O)Oc1ccccc1Br",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        },
+        "strategic_route": {
+         "format_version": "routejson-1.0",
+         "metadata": {},
+         "steps": [
+          {
+           "conditions": "Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.",
+           "description": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.",
+           "id": "S1",
+           "kind": "key",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 10,
+             "map_root_idx": 11,
+             "op": "remove_group"
+            },
+            {
+             "fragment_smiles": "*Br",
+             "map_idx": 10,
+             "op": "add_group",
+             "order": 1
+            }
+           ],
+           "rationale": "Installs the carboxylic acid group via carbonylation of an aryl bromide."
+          },
+          {
+           "conditions": "Basic, polar aprotic solvent, ambient temperature.",
+           "description": "Acetylation of 2-bromophenol.",
+           "id": "S2",
+           "kind": "supporting",
+           "metadata": {},
+           "operations": [
+            {
+             "map_idx": 4,
+             "map_root_idx": 2,
+             "op": "remove_group"
+            },
+            {
+             "map_idx": 4,
+             "n": 1,
+             "op": "set_explicit_h"
+            }
+           ],
+           "rationale": "Reveals the commercially available 2-bromophenol."
+          }
+         ],
+         "target": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]"
+        },
+        "strategic_tree": {
+         "children": [
+          {
+           "children": [
+            {
+             "children": [
+              {
+               "children": [
+                {
+                 "children": [],
+                 "in_stock": true,
+                 "is_chemical": true,
+                 "smiles": "Oc1ccccc1Br",
+                 "type": "mol"
+                }
+               ],
+               "is_reaction": true,
+               "metadata": {
+                "from_route_ops_plan": true,
+                "kind": "supporting",
+                "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+                "operations": [
+                 {
+                  "map_idx": 4,
+                  "map_root_idx": 2,
+                  "op": "remove_group"
+                 },
+                 {
+                  "map_idx": 4,
+                  "n": 1,
+                  "op": "set_explicit_h"
+                 }
+                ],
+                "reaction_conditions": "Basic, polar aprotic solvent, ambient temperature.",
+                "reaction_prompt": "Acetylation of 2-bromophenol.",
+                "step_id": "S2",
+                "step_rationale": "Reveals the commercially available 2-bromophenol."
+               },
+               "smiles": "CC(=O)Oc1ccccc1Br>>Oc1ccccc1Br",
+               "type": "reaction"
+              }
+             ],
+             "in_stock": true,
+             "is_chemical": true,
+             "smiles": "CC(=O)Oc1ccccc1Br",
+             "type": "mol"
+            }
+           ],
+           "is_reaction": true,
+           "metadata": {
+            "from_route_ops_plan": true,
+            "kind": "key",
+            "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+            "operations": [
+             {
+              "map_idx": 10,
+              "map_root_idx": 11,
+              "op": "remove_group"
+             },
+             {
+              "fragment_smiles": "*Br",
+              "map_idx": 10,
+              "op": "add_group",
+              "order": 1
+             }
+            ],
+            "reaction_conditions": "Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.",
+            "reaction_prompt": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.",
+            "step_id": "S1",
+            "step_rationale": "Installs the carboxylic acid group via carbonylation of an aryl bromide."
+           },
+           "smiles": "CC(=O)Oc1ccccc1C(=O)O>>CC(=O)Oc1ccccc1Br",
+           "type": "reaction"
+          }
+         ],
+         "in_stock": true,
+         "is_chemical": true,
+         "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+         "type": "mol"
+        }
+       },
+       "tree": {
+        "children": [
+         {
+          "children": [
+           {
+            "children": [
+             {
+              "children": [
+               {
+                "children": [],
+                "in_stock": true,
+                "is_chemical": true,
+                "smiles": "Oc1ccccc1Br",
+                "type": "mol"
+               }
+              ],
+              "is_reaction": true,
+              "metadata": {
+               "from_route_ops_plan": true,
+               "kind": "supporting",
+               "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]>>[OH:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+               "operations": [
+                {
+                 "map_idx": 4,
+                 "map_root_idx": 2,
+                 "op": "remove_group"
+                },
+                {
+                 "map_idx": 4,
+                 "n": 1,
+                 "op": "set_explicit_h"
+                }
+               ],
+               "reaction_conditions": "Basic, polar aprotic solvent, ambient temperature.",
+               "reaction_prompt": "Acetylation of 2-bromophenol.",
+               "step_id": "S2",
+               "step_rationale": "Reveals the commercially available 2-bromophenol."
+              },
+              "smiles": "CC(=O)Oc1ccccc1Br>>Oc1ccccc1Br",
+              "type": "reaction"
+             }
+            ],
+            "in_stock": true,
+            "is_chemical": true,
+            "smiles": "CC(=O)Oc1ccccc1Br",
+            "type": "mol"
+           }
+          ],
+          "is_reaction": true,
+          "metadata": {
+           "from_route_ops_plan": true,
+           "kind": "key",
+           "mapped_reaction_smiles": "[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[C:11](=[O:12])[OH:13]>>[CH3:1][C:2](=[O:3])[O:4][c:5]1[cH:6][cH:7][cH:8][cH:9][c:10]1[Br:14]",
+           "operations": [
+            {
+             "map_idx": 10,
+             "map_root_idx": 11,
+             "op": "remove_group"
+            },
+            {
+             "fragment_smiles": "*Br",
+             "map_idx": 10,
+             "op": "add_group",
+             "order": 1
+            }
+           ],
+           "reaction_conditions": "Transition-metal catalyst, basic, polar aprotic solvent, high temperature, CO atmosphere.",
+           "reaction_prompt": "Palladium-catalyzed carbonylation of 2-acetoxybromobenzene to form 2-acetoxybenzoic acid.",
+           "step_id": "S1",
+           "step_rationale": "Installs the carboxylic acid group via carbonylation of an aryl bromide."
+          },
+          "smiles": "CC(=O)Oc1ccccc1C(=O)O>>CC(=O)Oc1ccccc1Br",
+          "type": "reaction"
+         }
+        ],
+        "in_stock": true,
+        "is_chemical": true,
+        "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+        "type": "mol"
+       }
+      }
+     }
+    ],
+    "schema_version": "1.0"
+   },
+   "provenance": {
+    "asset_sha256": {
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json": "846aa41cbf39da86fadf379929ca48106b51e4d682f0a1a075c6eadc8a007bd1",
+     "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml": "8c875ad728b12f6a6da16b231e67d0c49031d98bd292594326902ceb449415a9",
+     "C:\\Users\\hahab\\학술제\\test\\models\\bulk_reagents_stock.hdf5": "c8df12e3371d109ba5c0c39746ccd4614945c5c3ab046af82a57bea5ea3aa1df",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+     "C:\\Users\\hahab\\학술제\\test\\models\\uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+     "C:\\Users\\hahab\\학술제\\test\\models\\zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d"
+    },
+    "backend": "synthex",
+    "cli_command": "plan",
+    "cli_exit_code": 0,
+    "configured_source_sha256": "8bf4b622179518596ec29a719767aedde9b6175eed022aec8064163e05316f19",
+    "context_id": "6e8183ae-7049-4d29-8b11-6ab6052c6706",
+    "converted_route_count": 3,
+    "created_at": "2026-11-08T12:21:56.647624+00:00",
+    "edit_iteration_limit": 6,
+    "full_workflow_stages": [
+     "strategies",
+     "routes",
+     "reviewed_routes",
+     "analyses",
+     "stitched_routes"
+    ],
+    "limitations": [
+     "Research-only generation is not experimental or safety validation.",
+     "Dependency presence is not a compatibility or chemical-performance guarantee.",
+     "No new assets, saved-route substitutions, reduced workflow or alternative engine are used."
+    ],
+    "live_verified": true,
+    "manifest": {
+     "artifacts": {
+      "analyses": {
+       "parent_sha256": "95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb",
+       "path": "analyses.json",
+       "sha256": "a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4"
+      },
+      "reviewed_routes": {
+       "parent_sha256": "c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64",
+       "path": "reviewed_routes.json",
+       "sha256": "95e666efcbf202f721602a0fee2378c5dce5afd1eba2970c450803f9e0a335eb"
+      },
+      "routes": {
+       "parent_sha256": "083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4",
+       "path": "routes.json",
+       "sha256": "c617f6492d22544965e954b4a59288f4e0f6d0e3020965f3aae9fb791669bc64"
+      },
+      "stitched_routes": {
+       "parent_sha256": "a7ae2a68d9ec4802c78ddc1e115ba69138d05a1e3bb6dbc77779c625bb4e02c4",
+       "path": "stitched_routes.json",
+       "sha256": "ff8e2c3d8030bd5869f81f0320dae3f1f94f497a252dab8b207a4b4e6241bf3b"
+      },
+      "strategies": {
+       "parent_sha256": null,
+       "path": "strategies.json",
+       "sha256": "083761866ed0909a985ef4f46ff41509a34ea81bbd91997eb0fb594bc659b2d4"
+      }
+     },
+     "code_revision": "package:0.1.0",
+     "completed_stages": [
+      "strategies",
+      "routes",
+      "reviewed_routes",
+      "analyses",
+      "stitched_routes"
+     ],
+     "config": {
+      "agents": {
+       "analyst_temperature": 0.3,
+       "analyst_thinking_level": null,
+       "critic_temperature": 0.1,
+       "critic_thinking_level": "medium",
+       "edit_iteration_limit": 6,
+       "editor_temperature": 0.3,
+       "editor_thinking_level": "medium",
+       "editor_turn_limit": 60,
+       "route_proposal_attempts": 3,
+       "route_step_limit": 25,
+       "route_temperature": 0.3,
+       "route_thinking_level": "medium",
+       "strategy_count": 3,
+       "strategy_temperature": 0.1,
+       "strategy_thinking_level": null
+      },
+      "completion": {
+       "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+       "budget": {
+        "iteration_limit": 500,
+        "max_transforms": 6,
+        "return_first": true,
+        "time_limit": 1200
+       },
+       "enabled": true,
+       "expansion_policies": null,
+       "filter_policies": null,
+       "stocks": null
+      },
+      "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+      "format_version": "synthex-config-1.0",
+      "llm": {
+       "base_url": null,
+       "max_attempts": 3,
+       "model": "gemini-3.1-pro-preview",
+       "provider": "gemini",
+       "thinking_level": null,
+       "timeout_seconds": 600.0,
+       "use_vertex_ai": false
+      },
+      "profile": "manuscript"
+     },
+     "config_sha256": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+     "constraint": null,
+     "created_at": "2026-11-08T12:18:59.046317+00:00",
+     "current_stage": "complete",
+     "dependency_lock_sha256": "73279d5062067ab4c36eeb665882128fac1351a0a43bba3b3accfc53c5d4fc3f",
+     "dependency_versions": {
+      "aizynthfinder": "4.4.1",
+      "google-genai": "1.75.0",
+      "pydantic": "2.13.4",
+      "rdkit": "2023.9.6",
+      "synthex": "0.1.0"
+     },
+     "external_assets": {
+      "aizynthfinder_config": "8c875ad728b12f6a6da16b231e67d0c49031d98bd292594326902ceb449415a9",
+      "asset:bulk_reagents_stock.hdf5": "c8df12e3371d109ba5c0c39746ccd4614945c5c3ab046af82a57bea5ea3aa1df",
+      "asset:uspto_filter_model.onnx": "ad29aa32bdfcbe37065045546493806cf04899c55386c438905d83fb14bb6320",
+      "asset:uspto_model.onnx": "bd0a3cb74cd7068de474c8fb789a00a66bc42c75636d66510ccac585ebe928f8",
+      "asset:uspto_ringbreaker_model.onnx": "1bf0690352d9e9212d7dbe8b35649caf74f73ef0b30edefdfdac37fce38085be",
+      "asset:uspto_ringbreaker_templates.csv.gz": "5616a056454b10a2f044e69e027422128986856ebd958541a3bf9f837e3a0d14",
+      "asset:uspto_templates.csv.gz": "a4f1945e90cfa195538320833d68aed38f14e2fcc2f8afb5d958bc920edcafbe",
+      "asset:zinc_stock.hdf5": "99d39a6f807c3e815487500bafc2b4a9dc66a31af189e3b1776874fb0d4a188d",
+      "asset_manifest": "846aa41cbf39da86fadf379929ca48106b51e4d682f0a1a075c6eadc8a007bd1"
+     },
+     "failure": null,
+     "format_version": "run-manifest-1.0",
+     "input_sha256": "86dfcdb7bbc3cfae32599412c44f593be1f6d95f9ebaa888d1eb5595e9ca61b6",
+     "llm_usage": {
+      "cached_input_tokens": 821,
+      "calls": 15,
+      "input_tokens": 44121,
+      "output_tokens": 6584,
+      "thought_tokens": 13312,
+      "total_tokens": 64017
+     },
+     "model": "gemini-3.1-pro-preview",
+     "prompt_sha256": {
+      "analyst": "66287e23f36fa03d13839cbd0a81046fb820f6772321a0105b141e0e03ea6d5d",
+      "critic": "7a22d3f990d6973926d4daf6f0bffed06197a1c5ac72025c9ebd728c83513f9d",
+      "editor": "071f9055b023b0f2443f59d36ada60819841e923f1102a7710675059ed28b023",
+      "route_builder": "30964ffc3e4e4f8012dc6dff32f538ba243c1a4b011f991014fa3627b142e48f",
+      "strategy_generator": "7d1576d28634c7ec5f2b6fa8965d3b0dcbb2f981a25674a0437ce73cc10370ec"
+     },
+     "prompt_versions": {
+      "analyst": "analyst-v1",
+      "critic": "critic-v2-atom-accounting+ich-m7-rule-screen",
+      "editor": "editor-v1",
+      "route_builder": "route-builder-reactionjson-v2",
+      "strategy_generator": "strategy-generator-v1"
+     },
+     "provider": "gemini",
+     "run_id": "2025d840a22f5fe6",
+     "stage_config_sha256": {
+      "analyses": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+      "reviewed_routes": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+      "routes": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+      "stitched_routes": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf",
+      "strategies": "bebf78dede7fca1d92c6abb9cee41a2f88dccd806b8cdffe1f5ff6e2e1d425cf"
+     },
+     "stage_configs": {
+      "analyses": {
+       "agents": {
+        "analyst_temperature": 0.3,
+        "analyst_thinking_level": null,
+        "critic_temperature": 0.1,
+        "critic_thinking_level": "medium",
+        "edit_iteration_limit": 6,
+        "editor_temperature": 0.3,
+        "editor_thinking_level": "medium",
+        "editor_turn_limit": 60,
+        "route_proposal_attempts": 3,
+        "route_step_limit": 25,
+        "route_temperature": 0.3,
+        "route_thinking_level": "medium",
+        "strategy_count": 3,
+        "strategy_temperature": 0.1,
+        "strategy_thinking_level": null
+       },
+       "completion": {
+        "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+        "budget": {
+         "iteration_limit": 500,
+         "max_transforms": 6,
+         "return_first": true,
+         "time_limit": 1200
+        },
+        "enabled": true,
+        "expansion_policies": null,
+        "filter_policies": null,
+        "stocks": null
+       },
+       "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+       "format_version": "synthex-config-1.0",
+       "llm": {
+        "base_url": null,
+        "max_attempts": 3,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "gemini",
+        "thinking_level": null,
+        "timeout_seconds": 600.0,
+        "use_vertex_ai": false
+       },
+       "profile": "manuscript"
+      },
+      "reviewed_routes": {
+       "agents": {
+        "analyst_temperature": 0.3,
+        "analyst_thinking_level": null,
+        "critic_temperature": 0.1,
+        "critic_thinking_level": "medium",
+        "edit_iteration_limit": 6,
+        "editor_temperature": 0.3,
+        "editor_thinking_level": "medium",
+        "editor_turn_limit": 60,
+        "route_proposal_attempts": 3,
+        "route_step_limit": 25,
+        "route_temperature": 0.3,
+        "route_thinking_level": "medium",
+        "strategy_count": 3,
+        "strategy_temperature": 0.1,
+        "strategy_thinking_level": null
+       },
+       "completion": {
+        "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+        "budget": {
+         "iteration_limit": 500,
+         "max_transforms": 6,
+         "return_first": true,
+         "time_limit": 1200
+        },
+        "enabled": true,
+        "expansion_policies": null,
+        "filter_policies": null,
+        "stocks": null
+       },
+       "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+       "format_version": "synthex-config-1.0",
+       "llm": {
+        "base_url": null,
+        "max_attempts": 3,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "gemini",
+        "thinking_level": null,
+        "timeout_seconds": 600.0,
+        "use_vertex_ai": false
+       },
+       "profile": "manuscript"
+      },
+      "routes": {
+       "agents": {
+        "analyst_temperature": 0.3,
+        "analyst_thinking_level": null,
+        "critic_temperature": 0.1,
+        "critic_thinking_level": "medium",
+        "edit_iteration_limit": 6,
+        "editor_temperature": 0.3,
+        "editor_thinking_level": "medium",
+        "editor_turn_limit": 60,
+        "route_proposal_attempts": 3,
+        "route_step_limit": 25,
+        "route_temperature": 0.3,
+        "route_thinking_level": "medium",
+        "strategy_count": 3,
+        "strategy_temperature": 0.1,
+        "strategy_thinking_level": null
+       },
+       "completion": {
+        "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+        "budget": {
+         "iteration_limit": 500,
+         "max_transforms": 6,
+         "return_first": true,
+         "time_limit": 1200
+        },
+        "enabled": true,
+        "expansion_policies": null,
+        "filter_policies": null,
+        "stocks": null
+       },
+       "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+       "format_version": "synthex-config-1.0",
+       "llm": {
+        "base_url": null,
+        "max_attempts": 3,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "gemini",
+        "thinking_level": null,
+        "timeout_seconds": 600.0,
+        "use_vertex_ai": false
+       },
+       "profile": "manuscript"
+      },
+      "stitched_routes": {
+       "agents": {
+        "analyst_temperature": 0.3,
+        "analyst_thinking_level": null,
+        "critic_temperature": 0.1,
+        "critic_thinking_level": "medium",
+        "edit_iteration_limit": 6,
+        "editor_temperature": 0.3,
+        "editor_thinking_level": "medium",
+        "editor_turn_limit": 60,
+        "route_proposal_attempts": 3,
+        "route_step_limit": 25,
+        "route_temperature": 0.3,
+        "route_thinking_level": "medium",
+        "strategy_count": 3,
+        "strategy_temperature": 0.1,
+        "strategy_thinking_level": null
+       },
+       "completion": {
+        "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+        "budget": {
+         "iteration_limit": 500,
+         "max_transforms": 6,
+         "return_first": true,
+         "time_limit": 1200
+        },
+        "enabled": true,
+        "expansion_policies": null,
+        "filter_policies": null,
+        "stocks": null
+       },
+       "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+       "format_version": "synthex-config-1.0",
+       "llm": {
+        "base_url": null,
+        "max_attempts": 3,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "gemini",
+        "thinking_level": null,
+        "timeout_seconds": 600.0,
+        "use_vertex_ai": false
+       },
+       "profile": "manuscript"
+      },
+      "strategies": {
+       "agents": {
+        "analyst_temperature": 0.3,
+        "analyst_thinking_level": null,
+        "critic_temperature": 0.1,
+        "critic_thinking_level": "medium",
+        "edit_iteration_limit": 6,
+        "editor_temperature": 0.3,
+        "editor_thinking_level": "medium",
+        "editor_turn_limit": 60,
+        "route_proposal_attempts": 3,
+        "route_step_limit": 25,
+        "route_temperature": 0.3,
+        "route_thinking_level": "medium",
+        "strategy_count": 3,
+        "strategy_temperature": 0.1,
+        "strategy_thinking_level": null
+       },
+       "completion": {
+        "aizynthfinder_config": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_models.yml",
+        "budget": {
+         "iteration_limit": 500,
+         "max_transforms": 6,
+         "return_first": true,
+         "time_limit": 1200
+        },
+        "enabled": true,
+        "expansion_policies": null,
+        "filter_policies": null,
+        "stocks": null
+       },
+       "external_asset_manifest": "C:\\Users\\hahab\\학술제\\evaluation\\runs\\verification\\native_assets_manifest.json",
+       "format_version": "synthex-config-1.0",
+       "llm": {
+        "base_url": null,
+        "max_attempts": 3,
+        "model": "gemini-3.1-pro-preview",
+        "provider": "gemini",
+        "thinking_level": null,
+        "timeout_seconds": 600.0,
+        "use_vertex_ai": false
+       },
+       "profile": "manuscript"
+      }
+     },
+     "stage_durations_seconds": {
+      "analyses": 70.722705,
+      "reviewed_routes": 40.640351,
+      "routes": 52.930727,
+      "stitched_routes": 0.029502,
+      "strategies": 11.703746
+     },
+     "status": "complete",
+     "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+     "target_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+     "updated_at": "2026-11-08T12:21:55.158223+00:00"
+    },
+    "original_call": "synthex.cli.main",
+    "platform_io_adapter": {
+     "digest_validation": "unchanged upstream byte digests",
+     "encoding": "utf-8",
+     "name": "original-store-utf8-lf-1",
+     "newline_translation": false,
+     "scope": "SynthEx ArtifactStore root paths only"
+    },
+    "python_version": "3.11.16",
+    "request_id": "c3af5880-5d4a-4a62-b9aa-6662bf6239cb",
+    "source_sha256": {
+     "engine.py": "353eaf866b5add7510a8849981ad13b9b1b9d9a17cab2e3d611c1656ff5dd6da",
+     "generation_worker.py": "5ade91663300e90dd3c95f1a535f72ce34b6124415b4237f97cead7486f406a0",
+     "synthex/cli.py": "55181702162c93182b71696ea16775ccccc9ef72697324b8591f934827308946",
+     "synthex/completion.py": "c2e8a3bd909454b9c7bbf320a732e5cba3b5e9cc64d6d398abf123ea00cae5a7",
+     "synthex/pipeline.py": "62120386ff53d684d16aa152f32d42450193e051cc6aa3511fe43dc87504438a"
+    },
+    "target": "CC(=O)OC1=CC=CC=C1C(=O)O",
+    "versions": {
+     "aizynthfinder": "4.4.1",
+     "google-genai": "1.75.0",
+     "pydantic": "2.13.4",
+     "rdkit": "2023.9.6",
+     "synthex": "0.1.0"
+    }
+   }
+  },
+  "error": null
+ }
 }
