@@ -201,9 +201,8 @@ def run_tools(materials, tool_ids, *, threshold=None):
     one applies that single line to all of them, which is what the override on
     screen does; it is not the default because the measured lines differ.
     """
-    requested = tuple(tool_ids)
     results = {}
-    for tool_id in requested:
+    for tool_id in tool_ids:
         entry = screening_judges.get_judge(tool_id)
         try:
             line = measured_line(tool_id) if threshold is None else threshold
@@ -221,9 +220,7 @@ def run_tools(materials, tool_ids, *, threshold=None):
             results[tool_id] = {"judge": tool_id, "calls": [], "evidence": {},
                                 "tool_error": f"{type(exc).__name__}: {exc}"}
 
-    # Back in the order asked for, so the columns do not reshuffle because
-    # one of them had to wait for its members.
-    return {tool_id: results[tool_id] for tool_id in requested}
+    return results
 
 
 def build_comparison(materials, results):
@@ -445,26 +442,30 @@ def explanation_lines(entry):
     return lines
 
 
-def _run_tools_for(workspace, tools, *, state_key):
+# Where the comparison screen keeps its last run.
+RESULT_KEY = "_comparison_result"
+
+
+def _run_tools_for(workspace, tools):
     """Run the chosen tools on the selected route and remember the answers."""
     report = (workspace or {}).get("report")
     route_id = (workspace or {}).get("route_id")
     materials = materials_of_route(report or {}, route_id)
     with st.spinner(f"도구 {len(tools)}개를 물질 {len(materials)}개에 "
                     "실행하고 있습니다"):
-        st.session_state[state_key] = {
+        st.session_state[RESULT_KEY] = {
             "results": run_tools(materials, tools), "materials": materials,
             "tools": list(tools), "route_id": route_id}
 
 
-def stored_tool_result(workspace, *, state_key, tools):
-    """The last run under this key, but only if it still matches the screen.
+def stored_tool_result(workspace, tools):
+    """The last run, but only if it still matches what is on screen.
 
     A run belongs to one route, one tool set and one material list. A
-    byproduct sweep adds candidates to the route, so answers from before it
-    no longer cover what is on screen and are dropped rather than shown.
+    byproduct request adds candidates to the route, so answers from before
+    it no longer cover what is on screen and are dropped rather than shown.
     """
-    stored = st.session_state.get(state_key)
+    stored = st.session_state.get(RESULT_KEY)
     if not stored:
         return None
     report = (workspace or {}).get("report")
@@ -662,9 +663,8 @@ def show_tool_comparison(workspace):
         st.warning("도구를 하나 이상 고르세요.")
         return
     if run:
-        _run_tools_for(workspace, chosen, state_key="_comparison_result")
-    stored = stored_tool_result(workspace, state_key="_comparison_result",
-                                tools=chosen)
+        _run_tools_for(workspace, chosen)
+    stored = stored_tool_result(workspace, chosen)
     if stored is None:
         _pending_note(materials, chosen)
         _show_performance(chosen)

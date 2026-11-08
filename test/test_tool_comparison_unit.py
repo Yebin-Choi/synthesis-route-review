@@ -581,22 +581,17 @@ class RouteScopedTableTests(unittest.TestCase):
         report = self._report()
         stored = {"results": {}, "materials": ["CCO", "CC=O"],
                   "tools": ["rules"], "route_id": "r1"}
-        with mock.patch.object(view.st, "session_state", {"k": stored}):
-            self.assertIs(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}, state_key="k",
-                tools=["rules"]), stored)
-            self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r2"}, state_key="k",
-                tools=["rules"]))
+        with mock.patch.object(view.st, "session_state", {view.RESULT_KEY: stored}):
+            self.assertIs(view.stored_tool_result({"report": report, "route_id": "r1"}, ["rules"]), stored)
+            self.assertIsNone(view.stored_tool_result({"report": report, "route_id": "r2"}, ["rules"]))
 
     def test_a_stored_run_is_dropped_when_the_tool_set_changes(self):
         report = self._report()
         stored = {"results": {}, "materials": ["CCO", "CC=O"],
                   "tools": ["rules"], "route_id": "r1"}
-        with mock.patch.object(view.st, "session_state", {"k": stored}):
-            self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}, state_key="k",
-                tools=["rules", "ames_xgb"]))
+        with mock.patch.object(view.st, "session_state", {view.RESULT_KEY: stored}):
+            self.assertIsNone(view.stored_tool_result({"report": report, "route_id": "r1"},
+                                    ["rules", "ames_xgb"]))
 
     def test_a_stored_run_is_dropped_when_the_route_gained_a_material(self):
         # A byproduct sweep adds candidates to the report, so answers from
@@ -604,12 +599,10 @@ class RouteScopedTableTests(unittest.TestCase):
         report = self._report()
         stored = {"results": {}, "materials": ["CCO"], "tools": ["rules"],
                   "route_id": "r1"}
-        with mock.patch.object(view.st, "session_state", {"k": stored}):
-            self.assertIsNone(view.stored_tool_result(
-                {"report": report, "route_id": "r1"}, state_key="k",
-                tools=["rules"]))
+        with mock.patch.object(view.st, "session_state", {view.RESULT_KEY: stored}):
+            self.assertIsNone(view.stored_tool_result({"report": report, "route_id": "r1"}, ["rules"]))
 
     def test_the_comparison_run_is_stored_under_its_own_key(self):
         source = Path(view.__file__).read_text(encoding="utf-8")
-        self.assertIn('state_key="_comparison_result"', source)
-        self.assertNotIn('state_key="_risk_tool_result"', source)
+        self.assertIn('RESULT_KEY = "_comparison_result"', source)
+        self.assertNotIn("_risk_tool_result", source)

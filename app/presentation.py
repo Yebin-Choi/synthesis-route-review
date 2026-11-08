@@ -624,7 +624,10 @@ def material_card(material, location="", *, tool=None):
             show_structure(material["input_smiles"])
         with evidence:
             st.subheader(material_name(material.get("canonical_smiles"), material.get("name")))
-            role = ROLES.get(material.get("role"), "물질 하나만 검사")
+            # A role the vocabulary does not name is left blank rather
+            # than labelled. The fallback here used to be the name of a
+            # screen that no longer exists.
+            role = ROLES.get(material.get("role"), "")
             st.caption(", ".join(part for part in (location, role, tool) if part))
             # The same chip vocabulary the other screens use. This card used
             # to set the verdict in bold text, so one screen said a thing with

@@ -10,11 +10,9 @@ import review_views as review_signals
 import workspace as context
 from generation_service import GenerationService
 from molecule_catalog import MOLECULES
-from presentation import reason_text, show_structure, stage_failures, term, theme_css
+from presentation import reason_text, show_structure, stage_failures, theme_css
 from review_export import export_csv, export_html, export_json
-from toxicology import canonicalize_smiles
 import ui_kit
-import screening_judges
 import tool_comparison_view
 from tool_comparison_view import show_tool_comparison
 from review_views import (
