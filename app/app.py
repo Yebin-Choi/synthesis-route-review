@@ -580,15 +580,9 @@ branding.show_header([
     # AUC rather than balanced accuracy, and nothing beside it. The chip used
     # to put the 0.50 decision line next to the score, which is a different
     # quantity entirely and read as if it were a baseline.
-    # The consensus leads because it is the highest figure measured on the
-    # set, and it is an average of the two models beside it rather than a
-    # separate claim (benchmark log 6-56).
     (row.get("short_label") or row["label"], "AUC", f"{row['auc']:.3f}")
-    for row in (tool_comparison_view.TOOL_PERFORMANCE["consensus"],
-                tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"],
+    for row in (tool_comparison_view.TOOL_PERFORMANCE["ames_xgb"],
                 tool_comparison_view.TOOL_PERFORMANCE["ames_desc"])
-    # The consensus is derived from three of the tools, so it is not counted
-    # as one of them.
 ] + [("도구", "", f"{len(tool_comparison_view.independent_tool_ids())}종")])
 st.selectbox("목표 물질", list(TARGETS), key="target_catalog", on_change=pick_target)
 with st.expander("목표 구조", expanded=st.session_state["target_catalog"] == "직접 입력"):

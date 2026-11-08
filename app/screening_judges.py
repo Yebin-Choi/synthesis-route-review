@@ -140,81 +140,6 @@ def _ames_descriptor_judge(materials, *, threshold=0.5):
     }
 
 
-# The three judges whose scores the consensus averages. All three return a
-# probability for the same endpoint, which is what makes an average of them
-# mean anything; the rule screens return an alert and are left out.
-CONSENSUS_MEMBERS = ("ames_xgb", "ames_desc", "admet")
-CONSENSUS_LABELS = {"ames_xgb": "자체 모델 1", "ames_desc": "자체 모델 2",
-                    "admet": "ADMET-AI"}
-
-
-def consensus_from_results(materials, results, *, threshold=0.5):
-    """Average the member models' scores per material, without rerunning them.
-
-    Measured on the 1,201 independent structures none of the three had seen,
-    at the same 0.50 line the members run at: sensitivity 0.791, specificity
-    0.936, balanced accuracy 0.864, ROC-AUC 0.916, against the best single
-    model's 0.847 and 0.902 (benchmark log 6-56). The averaging is the whole
-    method. Nothing is fitted, so there is no weight that could have been
-    tuned on the structures the figures were measured on.
-
-    A material is answered only when all three answered it with a score. Two
-    out of three was measured too and reads 0.810, so dropping to two to
-    cover more rows would cost more than it buys, and the members' own
-    columns are already on screen for those rows.
-    """
-    indexed = {}
-    for key in CONSENSUS_MEMBERS:
-        calls = (results.get(key) or {}).get("calls", [])
-        indexed[key] = {row["input_smiles"]: row for row in calls}
-    calls = []
-    for smiles in materials:
-        scores, missing, canonical = [], [], ""
-        for key in CONSENSUS_MEMBERS:
-            row = indexed[key].get(smiles)
-            canonical = canonical or (row or {}).get("canonical_smiles") or ""
-            score = (row or {}).get("score")
-            if row is None or row["call"] == CALL_ABSTAIN or score is None:
-                missing.append(CONSENSUS_LABELS[key])
-            else:
-                scores.append(float(score))
-        if missing:
-            calls.append(_call_row(
-                smiles, canonical, CALL_ABSTAIN,
-                error=f"{', '.join(missing)}이 답하지 않아 평균을 내지 "
-                      "않았습니다."))
-            continue
-        mean = sum(scores) / len(scores)
-        call = CALL_POSITIVE if mean >= threshold else CALL_NEGATIVE
-        calls.append(_call_row(smiles, canonical, call, score=mean,
-                               kind="model_positive" if call == CALL_POSITIVE
-                               else None))
-    return {
-        "judge": "consensus",
-        "calls": calls,
-        "evidence": {"tool": "in-house consensus", "version": None,
-                     "endpoint": "ames",
-                     "source": "mean of " + ", ".join(CONSENSUS_MEMBERS)
-                               + " scores",
-                     "threshold": threshold,
-                     "members": list(CONSENSUS_MEMBERS)},
-    }
-
-
-def _consensus_judge(materials, *, threshold=0.5):
-    """Run the three member models and average their scores.
-
-    The comparison screen does not use this path, because it has the members'
-    results already and running them twice would double the slowest part of
-    the screen. It exists so the judge can be run on its own, by a policy or
-    a test, without the caller having to know what it is made of.
-    """
-    materials = list(materials)
-    results = {key: run_judge(key, materials, threshold=threshold)
-               for key in CONSENSUS_MEMBERS}
-    return consensus_from_results(materials, results, threshold=threshold)
-
-
 def _java_tox_calls(judge_id, result, *, threshold, evidence):
     """Shape a Java tool's envelope into calls, keeping why it did not answer.
 
@@ -340,9 +265,6 @@ JUDGES = {
                      "implemented": True, "uses_threshold": False,
                      "run": _qsar_toolbox_judge},
     # Derived from three of the above rather than from a tool of its own.
-    "consensus": {"tool": "in-house consensus", "kind": "model",
-                  "implemented": True, "uses_threshold": True,
-                  "derived_from": CONSENSUS_MEMBERS, "run": _consensus_judge},
 }
 
 

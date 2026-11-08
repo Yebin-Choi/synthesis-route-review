@@ -311,7 +311,18 @@ def _show_result(result, review, metadata, *, report, route_id=None):
         for route in review["routes"] for reason in route["reasons"]
     ]
     if reasons:
-        st.dataframe(reasons, width="stretch", hide_index=True)
+        # The reason is the only column worth reading here and it was the one
+        # being cut off: stretching the table shares the width evenly, so a
+        # long sentence lost its end while the route id kept room it did not
+        # need. Fixed widths let the reason run long and the table scroll
+        # sideways to reach it.
+        st.dataframe(reasons, hide_index=True, width="stretch", column_config={
+            "경로": st.column_config.TextColumn("경로", width="small"),
+            "경로 판정": st.column_config.TextColumn("경로 판정", width="small"),
+            "단계": st.column_config.TextColumn("단계", width="small"),
+            "물질": st.column_config.TextColumn("물질", width="medium"),
+            "사유": st.column_config.TextColumn("사유", width="large"),
+        })
     # The internal codes behind those reasons, the evaluation identity and the
     # model hashes stay reachable here instead of being printed onto the page.
     ui_kit.raw_record({

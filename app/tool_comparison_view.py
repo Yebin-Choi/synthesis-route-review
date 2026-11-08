@@ -7,11 +7,6 @@ something to judge with. Where a tool did not answer, the reason it gave is
 shown instead of a blank, because "no alert" and "could not tell" are
 different statements and only one of them is reassuring.
 
-One column is not a tool: the consensus is the mean of the three statistical
-models' scores. It is here because it was measured to be better than any one
-of them (balanced accuracy 0.864 against 0.847, ROC-AUC 0.916 against 0.902,
-benchmark log 6-56), and because averaging is not a judgement about which
-tool is right. The three it averages stay on screen beside it.
 
 The decision of which routes stay selectable is made elsewhere, by the single
 tool named in the screening policy. This screen is for comparison.
@@ -105,18 +100,6 @@ TOOL_PERFORMANCE = {
     # 1,201 structures as the rest of the table (benchmark log 6-56). The
     # averaging is the whole method, so there is no fitted weight that could
     # have been tuned on the structures these figures come from.
-    "consensus": {"label": "합의 점수: 세 모델 평균", "short_label": "합의 점수",
-                  "method": "통계 기반", "line": 0.50,
-                  "sensitivity": 0.791, "specificity": 0.936,
-                  "balanced": 0.864, "balanced_interval": (0.841, 0.887),
-                  "auc": 0.916, "auc_interval": (0.894, 0.936),
-                  "answered": 0.777, "measured_on": MEASURED_ON,
-                  "derived_from": ("ames_xgb", "ames_desc", "admet")},
-    # An alert set, so there is no line to draw and `line` is None. The
-    # OASIS alert set is the one registered: the Toolbox's other Ames
-    # profiler (ISS) agreed with Toxtree on 99.2% of the structures both
-    # answered, so it would have added a second copy of a tool already here
-    # (benchmark log 6-34).
     "qsar_toolbox": {"label": "QSAR Toolbox 4.9", "method": "전문가 규칙 기반",
                      "line": None,
                      "sensitivity": 0.423, "specificity": 0.979, "balanced": 0.701,
@@ -126,14 +109,8 @@ TOOL_PERFORMANCE = {
 
 
 def independent_tool_ids():
-    """The judges that are tools in their own right, not derived from others.
-
-    The consensus column is the mean of three of them, so counting it as an
-    eighth tool would overstate how many pieces of software are behind the
-    screen.
-    """
-    return tuple(tool_id for tool_id in screening_judges.implemented_judge_ids()
-                 if not TOOL_PERFORMANCE.get(tool_id, {}).get("derived_from"))
+    """Every implemented judge. Each one is a tool in its own right."""
+    return tuple(screening_judges.implemented_judge_ids())
 
 
 def measured_line(tool_id):
@@ -144,11 +121,7 @@ def measured_line(tool_id):
 EXTERNAL_TOOLS = ("toxtree", "epa_test", "qsar_toolbox")
 # Both in-house models open by default: they disagree about one structure
 # in seven (benchmark log 6-11), and showing that is what the screen is for.
-#
-# The consensus opens with them and costs nothing extra: it is the average
-# of exactly these three scores, so selecting it runs nothing the screen was
-# not already running.
-DEFAULT_TOOLS = ("rules", "consensus", "ames_xgb", "ames_desc", "admet")
+DEFAULT_TOOLS = ("rules", "ames_xgb", "ames_desc", "admet")
 
 # Moving the line still trades sensitivity for specificity, and these are the
 # measured rows so a reader can see the size of the trade rather than take it
@@ -228,22 +201,9 @@ def run_tools(materials, tool_ids, *, threshold=None):
     one applies that single line to all of them, which is what the override on
     screen does; it is not the default because the measured lines differ.
     """
-    # The consensus is an average of three of the other judges, so its
-    # members are run whether or not the reader asked to see them, and their
-    # columns are dropped again at the end if they were not asked for.
     requested = tuple(tool_ids)
-    derived = tuple(tool_id for tool_id in requested
-                    if screening_judges.get_judge(tool_id).get("derived_from"))
-    needed = list(requested)
-    for tool_id in derived:
-        for member in screening_judges.get_judge(tool_id)["derived_from"]:
-            if member not in needed:
-                needed.append(member)
-
     results = {}
-    for tool_id in needed:
-        if tool_id in derived:
-            continue
+    for tool_id in requested:
         entry = screening_judges.get_judge(tool_id)
         try:
             line = measured_line(tool_id) if threshold is None else threshold
@@ -257,15 +217,6 @@ def run_tools(materials, tool_ids, *, threshold=None):
                 # while its performance row came from its own verdicts, which
                 # reversed the tool on about half the structures.
                 results[tool_id] = screening_judges.run_judge(tool_id, materials)
-        except Exception as exc:  # noqa: BLE001 - surfaced per tool, never hidden
-            results[tool_id] = {"judge": tool_id, "calls": [], "evidence": {},
-                                "tool_error": f"{type(exc).__name__}: {exc}"}
-
-    for tool_id in derived:
-        try:
-            line = measured_line(tool_id) if threshold is None else threshold
-            results[tool_id] = screening_judges.consensus_from_results(
-                materials, results, threshold=line)
         except Exception as exc:  # noqa: BLE001 - surfaced per tool, never hidden
             results[tool_id] = {"judge": tool_id, "calls": [], "evidence": {},
                                 "tool_error": f"{type(exc).__name__}: {exc}"}
@@ -297,12 +248,8 @@ def build_comparison(materials, results):
             elif call.get("score") is not None:
                 text = f"{text} ({call['score']:.2f})"
             row[TOOL_PERFORMANCE[tool_id]["label"]] = text
-        # A derived column is not a second opinion. The consensus is the mean
-        # of three columns already here, so counting it as a tool that
-        # disagreed would report one disagreement as two.
-        decided = {call["call"] for tool_id, call in calls.items()
-                   if call["call"] != "abstain"
-                   and not TOOL_PERFORMANCE.get(tool_id, {}).get("derived_from")}
+        decided = {call["call"] for call in calls.values()
+                   if call["call"] != "abstain"}
         row["_calls"] = calls
         row["_disagree"] = len(decided) > 1
         row["_answered"] = len(decided)
@@ -447,9 +394,6 @@ TOOL_HINTS = {
     "ames_desc": "직접 학습시킨 두 번째 모델입니다. 이름 있는 기술자만 써서 "
                  "어떤 성질이 판정을 밀었는지 말할 수 있습니다. 모델 1이 읽지 "
                  "못하는 구조도 읽습니다.",
-    "consensus": "도구가 아니라 위 세 모델의 점수를 평균한 값입니다. 셋이 "
-                 "모두 답한 물질에서만 나오고, 셋 중 하나라도 답하지 않으면 "
-                 "평균을 내지 않습니다.",
     "qsar_toolbox": "OECD가 배포하는 규제용 프로그램입니다. 이 컴퓨터에서 "
                     "실행하며 구조가 밖으로 나가지 않습니다. 고분자처럼 "
                     "경고구조를 적용할 수 없는 물질은 스스로 판정을 내지 않습니다.",
@@ -702,7 +646,7 @@ def show_route_tool_table(workspace):
 
     st.subheader("독성 예측")
     available = list(screening_judges.implemented_judge_ids())
-    default = "consensus" if "consensus" in available else available[0]
+    default = "ames_xgb" if "ames_xgb" in available else available[0]
     controls, action = st.columns([4, 1])
     with controls:
         chosen = st.selectbox(

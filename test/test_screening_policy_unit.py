@@ -171,11 +171,7 @@ class PolicyValidationTests(unittest.TestCase):
 
     def test_unintegrated_judges_have_a_slot_but_cannot_be_enabled_or_run(self):
         registered = {"rules", "admet", "ames_xgb", "ames_desc", "toxtree",
-                      "epa_test", "qsar_toolbox",
-                      # Derived from three of the others rather than wrapping
-                      # a tool, but registered like any judge so a policy can
-                      # name it and this guard can hold it to the same rules.
-                      "consensus"}
+                      "epa_test", "qsar_toolbox"}
         self.assertEqual(set(screening_judges.judge_ids()), registered)
         # Every registered slot now has execution code behind it. The slot
         # mechanism stays because a tool can be added before it is wired, and
