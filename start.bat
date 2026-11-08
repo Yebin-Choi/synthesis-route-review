@@ -22,7 +22,11 @@ goto :failed
 set "RESULT=%ERRORLEVEL%"
 if not "%RESULT%"=="0" goto :install_failed
 
-".venv\Scripts\python.exe" -m streamlit run "app/app.py" --server.address localhost --browser.gatherUsageStats false
+rem SHARE=1 binds every network interface so other computers on the same
+rem network can open this app. Default stays localhost: this machine only.
+set "BIND=localhost"
+if "%SHARE%"=="1" set "BIND=0.0.0.0"
+".venv\Scripts\python.exe" -m streamlit run "app/app.py" --server.address %BIND% --browser.gatherUsageStats false
 set "RESULT=%ERRORLEVEL%"
 if not "%RESULT%"=="0" goto :app_failed
 exit /b %RESULT%
