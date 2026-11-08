@@ -103,7 +103,9 @@ class ReviewWorkflowTests(OfflineAppCase):
         # the press itself is the consent and nothing leaves before it.
         self.assertFalse(self.app.button(key="byproduct_request").disabled)
         self.assertIn(engine.ASKCOS_API, self.text())
-        self.open_tab("부산물")
+        # The byproduct request moved out of its own tab and into a fold on
+        # the risk screen; the request itself is unchanged.
+        self.open_tab("위험 검토")
         self.app.checkbox(key="strict_alerts").uncheck().run()
         self.assertEqual(self.app.session_state["_byproduct_request"], pending)
         self.predict.assert_not_called()

@@ -28,7 +28,7 @@ TITLE = f"{branding.NAME}: {branding.SUBTITLE}"
 # prices it could not supply. The quantity screen back-calculated charges from
 # coefficients and a yield the reader also had to supply, which made the
 # software look as though it knew a recipe it had never been given.
-TABS = ("위험 검토", "독성 예측 툴 비교", "부산물")
+TABS = ("위험 검토", "독성 예측 툴 비교")
 CATALOG = {f"{item['name_ko']} ({item['name_en']}), {item['category']}": item for item in MOLECULES}
 TARGETS = {label: item["smiles"] for label, item in CATALOG.items()}
 TARGETS["직접 입력"] = ""
@@ -630,8 +630,7 @@ if workspace and workspace["report"] is not None:
     workspace = shared_selection(workspace)
     st.session_state["review_workspace"] = workspace
     if context.eligible_routes(workspace):
-        risk, comparison, byproducts = st.tabs(
-            TABS, key="review_tabs", on_change="rerun")
+        risk, comparison = st.tabs(TABS, key="review_tabs", on_change="rerun")
         with risk:
             # What produced these routes, and whether byproduct candidates
             # are in them, decides how to read everything below.
@@ -645,14 +644,18 @@ if workspace and workspace["report"] is not None:
             # tool of the reader's choosing goes beside it here; every tool
             # at once is the next tab.
             tool_comparison_view.show_route_tool_table(workspace)
-        with comparison:
-            show_tool_comparison(workspace)
-        with byproducts:
+            # The candidates themselves are cards above, so what is left is
+            # the request: what was sent where, what came back, what failed.
+            # That is a record to reach for, not a tab to sit beside the
+            # review, so it is folded shut here.
             previous = st.session_state.get("_byproduct_completion", 0)
-            workspace = show_byproducts(workspace)
+            with st.expander("부산물 요청"):
+                workspace = show_byproducts(workspace)
             st.session_state["review_workspace"] = workspace
             if st.session_state.get("_byproduct_completion", 0) != previous:
                 st.rerun()
+        with comparison:
+            show_tool_comparison(workspace)
     else:
         st.warning("남은 경로가 없습니다. 위에서 제외 이유를 볼 수 있습니다.")
     previous_binding = context.context_key(workspace)
