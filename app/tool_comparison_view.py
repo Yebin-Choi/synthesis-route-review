@@ -202,6 +202,22 @@ def route_materials(report):
     return materials
 
 
+def materials_of_route(report, route_id):
+    """Distinct materials of one route, in the order they first appear."""
+    seen, materials = set(), []
+    for route in report.get("routes", []):
+        if route.get("id") != route_id:
+            continue
+        for step in route.get("steps", []):
+            for material in step.get("materials", []):
+                key = material.get("canonical_smiles") or material.get("input_smiles")
+                if not key or key in seen:
+                    continue
+                seen.add(key)
+                materials.append(key)
+    return materials
+
+
 def run_tools(materials, tool_ids, *, threshold=None):
     """One call per tool, failures kept as a tool-level error rather than raised.
 
@@ -640,6 +656,76 @@ def _show_performance(chosen, *, with_note=False):
         if with_note:
             st.caption("모든 도구를 같은 자료에서 쟀습니다. 판정 비율이 낮으면 "
                        "정확도가 높아도 그만큼 자주 답하지 않는다는 뜻입니다.")
+
+
+def show_route_tool_table(workspace):
+    """The tool-by-tool table for the route the reader is already looking at.
+
+    The risk screen gives each material one chip, and that chip is the rule
+    screen alone: its sensitivity is 0.552, so half the real positives carry
+    no mark there. A reader who wanted the model calls had to leave for the
+    comparison tab and find the same material again. The picker and the table
+    are here too now, scoped to this route.
+    """
+    report = (workspace or {}).get("report")
+    route_id = (workspace or {}).get("route_id")
+    if not report or not route_id:
+        return
+    materials = materials_of_route(report, route_id)
+    if not materials:
+        return
+
+    st.subheader("도구별 판정")
+    st.caption("위 카드의 칩은 규칙 판정 하나입니다. 여기서 도구를 골라 같은 "
+               "물질에 대한 다른 판정을 함께 볼 수 있습니다.")
+    available = list(screening_judges.implemented_judge_ids())
+    controls, action = st.columns([4, 1])
+    with controls:
+        chosen = st.multiselect(
+            "도구", available,
+            default=[tool_id for tool_id in DEFAULT_TOOLS if tool_id in available],
+            format_func=lambda tool_id: TOOL_PERFORMANCE[tool_id]["label"],
+            key="route_tools", label_visibility="collapsed",
+            placeholder="실행할 도구를 고르세요")
+    with action:
+        run = st.button("실행", key="route_tools_run", type="primary",
+                        width="stretch")
+    if not chosen:
+        st.caption("도구를 하나 이상 고르세요.")
+        return
+
+    state_key = "_route_tool_result"
+    if run:
+        with st.spinner(f"도구 {len(chosen)}개를 물질 {len(materials)}개에 "
+                        "실행하고 있습니다"):
+            st.session_state[state_key] = {
+                "results": run_tools(materials, chosen), "materials": materials,
+                "tools": chosen, "route_id": route_id}
+    stored = st.session_state.get(state_key)
+    # A stored run belongs to one route and one tool set. Switching either
+    # must show the button again rather than the previous route's answers.
+    if (not stored or stored["tools"] != chosen or stored["route_id"] != route_id
+            or stored["materials"] != materials):
+        slow = [TOOL_PERFORMANCE[tool_id]["label"] for tool_id in chosen
+                if tool_id in EXTERNAL_TOOLS]
+        note = (" " + ", ".join(slow) + "는 외부 프로그램을 쓰므로 시간이 걸립니다."
+                if slow else "")
+        st.caption(f"물질 {len(materials)}개, 도구 {len(chosen)}개." + note)
+        return
+
+    for tool_id, result in stored["results"].items():
+        if result.get("tool_error"):
+            st.error(f"{TOOL_PERFORMANCE[tool_id]['label']}를 실행하지 못했습니다: "
+                     f"{result['tool_error']}")
+    rows = build_comparison(stored["materials"], stored["results"])
+    st.markdown(_matrix_html(rows, chosen), unsafe_allow_html=True)
+    disagreed = [row for row in rows if row["_disagree"]]
+    if disagreed:
+        st.caption(f"도구마다 답이 다른 물질 {len(disagreed)}개는 표에서 "
+                   "표시했습니다. 어느 쪽이 맞는지는 정하지 않습니다.")
+    st.download_button("이 표 내려받기 (CSV)", comparison_csv(rows, chosen),
+                       file_name="route_tool_calls.csv", mime="text/csv",
+                       key="route_tools_csv")
 
 
 def show_tool_comparison(workspace):

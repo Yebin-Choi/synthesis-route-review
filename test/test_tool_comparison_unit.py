@@ -655,3 +655,43 @@ class MeasuredIntervalTests(unittest.TestCase):
         # gap is a real one.
         self.assertGreater(view.TOOL_PERFORMANCE["ames_xgb"]["balanced_interval"][0],
                            toxtree[1])
+
+
+class RouteScopedTableTests(unittest.TestCase):
+    """The tool table on the risk screen belongs to the selected route."""
+
+    def _report(self):
+        return {"routes": [
+            {"id": "r1", "steps": [
+                {"materials": [{"canonical_smiles": "CCO", "input_smiles": "CCO"},
+                               {"canonical_smiles": "CC=O", "input_smiles": "CC=O"}]},
+                {"materials": [{"canonical_smiles": "CCO", "input_smiles": "CCO"}]}]},
+            {"id": "r2", "steps": [
+                {"materials": [{"canonical_smiles": "C1CO1", "input_smiles": "C1CO1"}]}]},
+        ]}
+
+    def test_only_the_selected_route_is_listed_and_repeats_are_listed_once(self):
+        report = self._report()
+        self.assertEqual(view.materials_of_route(report, "r1"), ["CCO", "CC=O"])
+        self.assertEqual(view.materials_of_route(report, "r2"), ["C1CO1"])
+
+    def test_the_whole_report_still_lists_every_route(self):
+        # The comparison tab keeps its own wider list; the two must not be
+        # the same call.
+        self.assertEqual(view.route_materials(self._report()),
+                         ["CCO", "CC=O", "C1CO1"])
+
+    def test_an_unknown_or_missing_route_lists_nothing(self):
+        self.assertEqual(view.materials_of_route(self._report(), "nope"), [])
+        self.assertEqual(view.materials_of_route({}, "r1"), [])
+
+    def test_the_table_and_the_comparison_tab_do_not_share_widget_keys(self):
+        # Both render in the same run, because Streamlit draws every tab.
+        # Sharing a key would make one picker overwrite the other.
+        source = Path(view.__file__).read_text(encoding="utf-8")
+        for key in ("route_tools", "route_tools_run", "route_tools_csv"):
+            self.assertIn(f'key="{key}"', source)
+        for key in ("comparison_tools", "comparison_run"):
+            self.assertIn(f'key="{key}"', source)
+        self.assertEqual(source.count('key="route_tools"'), 1)
+        self.assertEqual(source.count('key="comparison_tools"'), 1)

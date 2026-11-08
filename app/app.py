@@ -598,6 +598,10 @@ if workspace and workspace["report"] is not None:
             TABS, key="review_tabs", on_change="rerun")
         with risk:
             show_route_risk(workspace)
+            # The cards above carry the rule screen's call only. The tool
+            # table sits under them so the other judgements on the same
+            # materials are on this screen rather than a tab away.
+            tool_comparison_view.show_route_tool_table(workspace)
         with comparison:
             show_tool_comparison(workspace)
         with byproducts:
