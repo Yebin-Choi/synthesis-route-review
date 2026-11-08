@@ -374,7 +374,10 @@ def show_route_risk(workspace):
         show_reasons(decision)
         source = next(item for item in workspace["active_input"]["routes"] if item["id"] == route["id"])
         st.graphviz_chart(route_dot(source))
-        st.caption("보고서에 적힌 반응물과 생성물만 잇습니다")
+        # "잇습니다" read as a typo for "있습니다" on first pass. The sentence
+        # has to say what the picture is without making the reader work out
+        # which verb it is.
+        st.caption("보고서에 적힌 반응물과 생성물만 연결해서 보여줍니다")
         st.json(source, expanded=False)
 
 

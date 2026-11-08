@@ -243,13 +243,18 @@ def _show_result(result, review, metadata, *, report, route_id=None):
     _show_provenance(result, metadata)
 
     # The reader picked one route upstairs, so that route is what the table
-    # shows. The whole report stays one toggle away.
+    # shows. The whole report stays one click away.
     places = _material_places(report)
     rows = [(row, *_row_places(row, places)) for row in result["assessments"]]
     scope = route_id
+    number = next((index for index, route in enumerate(report["routes"], 1)
+                   if route["id"] == route_id), None)
+    heading = "물질별 검사 결과" if number is None else f"경로 {number} · 물질별 검사 결과"
+    st.markdown(f"**{heading}**")
     if route_id is not None and len(report["routes"]) > 1:
-        if st.toggle("전체 경로 보기", key="route_ames_all_routes",
-                     help="끄면 지금 보고 있는 경로에 나오는 물질만 나옵니다."):
+        if st.radio("보기 범위", ("선택한 경로", "전체 경로 보기"), horizontal=True,
+                    key="route_ames_scope",
+                    label_visibility="collapsed") == "전체 경로 보기":
             scope = None
     if scope is not None:
         rows = [item for item in rows
@@ -277,7 +282,7 @@ def _show_result(result, review, metadata, *, report, route_id=None):
         # raw record below. What is here instead is where the structure sits
         # in the route: what it is used as, and at which step.
         ui_kit.show_table(
-            ["구조", "물질 구분", "등장 단계", "모델 판정"],
+            ["구조(SMILES)", "물질 구분", "등장 단계", "모델 판정"],
             [{"cells": [ui_kit.text(row["canonical_smiles"] or row["input_smiles"]),
                         ui_kit.text(" / ".join(roles)),
                         ui_kit.text(_step_text(steps, scope)),

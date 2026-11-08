@@ -360,7 +360,7 @@ class RouteAmesViewTests(unittest.TestCase):
             ["OCC", "CCO", "CCC", "CC(", "not-a-molecule"], threshold=0.5
         )
         self.assertNotIn(TARGET, self.assess.call_args.args[0])
-        rows = self.verdicts(app, "구조")
+        rows = self.verdicts(app, "구조(SMILES)")
         self.assertEqual(len(rows), 4)
         # The merged-alias column is gone. Its place now says what the
         # structure is used as and where in the route it turns up.
@@ -461,7 +461,7 @@ class RouteAmesViewTests(unittest.TestCase):
         # The reason codes left the page but not the record.
         self.assertTrue(self.raw(app)["reason_codes"])
         # Each structure carries a score beside its verdict.
-        self.assertTrue(all("0." in row[3] for row in self.verdicts(app, "구조")
+        self.assertTrue(all("0." in row[3] for row in self.verdicts(app, "구조(SMILES)")
                             if "상충된 결과" not in row[3]))
 
     def test_joint_positive_demotes_and_keeps_missing_and_lower_priority_reasons(self):
@@ -496,7 +496,7 @@ class RouteAmesViewTests(unittest.TestCase):
     def test_partial_failures_and_original_error_rows_are_retained_on_rerun(self):
         self.result["assessments"][1] = fixture_row("CCC", status="failed")
         app = self.run_model(self.open_view())
-        row = next(row for row in self.verdicts(app, "구조") if row[0] == "CCC")
+        row = next(row for row in self.verdicts(app, "구조(SMILES)") if row[0] == "CCC")
         self.assertIn("상충된 결과", row[3])
         self.assertNotIn("음성", row[3])
         self.assertIn("Synthetic AMES abstention", row[3])
@@ -532,7 +532,7 @@ class RouteAmesViewTests(unittest.TestCase):
                 self.assert_visible_alert(app, "warning", "점수가 나온 구조가 없습니다")
                 self.assert_visible_alert(app, "warning", "모델 가중치 해시가 없습니다")
                 if rows:
-                    for row in self.verdicts(app, "구조"):
+                    for row in self.verdicts(app, "구조(SMILES)"):
                         self.assertIn("상충된 결과", row[3])
                         self.assertNotIn("음성", row[3])
                 else:
@@ -675,15 +675,16 @@ class SelectedRouteTableTests(unittest.TestCase):
     def test_default_shows_only_the_selected_route_and_the_toggle_shows_them_all(self):
         route_id = self.report["routes"][1]["id"]
         app = self.run_model(self.open_view(route_id=route_id))
-        rows = self.verdicts(app, "구조")
+        rows = self.verdicts(app, "구조(SMILES)")
         self.assertEqual([row[0] for row in rows], ["CCC"])
         self.assertEqual(rows[0][1], "반응물")
         self.assertEqual(rows[0][2], "1단계")
         self.assertEqual(self.metrics(app)["검사한 구조"], "1")
-        toggle = next(item for item in app.toggle if item.label == "전체 경로 보기")
-        toggle.set_value(True).run()
+        scope = next(item for item in app.radio if item.label == "보기 범위")
+        self.assertEqual(scope.options, ["선택한 경로", "전체 경로 보기"])
+        scope.set_value("전체 경로 보기").run()
         self.assert_no_exception(app)
-        rows = self.verdicts(app, "구조")
+        rows = self.verdicts(app, "구조(SMILES)")
         self.assertEqual(len(rows), 4)
         # Across the report a step number alone is ambiguous, so the route
         # is named with it.
@@ -701,12 +702,13 @@ class SelectedRouteTableTests(unittest.TestCase):
         self.result = fixture_result(fixture_row("CCO"), fixture_row("CNC"),
                                      fixture_row("C1CO1", 0.8))
         app = self.run_model(self.open_view(route_id=self.report["routes"][0]["id"]))
-        kinds = {row[0]: row[1] for row in self.verdicts(app, "구조")}
+        kinds = {row[0]: row[1] for row in self.verdicts(app, "구조(SMILES)")}
         self.assertEqual(kinds["CCO"], "반응물")
         self.assertEqual(kinds["CNC"], "시약")
         self.assertEqual(kinds["C1CO1"], "부산물 후보")
-        # One route, so there is nothing to toggle between.
-        self.assertEqual([item.label for item in app.toggle], [])
+        # One route, so there is nothing to choose between.
+        self.assertEqual([item.label for item in app.radio], [])
+        self.assertIn("경로 1 · 물질별 검사 결과", self.text(app))
 
     def test_a_structure_used_twice_lists_both_steps_and_both_roles(self):
         payload = fixture_payload("CCO")
@@ -716,7 +718,7 @@ class SelectedRouteTableTests(unittest.TestCase):
         self.report = engine.analyze_routes(payload)
         self.result = fixture_result(fixture_row("CCO"), fixture_row("CCC"))
         app = self.run_model(self.open_view(route_id=self.report["routes"][0]["id"]))
-        row = next(row for row in self.verdicts(app, "구조") if row[0] == "CCO")
+        row = next(row for row in self.verdicts(app, "구조(SMILES)") if row[0] == "CCO")
         self.assertEqual(row[1], "반응물 / 시약")
         self.assertEqual(row[2], "1·2단계")
 
