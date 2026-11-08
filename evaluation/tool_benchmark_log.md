@@ -3720,3 +3720,28 @@ ADMET-AI의 판정은 다른 탭에 있었고, 같은 물질을 보려면 탭을
 "물질 2개, 도구 4개."로 바뀌었다.
 
 검사 722개 통과.
+
+## 6-60. Gemini 키를 실제로 쟀다 (2026-11-08)
+
+새 키로 모델 네 개를 직접 불러봤다. 스크립트는 `evaluation/scripts/probe_gemini.py`,
+키는 환경변수로만 받고 저장하지 않는다. 결과는 `evaluation/results/gemini_probe.json`.
+
+| 모델 | 결과 |
+|---|---|
+| **gemini-3.1-pro-preview** | **OK** (3.81초) |
+| gemini-2.5-pro | 연결이 끊김 (WinError 10054) |
+| gemini-2.5-flash | HTTP 404, 신규 사용자에게 제공 종료 |
+| gemini-2.0-flash | HTTP 404, 제공 종료 |
+
+목록에는 47개가 떠 있지만 **목록은 권한이 아니다.** 실제로 답이 온 것은 하나다.
+
+### 두 가지
+
+1. **SynthEx 설정을 고칠 필요가 없다.** `synthex_full_runtime.json`이 이미
+   `gemini-3.1-pro-preview`를 쓴다. 이 키로 그 모델이 돈다.
+2. **6-49를 고친다.** 거기에 "Gemini 무료 등급은 Pro를 아예 거부한다"고 적었는데,
+   이 키는 Pro를 받는다. 등급이 다른 키이거나 Google이 바꿨다. 6-49의 그 문장은
+   그때 쓰던 키에 대해서만 맞다.
+
+2.5-flash와 2.0-flash의 404 본문이 후속 모델로 `gemini-3.8-flash`를 안내한다.
+싸게 돌릴 일이 생기면 그쪽을 재 보면 된다. 아직 재지 않았다.
