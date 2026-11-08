@@ -1,0 +1,10 @@
+{
+ "truth_rows": 1201,
+ "roc_shared_rows": 933,
+ "both_answered": 933,
+ "only_model_2": 268,
+ "agree": 879,
+ "split_model_1_right": 30,
+ "split_model_2_right": 24,
+ "only_model_2_right": 195
+}
