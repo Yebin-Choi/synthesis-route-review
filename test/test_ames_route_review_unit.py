@@ -227,7 +227,7 @@ class AmesRoutePolicyTests(unittest.TestCase):
         self.assertEqual(result["counts"]["candidate"], 0)
         self.assertEqual([route["status"] for route in result["routes"]], ["insufficient_data", "needs_review"])
         for route in result["routes"]:
-            self.assertTrue({"admet_unassessed", "missing_information", "conditions_not_observed",
+            self.assertTrue({"admet_unassessed", "conditions_not_observed",
                              "byproducts_incomplete"} <= _codes(route))
 
     def test_report_wide_gaps_are_recorded_without_deciding_the_route(self):

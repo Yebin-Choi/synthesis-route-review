@@ -408,8 +408,14 @@ class AppUsabilityTests(OfflineAppCase):
         text = self.text(self.expander("제외 기준과 빠진 경로"))
         for route, decision in zip(self.workspace["report"]["routes"], excluded):
             self.assertIn("prohibited_material", {row["code"] for row in decision["reasons"]})
+            # The conditions and byproducts lines are reported under their
+            # own codes, so the screen says each of them once.
+            messages = " ".join(row["message"] for row in decision["reasons"])
             for missing in route["steps"][0]["missing_information"]:
-                self.assertIn(missing, " ".join(row["message"] for row in decision["reasons"]))
+                if (missing == engine.CONDITIONS_UNOBSERVED
+                        or missing.startswith(engine.BYPRODUCTS_INCOMPLETE)):
+                    continue
+                self.assertIn(missing, messages)
         self.assertIn("판정 근거는 저장 파일에 함께 들어갑니다", text)
 
     def test_model_runs_automatically_once_its_assets_are_present(self):

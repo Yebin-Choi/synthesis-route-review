@@ -187,6 +187,13 @@ def json_depth_within(value, limit=MAX_JSON_DEPTH) -> bool:
     return True
 
 
+# The two missing-information lines every step gets. Named, because the
+# screen reports the same two facts again under their own codes and has to
+# recognise them to avoid saying each of them twice.
+CONDITIONS_UNOBSERVED = "실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다."
+BYPRODUCTS_INCOMPLETE = "부산물 평가 "
+
+
 def analyze_routes(payload: dict) -> dict:
     validate_routes(payload)
     output = []
@@ -199,11 +206,13 @@ def analyze_routes(payload: dict) -> dict:
             materials = []
             missing = []
             if step["conditions"]["status"] != "observed":
-                missing.append("실제 반응 조건 미확인: 추천 조건은 관측 조건이 아닙니다.")
+                missing.append(CONDITIONS_UNOBSERVED)
             else:
                 conditions_known += 1
             if step["byproducts"]["status"] != "success":
-                missing.append("부산물 평가 " + ("실패" if step["byproducts"]["status"] == "failed" else "미실행"))
+                missing.append(BYPRODUCTS_INCOMPLETE
+                               + ("실패" if step["byproducts"]["status"] == "failed"
+                                  else "미실행"))
             else:
                 byproducts_run += 1
             for role in (*ROLES, *ADDITIONAL_ROLES, "byproducts"):

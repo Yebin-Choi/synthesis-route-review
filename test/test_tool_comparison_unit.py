@@ -344,8 +344,9 @@ class ExplanationTests(unittest.TestCase):
         self.assertIn("MolWt", joined)
 
     def test_a_failed_explanation_says_so_instead_of_inventing_one(self):
-        self.assertEqual(view.explanation_lines(None),
-                         ["설명을 계산하지 못했습니다."])
+        # Nothing came back for this structure and the call failed are two
+        # different things, and the first one has a cause worth naming.
+        self.assertIn("읽지 못해", view.explanation_lines(None)[0])
         self.assertEqual(view.explanation_lines({"status": "failed"}),
                          ["설명을 계산하지 못했습니다."])
 
@@ -606,3 +607,43 @@ class RouteScopedTableTests(unittest.TestCase):
         source = Path(view.__file__).read_text(encoding="utf-8")
         self.assertIn('RESULT_KEY = "_comparison_result"', source)
         self.assertNotIn("_risk_tool_result", source)
+
+
+class ExplanationSwitchTests(unittest.TestCase):
+    """A switch that is on and found nothing has to say so.
+
+    Turning the explanation on used to print nothing at all whenever the
+    model could not read any of the structures the tools split on, which is
+    exactly when a reader reaches for it: the row says "예측 결과 없음" and
+    they want to know why.
+    """
+
+    def test_a_structure_the_model_could_not_read_says_so(self):
+        self.assertIn("읽지 못해", view.explanation_lines(None)[0])
+
+    def test_a_failed_explanation_still_reads_as_a_failure(self):
+        self.assertEqual(view.explanation_lines({"status": "failed"}),
+                         ["설명을 계산하지 못했습니다."])
+
+    def test_a_successful_explanation_leads_with_the_block_split(self):
+        lines = view.explanation_lines({
+            "status": "success", "fingerprint_block_contribution": 3.0,
+            "named_feature_contribution": 0.01, "pushed_positive": [],
+            "pushed_negative": []})
+        self.assertIn("구조 지문", lines[0])
+        self.assertIn("100%", lines[1])
+
+    def test_the_switch_being_off_is_not_the_same_as_finding_nothing(self):
+        # None means "not asked for" and {} means "asked, nothing found".
+        # Collapsing them is what made the switch silent.
+        source = Path(view.__file__).read_text(encoding="utf-8")
+        self.assertIn("if explained is not None:", source)
+        self.assertNotIn("    if explained:\n", source)
+
+    def test_the_explanation_error_reaches_the_screen_in_korean(self):
+        # Every other error path on this screen is translated. This one was
+        # printing the service's English sentence, ending in "This is what a
+        # package-version mismatch looks like."
+        source = Path(view.__file__).read_text(encoding="utf-8")
+        self.assertIn("st.warning(reason_text(payload[\"error\"]))", source)
+        self.assertNotIn("st.warning(payload[\"error\"])", source)

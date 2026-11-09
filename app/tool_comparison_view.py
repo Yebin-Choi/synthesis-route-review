@@ -422,7 +422,11 @@ def explanation_lines(entry):
     carry almost the whole decision, so a reader shown only a descriptor list
     would take a contribution of 0.006 for the reason behind the call.
     """
-    if entry is None or entry.get("status") != "success":
+    if entry is None:
+        # Nothing came back for this structure, which for this model means
+        # it could not read it. Saying so is the explanation.
+        return ["자체 모델 1이 이 구조를 읽지 못해 설명할 것이 없습니다."]
+    if entry.get("status") != "success":
         return ["설명을 계산하지 못했습니다."]
     fingerprint = entry["fingerprint_block_contribution"]
     named = entry["named_feature_contribution"]
@@ -511,17 +515,28 @@ def _summary_metrics(rows, disagreed, silent, bands):
 
 
 def _model_explanations(disagreed, chosen):
-    """Descriptor contributions for the shown structures, if asked for."""
+    """Descriptor contributions for the shown structures, if asked for.
+
+    Returns None when the reader did not ask, and a mapping when they did,
+    even an empty one. The two are different: a switch that is off should
+    print nothing, and a switch that is on and found nothing has to say so.
+    Turning it on used to do nothing at all whenever the model could not
+    read any of the structures it split on, which is exactly when a reader
+    is most likely to try it.
+    """
     if "ames_xgb" not in chosen:
-        return {}
+        return None
     if not st.toggle("자체 모델이 왜 그렇게 판정했는지 보기", key="comparison_explain"):
-        return {}
+        return None
     from ames_model_service import explain_ames_model_materials
 
     with st.spinner("설명을 계산하고 있습니다"):
         payload = explain_ames_model_materials([row["물질"] for row in disagreed])
     if payload.get("error"):
-        st.warning(payload["error"])
+        # The service keeps its English wording because the saved record and
+        # the tests check it. The screen says the same thing in the language
+        # it is written in, which every other error path here already did.
+        st.warning(reason_text(payload["error"]))
     return {entry["canonical_smiles"]: entry
             for entry in payload.get("explanations", [])}
 
@@ -537,7 +552,7 @@ def _show_disagreements(disagreed, chosen, bands, *, limit=6):
             show_structure(row["물질"])
         with right:
             st.markdown(_matrix_html([row], chosen, bands), unsafe_allow_html=True)
-            if explained:
+            if explained is not None:
                 for line in explanation_lines(explained.get(row["물질"])):
                     st.caption(line)
     if len(disagreed) > limit:

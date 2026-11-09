@@ -241,10 +241,18 @@ class RouteSelectionTests(unittest.TestCase):
             with self.subTest(policy=policy):
                 route = select_routes(report, **policy)["routes"][0]
                 self.assertEqual(route["status"], expected)
-                self.assertTrue({"known_concern", "conditional_warning", "invalid_material", "missing_information",
-                                 "conditions_not_observed", "byproducts_incomplete"}.issubset(_codes(route)))
+                self.assertTrue({"known_concern", "conditional_warning", "invalid_material",
+                                 "missing_information", "conditions_not_observed",
+                                 "byproducts_incomplete"}.issubset(_codes(route)))
+                # The two engine lines about conditions and byproducts are
+                # reported under their own codes instead, so they are not
+                # repeated here as "빠진 항목".
+                kept = [line for line in missing
+                        if line != engine.CONDITIONS_UNOBSERVED
+                        and not line.startswith(engine.BYPRODUCTS_INCOMPLETE)]
                 self.assertEqual([reason["message"] for reason in route["reasons"]
-                                  if reason["code"] == "missing_information"], missing)
+                                  if reason["code"] == "missing_information"], kept)
+                self.assertTrue(kept)
                 if "excluded_smiles" in policy:
                     self.assertIn("prohibited_material", _codes(route))
 

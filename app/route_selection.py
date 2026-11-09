@@ -1,5 +1,6 @@
 """Pure, research-only post-selection of an existing engine.analyze_routes report."""
 
+import engine
 from toxicology import canonicalize_smiles
 
 
@@ -35,11 +36,11 @@ _MESSAGES = {
     "alert_review":
         "기재 물질의 알려진 우려 또는 경고구조에 대한 전문가 검토가 필요합니다. "
         "독성이나 실제 생성의 입증이 아닙니다.",
-    "warning_excluded":
-        "'규칙에 걸린 경로도 제외'를 켜 두어 뺐습니다. 그 물질이 실제로 "
-        "생긴다거나 얼마나 생기는지를 말하는 것이 아닙니다.",
-    "warning_review":
-        "조건부 가능성에 대한 검토가 필요하며 생성 확정이나 생성량 예측이 아닙니다.",
+    # These two are appended to the warning's own sentence, which already
+    # ends with "생성 확정이나 생성량 예측은 아닙니다." Saying it again put
+    # the same caveat twice in one bullet, so each says only what was done.
+    "warning_excluded": "'규칙에 걸린 경로도 제외'를 켜 두어 뺐습니다.",
+    "warning_review": "검토 대상으로 남깁니다.",
     "conditions_not_observed":
         "조건 상태 {state}: 실제 관측 조건이 확인되지 않았습니다. 추천·제안 "
         "조건은 관측 조건이 아닙니다.",
@@ -246,6 +247,13 @@ def _review_step(step, exclusions, strict_alerts, reason):
     # under the route chip and in the limitations; what they no longer do is
     # stand in for a finding about this route.
     for missing in step["missing_information"]:
+        # The two lines about conditions and byproducts are reported again
+        # below under their own codes, which word them better and carry the
+        # state. Reporting both made the screen say the same thing twice,
+        # once as "빠진 항목" and once by name.
+        if (missing == engine.CONDITIONS_UNOBSERVED
+                or missing.startswith(engine.BYPRODUCTS_INCOMPLETE)):
+            continue
         reason("missing_information", missing)
     if step["conditions"]["status"] != "observed":
         reason("conditions_not_observed",
