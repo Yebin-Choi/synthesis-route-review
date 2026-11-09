@@ -61,3 +61,10 @@ QUIET_CODES = {"admet_negative", "candidate_within_scope"}
 # structure. A conditional warning is two reagents that can react with each
 # other, so it reads with the findings rather than with the gaps.
 FINDING_CODES = {"conditional_warning"}
+
+
+# What the engine writes when a material has no recorded source. Matched
+# rather than changed there: the string is part of the saved record. The
+# screen and the exported report both drop it, because a column that says
+# "not recorded" on every row carries no more than a blank one.
+ORIGIN_UNSET = "물질별 출처 미지정"

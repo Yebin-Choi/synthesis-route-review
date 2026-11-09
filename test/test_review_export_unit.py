@@ -422,5 +422,52 @@ class ReviewExportTests(unittest.TestCase):
                 exporter(snapshot)
 
 
+    def test_html_leaves_a_missing_field_blank_instead_of_writing_a_placeholder(self):
+        snapshot = _snapshot()
+        snapshot["target_error"] = None
+        snapshot["report"]["routes"][0]["steps"][0]["materials"][0]["name"] = None
+        document = _Document(review_export.export_html(snapshot))
+        # The report itself, without the full record printed underneath it.
+        report = "".join(document.text).replace(document.pre[-1], "")
+        self.assertNotIn("미제공", report.replace("구조 미제공", ""))
+        self.assertNotIn("target_error", report)
+        self.assertEqual(_csv_rows(snapshot)[0]["물질명"], "")
+
+    def test_exports_drop_the_engine_origin_placeholder_but_keep_a_real_source(self):
+        snapshot = _snapshot()
+        materials = snapshot["report"]["routes"][0]["steps"][0]["materials"]
+        materials[0]["origin"] = review_export.ORIGIN_UNSET
+        materials[1]["origin"] = "기재된 시험 출처"
+        rows = _csv_rows(snapshot)
+        self.assertEqual(rows[0]["물질 출처"], "")
+        self.assertEqual(rows[1]["물질 출처"], "기재된 시험 출처")
+        document = _Document(review_export.export_html(snapshot))
+        # The placeholder is gone from the report; the record under it keeps
+        # the field exactly as the engine wrote it.
+        report = "".join(document.text).replace(document.pre[-1], "")
+        self.assertNotIn(review_export.ORIGIN_UNSET, report)
+        self.assertIn("기재된 시험 출처", report)
+        self.assertIn(review_export.ORIGIN_UNSET, document.pre[-1])
+
+    def test_html_reasons_are_listed_lines_not_a_json_dump_and_vanish_when_empty(self):
+        snapshot = _snapshot()
+        decision = snapshot["selection"]["routes"][0]
+        decision["reasons"] = [{"code": "known_concern", "message": "시험 사유",
+                                "step_id": "단계-1", "smiles": "CCO"}]
+        document = _Document(review_export.export_html(snapshot))
+        self.assertIn("li", [tag for tag, _ in document.elements])
+        report = "".join(document.text).replace(document.pre[-1], "")
+        self.assertIn("시험 사유 (단계-1 · CCO)", report)
+        self.assertNotIn('"code": "known_concern"', report)
+        decision["reasons"] = []
+        for route in snapshot["report"]["routes"]:
+            for step in route["steps"]:
+                step["conditional_warnings"] = []
+        empty = _Document(review_export.export_html(snapshot))
+        bare = "".join(empty.text).replace(empty.pre[-1], "")
+        self.assertNotIn("조건부 경고", bare)
+        self.assertNotIn("현재 경로 판정 이유", bare)
+
+
 if __name__ == "__main__":
     unittest.main()

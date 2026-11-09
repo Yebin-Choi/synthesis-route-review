@@ -9,6 +9,29 @@ import json
 from rdkit import Chem
 from rdkit.Chem import Draw
 
+from review_codes import ORIGIN_UNSET
+
+
+# The snapshot's own field names, which are the record's keys and so are
+# English. A reader opening the report met that list first. The values are
+# unchanged; only the label is in the report's language.
+_SNAPSHOT_LABELS = {
+    "target": "목표 물질",
+    "raw_target": "입력한 목표 물질",
+    "target_error": "목표 물질 오류",
+    "mode": "검토 방식",
+    "scope": "범위",
+    "report_sha256": "보고서 지문 (sha256)",
+    "schema_version": "기록 형식",
+    "report_generation": "생성 기록 번호",
+    "workspace_id": "작업 번호",
+    "context_revision": "맥락 판 번호",
+    "route_id": "선택한 경로",
+    "step_id": "선택한 단계",
+    "source_provenance": "출처 기록",
+    "original_input": "원래 입력",
+    "active_input": "현재 입력",
+}
 
 _COLUMNS = (
     ("경로 ID", "route_id"),
@@ -83,7 +106,9 @@ def _text(value):
 
 
 def _escaped(value):
-    return html.escape("미제공" if value is None else _text(value), quote=True)
+    # An empty cell, not the word "미제공". A report whose columns read
+    # "미제공" on most rows looks like a report of nothing.
+    return html.escape(_text(value), quote=True)
 
 
 def _decision(snapshot, route):
@@ -116,7 +141,10 @@ def _row(snapshot, route, step, material, decision):
         "intake_basis": material.get("intake_basis"),
         "alerts": material.get("alerts"),
         "evidence_status": material.get("evidence_status"),
-        "origin": material.get("origin"),
+        # The engine's "출처 미지정" placeholder is dropped here as it is on
+        # screen. The field stays in the JSON record.
+        "origin": (None if material.get("origin") == ORIGIN_UNSET
+                   else material.get("origin")),
         "source_url": material.get("source_url"),
         "route_source": material.get("route_source", route.get("source")),
         "route_status": decision.get("status"),
@@ -203,14 +231,52 @@ def _structure(smiles, cache):
     return result
 
 
-def _scalar_summary(value):
+def _scalar_summary(value, labels=None):
+    """The dict's scalar entries, skipping the ones that hold nothing.
+
+    A key whose value is missing was printing a label over a blank line, or
+    over the word "미제공". Neither tells a reader anything the absent row
+    would not, and the field is still in the full snapshot below.
+    """
     if not isinstance(value, dict):
         return ""
-    items = [
-        f"<dt>{_escaped(key)}</dt><dd>{_escaped(item)}</dd>"
-        for key, item in value.items() if not isinstance(item, (dict, list))
-    ]
+    items = []
+    for key, item in value.items():
+        if isinstance(item, (dict, list)) or item is None or item == "":
+            continue
+        label = (labels or {}).get(key, key)
+        items.append(f"<dt>{_escaped(label)}</dt><dd>{_escaped(item)}</dd>")
     return "<dl>" + "".join(items) + "</dl>" if items else ""
+
+
+def _message_list(title, entries, level="h3"):
+    """Reasons as lines, not as a JSON dump, and nothing at all when empty.
+
+    These blocks were printing a pretty-printed array of objects, repeated
+    once per route. The messages are the part a reader needs; the codes and
+    the structure stay in the snapshot at the end of the report.
+    """
+    if not isinstance(entries, list) or not entries:
+        return ""
+    lines = []
+    for entry in entries:
+        if isinstance(entry, dict):
+            text = entry.get("message") or entry.get("code") or _text(entry)
+            where = entry.get("step_id")
+            smiles = entry.get("smiles")
+            # A bare number reads as a step; an id that already says what it
+            # is keeps its own wording rather than becoming "단계-1단계".
+            step = None
+            if where is not None:
+                step = f"{where}단계" if str(where).isdigit() else str(where)
+            marks = [part for part in (step, smiles) if part]
+            if marks:
+                text = f"{text} ({' · '.join(str(mark) for mark in marks)})"
+        else:
+            text = _text(entry)
+        lines.append(f"<li>{_escaped(text)}</li>")
+    return (f"<{level}>{_escaped(title)}</{level}><ul>"
+            + "".join(lines) + "</ul>")
 
 
 def _pre(value):
@@ -252,6 +318,9 @@ def export_html(snapshot: dict) -> str:
         "table{border-collapse:collapse;width:100%}th,td{border:1px solid #8591a0;"
         "padding:.6rem;text-align:left;vertical-align:top;white-space:pre-wrap;"
         "overflow-wrap:anywhere}th{background:#e9eef5}.table-wrap{overflow-x:auto}"
+        # Twelve columns inside a phone-width window were squeezing to one
+        # character per line. The wrapper scrolls sideways instead.
+        ".table-wrap table{min-width:64rem}"
         "pre,dd{white-space:pre-wrap;overflow-wrap:anywhere}pre{padding:1rem;"
         "background:#f0f3f7}dt{font-weight:700}dd{margin:0 0 .5rem}"
         "details{margin:1rem 0}summary{cursor:pointer;font-weight:700}"
@@ -265,7 +334,7 @@ def export_html(snapshot: dict) -> str:
     else:
         parts.append("<p>범위: 단일 물질 평가이며 경로·단계 판정을 의미하지 않습니다. "
                      "경보 미검출은 안전 보장이 아닙니다.</p>")
-    parts.append(_scalar_summary(snapshot))
+    parts.append(_scalar_summary(snapshot, _SNAPSHOT_LABELS))
     parts.append("<section><h2>현재 정책</h2>" + _pre(snapshot.get("policy")) + "</section>")
     if mode == "material":
         parts.append("<section><h2>단일 물질 평가</h2>")
@@ -288,7 +357,7 @@ def export_html(snapshot: dict) -> str:
                 "현재 경로 판정": decision.get("status"),
             }))
             parts.append(_structure(route.get("target"), cache))
-            parts.append("<h3>현재 경로 판정 이유</h3>" + _pre(decision.get("reasons")))
+            parts.append(_message_list("현재 경로 판정 이유", decision.get("reasons")))
             for step in _array(route.get("steps"), "route.steps"):
                 step = _object(step, "step")
                 parts.append(f'<h3>단계 {_escaped(step.get("id"))}</h3>')
@@ -297,8 +366,10 @@ def export_html(snapshot: dict) -> str:
                     for material in _array(step.get("materials"), "step.materials")
                 ]
                 parts.append(_table(rows, cache))
-                parts.append("<h4>누락 정보</h4>" + _pre(step.get("missing_information")))
-                parts.append("<h4>조건부 경고</h4>" + _pre(step.get("conditional_warnings")))
+                parts.append(_message_list("누락 정보",
+                                           step.get("missing_information"), "h4"))
+                parts.append(_message_list("조건부 경고",
+                                           step.get("conditional_warnings"), "h4"))
                 parts.append("<h4>조건·부산물 근거 (실패 포함)</h4>" + _pre({
                     "conditions": step.get("conditions"), "byproducts": step.get("byproducts"),
                 }))

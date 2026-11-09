@@ -10,6 +10,7 @@ from rdkit.Chem import Draw, rdMolDescriptors
 
 import ui_kit
 from molecule_catalog import MOLECULES
+from review_codes import ORIGIN_UNSET
 from toxicology import canonicalize_smiles
 
 STATUS = {
@@ -302,9 +303,8 @@ ROLES = {
 # How a material's evidence state reads on screen. The services write the
 # English enum because it is also what the saved file and the tests check.
 EVIDENCE_TEXT = {"observed": "관측", "proposed": "제안", "unknown": "자료 없음"}
-# What the engine writes when a material has no recorded source. Matched
-# here rather than changed there: the string is part of the saved record.
-ORIGIN_UNSET = "물질별 출처 미지정"
+# What the engine writes when a material has no recorded source lives in
+# review_codes, so the screen and the exported report drop the same string.
 ALERTS = {
     "N-nitroso": "N-니트로소기", "Azoxy (special-concern review)": "아족시기",
     "Aziridine": "아지리딘 고리", "Epoxide": "에폭사이드 고리",
