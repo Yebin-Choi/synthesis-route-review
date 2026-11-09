@@ -147,7 +147,10 @@ def tool_comparison(plt):
     labels = [english[t] for t in order]
     balanced = [view.TOOL_PERFORMANCE[t]["balanced"] for t in order]
     answered = [view.TOOL_PERFORMANCE[t]["answered"] for t in order]
-    colours = ["#4C72B0" if view.TOOL_PERFORMANCE[t]["method"] == "통계"
+    # Matched by prefix, not by the whole label. The exact wording moved to
+    # "통계 기반" and this comparison stopped matching, so every bar came out
+    # rule-coloured while the title still named two colours.
+    colours = ["#4C72B0" if view.TOOL_PERFORMANCE[t]["method"].startswith("통계")
                else "#DD8452" for t in order]
 
     fig, axis = plt.subplots(figsize=(7.6, 3.8))
@@ -157,9 +160,6 @@ def tool_comparison(plt):
         axis.text(index, value + 0.012, f"{value:.3f}", ha="center", fontsize=8)
         axis.text(index, 0.035, f"answered\n{rate:.0%}", ha="center",
                   fontsize=7, color="#ffffff")
-    axis.axhline(0.5, color="#999999", linestyle="--", linewidth=1)
-    axis.text(len(order) - 0.4, 0.515, "coin toss", fontsize=7, color="#777777",
-              ha="right")
     axis.set_xticks(list(positions))
     axis.set_xticklabels(labels, fontsize=7.5)
     axis.set_ylabel("balanced accuracy")

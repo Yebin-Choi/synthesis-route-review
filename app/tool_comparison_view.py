@@ -614,9 +614,6 @@ def _show_performance(chosen, *, with_note=False):
         # The axis runs the whole 0-1, not from 0.5. Cutting the left off
         # stretches a 0.03 gap into half the plot, and the gaps here are
         # small enough that it would have flattered somebody.
-        coin = alt.Chart(pd.DataFrame({"동전 던지기": [0.5]})).mark_rule(
-            strokeDash=[5, 4], color="#64748b", strokeWidth=1.5).encode(
-            x=alt.X("동전 던지기:Q", title=None))
         bars = alt.Chart(pd.DataFrame(measured)).mark_bar(
             color=TOOL_COLOURS[0], opacity=0.9).encode(
             x=alt.X("균형 정확도:Q", title="균형 정확도",
@@ -626,14 +623,7 @@ def _show_performance(chosen, *, with_note=False):
                     axis=alt.Axis(labelLimit=220)),
             tooltip=["도구", "균형 정확도"],
         ).properties(height=alt.Step(30))
-        st.altair_chart(bars + coin, width="stretch")
-        st.caption("가로축은 균형 정확도. 점선 0.5는 동전 던지기와 같습니다.")
-        if {"ames_xgb", "ames_desc"} <= set(chosen):
-            # The two in-house models are not a better and a worse version of
-            # one thing. The answered column already carries the difference
-            # (77.7% against 100%); this says what it is.
-            st.caption("모델 1이 답하지 않은 구조는 대부분 염·혼합물·무기물입니다. "
-                       "모델 2가 그 자리를 메웁니다.")
+        st.altair_chart(bars, width="stretch")
     # The graph answers which tool did better; the table answers by how much
     # and how often it answered at all. Printing both on the surface was the
     # same numbers twice, so the detail sits one click away.
