@@ -22,6 +22,9 @@ import streamlit as st
 
 import ui_kit
 from presentation import ROLES, limitation_text, reason_text
+from review_codes import (
+    DECIDING_CODES, FINDING_CODES, QUIET_CODES, ROUTINE_CODES,
+)
 from admet_service import admet_readiness, assess_admet_materials
 from ames_route_review import review_ames_routes
 from route_selection import select_routes
@@ -296,33 +299,7 @@ def _show_result(result, review, metadata, *, report, route_id=None):
     ui_kit.metric_row([
         (STATUS_LABELS[status], review["counts"][status]) for status in STATUS_LABELS
     ])
-    ui_kit.show_table(
-        ["경로", "경로 판정", "사유"],
-        [{"cells": [ui_kit.text(route["id"]),
-                    ui_kit.chip(STATUS_LABELS[route["status"]],
-                                STATUS_KINDS[route["status"]]),
-                    f"{len(route['reasons'])}건"],
-          "mark": route["status"] == "excluded"}
-         for route in review["routes"]])
-    reasons = [
-        {"경로": route["id"], "경로 판정": STATUS_LABELS[route["status"]],
-         "단계": reason["step_id"], "물질": reason["smiles"],
-         "사유": reason["message"]}
-        for route in review["routes"] for reason in route["reasons"]
-    ]
-    if reasons:
-        # The reason is the only column worth reading here and it was the one
-        # being cut off: stretching the table shares the width evenly, so a
-        # long sentence lost its end while the route id kept room it did not
-        # need. Fixed widths let the reason run long and the table scroll
-        # sideways to reach it.
-        st.dataframe(reasons, hide_index=True, width="stretch", column_config={
-            "경로": st.column_config.TextColumn("경로", width="small"),
-            "경로 판정": st.column_config.TextColumn("경로 판정", width="small"),
-            "단계": st.column_config.TextColumn("단계", width="small"),
-            "물질": st.column_config.TextColumn("물질", width="medium"),
-            "사유": st.column_config.TextColumn("사유", width="large"),
-        })
+    _show_route_reasons(review)
     # The internal codes behind those reasons, the evaluation identity and the
     # model hashes stay reachable here instead of being printed onto the page.
     ui_kit.raw_record({
@@ -334,6 +311,66 @@ def _show_result(result, review, metadata, *, report, route_id=None):
             for route in review["routes"] for reason in route["reasons"]],
         "assessments": assessments,
     }, title="원본 기록 (평가 식별자·모델 해시·사유 코드)")
+
+
+def _reason_groups(route):
+    """Split one route's reasons into findings and gaps, grouped by material.
+
+    The flat table this replaced put one row per reason, which came to twenty
+    rows a route and read as a wall. Two things were mixed in it: what was
+    found about a material, and what the report could not check at all. The
+    first is what a reader acts on; the second is the same on every route,
+    so it is collapsed to one line per kind with the steps listed.
+    """
+    findings, gaps = {}, {}
+    for reason in route["reasons"]:
+        code = reason["code"]
+        if code in QUIET_CODES:
+            continue
+        # A conditional warning names no single structure, but it is a
+        # finding about this route (two reagents that can form a nitrosamine
+        # together), not something the report failed to check. It belongs
+        # with the findings and keeps its whole sentence.
+        if code in DECIDING_CODES or code in FINDING_CODES or reason.get("smiles"):
+            key = reason.get("smiles") or "경로 전체"
+            entry = findings.setdefault(key, {"steps": [], "lines": []})
+            if reason.get("step_id") and reason["step_id"] not in entry["steps"]:
+                entry["steps"].append(reason["step_id"])
+            if reason["message"] not in entry["lines"]:
+                entry["lines"].append(reason["message"])
+            continue
+        label = ROUTINE_CODES.get(code, code)
+        entry = gaps.setdefault(label, [])
+        if reason.get("step_id") and reason["step_id"] not in entry:
+            entry.append(reason["step_id"])
+    return findings, gaps
+
+
+def _show_route_reasons(review):
+    """One fold per route: what was found, then what was not checked."""
+    for route in review["routes"]:
+        findings, gaps = _reason_groups(route)
+        status = STATUS_LABELS[route["status"]]
+        heading = f"{route['id']} · {status}"
+        if findings:
+            heading += f" · 걸린 물질 {len(findings)}개"
+        with st.expander(heading):
+            st.markdown(ui_kit.chip(status, STATUS_KINDS[route["status"]]),
+                        unsafe_allow_html=True)
+            if findings:
+                for material, entry in findings.items():
+                    steps = ", ".join(entry["steps"])
+                    st.markdown(f"**{material}**"
+                                + (f"  ·  {steps}단계" if steps else ""))
+                    for line in entry["lines"]:
+                        st.markdown(f"- {line}")
+            else:
+                st.caption("이 경로에서 걸린 물질이 없습니다.")
+            if gaps:
+                st.markdown("**확인하지 못한 것**")
+                for label, steps in gaps.items():
+                    where = ", ".join(steps)
+                    st.markdown(f"- {label}" + (f" ({where}단계)" if where else ""))
 
 
 def show_route_ames_review(report, *, report_generation, excluded_smiles=(),

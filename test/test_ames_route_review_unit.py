@@ -230,7 +230,10 @@ class AmesRoutePolicyTests(unittest.TestCase):
             self.assertTrue({"admet_unassessed", "missing_information", "conditions_not_observed",
                              "byproducts_incomplete"} <= _codes(route))
 
-    def test_no_alert_and_negative_model_still_requires_all_other_baseline_information(self):
+    def test_report_wide_gaps_are_recorded_without_deciding_the_route(self):
+        # Unobserved conditions and unrun byproducts are true of every
+        # generated route, so a status built on them is the same on every
+        # route and separates none of them. They stay in the reasons.
         for field, value, expected_code in (
                 ("conditions", {"status": "unknown"}, "conditions_not_observed"),
                 ("byproducts", {"status": "failed", "candidates": []}, "byproducts_incomplete"),
@@ -239,9 +242,14 @@ class AmesRoutePolicyTests(unittest.TestCase):
                 report = _report("CCO")
                 report["routes"][0]["steps"][0][field] = value
                 route = review_ames_routes(report, _admet(_row("CCO")))["routes"][0]
-                self.assertEqual(route["status"], "insufficient_data")
+                self.assertEqual(route["status"], "candidate")
                 self.assertIn(expected_code, _codes(route))
-                self.assertNotIn("candidate_within_scope", _codes(route))
+
+    def test_a_structure_that_cannot_be_read_still_holds_the_route_back(self):
+        report = _report("not-a-molecule")
+        route = review_ames_routes(report, _admet())["routes"][0]
+        self.assertEqual(route["status"], "insufficient_data")
+        self.assertIn("invalid_material", _codes(route))
 
     def test_joint_positive_preserves_all_missing_invalid_warning_and_failed_reasons(self):
         payload = _payload("C1CO1")

@@ -198,6 +198,20 @@ class RouteAmesViewTests(unittest.TestCase):
             return rows
         raise AssertionError(f"칩 표를 찾지 못했습니다: {header}")
 
+    def route_folds(self, app):
+        """(route id, status) per route, read off the per-route folds.
+
+        The flat reason table became one fold per route, so the route id and
+        its verdict now live in the fold's own label.
+        """
+        statuses = set(view.STATUS_LABELS.values())
+        folds = []
+        for item in app.expander:
+            parts = [part.strip() for part in str(item.label).split("·")]
+            if len(parts) >= 2 and parts[1] in statuses:
+                folds.append((parts[0], parts[1]))
+        return folds
+
     def metrics(self, app):
         return {item.label: item.value for item in app.metric}
 
@@ -286,7 +300,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assertEqual(app.button[0].label, "모델 검사 다시")
         self.assertEqual(app.session_state[SESSION_KEY], before)
         self.assertEqual(self.snapshot(), snapshot_before)
-        self.assertEqual(len(self.verdicts(app, "경로")), 4)
+        self.assertEqual(len(self.route_folds(app)), 4)
         self.assess.assert_called_once()
         self.readiness.return_value = {"ready": True, "missing": []}
         app.run()
@@ -380,7 +394,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assert_no_exception(app)
         self.assess.assert_called_once()
         self.assertEqual(app.session_state[SESSION_KEY], before)
-        self.assertEqual(self.verdicts(app, "경로")[0][1], "연구 정책으로 제외")
+        self.assertEqual(self.route_folds(app)[0][1], "연구 정책으로 제외")
         self.review.assert_called_with(self.report, before["model_result"], excluded_smiles=["OCC"])
         self.assertEqual(self.snapshot()["combined_review"]["policy"]["excluded_smiles"], ["CCO"])
         self.assertEqual(app.session_state["fixture_report"], self.report)
@@ -409,7 +423,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assert_no_exception(app)
         self.assess.assert_called_once()
         self.assertEqual(app.session_state[SESSION_KEY], before)
-        self.assertEqual(len(self.verdicts(app, "경로")), 4)
+        self.assertEqual(len(self.route_folds(app)), 4)
 
     def test_any_full_report_change_hides_stale_results_until_explicit_new_run(self):
         app = self.run_model(self.open_view())
@@ -433,7 +447,7 @@ class RouteAmesViewTests(unittest.TestCase):
 
     def test_all_route_ids_statuses_counts_and_model_provenance_are_visible(self):
         app = self.run_model(self.open_view())
-        routes = self.verdicts(app, "경로")
+        routes = self.route_folds(app)
         self.assertEqual([row[0] for row in routes],
                          [route["id"] for route in self.report["routes"]])
         # C1CO1 is a structural alert plus a model positive: both demote, so the
@@ -475,7 +489,7 @@ class RouteAmesViewTests(unittest.TestCase):
         app = self.run_model(self.open_view())
         # A structural alert AND a model positive both demote under the default
         # policy, so the route stays for review with every reason on record.
-        self.assertEqual(self.verdicts(app, "경로")[0][1], "전문가 검토 필요")
+        self.assertEqual(self.route_folds(app)[0][1], "전문가 검토 필요")
         # The screen shows the reasons in words; the internal codes moved into
         # the collapsed record. Both must still be complete, because a dropped
         # reason is a reason the reviewer never sees.
@@ -486,10 +500,29 @@ class RouteAmesViewTests(unittest.TestCase):
             "byproducts_incomplete",
         } <= set(codes))
         self.assertEqual(codes.count("admet_unassessed"), 3)
+        # Every reason still reaches the screen; it is bulleted inside the
+        # route's own fold now instead of being a row in a flat table. A
+        # dropped reason is a reason the reviewer never sees.
         expected = self.snapshot()["combined_review"]["routes"][0]["reasons"]
-        reasons = self.table(app, "사유")
-        self.assertEqual(reasons["사유"].tolist(), [reason["message"] for reason in expected])
-        self.assertEqual(set(reasons["경로"]), {self.report["routes"][0]["id"]})
+        shown = self.text(app)
+        quiet = {"admet_negative", "candidate_within_scope"}
+        # A gap repeats on every step and every route, so it reads as a short
+        # label with the steps beside it; its full sentence stays in the
+        # saved record and in the scope block above. A finding keeps its
+        # whole sentence, because that is what the reviewer acts on.
+        gaps = {"missing_information", "conditions_not_observed",
+                "byproducts_incomplete"}
+        for reason in expected:
+            code = reason["code"]
+            if code in quiet:
+                continue
+            with self.subTest(code=code):
+                if code in gaps:
+                    self.assertIn(view.ROUTINE_CODES[code], shown)
+                else:
+                    self.assertIn(reason["message"], shown)
+        self.assertEqual([fold[0] for fold in self.route_folds(app)],
+                         [self.report["routes"][0]["id"]])
         self.assertEqual(set(row["route"] for row in self.raw(app)["reason_codes"]),
                          {self.report["routes"][0]["id"]})
 
@@ -520,7 +553,7 @@ class RouteAmesViewTests(unittest.TestCase):
                 self.result["model"].update(version=None, weights_sha256={})
                 self.assess.reset_mock()
                 app = self.run_model(self.open_view())
-                self.assertEqual([row[1] for row in self.verdicts(app, "경로")],
+                self.assertEqual([row[1] for row in self.route_folds(app)],
                                  ["정보 부족"] * 3)
                 self.assertEqual(self.snapshot()["combined_review"]["counts"]["candidate"], 0)
                 self.assertIn("음성으로 대체하지 않습니다", self.text(app))
@@ -571,7 +604,7 @@ class RouteAmesViewTests(unittest.TestCase):
         self.assertEqual(self.assess.call_count, 2)
         self.assertEqual(self.assess.call_args, failed_call)
         self.assertEqual(len(app.error), 0)
-        self.assertEqual(len(self.verdicts(app, "경로")), 4)
+        self.assertEqual(len(self.route_folds(app)), 4)
 
     def test_failed_retry_keeps_previous_partial_evidence_and_labels_its_counts(self):
         self.result["assessments"][1] = fixture_row("CCC", status="failed")

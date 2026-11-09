@@ -16,8 +16,15 @@ _RULE_POSITIVE = ("known_concern", "structural_alert")
 # Reason codes select_routes emits, grouped by the route status each implies.
 # An unrecognized baseline code is an error, never a silently ignored one.
 _PROHIBITED_CODES = ("prohibited_material", "prohibited_component")
-_INCOMPLETE_CODES = ("no_materials", "invalid_material", "missing_information",
-                     "conditions_not_observed", "byproducts_incomplete")
+_INCOMPLETE_CODES = ("no_materials", "invalid_material")
+# Recorded, but they do not make a route "정보 부족". Every generated route
+# has unobserved conditions and unrun byproducts, so a status built on them
+# is the same on every route and separates none of them. route_selection
+# stopped using them on 2026-11-08 (benchmark log 6-67); this screen was
+# still using them, which is why the model-evidence table read 정보 부족 or
+# 전문가 검토 필요 on every row.
+_RECORDED_ONLY_CODES = ("missing_information", "conditions_not_observed",
+                        "byproducts_incomplete")
 # A concern raised by a byproduct candidate rather than by a material that is
 # charged into the reaction. It carries the same penalty as any other concern,
 # so the route sinks in the ranking, but it never removes a route: see the
@@ -25,8 +32,8 @@ _INCOMPLETE_CODES = ("no_materials", "invalid_material", "missing_information",
 # byproducts as exclusions left zero routes of ten.
 _DEMOTE_ONLY_CODES = ("byproduct_concern",)
 _BASELINE_CODES = frozenset(
-    _PROHIBITED_CODES + _INCOMPLETE_CODES + _RULE_POSITIVE + _DEMOTE_ONLY_CODES
-    + ("conditional_warning", "candidate_within_scope")
+    _PROHIBITED_CODES + _INCOMPLETE_CODES + _RECORDED_ONLY_CODES + _RULE_POSITIVE
+    + _DEMOTE_ONLY_CODES + ("conditional_warning", "candidate_within_scope")
 )
 _ASSESSMENT_FIELDS = {
     "canonical_smiles", "input_smiles", "status", "score", "prediction",
@@ -188,6 +195,9 @@ def _baseline_review(selected, route, policy, severity, *, strict_alerts, partic
             statuses.add("excluded")
         elif code in _INCOMPLETE_CODES:
             statuses.add("insufficient_data")
+        elif code in _RECORDED_ONLY_CODES:
+            # On the record, not on the verdict. See the note above.
+            pass
         elif code in _DEMOTE_ONLY_CODES:
             # No penalty of its own: this code annotates the finding beside
             # it, and that finding already paid. Charging again would push a
